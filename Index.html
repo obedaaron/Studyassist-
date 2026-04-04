@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENT 211 — Study Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #18181f;
+    --border: #2a2a3a;
+    --accent: #c8f04a;
+    --accent2: #ff6b35;
+    --accent3: #7c6dfa;
+    --text: #e8e8f0;
+    --muted: #6b6b80;
+    --success: #4affa0;
+    --danger: #ff4a6b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ——— NOISE TEXTURE ——— */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ——— HOME SCREEN ——— */
+  #home {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .glow-orb {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(124,109,250,0.12) 0%, transparent 70%);
+    top: -200px;
+    right: -200px;
+    pointer-events: none;
+  }
+
+  .glow-orb2 {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,240,74,0.08) 0%, transparent 70%);
+    bottom: -100px;
+    left: -100px;
+    pointer-events: none;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,240,74,0.08);
+    border: 1px solid rgba(200,240,74,0.2);
+    color: var(--accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+  }
+
+  .badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  .home-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    line-height: 0.9;
+    text-align: center;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+  }
+
+  .home-title span {
+    color: var(--accent);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .home-sub {
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-align: center;
+    margin-bottom: 3rem;
+    max-width: 400px;
+  }
+
+  .week-selector {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .week-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .week-btn:hover, .week-btn.active {
+    background: rgba(200,240,74,0.08);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    max-width: 920px;
+    width: 100%;
+  }
+
+  .mode-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mode-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .mode-card.learn::before { background: radial-gradient(circle at top left, rgba(200,240,74,0.06), transparent 60%); }
+  .mode-card.challenge::before { background: radial-gradient(circle at top left, rgba(255,107,53,0.06), transparent 60%); }
+  .mode-card.rapid::before { background: radial-gradient(circle at top left, rgba(124,109,250,0.06), transparent 60%); }
+
+  .mode-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .mode-card:hover::before { opacity: 1; }
+  .mode-card.learn:hover { border-color: rgba(200,240,74,0.3); }
+  .mode-card.challenge:hover { border-color: rgba(255,107,53,0.3); }
+  .mode-card.rapid:hover { border-color: rgba(124,109,250,0.3); }
+
+  .mode-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .mode-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .mode-card.learn .mode-label { color: var(--accent); }
+  .mode-card.challenge .mode-label { color: var(--accent2); }
+  .mode-card.rapid .mode-label { color: var(--accent3); }
+
+  .mode-desc {
+    color: var(--muted);
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+
+  .mode-arrow {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    color: var(--border);
+    font-size: 1.2rem;
+    transition: all 0.25s;
+  }
+
+  .mode-card:hover .mode-arrow { color: var(--text); transform: translate(3px, -3px); }
+
+  /* ——— SCREENS ——— */
+  .screen {
+    display: none;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  .screen.active { display: block; }
+
+  .screen-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,15,0.9);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+  }
+
+  .back-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .screen-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .screen-week {
+    margin-left: auto;
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ——— LEARN MODE ——— */
+  .learn-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 70px);
+  }
+
+  .topic-sidebar {
+    border-right: 1px solid var(--border);
+    padding: 1.5rem 1rem;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  .sidebar-label {
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .topic-item {
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.78rem;
+    color: var(--muted);
+    transition: all 0.18s;
+    margin-bottom: 2px;
+    line-height: 1.4;
+    border: 1px solid transparent;
+  }
+
+  .topic-item:hover { background: var(--surface2); color: var(--text); }
+  .topic-item.active { background: rgba(200,240,74,0.08); color: var(--accent); border-color: rgba(200,240,74,0.2); }
+
+  .topic-content {
+    padding: 3rem;
+    max-width: 760px;
+  }
+
+  .topic-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+  }
+
+  .topic-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .topic-heading .highlight { color: var(--accent); }
+
+  .topic-body {
+    color: #b0b0c0;
+    font-size: 0.85rem;
+    line-height: 1.85;
+    margin-bottom: 2rem;
+  }
+
+  .keypoints-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .keypoints-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+  }
+
+  .keypoint {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 8px 8px 0;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .keypoint-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    font-size: 0.8rem;
+  }
+
+  .comparison-table th {
+    background: var(--surface2);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+    border: 1px solid var(--border);
+    color: var(--accent);
+  }
+
+  .comparison-table td {
+    padding: 0.65rem 1rem;
+    border: 1px solid var(--border);
+    color: #b0b0c0;
+    line-height: 1.5;
+    vertical-align: top;
+  }
+
+  .comparison-table tr:hover td { background: var(--surface2); }
+
+  .example-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .example-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .example-text {
+    color: #b0b0c0;
+    font-size: 0.82rem;
+    line-height: 1.65;
+  }
+
+  .discussion-block {
+    background: rgba(124,109,250,0.06);
+    border: 1px solid rgba(124,109,250,0.2);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .discussion-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent3);
+    margin-bottom: 0.5rem;
+  }
+
+  .discussion-text {
+    color: #b0b0c0;
+    font-size: 0.82rem;
+    line-height: 1.65;
+  }
+
+  .nav-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    padding: 10px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-btn.primary { background: var(--accent); color: #0a0a0f; border-color: var(--accent); font-weight: 600; }
+  .nav-btn.primary:hover { background: #d4f55a; }
+
+  /* ——— CHALLENGE MODE ——— */
+  .challenge-container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  .progress-bar-wrap {
+    background: var(--surface2);
+    border-radius: 100px;
+    height: 4px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 100px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .q-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+
+  .q-counter {
+    color: var(--muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+  }
+
+  .q-category {
+    background: rgba(255,107,53,0.08);
+    border: 1px solid rgba(255,107,53,0.2);
+    color: var(--accent2);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+
+  .q-text {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+  }
+
+  .answer-area {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    width: 100%;
+    min-height: 160px;
+    padding: 1.25rem;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    resize: vertical;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .answer-area:focus { border-color: var(--accent2); }
+
+  .reveal-btn {
+    background: linear-gradient(135deg, var(--accent2), #ff8c55);
+    border: none;
+    color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 14px 32px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 1.25rem;
+    transition: all 0.2s;
+    display: block;
+    width: 100%;
+  }
+
+  .reveal-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.3); }
+
+  .model-answer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .answer-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+  }
+
+  .answer-text {
+    color: #b0b0c0;
+    font-size: 0.83rem;
+    line-height: 1.75;
+  }
+
+  .answer-text strong { color: var(--accent); font-weight: 500; }
+
+  .self-grade {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .grade-btn {
+    flex: 1;
+    min-width: 100px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .grade-btn.got-it:hover, .grade-btn.got-it.selected { background: rgba(74,255,160,0.1); border-color: var(--success); color: var(--success); }
+  .grade-btn.partial:hover, .grade-btn.partial.selected { background: rgba(200,240,74,0.1); border-color: var(--accent); color: var(--accent); }
+  .grade-btn.missed:hover, .grade-btn.missed.selected { background: rgba(255,74,107,0.1); border-color: var(--danger); color: var(--danger); }
+
+  .q-nav {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  /* ——— RAPID FIRE ——— */
+  .rapid-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .rapid-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+    margin-bottom: 2rem;
+    min-height: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .rapid-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124,109,250,0.04), transparent);
+  }
+
+  .rapid-card.flipped { background: var(--surface2); }
+  .rapid-card:hover { transform: scale(1.01); border-color: rgba(124,109,250,0.3); }
+
+  .flip-hint {
+    font-size: 0.65rem;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .rapid-question {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+  }
+
+  .rapid-answer {
+    display: none;
+    font-size: 0.83rem;
+    color: #b0b0c0;
+    line-height: 1.75;
+    text-align: left;
+  }
+
+  .rapid-answer strong { color: var(--accent); }
+
+  .rapid-card.flipped .rapid-question { display: none; }
+  .rapid-card.flipped .rapid-answer { display: block; }
+  .rapid-card.flipped .flip-hint { display: none; }
+
+  .rapid-counter {
+    font-family: 'Syne', sans-serif;
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--accent3);
+    opacity: 0.15;
+    position: absolute;
+    bottom: 1rem;
+    right: 1.5rem;
+    line-height: 1;
+  }
+
+  .rapid-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .rapid-btn {
+    padding: 12px 28px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .rapid-btn.prev { background: var(--surface2); color: var(--muted); }
+  .rapid-btn.prev:hover { color: var(--text); border-color: var(--muted); }
+  .rapid-btn.flip { background: var(--accent3); color: white; border-color: var(--accent3); font-weight: 600; }
+  .rapid-btn.flip:hover { background: #9585fa; }
+  .rapid-btn.next { background: var(--surface2); color: var(--muted); }
+  .rapid-btn.next:hover { color: var(--text); border-color: var(--muted); }
+
+  .rapid-progress {
+    color: var(--muted);
+    font-size: 0.75rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ——— SCORE SCREEN ——— */
+  .score-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+    padding: 3rem;
+  }
+
+  .score-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 6rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .score-label {
+    color: var(--muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .score-breakdown {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .score-stat { text-align: center; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; }
+  .stat-label { color: var(--muted); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ——— SCROLLBAR ——— */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 700px) {
+    .learn-layout { grid-template-columns: 1fr; }
+    .topic-sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .topic-content { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="glow-orb"></div>
+<div class="glow-orb2"></div>
+
+<!-- ======================== HOME ======================== -->
+<div id="home">
+  <div class="badge">ENT 211 · African School of Economics</div>
+  <h1 class="home-title">Study<br><span>Assistant </span></h1>
+  <p class="home-sub">Entrepreneurship & Innovation — Dr. Davo Dahoro. Pick your Assistant , pick your week.</p>
+
+  <div class="week-selector">
+    <button class="week-btn active" onclick="selectWeek(1, this)">Week 1 — Value Creation</button>
+    <button class="week-btn" onclick="selectWeek(2, this)">Week 2 — Entrepreneurial Character</button>
+    <button class="week-btn" onclick="selectWeek('all', this)">All Weeks</button>
+  </div>
+
+  <div class="mode-grid">
+    <div class="mode-card learn" onclick="openLearn()">
+      <span class="mode-icon">📖</span>
+      <div class="mode-label">Learn Mode</div>
+      <div class="mode-desc">Deep-dive every topic from your slides. Clean breakdowns, key points, comparisons, and real examples. Zero skipping.</div>
+      <div class="mode-arrow">↗</div>
+    </div>
+    <div class="mode-card challenge" onclick="openChallenge()">
+      <span class="mode-icon">⚔️</span>
+      <div class="mode-label">Challenge Mode</div>
+      <div class="mode-desc">Exact exam-style theory questions. Write your answer, then reveal the model answer and grade yourself honestly.</div>
+      <div class="mode-arrow">↗</div>
+    </div>
+    <div class="mode-card rapid" onclick="openRapid()">
+      <span class="mode-icon">⚡</span>
+      <div class="mode-label">Rapid Fire</div>
+      <div class="mode-desc">Flashcard mode. Concept on front, full explanation on back. Flip through fast. Active recall — the real way to pass.</div>
+      <div class="mode-arrow">↗</div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== LEARN SCREEN ======================== -->
+<div id="learnScreen" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="screen-title">📖 Learn Mode</div>
+    <div class="screen-week" id="learnWeekLabel">Week 1</div>
+  </div>
+  <div class="learn-layout">
+    <div class="topic-sidebar">
+      <div class="sidebar-label">Topics</div>
+      <div id="topicList"></div>
+    </div>
+    <div class="topic-content" id="topicContent"></div>
+  </div>
+</div>
+
+<!-- ======================== CHALLENGE SCREEN ======================== -->
+<div id="challengeScreen" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="screen-title">⚔️ Challenge Mode</div>
+    <div class="screen-week" id="challengeWeekLabel">Week 1</div>
+  </div>
+  <div class="challenge-container">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="challengeProgress" style="width:0%"></div>
+    </div>
+    <div class="q-meta">
+      <div class="q-counter" id="qCounter">Q 1 / 12</div>
+      <div class="q-category" id="qCategory">Definitions</div>
+    </div>
+    <div class="q-text" id="qText"></div>
+    <textarea class="answer-area" id="answerArea" placeholder="Write your answer here first — then reveal..."></textarea>
+    <button class="reveal-btn" id="revealBtn" onclick="revealAnswer()">Reveal Model Answer →</button>
+    <div class="model-answer" id="modelAnswer" style="display:none">
+      <div class="answer-label">Model Answer</div>
+      <div class="answer-text" id="answerText"></div>
+      <div class="self-grade">
+        <button class="grade-btn got-it" onclick="grade('got')">✓ Got it</button>
+        <button class="grade-btn partial" onclick="grade('partial')">~ Partial</button>
+        <button class="grade-btn missed" onclick="grade('missed')">✗ Missed</button>
+      </div>
+    </div>
+    <div class="q-nav" id="qNav" style="display:none">
+      <button class="nav-btn" onclick="prevQ()">← Prev</button>
+      <button class="nav-btn primary" onclick="nextQ()">Next →</button>
+    </div>
+    <div id="scoreDisplay" class="score-screen" style="display:none">
+      <div class="score-number" id="scorePct"></div>
+      <div class="score-label">Overall Score</div>
+      <div class="score-breakdown">
+        <div class="score-stat"><div class="stat-num" id="gotCount" style="color:var(--success)">0</div><div class="stat-label">Got It</div></div>
+        <div class="score-stat"><div class="stat-num" id="partialCount" style="color:var(--accent)">0</div><div class="stat-label">Partial</div></div>
+        <div class="score-stat"><div class="stat-num" id="missedCount" style="color:var(--danger)">0</div><div class="stat-label">Missed</div></div>
+      </div>
+      <button class="nav-btn primary" onclick="restartChallenge()">Try Again</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== RAPID SCREEN ======================== -->
+<div id="rapidScreen" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="screen-title">⚡ Rapid Fire</div>
+    <div class="screen-week" id="rapidWeekLabel">Week 1</div>
+  </div>
+  <div class="rapid-container">
+    <div class="rapid-progress" id="rapidProgress">Card 1 of 20</div>
+    <div class="rapid-card" id="rapidCard" onclick="flipCard()">
+      <div class="flip-hint">tap to flip</div>
+      <div class="rapid-question" id="rapidQ"></div>
+      <div class="rapid-answer" id="rapidA"></div>
+      <div class="rapid-counter" id="rapidCounter">1</div>
+    </div>
+    <div class="rapid-controls">
+      <button class="rapid-btn prev" onclick="rapidPrev()">← Prev</button>
+      <button class="rapid-btn flip" onclick="flipCard()">Flip Card</button>
+      <button class="rapid-btn next" onclick="rapidNext()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  COURSE DATA — fully hardcoded from both PDFs
+// ============================================================
+
+const courseData = {
+  1: {
+    label: "Week 1 — Foundations of Value Creation",
+    topics: [
+      {
+        id: "intro",
+        title: "Introduction: The Value Creators",
+        tag: "Week 1 · Introduction",
+        body: `When you hear the word "Entrepreneur," you might think of Aliko Dangote or Mark Zuckerberg. But entrepreneurship isn't just about being a billionaire — it is fundamentally about solving problems and creating value.\n\nConceptually, entrepreneurship is the process of designing, launching, and running a new business, which is often initially a small business. The discussion question from class: Is a person who buys a shirt for ₦5,000 and sells it for ₦7,000 an entrepreneur? This gets at the heart of what entrepreneurship really is — value creation, not just trade.`,
+        keypoints: [
+          "Entrepreneurship = solving problems and creating value, not just making money",
+          "It is the process of designing, launching, and running a new (often small) business",
+          "Buying and reselling at a markup is a form of value creation through arbitrage",
+          "Anyone can be entrepreneurial — in studies, relationships, or hobbies"
+        ],
+        discussion: "Is a person who buys a shirt for ₦5,000 and sells it for ₦7,000 an entrepreneur? Why or why not? Consider: are they creating value or just moving goods?"
+      },
+      {
+        id: "entrepreneurship",
+        title: "Defining Entrepreneurship",
+        tag: "Week 1 · Core Definition",
+        body: `Entrepreneurship is the pursuit of opportunity beyond resources controlled. It involves innovation, risk-taking, and proactivity. It is not merely about owning a business — it is a mindset that can be applied to your studies, your relationships, and your hobbies.\n\nThe three key elements that define entrepreneurship are value creation (making something useful), risk (putting time, money, and reputation on the line), and reward (profit and personal satisfaction).`,
+        keypoints: [
+          "Pursuit of opportunity beyond resources controlled",
+          "Value Creation — making something useful for others",
+          "Risk — committing time, money, and reputation under uncertainty",
+          "Reward — profit and personal satisfaction",
+          "Entrepreneurship is a mindset, not just a job title",
+          "Involves innovation, risk-taking, and proactivity"
+        ],
+        example: "Class discussion: The shirt example (₦5k → ₦7k) shows basic arbitrage — a form of value creation. But true entrepreneurship often involves creating something new, not just reselling."
+      },
+      {
+        id: "intrapreneurship",
+        title: "Defining Intrapreneurship",
+        tag: "Week 1 · Core Definition",
+        body: `Intrapreneurship is the act of behaving like an entrepreneur while working within a large organization. An employee identifies a problem or opportunity and takes the initiative to create a solution — using the company's resources, not their own.\n\nIntrapreneurs have a "safety net" — they receive a salary even if their idea fails, but they also share the rewards with the company rather than keeping all the profit.`,
+        keypoints: [
+          "Acting entrepreneurially inside an existing organization",
+          "Uses company resources, not personal capital",
+          "Safety net: still earns salary if idea fails",
+          "Rewards are shared with the company (bonus, promotion, salary)",
+          "Employee identifies a problem/opportunity and takes initiative"
+        ],
+        example: "The Facebook 'Like' button and Gmail were both created by employees (intrapreneurs) during 'hackathons' or free time — not by the CEOs."
+      },
+      {
+        id: "comparison",
+        title: "Entrepreneurship vs. Intrapreneurship",
+        tag: "Week 1 · Comparison",
+        body: `Understanding the difference between an entrepreneur and an intrapreneur is critical. Both innovate and create value, but they do so in very different contexts — with different levels of risk, reward, resource access, and freedom.`,
+        keypoints: [
+          "Entrepreneur: High risk (personal capital), unlimited reward, high autonomy",
+          "Intrapreneur: Low risk (company capital), limited reward, moderate autonomy",
+          "Entrepreneur must find/mobilize their own resources",
+          "Intrapreneur uses existing company resources",
+          "Both are legitimate paths — neither is superior"
+        ],
+        table: {
+          headers: ["Feature", "Entrepreneur", "Intrapreneur"],
+          rows: [
+            ["Risk", "High — personal capital at stake", "Low — company capital at stake"],
+            ["Resources", "Must find and mobilize them", "Uses existing company resources"],
+            ["Reward", "Unlimited — all profit/equity", "Limited — bonus, promotion, salary"],
+            ["Freedom", "High autonomy", "Moderate — must follow company policy"],
+            ["Safety Net", "None — must succeed or fail alone", "Yes — earns salary regardless"]
+          ]
+        },
+        discussion: "Which path appeals to you more right now: the high risk/high reward of the Entrepreneur, or the security and resources of the Intrapreneur? The Safety vs. Freedom debate."
+      },
+      {
+        id: "msmes",
+        title: "The Role of MSMEs",
+        tag: "Week 1 · MSMEs",
+        body: `Micro, Small, and Medium Enterprises (MSMEs) are businesses with a small number of employees and limited turnover. They are the backbone of the Nigerian and African economy — often called the "engine of the economy."\n\nUnlike Multinational Corporations (MNCs) which often send profits back to their home countries, MSMEs spend their profits locally — building and circulating wealth within the local community. They take raw materials or skills and turn them into valuable products.`,
+        keypoints: [
+          "MSMEs = businesses with small staff count and limited turnover",
+          "Called the 'backbone' and 'engine' of the Nigerian/African economy",
+          "Wealth Creation: Raw materials/skills → valuable products → local income",
+          "MNCs repatriate profits abroad; MSMEs circulate money locally",
+          "In Nigeria, MSMEs provide over 80% of all jobs",
+          "Primary path to financial independence and self-reliance"
+        ],
+        example: "Examples of MSMEs: the mechanic, the baker, the fashion designer, the tech freelancer. All generate local income and keep money in the community.",
+        discussion: "If the government stopped hiring people tomorrow, what would happen to the economy if MSMEs didn't exist?"
+      },
+      {
+        id: "theories",
+        title: "Theories of Entrepreneurship",
+        tag: "Week 1 · Theories",
+        body: `Scholars have analyzed entrepreneurship through different lenses to understand why people become entrepreneurs. Three core theoretical perspectives emerge: Economic, Sociological, and Conditional. Each answers a different version of the same question: Is an entrepreneur born, made by the market, shaped by their culture, or created by circumstances?`,
+        keypoints: [
+          "Economic Perspective — focuses on market incentives and profit",
+          "Sociological Perspective — focuses on social background, culture, values",
+          "Conditional Perspective — focuses on environmental stimuli and circumstances",
+          "Each theory is a different lens, not a complete picture alone",
+          "Real entrepreneurship is usually a combination of all three"
+        ]
+      },
+      {
+        id: "economic",
+        title: "The Economic Theory",
+        tag: "Week 1 · Theory",
+        body: `The Economic Perspective, associated with key theorists Richard Cantillon and Frank Knight, positions the entrepreneur as a risk-bearer who bridges the gap between supply and demand. They buy goods at a certain price today to sell at an uncertain price tomorrow. Their core motivation is profit — they see a gap in the market (an economic opportunity) and act to fill it for financial gain.\n\nThe concept of "arbitrage" — buying low in one market and selling high in another — is central to this view.`,
+        keypoints: [
+          "Key Theorists: Richard Cantillon & Frank Knight",
+          "Entrepreneur = primary risk-bearer in the economy",
+          "Buys at certain price today, sells at uncertain price tomorrow",
+          "Bridges the gap between supply and demand",
+          "Motivation: Profit — filling market gaps for financial gain",
+          "Core concept: Arbitrage — buy low, sell high"
+        ],
+        example: "Buying goods in Onitsha market at wholesale prices and selling in Abuja at retail prices — classic economic entrepreneurship driven by spotting a price gap."
+      },
+      {
+        id: "sociological",
+        title: "The Sociological Theory",
+        tag: "Week 1 · Theory",
+        body: `The Sociological Perspective, associated with Max Weber, argues that entrepreneurship is influenced by social culture, values, religious beliefs, and community norms. Your environment shapes you. If you come from a community that values trade and apprenticeship, you are socially conditioned to be an entrepreneur.\n\nThe Igbo Apprenticeship System (Igba-Boi) is a classic African example — young men are trained under master traders and set up their own businesses after a fixed period.`,
+        keypoints: [
+          "Key Theorist: Max Weber",
+          "Entrepreneurship shaped by culture, values, and religious beliefs",
+          "Your social environment conditions your entrepreneurial tendencies",
+          "Motivation: Social status, family tradition, or fitting into a social group",
+          "Context matters — community norms push or pull you toward entrepreneurship",
+          "African Example: The Igbo Apprenticeship System (Igba-Boi)"
+        ],
+        discussion: "Do you think your cultural background encourages or discourages starting a business? Think about your family, your ethnic group, your community."
+      },
+      {
+        id: "conditional",
+        title: "The Conditional Theory",
+        tag: "Week 1 · Theory",
+        body: `The Conditional Perspective explains entrepreneurship as driven by environmental stimuli — circumstances that push someone into entrepreneurship. This is closely studied in the Nigerian context through research on student entrepreneurship.\n\nA longitudinal study by Ugochukwu Okolie (published in Entrepreneurship Theory and Practice, Sage, 2024) explored how students from low-income families with no prior entrepreneurial experience engage in entrepreneurship. Resource constraints and significant loss events (like a parent losing a job) motivate students to start businesses rather than drop out. The model shows: Environmental Stimuli → Conditional Student Entrepreneurship → Entrepreneurial Learning (resourceful adaptation + entrepreneurial partnering) → Financial Stability.`,
+        keypoints: [
+          "Entrepreneurship driven by environmental stimuli and circumstances",
+          "Resource constraints or significant loss events trigger entrepreneurship",
+          "Students choose entrepreneurship over dropping out to do unskilled jobs",
+          "Model: Environmental stimuli → CSE → Entrepreneurial learning → Financial stability",
+          "Resourceful adaptation and entrepreneurial partnering are key outcomes",
+          "Especially relevant in emerging economies like Nigeria"
+        ],
+        example: "A student whose parent loses a job starts selling food on campus not out of passion, but out of necessity — this is conditional entrepreneurship triggered by a loss event."
+      },
+      {
+        id: "summary1",
+        title: "Week 1 Summary",
+        tag: "Week 1 · Key Takeaways",
+        body: `Everything from Week 1 condensed into the most testable points. Know these cold.`,
+        keypoints: [
+          "Entrepreneurship = pursuit of opportunity beyond resources controlled",
+          "Three elements: Value Creation, Risk, Reward",
+          "Intrapreneurship = entrepreneurship inside a company using company resources",
+          "MSMEs provide 80%+ of Nigerian jobs and circulate wealth locally",
+          "Economic Theory: Entrepreneurs are profit-driven risk-bearers (Cantillon, Knight)",
+          "Sociological Theory: Culture and social environment shape entrepreneurship (Weber)",
+          "Conditional Theory: Environmental stimuli (hardship) trigger entrepreneurship",
+          "Key takeaway: You don't need to wait for a job — see the world as a map of opportunities"
+        ]
+      }
+    ]
+  },
+  2: {
+    label: "Week 2 — The Entrepreneurial Character & Risk",
+    topics: [
+      {
+        id: "who_is",
+        title: "What is an Entrepreneur?",
+        tag: "Week 2 · Foundation",
+        body: `An entrepreneur is a person who identifies opportunities, takes calculated risks, and creates value by starting and managing a business venture. Five key elements define an entrepreneur: opportunity recognition (seeing what others miss), innovation (creating something new or better), risk-taking (facing uncertainty), value creation (making something people want), and being action-oriented (turning ideas into reality).`,
+        keypoints: [
+          "Opportunity Recognition — seeing what others miss",
+          "Innovation — creating new things or improving existing ones",
+          "Risk-Taking — willing to face uncertainty",
+          "Value Creation — making something people want or need",
+          "Action-Oriented — turning ideas into reality, not just talking"
+        ]
+      },
+      {
+        id: "ent_vs_owner",
+        title: "Entrepreneurs vs. Business Owners",
+        tag: "Week 2 · Key Distinction",
+        body: `This is one of the most important distinctions in the course. An entrepreneur creates something NEW, innovates, disrupts, seeks growth, embraces change, and takes calculated risks. A business owner/manager operates an existing business, maintains the status quo, seeks stability, follows established practices, and minimizes risk. Both are valuable — not everyone needs to be an entrepreneur.`,
+        keypoints: [
+          "Entrepreneur: Creates NEW things, innovates, disrupts markets",
+          "Entrepreneur: Seeks growth and scaling, embraces change",
+          "Business Owner/Manager: Operates existing business, maintains status quo",
+          "Business Owner: Seeks stability, follows established practices, minimizes risk",
+          "Examples of entrepreneurs: Aliko Dangote, Mark Zuckerberg",
+          "Examples of business owners: your local shop owner",
+          "IMPORTANT: Both are valuable — entrepreneurship is not superior to ownership"
+        ],
+        table: {
+          headers: ["Dimension", "Entrepreneur", "Business Owner/Manager"],
+          rows: [
+            ["Focus", "Creates something new", "Operates existing business"],
+            ["Approach", "Innovates and disrupts", "Maintains status quo"],
+            ["Goal", "Growth and scaling", "Stability"],
+            ["Attitude to Change", "Embraces change", "Follows established practices"],
+            ["Risk", "Takes calculated risks", "Minimizes risk"]
+          ]
+        }
+      },
+      {
+        id: "why_traits",
+        title: "Why Study Entrepreneurial Characteristics?",
+        tag: "Week 2 · Framework",
+        body: `Understanding entrepreneurial traits matters for four main reasons. First, self-assessment — knowing your strengths and weak areas for development. Second, team building — knowing what skills you need in partners and building complementary teams. Third, investor confidence — investors bet on people, not just ideas, so demonstrating entrepreneurial traits attracts funding. Fourth, personal development — many characteristics can be learned with a continuous improvement mindset.`,
+        keypoints: [
+          "Self-Assessment: Understand strengths and identify development areas",
+          "Team Building: Know what complementary skills you need in partners",
+          "Investor Confidence: Investors bet on people, not just ideas",
+          "Personal Development: Most traits can be learned and developed",
+          "Key point: Understanding these traits helps you become a better entrepreneur"
+        ]
+      },
+      {
+        id: "traits",
+        title: "The 11 Core Entrepreneurial Characteristics",
+        tag: "Week 2 · Characteristics",
+        body: `The course covers 11 key characteristics of successful entrepreneurs. These are not a checklist — no one has all of them perfectly. The goal is awareness for development and team complementarity.`,
+        keypoints: [
+          "1. Passion & Motivation — genuine enthusiasm that sustains you through hard times",
+          "2. Vision & Opportunity Recognition — seeing future possibilities others miss",
+          "3. Self-Confidence & Belief — trust in your judgment without arrogance",
+          "4. Persistence & Resilience — bouncing back from failure; most ventures face setbacks",
+          "5. Creativity & Innovation — turning new ideas into practical value",
+          "6. Risk Tolerance — comfort with uncertainty (not reckless gambling)",
+          "7. Independence & Autonomy — desire to control your own direction",
+          "8. Action Orientation — bias for doing over talking; 'fail fast, learn faster'",
+          "9. Adaptability & Flexibility — pivoting when your original plan isn't working",
+          "10. Leadership & Team Building — inspiring and retaining talented people",
+          "11. Resourcefulness — making do with limited resources; 'bootstrapping'"
+        ],
+        example: `Tony Elumelu (passion), Sim Shagaya/Konga (vision), Jason Njoku/iROKO TV (persistence — failed multiple ventures first), M-Pesa Kenya (creativity/innovation), Twitter (adaptability — started as podcasting platform Odeo, pivoted to microblogging).`
+      },
+      {
+        id: "passion",
+        title: "Characteristic 1: Passion & Motivation",
+        tag: "Week 2 · Characteristic",
+        body: `Passion is a deep, genuine enthusiasm for what you're doing and the problem you're solving. It sustains you through difficult times, inspires your team, attracts customers and investors, and drives persistence.\n\nReal Example: Tony Elumelu (Nigerian entrepreneur) is passionate about African economic empowerment — his foundation has supported 10,000+ entrepreneurs across Africa.`,
+        keypoints: [
+          "Sustains you through difficult times when others quit",
+          "Inspires your team to keep going",
+          "Attracts customers and investors who can sense genuine belief",
+          "Drives persistence in the face of failure",
+          "Example: Tony Elumelu Foundation — 10,000+ African entrepreneurs supported"
+        ],
+        discussion: "Can you succeed in entrepreneurship without passion? Why or why not?"
+      },
+      {
+        id: "vision",
+        title: "Characteristic 2: Vision & Opportunity Recognition",
+        tag: "Week 2 · Characteristic",
+        body: `Vision is the ability to see future possibilities that others don't see yet. Opportunity recognition is identifying gaps in the market, unmet needs, or better ways of doing things. Key traits involved: curiosity about the world, observing problems people face, connecting dots others miss, and imagining "what if?"\n\nExample: Sim Shagaya (Founder of Konga) saw the opportunity in Nigerian e-commerce when few believed it could work in Nigeria.`,
+        keypoints: [
+          "Vision: seeing future possibilities before others do",
+          "Opportunity Recognition: spotting gaps, unmet needs, better ways",
+          "Curiosity, observation, connecting dots, imagining 'what if?'",
+          "Nigerian Example: Sim Shagaya (Konga) — e-commerce before it was accepted"
+        ]
+      },
+      {
+        id: "confidence",
+        title: "Characteristic 3: Self-Confidence & Belief",
+        tag: "Week 2 · Characteristic",
+        body: `Self-confidence is a strong belief in your ability to succeed despite challenges and skepticism. It involves trust in your judgment, willingness to make decisions, resilience against criticism, and conviction in your vision. But balance is required: overconfidence leads to arrogance, under-confidence leads to paralysis. Healthy self-belief must be combined with openness to learning.`,
+        keypoints: [
+          "Trust in your own judgment and decisions",
+          "Resilience against criticism and skepticism",
+          "Conviction in your vision even when others doubt",
+          "Not overconfidence (arrogance) — remain open to feedback",
+          "Not under-confidence (paralysis) — still make decisions and act"
+        ]
+      },
+      {
+        id: "persistence",
+        title: "Characteristic 4: Persistence & Resilience",
+        tag: "Week 2 · Characteristic",
+        body: `Persistence is continuing to pursue goals despite obstacles, setbacks, and failures. Resilience is the ability to bounce back from failure and disappointment. Most ventures face serious setbacks — success often comes after multiple failed attempts.\n\nFamous Quote: "I have not failed. I've just found 10,000 ways that won't work." — Thomas Edison\n\nAfrican Example: Jason Njoku (iROKO TV) failed multiple ventures before building Africa's answer to Netflix.`,
+        keypoints: [
+          "Persistence: continuing despite obstacles, setbacks, and failures",
+          "Resilience: bouncing back from disappointment",
+          "Most ventures face setbacks — this is normal, not a sign to quit",
+          "Success often comes after multiple attempts",
+          "Edison quote: failure is just data, not the end",
+          "Jason Njoku (iROKO TV): multiple failures before Africa's Netflix"
+        ]
+      },
+      {
+        id: "creativity",
+        title: "Characteristic 5: Creativity & Innovation",
+        tag: "Week 2 · Characteristic",
+        body: `Creativity is the ability to think of new ideas and novel solutions. Innovation is turning those creative ideas into practical value. The course identifies four types of innovation: new product/service (creating something entirely new), process innovation (better way to produce/deliver), business model innovation (new way to create value), and market innovation (reaching customers differently).\n\nKey Example: M-Pesa in Kenya — an innovative mobile money solution that addressed African banking challenges when traditional banking was inaccessible to most people.`,
+        keypoints: [
+          "Creativity: thinking of new ideas and novel solutions",
+          "Innovation: turning creative ideas into practical value (they're different!)",
+          "New Product/Service Innovation: something entirely new",
+          "Process Innovation: better way to produce or deliver",
+          "Business Model Innovation: new way to create/capture value",
+          "Market Innovation: reaching customers differently",
+          "Example: M-Pesa — mobile money for the unbanked in Africa"
+        ]
+      },
+      {
+        id: "risk_tol",
+        title: "Characteristic 6: Risk Tolerance",
+        tag: "Week 2 · Characteristic",
+        body: `Risk tolerance is your comfort level with uncertainty and the potential for loss. For entrepreneurs, this is NOT reckless gambling — it is calculated assessment of risk with a willingness to face uncertainty and manage anxiety about unknown outcomes. The spectrum runs from Risk-Averse → Moderate Risk-Taker → High Risk-Taker.`,
+        keypoints: [
+          "Risk tolerance = comfort with uncertainty and potential loss",
+          "NOT reckless gambling — that's a critical distinction",
+          "Involves calculated assessment, not random bets",
+          "Willingness to face uncertainty while managing anxiety",
+          "Spectrum: Risk-Averse ← Moderate → High Risk-Taker"
+        ]
+      },
+      {
+        id: "independence",
+        title: "Characteristic 7: Independence & Autonomy",
+        tag: "Week 2 · Characteristic",
+        body: `The desire for independence — wanting to be your own boss and make your own decisions — is a powerful entrepreneurial motivator. It means control over your time, choices, and direction. Motivations include freedom from corporate constraints, ability to pursue your own vision, control over your destiny, and flexible lifestyle. However, the trade-off is that independence comes with the full responsibility and stress of sole decision-making.`,
+        keypoints: [
+          "Desire to be your own boss and control your own direction",
+          "Freedom from corporate constraints and bureaucracy",
+          "Control over time, choices, and lifestyle",
+          "Trade-off: independence = full responsibility and stress",
+          "Discussion: Is desire for independence ENOUGH to become an entrepreneur?"
+        ]
+      },
+      {
+        id: "action",
+        title: "Characteristic 8: Action Orientation",
+        tag: "Week 2 · Characteristic",
+        body: `Action orientation is the tendency to DO rather than just think or talk. Entrepreneurs have a "bias for action" — they experiment quickly, learn by doing, fail fast and learn faster, and don't wait for perfect conditions. Rather than spending years planning the perfect business, entrepreneurs launch Minimum Viable Products (MVPs) and improve based on feedback. The mantra: "Done is better than perfect."`,
+        keypoints: [
+          "Bias for action: DO rather than just think or talk",
+          "Quick to experiment and learn by doing",
+          "'Fail fast, learn faster' mindset",
+          "Proactive rather than reactive",
+          "Comfortable making decisions with imperfect information",
+          "MVP approach: launch small, learn, improve",
+          "Mantra: 'Done is better than perfect'"
+        ]
+      },
+      {
+        id: "adaptability",
+        title: "Characteristic 9: Adaptability & Flexibility",
+        tag: "Week 2 · Characteristic",
+        body: `Adaptability is the ability to adjust strategies when circumstances change. Flexibility is willingness to pivot when your original plan isn't working. Essential because: markets change, customer needs evolve, competition emerges, resources fluctuate, and technology advances.\n\nFamous Example: Twitter started as Odeo, a podcasting platform. When iTunes dominated podcasting, they pivoted to microblogging — and became one of the most influential platforms in history.\n\nAfrican Context: Especially important given rapidly changing African markets and infrastructure challenges.`,
+        keypoints: [
+          "Adaptability: adjusting strategies when circumstances change",
+          "Flexibility: willingness to pivot from original plan",
+          "Markets, customers, competition, and technology all change — you must too",
+          "Pivot Example: Twitter started as Odeo (podcasting), pivoted to microblogging",
+          "African relevance: rapidly shifting markets demand constant adaptation"
+        ]
+      },
+      {
+        id: "leadership",
+        title: "Characteristic 10: Leadership & Team Building",
+        tag: "Week 2 · Characteristic",
+        body: `Leadership is the ability to inspire, guide, and motivate others toward shared goals. Team building is the skill of identifying, attracting, and retaining talented people. Key leadership skills: communication, delegation, motivation, conflict resolution, and vision sharing. Reality check: solo entrepreneurs are rare. Success almost always requires building and leading teams effectively.`,
+        keypoints: [
+          "Leadership: inspiring and guiding others toward shared goals",
+          "Team Building: identifying, attracting, and retaining talent",
+          "Key skills: communication, delegation, motivation, conflict resolution",
+          "Vision sharing: people join missions, not just jobs",
+          "Reality: Solo entrepreneurs are rare — teams are how things scale"
+        ]
+      },
+      {
+        id: "resourceful",
+        title: "Characteristic 11: Resourcefulness",
+        tag: "Week 2 · Characteristic",
+        body: `Resourcefulness is the ability to find solutions with limited resources — making do with what you have. This is sometimes called "bootstrapping" — building a business with minimal external funding. It involves creative problem-solving, leveraging networks, bartering and partnerships, finding alternative resources, and a "hustle" mentality.\n\nAfrican Relevance: Especially critical in African contexts with limited capital access and infrastructure challenges. The ability to do more with less is not just an advantage — it's often a necessity.`,
+        keypoints: [
+          "Resourcefulness: solving problems with limited resources",
+          "Bootstrapping: building a business with minimal external funding",
+          "Creative problem-solving and leveraging your network",
+          "Bartering and forming strategic partnerships",
+          "'Hustle' mentality: finding a way when there is no obvious way",
+          "African context: limited capital access makes this especially critical"
+        ]
+      },
+      {
+        id: "other_traits",
+        title: "Additional Important Characteristics",
+        tag: "Week 2 · Characteristics",
+        body: `Beyond the core 11, the course identifies several other important entrepreneurial traits. No entrepreneur has all of these perfectly — awareness is what matters, enabling self-development and building complementary teams.`,
+        keypoints: [
+          "Strong Work Ethic — willingness to put in long, hard hours",
+          "Financial Literacy — understanding money management and basic accounting",
+          "Networking Ability — building and maintaining relationships",
+          "Customer Focus — obsession with understanding and serving customer needs",
+          "Ethical Standards — integrity and honesty in all dealings",
+          "Learning Orientation — commitment to continuous self-education",
+          "Stress Tolerance — managing pressure without breaking down",
+          "Time Management — prioritizing effectively under constraints"
+        ]
+      },
+      {
+        id: "nature_nurture",
+        title: "The Nature vs. Nurture Debate",
+        tag: "Week 2 · Key Debate",
+        body: `The big question: Are entrepreneurs BORN with special traits, or MADE through experience and learning? Nature refers to genetic predisposition, inherited personality traits, and natural talents. Nurture refers to environment, education, experiences, training, and culture. This debate matters because: if born → only some can be entrepreneurs; if made → anyone can learn entrepreneurship. The reality? Both play a role.`,
+        keypoints: [
+          "Nature = genetic predisposition, inherited traits, natural talents",
+          "Nurture = environment, education, experiences, training, culture",
+          "Twin studies show 30–40% of entrepreneurial tendency is heritable",
+          "But 60–70% is environmental — nature is not destiny",
+          "Brain scans show entrepreneurs process risk differently",
+          "Most successful entrepreneurs are 35–45, not young prodigies (supports nurture)",
+          "Entrepreneurship education increases business creation (supports nurture)",
+          "Modern consensus: BOTH nature and nurture matter — interaction model"
+        ],
+        table: {
+          headers: ["Nature Arguments", "Nurture Arguments"],
+          rows: [
+            ["Genetic risk-tolerance differences", "Business skills can be taught"],
+            ["Personality traits partly heritable (Big Five)", "Incubators and accelerators work"],
+            ["Entrepreneurship runs in families", "Cultural attitudes shape entrepreneurship"],
+            ["Some children show entrepreneurial behavior early", "Most successful entrepreneurs are 35–45 (experience matters)"],
+            ["Brain scans show different risk processing", "Entrepreneurship education increases business creation"]
+          ]
+        },
+        example: "Nature examples: Richard Branson (dyslexic, dropped out at 16, natural hustler), Aliko Dangote (started trading at age 8). Nurture examples: corporate leaders who learned skills before starting ventures; late bloomers who became entrepreneurs after years in other careers."
+      },
+      {
+        id: "can_teach",
+        title: "Can Entrepreneurship Be Taught?",
+        tag: "Week 2 · Nature vs Nurture",
+        body: `Evidence says YES, but with nuance. Many skills — business planning, financial management, marketing strategies, legal requirements, industry knowledge, and problem-solving frameworks — can clearly be taught. What's harder to teach includes passion/drive, resilience, creativity, and risk tolerance — but these can be inspired, developed, and calibrated respectively. The best approach is a combination of education, mentorship, and experience.`,
+        keypoints: [
+          "YES — entrepreneurship can be taught and developed",
+          "Teachable: business planning, financial management, marketing, legal requirements, industry knowledge",
+          "Harder to teach: passion (but can be inspired), resilience (can be developed), creativity (can be enhanced)",
+          "Best approach: education + mentorship + experience",
+          "Growth mindset matters more than starting point",
+          "Key: You can BUILD these traits — start small, seek mentorship, embrace failure"
+        ]
+      },
+      {
+        id: "risk_types",
+        title: "Understanding Risk in Entrepreneurship",
+        tag: "Week 2 · Risk",
+        body: `Risk is the possibility of loss, failure, or negative outcomes when undertaking an action with uncertain results. There are five main types of business risk: financial risk (losing money/investment), market risk (product not wanted), operational risk (business operations failing), reputational risk (damage to image), and personal risk (impact on career, relationships, health).\n\nFundamental truth: All entrepreneurship involves risk. The question is HOW you handle it.`,
+        keypoints: [
+          "Risk = possibility of loss when outcomes are uncertain",
+          "Financial Risk — losing your money or investment",
+          "Market Risk — your product/service isn't wanted",
+          "Operational Risk — your business operations fail",
+          "Reputational Risk — damage to your image/credibility",
+          "Personal Risk — impact on career, relationships, and health",
+          "Key truth: All entrepreneurship involves risk — the question is how you handle it"
+        ]
+      },
+      {
+        id: "calc_vs_gamble",
+        title: "Calculated Risk vs. Gambling",
+        tag: "Week 2 · Risk",
+        body: `This is one of the most critical distinctions in the entire course. Gambling is based on luck/chance — the outcome is random, no skill improves the odds, and the house always has an advantage. Calculated risk is based on analysis and information — probability can be estimated, skill and knowledge improve outcomes, and the risk can be managed and mitigated through informed decision-making.`,
+        keypoints: [
+          "GAMBLING: Based on luck/chance, random outcomes, no skill helps long-term",
+          "CALCULATED RISK: Based on analysis, probability estimated, skill improves odds",
+          "Gambling: Pure speculation (lottery, casino)",
+          "Calculated Risk: Informed decision after research (starting business after market research)",
+          "Entrepreneurs are calculated risk-takers, NOT gamblers",
+          "4 elements: Research/analysis, Probability assessment, Mitigation strategies, Affordable loss principle"
+        ],
+        table: {
+          headers: ["Feature", "Gambling", "Calculated Risk"],
+          rows: [
+            ["Basis", "Luck and chance", "Analysis and information"],
+            ["Outcomes", "Random", "Probability can be estimated"],
+            ["Skill Effect", "No skill improves long-run odds", "Skill and knowledge improve outcomes"],
+            ["Management", "Cannot be managed", "Can be mitigated and managed"],
+            ["Decision Type", "Pure speculation", "Informed decision-making"],
+            ["Example", "Playing lottery, casino games", "Starting business after market research"]
+          ]
+        },
+        example: "Scenario: Starting a food business. GAMBLING: Quit job, invest all savings, open large restaurant, no research. CALCULATED RISK: Keep job initially, start as home-based/food cart, test menu with friends, research preferences, grow gradually based on demand."
+      },
+      {
+        id: "risk_process",
+        title: "The Risk Management Process",
+        tag: "Week 2 · Risk Management",
+        body: `Risk management follows a 5-step process. Step 1: IDENTIFY — what could go wrong? Step 2: ASSESS — how likely and how severe? Step 3: PRIORITIZE — which risks matter most? Step 4: MITIGATE — how can we reduce them? Step 5: MONITOR — track and adjust as needed.\n\nThe Risk Assessment Matrix uses two dimensions — Likelihood and Impact — to categorize risks into four quadrants.`,
+        keypoints: [
+          "Step 1: IDENTIFY — what could go wrong?",
+          "Step 2: ASSESS — how likely? how severe?",
+          "Step 3: PRIORITIZE — which risks matter most?",
+          "Step 4: MITIGATE — how to reduce them?",
+          "Step 5: MONITOR — track and adjust ongoing",
+          "Risk Matrix: High Likelihood + High Impact = CRITICAL (address immediately)",
+          "High Likelihood + Low Impact = MODERATE (plan for it)",
+          "Low Likelihood + High Impact = SIGNIFICANT (have contingency)",
+          "Low Likelihood + Low Impact = MINOR (accept or ignore)"
+        ],
+        example: "Restaurant example: Identify risks — location risk, food quality risk, competition risk, supply risk. Then assess each: which is most likely? Which would hurt most? Prioritize and build a plan for the critical and significant ones."
+      },
+      {
+        id: "mitigation",
+        title: "Risk Mitigation Strategies",
+        tag: "Week 2 · Risk Management",
+        body: `Five main strategies for reducing entrepreneurial risk: Diversification (multiple products, customer segments, revenue streams), Starting Small/MVP (test before investing heavily, iterate based on feedback), Partnerships (share risk, leverage complementary strengths, pool resources), Insurance (transfer certain risks, protect critical assets), and Reserves (emergency funds, buffer for downturns).`,
+        keypoints: [
+          "Diversification: Multiple products, segments, and revenue streams",
+          "MVP/Starting Small: Test before investing heavily, iterate based on feedback",
+          "Partnerships: Share risk and pool resources with others",
+          "Insurance: Transfer certain risks, protect critical assets",
+          "Reserves: Maintain emergency funds as a downside buffer"
+        ]
+      },
+      {
+        id: "affordable_loss",
+        title: "The Affordable Loss Principle",
+        tag: "Week 2 · Risk Framework",
+        body: `From Effectuation Theory: entrepreneurs decide based on what they can afford to lose, not expected returns. Before taking a risk, ask: What can I afford to lose (time, money, reputation)? What am I willing to lose if this fails? Can I recover if things go wrong?\n\nThe key implication: Never risk more than you can afford to lose. Protect your downside. Ensure you can try again if you fail.\n\nClassic example: Don't quit your job and invest all your life savings into an untested idea. Start a side hustle, test the idea, validate demand, THEN transition.`,
+        keypoints: [
+          "From Effectuation Theory — focus on affordable loss, not expected return",
+          "Ask: What can I afford to lose? Time? Money? Reputation?",
+          "Ask: Can I recover and try again if things go wrong?",
+          "Never risk more than you can afford to lose",
+          "Protect your downside — ensure you can try again",
+          "Practical rule: Side hustle first → validate → then transition full-time"
+        ]
+      },
+      {
+        id: "risk_uncertainty",
+        title: "Risk vs. Uncertainty",
+        tag: "Week 2 · Risk",
+        body: `Risk and uncertainty are different concepts. Risk: outcomes are unknown BUT probabilities can be estimated using historical data — it can be quantified. Uncertainty: outcomes are unknown AND probabilities are also unknown — novel situations that cannot be fully quantified.\n\nEntrepreneurship involves both: some aspects have estimable risk (like pricing, staffing costs), others involve pure uncertainty (like whether a brand new market will accept your product).`,
+        keypoints: [
+          "RISK: Unknown outcomes, BUT probability can be estimated (historical data exists)",
+          "UNCERTAINTY: Unknown outcomes AND probability also unknown (novel situations)",
+          "Risk can be quantified — insurance models are built on this",
+          "Uncertainty cannot be fully quantified — new markets, new tech",
+          "Entrepreneurship involves both: some risk, some pure uncertainty",
+          "Example: Insurance models = risk. Brand new markets = uncertainty"
+        ]
+      },
+      {
+        id: "necessity_opp",
+        title: "Necessity vs. Opportunity Entrepreneurship",
+        tag: "Week 2 · Key Distinction",
+        body: `This distinction is vital for understanding the African economy.\n\nNecessity-Based ('Push') Entrepreneurship: Motivation is survival — "I have no job, so I must sell something to eat." Low capital, low innovation, usually replicates existing businesses (petty trading). Very prevalent in developing economies like Nigeria.\n\nOpportunity-Based ('Pull') Entrepreneurship: Motivation is growth — "I see a problem I can solve to build wealth." Higher innovation, scalable, seeks to disrupt the market. Example: Paystack.`,
+        keypoints: [
+          "Necessity (Push): Survival motivation — 'I must sell something to eat'",
+          "Necessity: Low capital, low innovation, replicates existing businesses",
+          "Necessity: Very high prevalence in developing economies like Nigeria",
+          "Opportunity (Pull): Growth motivation — 'I see a problem I can solve'",
+          "Opportunity: Higher innovation, scalable, market-disrupting",
+          "Opportunity example: Paystack (Nigerian fintech that was acquired by Stripe)",
+          "Can a necessity entrepreneur evolve into an opportunity entrepreneur? YES"
+        ],
+        table: {
+          headers: ["Feature", "Necessity (Push)", "Opportunity (Pull)"],
+          rows: [
+            ["Motivation", "Survival — no job, must generate income", "Growth — sees a problem to solve"],
+            ["Innovation", "Low — replicates existing businesses", "Higher — disrupts or creates markets"],
+            ["Capital", "Low", "Higher"],
+            ["Scalability", "Rarely grows beyond survival", "Designed for scaling"],
+            ["Economic Impact", "Keeps families alive locally", "Creates jobs, drives tech advancement"],
+            ["African Example", "Petty trading, POS under umbrella", "Paystack, Konga, iROKO TV"]
+          ]
+        },
+        discussion: "Can a Necessity entrepreneur evolve into an Opportunity entrepreneur? How? Which of these has the highest potential to become a millionaire — Mr. Okon (lost bank job, driving Uber), Ngozi (24/7 campus printing), or a 3-year unemployed graduate starting a POS business?"
+      },
+      {
+        id: "summary2",
+        title: "Week 2 Summary",
+        tag: "Week 2 · Key Takeaways",
+        body: `Everything from Week 2 condensed into the most testable points. Know these cold.`,
+        keypoints: [
+          "Entrepreneur: Creates new, innovates, disrupts. Business owner: maintains existing, minimizes risk",
+          "11 core traits: Passion, Vision, Self-Confidence, Persistence, Creativity, Risk Tolerance, Independence, Action Orientation, Adaptability, Leadership, Resourcefulness",
+          "Nature vs Nurture: 30-40% heritable, 60-70% environmental — both matter",
+          "Modern consensus: Entrepreneurship CAN be learned and developed",
+          "Risk ≠ Uncertainty: Risk has estimable probability; Uncertainty does not",
+          "Calculated Risk ≠ Gambling: Based on analysis, not luck",
+          "5-step risk management: Identify → Assess → Prioritize → Mitigate → Monitor",
+          "Affordable Loss Principle: Never risk more than you can afford to lose",
+          "Necessity (Push): Survival-driven, low innovation. Opportunity (Pull): Growth-driven, scalable",
+          "Case Study (Tola): Action A = gambling. Action B = calculated risk (test demand first)"
+        ]
+      }
+    ]
+  }
+};
+
+// ============================================================
+//  CHALLENGE QUESTIONS — exam-style, from both PDFs
+// ============================================================
+
+const allQuestions = {
+  1: [
+    {
+      category: "Definitions",
+      q: "Define entrepreneurship. What are its three key elements?",
+      a: `<strong>Entrepreneurship</strong> is the pursuit of opportunity beyond resources controlled. It involves innovation, risk-taking, and proactivity.<br><br>The three key elements are:<br>1. <strong>Value Creation</strong> — making something useful for others<br>2. <strong>Risk</strong> — putting time, money, and reputation on the line under uncertainty<br>3. <strong>Reward</strong> — profit and personal satisfaction`
+    },
+    {
+      category: "Definitions",
+      q: "Define intrapreneurship and explain how it differs from entrepreneurship in terms of risk and reward.",
+      a: `<strong>Intrapreneurship</strong> is the act of behaving like an entrepreneur while working within a large organization. An employee identifies a problem or opportunity and creates a solution using the company's resources.<br><br>Differences:<br>• <strong>Risk</strong>: Intrapreneurs bear low risk (company capital at stake); entrepreneurs bear high personal risk<br>• <strong>Reward</strong>: Intrapreneurs receive limited reward (bonus/salary); entrepreneurs keep unlimited profit/equity<br>• <strong>Safety net</strong>: Intrapreneurs still earn salary if the idea fails; entrepreneurs have no safety net`
+    },
+    {
+      category: "MSMEs",
+      q: "Why are MSMEs called the 'engine' or 'backbone' of the Nigerian economy? Give at least three reasons.",
+      a: `MSMEs are called the engine of the economy because:<br>1. <strong>Employment</strong>: They provide over 80% of all jobs in Nigeria — employing mechanics, bakers, designers, and freelancers<br>2. <strong>Wealth Creation</strong>: They transform raw materials/skills into valuable products, generating income that circulates locally<br>3. <strong>Local Retention</strong>: Unlike MNCs which repatriate profits abroad, MSMEs spend profits locally, building the local economy<br>4. <strong>Financial Independence</strong>: They are the primary path for individuals to move from being dependent (waiting for salary) to independent (creating income)`
+    },
+    {
+      category: "Theories",
+      q: "Explain the Economic Theory of entrepreneurship. Who are the key theorists and what is the central concept?",
+      a: `The <strong>Economic Theory</strong>, associated with <strong>Richard Cantillon</strong> and <strong>Frank Knight</strong>, positions the entrepreneur as a <strong>risk-bearer</strong> who bridges the gap between supply and demand.<br><br>Core idea: Entrepreneurs buy goods at a certain price today and sell at an uncertain price tomorrow, taking on the risk of price fluctuation.<br><br>Motivation: <strong>Profit</strong> — they see a market gap (economic opportunity) and act to fill it for financial gain.<br><br>Key concept: <strong>Arbitrage</strong> — buying low in one market, selling high in another.`
+    },
+    {
+      category: "Theories",
+      q: "Explain the Sociological Theory of entrepreneurship. How does the Igbo Apprenticeship System relate to it?",
+      a: `The <strong>Sociological Theory</strong>, associated with <strong>Max Weber</strong>, argues that entrepreneurship is influenced by social culture, values, religious beliefs, and community norms.<br><br>Core idea: Your environment shapes you. If you grow up in a community that values trade, apprenticeship, and business, you are socially conditioned to become an entrepreneur.<br><br>Motivation: Social status, family tradition, or fitting into a social group.<br><br>The <strong>Igbo Apprenticeship System (Igba-Boi)</strong> is a classic example: young men are trained under master traders, then set up their own businesses — entrepreneurship transmitted through social/cultural mechanisms.`
+    },
+    {
+      category: "Theories",
+      q: "Explain the Conditional Theory of entrepreneurship with a real-world African example.",
+      a: `The <strong>Conditional Theory</strong> states that entrepreneurship is driven by <strong>environmental stimuli</strong> — circumstances that push people into starting businesses.<br><br>Key triggers: Resource constraints and significant loss events (like a parent losing income).<br><br>Model: Environmental Stimuli → Conditional Entrepreneurship → Entrepreneurial Learning (resourceful adaptation + partnering) → Financial Stability<br><br>African Example (Okolie, 2024): Nigerian university students from low-income families faced financial hardship. Rather than dropping out for unskilled jobs, they started micro-businesses (hair salons, recycling, laundry) to fund their education — entrepreneurship triggered by necessity and circumstance.`
+    },
+    {
+      category: "Application",
+      q: "Compare and contrast the Entrepreneur and the Intrapreneur across four dimensions.",
+      a: `<strong>Entrepreneur vs. Intrapreneur:</strong><br><br>1. <strong>Risk</strong>: Entrepreneur — high (personal capital). Intrapreneur — low (company capital)<br>2. <strong>Resources</strong>: Entrepreneur must find and mobilize them. Intrapreneur uses existing company resources<br>3. <strong>Reward</strong>: Entrepreneur keeps unlimited profit/equity. Intrapreneur receives limited bonus/salary<br>4. <strong>Freedom</strong>: Entrepreneur has high autonomy. Intrapreneur has moderate freedom within company policy<br>5. <strong>Safety Net</strong>: Entrepreneur has none. Intrapreneur earns salary even if idea fails<br><br>Example of intrapreneurship: Facebook's 'Like' button and Gmail — created by employees during hackathons.`
+    }
+  ],
+  2: [
+    {
+      category: "Entrepreneurs",
+      q: "Differentiate between an entrepreneur and a business owner/manager. Why does this distinction matter?",
+      a: `<strong>Entrepreneur</strong>: Creates something NEW, innovates and disrupts markets, seeks growth and scaling, embraces change, takes calculated risks. Examples: Dangote, Zuckerberg.<br><br><strong>Business Owner/Manager</strong>: Operates an existing business, maintains the status quo, seeks stability, follows established practices, minimizes risk. Example: your local shop owner.<br><br>This distinction matters because: not everyone who owns a business is an entrepreneur — entrepreneurship involves a fundamentally different orientation toward innovation, growth, and risk. However, <strong>both are valuable</strong> — entrepreneurship is not superior to ownership; they serve different economic functions.`
+    },
+    {
+      category: "Characteristics",
+      q: "List and briefly explain any SIX characteristics of a successful entrepreneur.",
+      a: `1. <strong>Passion & Motivation</strong>: Deep enthusiasm that sustains you through hardship and inspires others<br>2. <strong>Vision & Opportunity Recognition</strong>: Seeing future possibilities and market gaps others miss<br>3. <strong>Persistence & Resilience</strong>: Continuing despite setbacks; bouncing back from failure<br>4. <strong>Creativity & Innovation</strong>: Turning new ideas into practical, valuable solutions<br>5. <strong>Action Orientation</strong>: Bias for doing — launching MVPs and learning from feedback rather than waiting for perfection<br>6. <strong>Adaptability & Flexibility</strong>: Pivoting strategies when circumstances change (e.g., Twitter from Odeo to microblogging)<br><br>Others: Self-confidence, Risk Tolerance, Independence, Leadership, Resourcefulness`
+    },
+    {
+      category: "Nature vs. Nurture",
+      q: "Discuss the Nature vs. Nurture debate in entrepreneurship. What is the modern consensus?",
+      a: `<strong>Nature (Born)</strong> argument: Twin studies show 30–40% of entrepreneurial tendency is heritable. Brain scans show entrepreneurs process risk differently. Some people are naturally more risk-tolerant. Entrepreneurship runs in families.<br><br><strong>Nurture (Made)</strong> argument: 60–70% is environmental. Entrepreneurship education increases business creation. Most successful entrepreneurs are 35–45 (experience matters). Entrepreneurship rates vary by culture. Incubators and accelerators improve success rates.<br><br><strong>Modern consensus</strong>: BOTH matter. Genetic predisposition provides a foundation; environment activates or suppresses traits; deliberate practice develops capabilities. Empowering conclusion: entrepreneurship can be learned and developed — you don't need to be 'born' an entrepreneur, but you must develop necessary characteristics.`
+    },
+    {
+      category: "Risk",
+      q: "Distinguish between calculated risk and gambling. Give a practical example of each in a business context.",
+      a: `<strong>Gambling</strong>: Based on luck/chance. Outcomes are random. No skill improves long-run odds. Pure speculation.<br><br><strong>Calculated Risk</strong>: Based on analysis and information. Probability can be estimated. Skill and knowledge improve outcomes. Can be managed and mitigated.<br><br><strong>Example — Starting a food business:</strong><br>Gambling: Quit job immediately, invest entire savings, open large restaurant in expensive location with no market research, hope customers come.<br><br>Calculated Risk: Keep job initially, start as home-based/food cart, test menu with friends, research customer preferences, grow gradually based on demand.<br><br>Four elements of calculated risk: Research/analysis, Probability assessment, Mitigation strategies, Affordable loss principle.`
+    },
+    {
+      category: "Risk Management",
+      q: "Outline the five-step risk management process and explain the Risk Assessment Matrix.",
+      a: `<strong>5-Step Risk Management Process:</strong><br>1. <strong>IDENTIFY</strong> — What could go wrong?<br>2. <strong>ASSESS</strong> — How likely? How severe?<br>3. <strong>PRIORITIZE</strong> — Which risks matter most?<br>4. <strong>MITIGATE</strong> — How can we reduce them?<br>5. <strong>MONITOR</strong> — Track and adjust as needed<br><br><strong>Risk Assessment Matrix</strong> (2 dimensions: Likelihood × Impact):<br>• High Likelihood + High Impact = <strong>CRITICAL</strong> (address immediately)<br>• High Likelihood + Low Impact = <strong>MODERATE</strong> (plan for it)<br>• Low Likelihood + High Impact = <strong>SIGNIFICANT</strong> (have contingency)<br>• Low Likelihood + Low Impact = <strong>MINOR</strong> (accept or ignore)`
+    },
+    {
+      category: "Risk",
+      q: "What is the Affordable Loss Principle? Why is it important for entrepreneurs?",
+      a: `The <strong>Affordable Loss Principle</strong> comes from Effectuation Theory. It states that entrepreneurs should decide based on what they can <strong>afford to lose</strong>, not on expected returns.<br><br>Key questions to ask: What can I afford to lose (time, money, reputation)? What am I willing to lose if this fails? Can I recover if things go wrong?<br><br>Why it matters: It prevents catastrophic losses by protecting your downside and ensuring you can try again if you fail. It encourages smart experimentation rather than reckless all-in bets.<br><br>Practical application: Don't quit your job and invest your life savings in an untested idea. Start a side hustle, validate demand, then transition. Never risk more than you can afford to lose.`
+    },
+    {
+      category: "Necessity vs. Opportunity",
+      q: "Differentiate between necessity-based and opportunity-based entrepreneurship. Which is more prevalent in Nigeria and why?",
+      a: `<strong>Necessity (Push) Entrepreneurship</strong>: Motivated by survival — "I have no job, so I must sell something to eat." Low capital, low innovation, usually replicates existing businesses (petty trading). Very prevalent in developing economies.<br><br><strong>Opportunity (Pull) Entrepreneurship</strong>: Motivated by growth — "I see a problem I can solve and build wealth." Higher innovation, scalable, seeks to disrupt the market. Example: Paystack.<br><br><strong>Necessity entrepreneurship is more prevalent in Nigeria</strong> because of high unemployment, limited formal employment, and economic pressure forcing people to generate their own income to survive rather than waiting for jobs.<br><br>Economic implication: Opportunity entrepreneurs create more jobs and drive tech advancement; necessity entrepreneurs keep families alive but rarely grow into large corporations.`
+    },
+    {
+      category: "Application",
+      q: "Case Study: Tola wants to start a mobile food delivery service on campus. Action A: she uses her entire school fees to buy a new motorcycle immediately. Action B: she spends two weeks asking students what they eat, then delivers orders using a bicycle to test demand. Identify which is gambling and which is calculated risk. List three specific risks Tola faces.",
+      a: `<strong>Action A = Gambling</strong>: Based on feeling/impulse. No research. Risks entire critical asset (school fees). No validation of demand. Cannot recover if it fails.<br><br><strong>Action B = Calculated Risk</strong>: Market research first (2 weeks asking students). Tests demand before investing heavily. Starts with low-cost bicycle (affordable loss principle). Iterates based on real feedback.<br><br><strong>Three specific risks Tola faces:</strong><br>1. <strong>Market Risk</strong>: Students may not want food delivery, or may already have a preferred option<br>2. <strong>Financial Risk</strong>: Revenue may not cover costs, especially with high fuel/logistics costs<br>3. <strong>Operational Risk</strong>: Delivery timing, food quality in transit, unreliable supply from restaurants<br><br>Action B mitigates these by validating demand before investing, using affordable equipment, and building partnerships with one restaurant first.`
+    }
+  ]
+};
+
+// ============================================================
+//  FLASHCARDS — rapid fire mode
+// ============================================================
+
+const allFlashcards = {
+  1: [
+    { q: "Define entrepreneurship", a: "<strong>Pursuit of opportunity beyond resources controlled.</strong> It involves innovation, risk-taking, and proactivity. Three elements: Value Creation, Risk, and Reward." },
+    { q: "What is intrapreneurship?", a: "Behaving like an entrepreneur <strong>inside a large organization</strong>. You use the company's resources to innovate. Safety net: you still earn salary if the idea fails. Rewards are shared with the company." },
+    { q: "What are the 3 key elements of entrepreneurship?", a: "1. <strong>Value Creation</strong> — making something useful<br>2. <strong>Risk</strong> — putting time, money, and reputation on the line<br>3. <strong>Reward</strong> — profit and personal satisfaction" },
+    { q: "Give the famous example of intrapreneurship", a: "The <strong>Facebook 'Like' button</strong> and <strong>Gmail</strong> — both created by employees during hackathons or free time, NOT by the CEOs." },
+    { q: "How much of Nigerian jobs do MSMEs provide?", a: "Over <strong>80% of all jobs</strong> in Nigeria are provided by MSMEs — employing mechanics, bakers, fashion designers, tech freelancers, and more." },
+    { q: "Why are MSMEs better for the local economy than MNCs?", a: "MNCs (Multinational Corporations) <strong>send profits back to their home countries</strong>. MSMEs <strong>spend profits locally</strong>, building and circulating wealth within the community." },
+    { q: "Economic Theory of entrepreneurship — who, what?", a: "Key theorists: <strong>Richard Cantillon & Frank Knight</strong>. Core idea: entrepreneur = risk-bearer who bridges supply and demand. Motivation: <strong>Profit</strong>. Key concept: <strong>Arbitrage</strong> (buy low, sell high)." },
+    { q: "Sociological Theory — who, what?", a: "Key theorist: <strong>Max Weber</strong>. Entrepreneurship is shaped by culture, social values, and religious beliefs. Your community conditions you. Example: <strong>Igbo Apprenticeship System (Igba-Boi)</strong>." },
+    { q: "Conditional Theory — what drives entrepreneurship?", a: "Entrepreneurship driven by <strong>environmental stimuli</strong> — resource constraints and significant loss events push people into starting businesses. Example: Nigerian students starting businesses to fund their education." },
+    { q: "Entrepreneur vs. Intrapreneur: who bears more risk?", a: "The <strong>Entrepreneur</strong> bears much higher risk — personal capital is at stake. The intrapreneur uses company capital and still earns salary even if the idea fails." },
+    { q: "What does 'pursuit of opportunity beyond resources controlled' mean?", a: "It means entrepreneurs don't wait until they have all the resources they need. They identify an opportunity first, then figure out how to acquire the resources to pursue it — often with creativity and hustle." },
+    { q: "What is the Week 1 key takeaway?", a: "<strong>You don't need to wait for a job.</strong> By understanding entrepreneurship, you can start seeing the world as a map of opportunities waiting to be solved. MSMEs, not government, create most economic activity." }
+  ],
+  2: [
+    { q: "What are the 5 key elements that define an entrepreneur?", a: "1. <strong>Opportunity Recognition</strong> — seeing what others miss<br>2. <strong>Innovation</strong> — creating/improving things<br>3. <strong>Risk-Taking</strong> — facing uncertainty<br>4. <strong>Value Creation</strong> — making something people want<br>5. <strong>Action-Oriented</strong> — turning ideas into reality" },
+    { q: "Entrepreneur vs Business Owner — main difference?", a: "<strong>Entrepreneur</strong>: Creates new things, innovates, disrupts, seeks growth, takes calculated risks.<br><strong>Business Owner</strong>: Operates existing business, maintains status quo, seeks stability, minimizes risk. <em>Both are valuable!</em>" },
+    { q: "Name all 11 entrepreneurial characteristics", a: "1. Passion & Motivation<br>2. Vision & Opportunity Recognition<br>3. Self-Confidence<br>4. Persistence & Resilience<br>5. Creativity & Innovation<br>6. Risk Tolerance<br>7. Independence & Autonomy<br>8. Action Orientation<br>9. Adaptability & Flexibility<br>10. Leadership & Team Building<br>11. Resourcefulness" },
+    { q: "What is 'bootstrapping'?", a: "Building a business with <strong>minimal external funding</strong> — using your own resources, creativity, and networks rather than investors or loans. Related to the trait of <strong>Resourcefulness</strong>." },
+    { q: "What famous pivot shows entrepreneurial adaptability?", a: "<strong>Twitter</strong>. It started as <strong>Odeo</strong> — a podcasting platform. When iTunes dominated podcasting, they pivoted to microblogging and became one of history's most influential platforms." },
+    { q: "What do twin studies say about entrepreneurship and genetics?", a: "Twin studies show <strong>30–40% of entrepreneurial tendency is heritable</strong>. But that means 60–70% is still environmental. Nature is not destiny — entrepreneurship can be learned." },
+    { q: "What is the modern consensus on Nature vs. Nurture?", a: "<strong>BOTH matter.</strong> Genetic predisposition provides a foundation; environment activates/suppresses traits; deliberate practice develops capabilities. <em>Empowering message: Entrepreneurship can be taught and developed!</em>" },
+    { q: "What is the difference between RISK and UNCERTAINTY?", a: "<strong>Risk</strong>: Outcomes unknown, but <em>probability can be estimated</em> (historical data exists). Can be quantified.<br><strong>Uncertainty</strong>: Outcomes unknown AND probability also unknown. Novel situations. Cannot be fully quantified." },
+    { q: "Calculated Risk vs Gambling — key difference?", a: "<strong>Gambling</strong>: Based on luck/chance, random outcomes, no skill helps.<br><strong>Calculated Risk</strong>: Based on analysis, probability estimable, skill improves outcomes, can be managed. Entrepreneurs are calculated risk-takers, NOT gamblers." },
+    { q: "What is the Affordable Loss Principle?", a: "From Effectuation Theory: decide based on <strong>what you can afford to lose</strong>, not expected returns. Never risk more than you can afford to lose. Protect downside so you can try again. Rule: side hustle first → validate → then go full-time." },
+    { q: "List the 5-step Risk Management Process", a: "1. <strong>IDENTIFY</strong> — what could go wrong?<br>2. <strong>ASSESS</strong> — how likely? how severe?<br>3. <strong>PRIORITIZE</strong> — which risks matter most?<br>4. <strong>MITIGATE</strong> — how to reduce them?<br>5. <strong>MONITOR</strong> — track and adjust" },
+    { q: "Risk Assessment Matrix — what are the 4 quadrants?", a: "High Likelihood + High Impact = <strong>CRITICAL</strong> (act now)<br>High Likelihood + Low Impact = <strong>MODERATE</strong> (plan for it)<br>Low Likelihood + High Impact = <strong>SIGNIFICANT</strong> (contingency plan)<br>Low Likelihood + Low Impact = <strong>MINOR</strong> (accept/ignore)" },
+    { q: "What is Necessity (Push) Entrepreneurship?", a: "Motivated by <strong>survival</strong> — 'I have no job, so I must sell something.' Low capital, low innovation, usually replicates existing businesses. Very prevalent in Nigeria due to high unemployment." },
+    { q: "What is Opportunity (Pull) Entrepreneurship?", a: "Motivated by <strong>growth</strong> — 'I see a problem I can solve to build wealth.' Higher innovation, scalable, seeks to disrupt. Example: <strong>Paystack</strong> (Nigerian fintech acquired by Stripe)." },
+    { q: "Tola Case Study: Action A vs Action B — which is gambling?", a: "<strong>Action A = Gambling</strong>: Uses entire school fees, no research, based on feeling.<br><strong>Action B = Calculated Risk</strong>: Researches first (2 weeks), starts with bicycle, tests demand before investing. Classic affordable loss principle." },
+    { q: "Who is Jason Njoku and what does he illustrate?", a: "<strong>Jason Njoku</strong> founded <strong>iROKO TV</strong> — Africa's answer to Netflix. He illustrates <strong>persistence and resilience</strong> — he failed multiple ventures before succeeding. Failure is data, not an endpoint." }
+  ]
+};
+
+// ============================================================
+//  STATE
+// ============================================================
+
+let currentWeek = 1;
+let currentTopicIdx = 0;
+let currentQIdx = 0;
+let grades = {};
+let rapidIdx = 0;
+let isFlipped = false;
+let activeQuestions = [];
+let activeFlashcards = [];
+let activeTopics = [];
+
+// ============================================================
+//  WEEK SELECTION
+// ============================================================
+
+function selectWeek(week, btn) {
+  currentWeek = week;
+  document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function getWeekLabel() {
+  if (currentWeek === 1) return "Week 1";
+  if (currentWeek === 2) return "Week 2";
+  return "All Weeks";
+}
+
+function getQuestions() {
+  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2]];
+  return allQuestions[currentWeek] || [];
+}
+
+function getFlashcards() {
+  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2]];
+  return allFlashcards[currentWeek] || [];
+}
+
+function getTopics() {
+  if (currentWeek === 'all') {
+    return [...courseData[1].topics, ...courseData[2].topics];
+  }
+  return courseData[currentWeek]?.topics || [];
+}
+
+// ============================================================
+//  NAVIGATION
+// ============================================================
+
+function goHome() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('home').style.display = 'flex';
+}
+
+function openLearn() {
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('learnScreen').classList.add('active');
+  document.getElementById('learnWeekLabel').textContent = getWeekLabel();
+  activeTopics = getTopics();
+  currentTopicIdx = 0;
+  renderTopicList();
+  renderTopicContent(0);
+}
+
+function openChallenge() {
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('challengeScreen').classList.add('active');
+  document.getElementById('challengeWeekLabel').textContent = getWeekLabel();
+  activeQuestions = getQuestions();
+  currentQIdx = 0;
+  grades = {};
+  document.getElementById('scoreDisplay').style.display = 'none';
+  document.getElementById('qCounter').parentElement.parentElement.style.display = 'block';
+  restartChallenge();
+}
+
+function openRapid() {
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('rapidScreen').classList.add('active');
+  document.getElementById('rapidWeekLabel').textContent = getWeekLabel();
+  activeFlashcards = getFlashcards();
+  rapidIdx = 0;
+  isFlipped = false;
+  renderRapidCard();
+}
+
+// ============================================================
+//  LEARN MODE
+// ============================================================
+
+function renderTopicList() {
+  const list = document.getElementById('topicList');
+  list.innerHTML = activeTopics.map((t, i) => `
+    <div class="topic-item ${i === currentTopicIdx ? 'active' : ''}" onclick="renderTopicContent(${i})">
+      ${t.title}
+    </div>
+  `).join('');
+}
+
+function renderTopicContent(idx) {
+  currentTopicIdx = idx;
+  renderTopicList();
+  const t = activeTopics[idx];
+  let html = `
+    <div class="topic-tag">${t.tag}</div>
+    <h2 class="topic-heading">${t.title}</h2>
+    <div class="topic-body">${t.body.replace(/\n/g, '<br><br>')}</div>
+  `;
+  if (t.keypoints) {
+    html += `<div class="keypoints-title">Key Points</div><div class="keypoints-list">`;
+    t.keypoints.forEach(kp => {
+      html += `<div class="keypoint"><div class="keypoint-dot"></div><span>${kp}</span></div>`;
+    });
+    html += `</div>`;
+  }
+  if (t.table) {
+    html += `<table class="comparison-table"><thead><tr>`;
+    t.table.headers.forEach(h => html += `<th>${h}</th>`);
+    html += `</tr></thead><tbody>`;
+    t.table.rows.forEach(row => {
+      html += `<tr>`;
+      row.forEach(cell => html += `<td>${cell}</td>`);
+      html += `</tr>`;
+    });
+    html += `</tbody></table>`;
+  }
+  if (t.example) {
+    html += `<div class="example-block"><div class="example-label">📌 Real Example</div><div class="example-text">${t.example}</div></div>`;
+  }
+  if (t.discussion) {
+    html += `<div class="discussion-block"><div class="discussion-label">💬 Discussion Question</div><div class="discussion-text">${t.discussion}</div></div>`;
+  }
+  html += `<div class="nav-buttons">`;
+  if (idx > 0) html += `<button class="nav-btn" onclick="renderTopicContent(${idx - 1})">← Previous</button>`;
+  if (idx < activeTopics.length - 1) html += `<button class="nav-btn primary" onclick="renderTopicContent(${idx + 1})">Next Topic →</button>`;
+  html += `</div>`;
+  const content = document.getElementById('topicContent');
+  content.innerHTML = html;
+  content.scrollTop = 0;
+  // scroll parent
+  content.parentElement.parentElement.scrollTo(0, 0);
+}
+
+// ============================================================
+//  CHALLENGE MODE
+// ============================================================
+
+function restartChallenge() {
+  grades = {};
+  currentQIdx = 0;
+  document.getElementById('scoreDisplay').style.display = 'none';
+  const mainArea = document.querySelector('.challenge-container > *:not(#scoreDisplay)');
+  // show all non-score elements
+  document.getElementById('challengeProgress').style.width = '0%';
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = activeQuestions[currentQIdx];
+  if (!q) { showScore(); return; }
+
+  document.getElementById('qCounter').textContent = `Q ${currentQIdx + 1} / ${activeQuestions.length}`;
+  document.getElementById('qCategory').textContent = q.category;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('answerArea').value = '';
+  document.getElementById('modelAnswer').style.display = 'none';
+  document.getElementById('revealBtn').style.display = 'block';
+  document.getElementById('qNav').style.display = 'none';
+  document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('challengeProgress').style.width = `${(currentQIdx / activeQuestions.length) * 100}%`;
+}
+
+function revealAnswer() {
+  const q = activeQuestions[currentQIdx];
+  document.getElementById('answerText').innerHTML = q.a;
+  document.getElementById('modelAnswer').style.display = 'block';
+  document.getElementById('revealBtn').style.display = 'none';
+  document.getElementById('qNav').style.display = 'flex';
+}
+
+function grade(type) {
+  grades[currentQIdx] = type;
+  document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected'));
+  document.querySelector(`.grade-btn.${type === 'got' ? 'got-it' : type === 'partial' ? 'partial' : 'missed'}`).classList.add('selected');
+}
+
+function nextQ() {
+  if (currentQIdx < activeQuestions.length - 1) {
+    currentQIdx++;
+    renderQuestion();
+  } else {
+    showScore();
+  }
+}
+
+function prevQ() {
+  if (currentQIdx > 0) {
+    currentQIdx--;
+    renderQuestion();
+  }
+}
+
+function showScore() {
+  const got = Object.values(grades).filter(g => g === 'got').length;
+  const partial = Object.values(grades).filter(g => g === 'partial').length;
+  const missed = Object.values(grades).filter(g => g === 'missed').length;
+  const total = activeQuestions.length;
+  const pct = Math.round(((got + partial * 0.5) / total) * 100);
+
+  document.getElementById('challengeProgress').style.width = '100%';
+  document.getElementById('scorePct').textContent = `${pct}%`;
+  document.getElementById('gotCount').textContent = got;
+  document.getElementById('partialCount').textContent = partial;
+  document.getElementById('missedCount').textContent = missed;
+  document.getElementById('scoreDisplay').style.display = 'block';
+
+  // hide question UI
+  ['qCounter', 'qCategory', 'qText', 'answerArea', 'revealBtn', 'modelAnswer', 'qNav'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  document.querySelector('.q-meta').style.display = 'none';
+}
+
+// ============================================================
+//  RAPID FIRE MODE
+// ============================================================
+
+function renderRapidCard() {
+  const card = activeFlashcards[rapidIdx];
+  document.getElementById('rapidQ').textContent = card.q;
+  document.getElementById('rapidA').innerHTML = card.a;
+  document.getElementById('rapidCounter').textContent = rapidIdx + 1;
+  document.getElementById('rapidProgress').textContent = `Card ${rapidIdx + 1} of ${activeFlashcards.length}`;
+  document.getElementById('rapidCard').classList.remove('flipped');
+  isFlipped = false;
+}
+
+function flipCard() {
+  const card = document.getElementById('rapidCard');
+  isFlipped = !isFlipped;
+  if (isFlipped) card.classList.add('flipped');
+  else card.classList.remove('flipped');
+}
+
+function rapidNext() {
+  if (rapidIdx < activeFlashcards.length - 1) {
+    rapidIdx++;
+    renderRapidCard();
+  }
+}
+
+function rapidPrev() {
+  if (rapidIdx > 0) {
+    rapidIdx--;
+    renderRapidCard();
+  }
+}
+</script>
+</body>
+</html>
