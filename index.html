@@ -827,12 +827,13 @@
 <!-- ======================== HOME ======================== -->
 <div id="home">
   <div class="badge">ENT 211 · African School of Economics</div>
-  <h1 class="home-title">Study<br><span>Assistant </span></h1>
-  <p class="home-sub">Entrepreneurship & Innovation — Dr. Davo Dahoro. Pick your Assistant , pick your week.</p>
+  <h1 class="home-title">Study<br><span>Assistant</span></h1>
+  <p class="home-sub">Entrepreneurship & Innovation — Dr. Davo Dahoro. Pick your Assistant, pick your week.</p>
 
   <div class="week-selector">
     <button class="week-btn active" onclick="selectWeek(1, this)">Week 1 — Value Creation</button>
     <button class="week-btn" onclick="selectWeek(2, this)">Week 2 — Entrepreneurial Character</button>
+    <button class="week-btn" onclick="selectWeek(3, this)">Week 3 — Entrepreneurial Thinking</button>
     <button class="week-btn" onclick="selectWeek('all', this)">All Weeks</button>
   </div>
 
@@ -1537,6 +1538,197 @@ const courseData = {
   }
 };
 
+  ,3: {
+    label: "Week 3 — Entrepreneurial Thinking & Cognitive Skills",
+    topics: [
+      {
+        id: "ent_thinking",
+        title: "Thinking Like a Founder",
+        tag: "Week 3 · Introduction",
+        body: `Entrepreneurial Thinking is a specific mental process where individuals identify opportunities and mobilize resources to create value, even in uncertain environments.\n\nCritically, it is not just for startups. Doctors, engineers, and teachers all use entrepreneurial thinking to solve complex daily problems. It is a universal cognitive skill — a way of seeing the world as a landscape of unsolved problems waiting for a solution.`,
+        keypoints: [
+          "Entrepreneurial Thinking = identifying opportunities and mobilizing resources to create value under uncertainty",
+          "Not exclusive to startups — applicable in medicine, engineering, education, and daily life",
+          "It is a specific mental process, not a personality type",
+          "Core cognitive toolkit: Critical Thinking, Reflective Thinking, and Creative Thinking"
+        ]
+      },
+      {
+        id: "critical",
+        title: "1. Critical Thinking",
+        tag: "Week 3 · Cognitive Skill",
+        body: `Critical thinking is the ability to analyze facts objectively to form a judgment. For entrepreneurs, this means "fact-checking" the market before spending money. It is the antidote to falling in love with your idea without testing it against reality.\n\nCritical thinking prevents costly mistakes by forcing you to ask the uncomfortable but essential question: "Is there really a demand for this, or do I just like this idea?"`,
+        keypoints: [
+          "Ability to analyze facts objectively to form a sound judgment",
+          "Entrepreneurial application: 'fact-checking' the market before spending money",
+          "Prevents costly mistakes driven by bias or emotional attachment to an idea",
+          "Key question to ask: 'Is there really demand, or do I just like this idea?'",
+          "Separates wishful thinking from validated market insight"
+        ],
+        discussion: "Think of a business that failed. Could critical thinking — asking 'is there really demand for this?' — have changed the outcome?"
+      },
+      {
+        id: "reflective",
+        title: "2. Reflective Thinking",
+        tag: "Week 3 · Cognitive Skill",
+        body: `Reflective thinking is "thinking about thinking." Entrepreneurs must constantly look back at their actions, decisions, and outcomes to learn and improve. It involves three core steps: Recall (what happened?), Question (why did it happen that way?), and Adapt (what will I do differently?).\n\nExample from the slides: If a customer rejects your product, don't get angry. Reflect on why they said no. That rejection is data — use it to improve for the next person.`,
+        keypoints: [
+          "Reflective thinking = thinking about your own thinking and past actions",
+          "Three core steps: Recall → Question → Adapt",
+          "Recall: What happened exactly?",
+          "Question: Why did it happen that way? What were my assumptions?",
+          "Adapt: What will I do differently next time?",
+          "Customer rejection is not failure — it is feedback data to be analyzed",
+          "Habit to build: 5 minutes of daily reflection on what worked and what didn't"
+        ],
+        example: "A customer rejects your product. Unreflective response: get angry or give up. Reflective response: ask why they said no, identify the gap between your assumption and their reality, adjust the product or pitch, and return better."
+      },
+      {
+        id: "creative",
+        title: "3. Creative Thinking",
+        tag: "Week 3 · Cognitive Skill",
+        body: `Creative thinking is the ability to generate novel ideas by "breaking patterns" of the past to see potential paths that others miss. It operates in two modes: Divergence (generating many options without judgment) and Convergence (narrowing down and picking the best one).\n\nThe class discussion question: "Is creativity something you are born with, or can it be practiced like a sport?" — The course position, aligned with Week 2's Nature vs Nurture consensus, is that creativity can be developed through deliberate practice.`,
+        keypoints: [
+          "Creative thinking = generating novel ideas by breaking established thought patterns",
+          "Divergence: creating many options without filtering or judging",
+          "Convergence: narrowing down to pick the best option from many",
+          "Both stages are necessary — divergence without convergence is daydreaming",
+          "Creativity can be practiced and developed, like a sport",
+          "Breaking patterns of the past reveals paths others miss"
+        ],
+        discussion: "Is creativity something you are born with, or can it be practiced like a sport? How does this connect to the Nature vs. Nurture debate from Week 2?"
+      },
+      {
+        id: "flip_mindset",
+        title: "Problems = Opportunities: The Flip Mindset",
+        tag: "Week 3 · Core Concept",
+        body: `The "Flip Mindset" is a central concept in entrepreneurial thinking. A normal person sees a problem and complains. An entrepreneur sees the same problem and asks: "How can I build a solution someone will pay for?"\n\nThe classic example from the slides: A normal person sees a pothole and complains online. An entrepreneur sees the same pothole and designs a durable asphalt patch or a pothole-reporting app.\n\nEvery "annoyance" in your daily life is a potential business idea waiting for a solution. The three canonical examples from the slides are: No Taxis → ride-sharing apps; No Bank → African fintech/M-Pesa; No School → online learning platforms.`,
+        keypoints: [
+          "The Flip Mindset: problems are the raw material for business ideas",
+          "Normal person: sees pothole → complains online",
+          "Entrepreneur: sees pothole → designs asphalt patch OR pothole-reporting app",
+          "Every daily annoyance is a potential business idea",
+          "No Taxis → Ride-sharing apps (Uber, Bolt) — multi-billion naira platforms",
+          "No Bank → Fintech/M-Pesa — mobile money for the unbanked in Africa",
+          "No School → Online learning platforms — distance barriers turned into global classrooms"
+        ],
+        example: "Class Activity — The Daily Nuisance: (1) Identify one thing that annoyed you this morning. (2) Flip it — brainstorm 3 versions of a paid product or service that solves it. (3) Pitch — give it a name and explain in 30 seconds why someone would pay for it."
+      },
+      {
+        id: "design_thinking",
+        title: "Intro to Design Thinking",
+        tag: "Week 3 · Framework",
+        body: `Design Thinking is a human-centered problem-solving framework. The course introduces three of its phases: Empathy, Define, and Ideate. The philosophy: you cannot design a good solution without first deeply understanding the person who has the problem. Without empathy, you are just building toys for yourself.\n\nThe key quote from the slides: "Empathy is the key that unlocks innovation. Without it, you are just building toys for yourself."`,
+        keypoints: [
+          "Design Thinking = human-centered approach to solving problems",
+          "Three phases covered: Empathy → Define → Ideate",
+          "Philosophy: you cannot solve a problem you don't truly understand from the user's perspective",
+          "Key quote: 'Empathy is the key that unlocks innovation'",
+          "Without empathy, you build solutions for yourself, not for real users"
+        ]
+      },
+      {
+        id: "empathy",
+        title: "Phase 1: Empathy",
+        tag: "Week 3 · Design Thinking",
+        body: `Empathy is the foundation of Design Thinking. It involves observing and interviewing users to understand their emotional AND practical needs — not just what they say they want, but what they actually experience.\n\nThe golden rule: Don't assume you know. Go out and watch people struggle with the problem yourself. Your assumptions about the user are almost always wrong until tested.\n\nDesign Thinking Example: Children were terrified of MRI machines. The insight came not from asking engineers, but from watching children's emotional experience. The solution was to decorate machines like pirate ships or space shuttles — turning terror into adventure.`,
+        keypoints: [
+          "Empathy = understanding users' emotional AND practical needs through observation and interviews",
+          "Golden rule: Don't assume you know — go watch people struggle with the problem yourself",
+          "Understand what users actually experience, not just what they say they want",
+          "Hospital example: Children terrified of MRI machines → decorate as pirate ships/space shuttles",
+          "The MRI solution came from empathy (observing children's fear), not from engineering assumptions"
+        ],
+        discussion: "Can you think of a product that failed because the creators didn't understand the user's actual experience? What would empathy research have revealed?"
+      },
+      {
+        id: "define",
+        title: "Phase 2: Define",
+        tag: "Week 3 · Design Thinking",
+        body: `The Define phase takes the insights gathered during Empathy and narrows them down to a single, clear, actionable problem statement. This is called a POV (Point of View) Statement.\n\nFormula from the slides: POV = Persona + Need + Insight\n\nThis is critical because most entrepreneurs try to solve a vague problem. The Define phase forces precision — you are not solving "hunger in Nigeria," you are solving "university students in Abuja who miss meals because the campus canteen line is too long during the lunch break."`,
+        keypoints: [
+          "Define phase: narrow empathy findings into ONE actionable problem statement",
+          "Output = POV (Point of View) Statement",
+          "Formula: POV = Persona + Need + Insight",
+          "Persona: who exactly is the user?",
+          "Need: what do they actually need (not just want)?",
+          "Insight: what surprising truth did your empathy research reveal?",
+          "Example: Students stressed by long canteen lines → POV statement → Pre-order app with pickup time"
+        ],
+        example: "Design Thinking in Action — Student Canteen: Empathy revealed students are stressed by long lines, not the food quality. POV Statement: Students who have 30-minute breaks need a way to get food without waiting in line because time, not hunger, is their real problem. Solution: a pre-order app that gives a specific pickup time."
+      },
+      {
+        id: "ideate",
+        title: "Phase 3: Ideate",
+        tag: "Week 3 · Design Thinking",
+        body: `The Ideate phase is where solutions are generated — but the rule is quantity over quality. During ideation, no idea is too "crazy." The goal is to produce hundreds of possibilities before narrowing them down. This prevents you from defaulting to the obvious (and usually boring) solution.\n\nIdeation connects back to Creative Thinking: first diverge (generate wildly), then converge (select the best). The moment you judge ideas during ideation, you kill creativity.`,
+        keypoints: [
+          "Ideate = generate as many solutions as possible before evaluating any",
+          "Rule: Quantity over quality during ideation — no idea is too crazy",
+          "Goal: hundreds of possibilities before narrowing down",
+          "Prevents defaulting to the 'obvious' (usually boring and already-tried) solution",
+          "Connects to Creative Thinking: first Diverge (generate), then Converge (select)",
+          "Judging ideas during ideation kills the process — defer judgment"
+        ],
+        example: "Design Thinking in Action — Rural Water: Empathy reveals women spend 4 hours daily carrying heavy water buckets. Ideation produces wild ideas. The breakthrough: rolling water barrels designed like a lawnmower — users push instead of carry. This came from wild ideation, not the obvious 'carry fewer buckets' solution."
+      },
+      {
+        id: "dt_examples",
+        title: "Design Thinking in Action: Full Examples",
+        tag: "Week 3 · Application",
+        body: `Three complete Design Thinking case studies from the slides, showing the full Empathy → Insight → Solution chain.`,
+        keypoints: [
+          "Canteen: Context = students, Empathy = stressed by long lines (not food quality), Solution = pre-order app with specific pickup time",
+          "Hospital: Context = children + MRI machines, Empathy = children are terrified of the machines, Solution = decorate machines as pirate ships or space shuttles",
+          "Rural Water: Context = rural women, Empathy = spend 4 hours/day carrying heavy buckets, Solution = rolling water barrels that push like a lawnmower"
+        ],
+        table: {
+          headers: ["Context", "Empathy Finding", "Insight", "Innovative Solution"],
+          rows: [
+            ["Student Canteen", "Students stressed by long lines", "Time is the problem, not the food", "Pre-order app with a specific pickup time"],
+            ["Hospital / MRI", "Children are terrified of MRI machines", "Fear, not pain, is the barrier", "Decorate machines like pirate ships or space shuttles"],
+            ["Rural Water", "Women spend 4 hours/day carrying heavy buckets", "The method of transport, not the distance, is the problem", "Rolling water barrels that push like a lawnmower"]
+          ]
+        }
+      },
+      {
+        id: "habits",
+        title: "Habits for Cognitive Growth",
+        tag: "Week 3 · Practical",
+        body: `The course prescribes three specific habits to develop your entrepreneurial cognitive toolkit over time. These are practical, daily actions — not abstract advice.`,
+        keypoints: [
+          "Daily Reflection: 5 minutes every evening asking 'what worked and what didn't today?'",
+          "The 5 Whys: when you see a problem, ask 'Why?' five times to find the deep root cause (not just the surface symptom)",
+          "Observation Mode: 15 minutes a week watching people interact with objects (doors, ATMs, apps) — looking for friction and frustration",
+          "These three habits build Critical, Reflective, and Creative thinking respectively",
+          "The 5 Whys example: 'Why did the canteen fail?' → 'Why are lines so long?' → 'Why can't students order ahead?' → root cause revealed"
+        ],
+        example: "5 Whys in practice: Problem = students skip meals. Why? Long canteen lines. Why? No pre-ordering system. Why? No digital infrastructure. Why? No one built it yet. Why? No one saw it as an opportunity — until now."
+      },
+      {
+        id: "summary3",
+        title: "Week 3 Summary",
+        tag: "Week 3 · Key Takeaways",
+        body: `Everything from Week 3 condensed into the most testable points. Know these cold.`,
+        keypoints: [
+          "Entrepreneurial Thinking = identifying opportunities and mobilizing resources to create value under uncertainty",
+          "Three cognitive tools: Critical (Analyze facts), Reflective (Recall-Question-Adapt), Creative (Diverge then Converge)",
+          "Critical Thinking key question: 'Is there really demand, or do I just like this idea?'",
+          "Reflective Thinking steps: Recall → Question → Adapt",
+          "Creative Thinking: Divergence (many options) + Convergence (pick the best)",
+          "The Flip Mindset: Problems = raw materials for innovation, not barriers",
+          "Flip examples: No Taxis → ride-sharing; No Bank → fintech; No School → online learning",
+          "Design Thinking phases: Empathy → Define → Ideate",
+          "Empathy rule: Don't assume — go observe people struggling with the problem",
+          "POV Statement formula: Persona + Need + Insight",
+          "Ideate rule: Quantity over quality — no idea is too crazy during ideation",
+          "Three cognitive growth habits: Daily Reflection, The 5 Whys, Observation Mode"
+        ]
+      }
+    ]
+  }
+};
+
 // ============================================================
 //  CHALLENGE QUESTIONS — exam-style, from both PDFs
 // ============================================================
@@ -1623,6 +1815,45 @@ const allQuestions = {
   ]
 };
 
+  ,3: [
+    {
+      category: "Definitions",
+      q: "Define Entrepreneurial Thinking. How does it differ from ordinary thinking?",
+      a: `<strong>Entrepreneurial Thinking</strong> is a specific mental process where individuals identify opportunities and mobilize resources to create value, even in uncertain environments.<br><br>It differs from ordinary thinking in its orientation: ordinary thinking responds to problems with complaint or avoidance. Entrepreneurial thinking responds with the question "How can I build a solution someone will pay for?"<br><br>Importantly, it is not exclusive to startups — doctors, engineers, and teachers also use it to solve complex daily problems. It is a universal cognitive skill built on three tools: <strong>Critical, Reflective, and Creative Thinking</strong>.`
+    },
+    {
+      category: "Cognitive Skills",
+      q: "Define and distinguish between Critical, Reflective, and Creative Thinking in an entrepreneurial context.",
+      a: `<strong>Critical Thinking</strong>: The ability to analyze facts objectively to form a judgment. For entrepreneurs, this means fact-checking the market before spending money. Key question: "Is there really demand, or do I just like this idea?" It prevents costly mistakes caused by emotional attachment to an idea.<br><br><strong>Reflective Thinking</strong>: Thinking about your own thinking and actions. Three steps: <strong>Recall</strong> (what happened?), <strong>Question</strong> (why?), <strong>Adapt</strong> (what will I do differently?). Customer rejection is data, not failure.<br><br><strong>Creative Thinking</strong>: Generating novel ideas by breaking established patterns. Two modes: <strong>Divergence</strong> (creating many options without judgment) and <strong>Convergence</strong> (picking the best). Creativity can be practiced like a sport.`
+    },
+    {
+      category: "Cognitive Skills",
+      q: "What is the 'Flip Mindset'? Give two real-world examples of problems that were flipped into major business opportunities.",
+      a: `The <strong>Flip Mindset</strong> is the entrepreneurial habit of seeing problems not as barriers but as raw materials for innovation. Instead of complaining about an annoyance, the entrepreneur asks: "How can this become a paid product or service?"<br><br>Classic example: A normal person sees a pothole and complains online. An entrepreneur sees it and designs a durable asphalt patch or a pothole-reporting app.<br><br><strong>Real-world examples from the course:</strong><br>1. <strong>No Taxis</strong> → Ride-sharing apps (Uber, Bolt) turned the lack of transport into a multi-billion naira platform<br>2. <strong>No Bank</strong> → Fintech/M-Pesa solved the "unbanked" problem in Africa using mobile phone technology<br>3. <strong>No School</strong> → Online learning platforms turned distance barriers into accessible global classrooms`
+    },
+    {
+      category: "Design Thinking",
+      q: "Explain the three phases of Design Thinking introduced in Week 3: Empathy, Define, and Ideate.",
+      a: `<strong>Phase 1 — Empathy</strong>: The foundation. Involves observing and interviewing users to understand their emotional AND practical needs. Rule: Don't assume you know — go out and watch people struggle with the problem yourself. Example: Children terrified of MRI machines — the insight came from observing their fear, not from engineering assumptions.<br><br><strong>Phase 2 — Define</strong>: Narrow empathy findings into one actionable POV (Point of View) statement. Formula: <strong>Persona + Need + Insight</strong>. Example: "Students need a way to get canteen food without waiting in line because time, not hunger, is their real problem."<br><br><strong>Phase 3 — Ideate</strong>: Generate as many solutions as possible — quantity over quality. No idea is too crazy. Prevents defaulting to the obvious boring solution. First diverge wildly, then converge to the best option.`
+    },
+    {
+      category: "Design Thinking",
+      q: "What is the POV Statement in Design Thinking? Write the formula and give an example.",
+      a: `A <strong>POV (Point of View) Statement</strong> is the output of the Define phase. It converts messy empathy findings into a single, precise, actionable problem statement that guides ideation.<br><br><strong>Formula: POV = Persona + Need + Insight</strong><br><br>• <strong>Persona</strong>: Who exactly is the user?<br>• <strong>Need</strong>: What do they actually need (not just what they say they want)?<br>• <strong>Insight</strong>: What surprising truth did your empathy research uncover?<br><br><strong>Example (from the slides)</strong>: Students stressed by long canteen lines → POV: "University students with 30-minute breaks need a way to receive food without waiting in line because their real constraint is time, not access to food" → Solution: Pre-order app with specific pickup time.`
+    },
+    {
+      category: "Application",
+      q: "Apply Design Thinking to the rural water problem from the course. Walk through Empathy, Define, and Ideate.",
+      a: `<strong>Empathy</strong>: Researchers observed rural women spending 4 hours every day carrying heavy water buckets long distances. The emotional finding: exhaustion, time poverty, physical strain. They didn't just ask "do you have water access?" — they watched the experience.<br><br><strong>Define (POV)</strong>: Rural women need a way to transport large quantities of water without physical strain because their current method (carrying buckets) consumes 4 hours daily and causes physical damage — the problem is the transport method, not the distance.<br><br><strong>Ideate</strong>: Wild ideation produced many ideas. The breakthrough solution: <strong>rolling water barrels that push like a lawnmower</strong> — users push instead of carry, dramatically reducing effort. This emerged from ideation, not the obvious "carry fewer buckets" solution.`
+    },
+    {
+      category: "Habits",
+      q: "What are the three habits for cognitive growth prescribed in Week 3? How does each build a specific thinking skill?",
+      a: `1. <strong>Daily Reflection</strong> (5 minutes every evening): Builds <strong>Reflective Thinking</strong>. Ask: "What worked today and what didn't?" This activates the Recall → Question → Adapt cycle continuously.<br><br>2. <strong>The 5 Whys</strong>: Builds <strong>Critical Thinking</strong>. When you see a problem, ask "Why?" five times to find the deep root cause rather than the surface symptom. Example: "Why did the canteen fail?" → keep asking why until you reach the true structural problem.<br><br>3. <strong>Observation Mode</strong> (15 minutes/week): Builds <strong>Creative Thinking and Empathy</strong>. Spend time just watching people interact with everyday objects (doors, ATMs, apps) to spot friction, frustration, and unmet needs — the raw material for business ideas.`
+    }
+  ]
+};
+
 // ============================================================
 //  FLASHCARDS — rapid fire mode
 // ============================================================
@@ -1659,6 +1890,22 @@ const allFlashcards = {
     { q: "What is Opportunity (Pull) Entrepreneurship?", a: "Motivated by <strong>growth</strong> — 'I see a problem I can solve to build wealth.' Higher innovation, scalable, seeks to disrupt. Example: <strong>Paystack</strong> (Nigerian fintech acquired by Stripe)." },
     { q: "Tola Case Study: Action A vs Action B — which is gambling?", a: "<strong>Action A = Gambling</strong>: Uses entire school fees, no research, based on feeling.<br><strong>Action B = Calculated Risk</strong>: Researches first (2 weeks), starts with bicycle, tests demand before investing. Classic affordable loss principle." },
     { q: "Who is Jason Njoku and what does he illustrate?", a: "<strong>Jason Njoku</strong> founded <strong>iROKO TV</strong> — Africa's answer to Netflix. He illustrates <strong>persistence and resilience</strong> — he failed multiple ventures before succeeding. Failure is data, not an endpoint." }
+  ],
+  3: [
+    { q: "Define Entrepreneurial Thinking", a: "A specific mental process where individuals <strong>identify opportunities and mobilize resources to create value, even in uncertain environments.</strong> Not just for startups — doctors, engineers, and teachers use it too." },
+    { q: "What are the 3 cognitive tools of entrepreneurial thinking?", a: "1. <strong>Critical Thinking</strong> — analyze facts objectively (fact-check the market)<br>2. <strong>Reflective Thinking</strong> — think about your own actions (Recall → Question → Adapt)<br>3. <strong>Creative Thinking</strong> — generate novel ideas (Diverge then Converge)" },
+    { q: "Critical Thinking — what is the key entrepreneur question?", a: "<strong>'Is there really a demand for this, or do I just like this idea?'</strong> Critical thinking means fact-checking the market before spending money. It prevents costly mistakes from bias and wishful thinking." },
+    { q: "Reflective Thinking — what are the 3 steps?", a: "1. <strong>Recall</strong> — what happened exactly?<br>2. <strong>Question</strong> — why did it happen that way?<br>3. <strong>Adapt</strong> — what will I do differently?<br><br>Customer rejection = feedback data. Don't get angry. Reflect on why they said no." },
+    { q: "Creative Thinking — what is Divergence vs Convergence?", a: "<strong>Divergence</strong>: generating MANY options without judging any — quantity over quality.<br><strong>Convergence</strong>: narrowing down to pick the BEST option from everything generated.<br><br>Both stages are necessary. Judging during divergence kills creativity." },
+    { q: "What is the Flip Mindset?", a: "Seeing problems as <strong>raw materials for innovation, not barriers.</strong><br>Normal person: sees pothole → complains online.<br>Entrepreneur: sees pothole → designs asphalt patch OR pothole-reporting app.<br><br>Every daily annoyance = a potential business idea." },
+    { q: "Name 3 examples of the Flip Mindset from the course", a: "1. <strong>No Taxis</strong> → Ride-sharing apps (Bolt, Uber)<br>2. <strong>No Bank</strong> → African Fintech / M-Pesa (mobile money)<br>3. <strong>No School</strong> → Online learning platforms (distance → accessible classrooms)" },
+    { q: "What is Design Thinking?", a: "A <strong>human-centered problem-solving framework</strong> that starts with deeply understanding the user before designing solutions. Key quote: <em>'Empathy is the key that unlocks innovation. Without it, you are just building toys for yourself.'</em>" },
+    { q: "Phase 1 of Design Thinking — what is Empathy?", a: "Observing and interviewing users to understand their <strong>emotional AND practical needs.</strong> Golden rule: <strong>Don't assume you know — go watch people struggle with the problem yourself.</strong> Example: children terrified of MRI machines (decorate as pirate ships)." },
+    { q: "Phase 2 of Design Thinking — what is the POV formula?", a: "<strong>POV = Persona + Need + Insight</strong><br><br>Narrows empathy findings into ONE actionable problem statement. Example: students aren't stressed by food quality — they're stressed by long lines. POV → pre-order app with pickup time." },
+    { q: "Phase 3 of Design Thinking — Ideate rule?", a: "<strong>Quantity over quality.</strong> No idea is too crazy. Generate hundreds of possibilities BEFORE narrowing down. This prevents defaulting to the obvious (and boring) solution. Diverge wildly first, then converge." },
+    { q: "Design Thinking: Rural Water case study", a: "Empathy: Women spend 4 hours/day carrying heavy buckets. Insight: the transport METHOD is the problem, not the distance. Solution: <strong>Rolling water barrels that push like a lawnmower</strong> — users push instead of carry." },
+    { q: "What are the 3 habits for cognitive growth?", a: "1. <strong>Daily Reflection</strong>: 5 mins/evening — 'what worked, what didn't?'<br>2. <strong>The 5 Whys</strong>: ask Why 5 times to find the deep root cause<br>3. <strong>Observation Mode</strong>: 15 mins/week watching people interact with objects (ATMs, doors, apps)" },
+    { q: "What does the 5 Whys technique do?", a: "Drills past the <strong>surface symptom</strong> to find the <strong>deep root cause</strong> of a problem. Example: Why did students skip meals? → long lines → no pre-order system → no digital infrastructure → no one built it yet → <strong>opportunity identified.</strong>" }
   ]
 };
 
@@ -1689,16 +1936,17 @@ function selectWeek(week, btn) {
 function getWeekLabel() {
   if (currentWeek === 1) return "Week 1";
   if (currentWeek === 2) return "Week 2";
+  if (currentWeek === 3) return "Week 3";
   return "All Weeks";
 }
 
 function getQuestions() {
-  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2]];
+  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3]];
   return allQuestions[currentWeek] || [];
 }
 
 function getFlashcards() {
-  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2]];
+  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3]];
   return allFlashcards[currentWeek] || [];
 }
 
