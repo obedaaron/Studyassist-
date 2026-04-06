@@ -1000,6 +1000,8 @@ body {
     <button class="week-btn" onclick="selectWeek(2, this)">Week 2 — Entrepreneurial Character</button>
     <button class="week-btn" onclick="selectWeek(3, this)">Week 3 — Entrepreneurial Thinking</button>
     <button class="week-btn" onclick="selectWeek(4, this)">Week 4 — Innovation Theory</button>
+       <button class="week-btn" onclick="selectWeek(5, this)">Week 5 — The Nigerian Landscape</button>
+       <button class="week-btn" onclick="selectWeek(6, this)">Week 6 — The Ecosystem & Support</button>
     <button class="week-btn" onclick="selectWeek('all', this)">All Weeks</button>
   </div>
 
@@ -1130,172 +1132,90 @@ body {
 </div>
 
 
-<script>
 /* ============================================================
-   ENT 211 COURSE DATA
-   All topic content for Learn Mode, weeks 1–4.
+   ENT 211 — COURSE DATA  (Weeks 1–6)
    ============================================================ */
-
 const courseData = {
 
   /* ----------------------------------------------------------
-     WEEK 1 — Foundations of Value Creation
+     WEEK 1 — Introduction to Entrepreneurship & Value Creation
      ---------------------------------------------------------- */
   1: {
-    label: "Week 1 — Foundations of Value Creation",
+    label: "Week 1 — Value Creation",
     topics: [
       {
-        id: "intro",
-        title: "Introduction: The Value Creators",
-        tag: "Week 1 · Introduction",
-        body: `When you hear the word "Entrepreneur," you might think of Aliko Dangote or Mark Zuckerberg. But entrepreneurship isn't just about being a billionaire — it is fundamentally about solving problems and creating value.\n\nConceptually, entrepreneurship is the process of designing, launching, and running a new business, which is often initially a small business. The discussion question from class: Is a person who buys a shirt for ₦5,000 and sells it for ₦7,000 an entrepreneur? This gets at the heart of what entrepreneurship really is — value creation, not just trade.`,
+        id: "what_is_ent",
+        title: "What is Entrepreneurship?",
+        tag: "Week 1 · Foundations",
+        body: `Entrepreneurship is the pursuit of opportunity beyond resources currently controlled. It is the process of creating value by bringing together a unique combination of resources to exploit an opportunity.\n\nThree core elements:\n1. VALUE CREATION — solving a real problem people will pay for\n2. RISK — time, money, and reputation are on the line\n3. REWARD — profit, impact, and personal fulfilment`,
         keypoints: [
-          "Entrepreneurship = solving problems and creating value, not just making money",
-          "It is the process of designing, launching, and running a new (often small) business",
-          "Buying and reselling at a markup is a form of value creation through arbitrage",
-          "Anyone can be entrepreneurial — in studies, relationships, or hobbies"
-        ],
-        discussion: "Is a person who buys a shirt for ₦5,000 and sells it for ₦7,000 an entrepreneur? Why or why not? Consider: are they creating value or just moving goods?"
-      },
-      {
-        id: "entrepreneurship",
-        title: "Defining Entrepreneurship",
-        tag: "Week 1 · Core Definition",
-        body: `Entrepreneurship is the pursuit of opportunity beyond resources controlled. It involves innovation, risk-taking, and proactivity. It is not merely about owning a business — it is a mindset that can be applied to your studies, your relationships, and your hobbies.\n\nThe three key elements that define entrepreneurship are value creation (making something useful), risk (putting time, money, and reputation on the line), and reward (profit and personal satisfaction).`,
-        keypoints: [
-          "Pursuit of opportunity beyond resources controlled",
-          "Value Creation — making something useful for others",
-          "Risk — committing time, money, and reputation under uncertainty",
-          "Reward — profit and personal satisfaction",
-          "Entrepreneurship is a mindset, not just a job title",
-          "Involves innovation, risk-taking, and proactivity"
-        ],
-        example: "Class discussion: The shirt example (₦5k → ₦7k) shows basic arbitrage — a form of value creation. But true entrepreneurship often involves creating something new, not just reselling."
-      },
-      {
-        id: "intrapreneurship",
-        title: "Defining Intrapreneurship",
-        tag: "Week 1 · Core Definition",
-        body: `Intrapreneurship is the act of behaving like an entrepreneur while working within a large organization. An employee identifies a problem or opportunity and takes the initiative to create a solution — using the company's resources, not their own.\n\nIntrapreneurs have a "safety net" — they receive a salary even if their idea fails, but they also share the rewards with the company rather than keeping all the profit.`,
-        keypoints: [
-          "Acting entrepreneurially inside an existing organization",
-          "Uses company resources, not personal capital",
-          "Safety net: still earns salary if idea fails",
-          "Rewards are shared with the company (bonus, promotion, salary)",
-          "Employee identifies a problem/opportunity and takes initiative"
-        ],
-        example: "The Facebook 'Like' button and Gmail were both created by employees (intrapreneurs) during 'hackathons' or free time — not by the CEOs."
-      },
-      {
-        id: "comparison",
-        title: "Entrepreneurship vs. Intrapreneurship",
-        tag: "Week 1 · Comparison",
-        body: `Understanding the difference between an entrepreneur and an intrapreneur is critical. Both innovate and create value, but they do so in very different contexts — with different levels of risk, reward, resource access, and freedom.`,
-        keypoints: [
-          "Entrepreneur: High risk (personal capital), unlimited reward, high autonomy",
-          "Intrapreneur: Low risk (company capital), limited reward, moderate autonomy",
-          "Entrepreneur must find/mobilize their own resources",
-          "Intrapreneur uses existing company resources",
-          "Both are legitimate paths — neither is superior"
-        ],
-        table: {
-          headers: ["Feature", "Entrepreneur", "Intrapreneur"],
-          rows: [
-            ["Risk", "High — personal capital at stake", "Low — company capital at stake"],
-            ["Resources", "Must find and mobilize them", "Uses existing company resources"],
-            ["Reward", "Unlimited — all profit/equity", "Limited — bonus, promotion, salary"],
-            ["Freedom", "High autonomy", "Moderate — must follow company policy"],
-            ["Safety Net", "None — must succeed or fail alone", "Yes — earns salary regardless"]
-          ]
-        },
-        discussion: "Which path appeals to you more right now: the high risk/high reward of the Entrepreneur, or the security and resources of the Intrapreneur?"
-      },
-      {
-        id: "msmes",
-        title: "The Role of MSMEs",
-        tag: "Week 1 · MSMEs",
-        body: `Micro, Small, and Medium Enterprises (MSMEs) are businesses with a small number of employees and limited turnover. They are the backbone of the Nigerian and African economy — often called the "engine of the economy."\n\nUnlike Multinational Corporations (MNCs) which often send profits back to their home countries, MSMEs spend their profits locally — building and circulating wealth within the local community.`,
-        keypoints: [
-          "MSMEs = businesses with small staff count and limited turnover",
-          "Called the 'backbone' and 'engine' of the Nigerian/African economy",
-          "Wealth Creation: Raw materials/skills → valuable products → local income",
-          "MNCs repatriate profits abroad; MSMEs circulate money locally",
-          "In Nigeria, MSMEs provide over 80% of all jobs",
-          "Primary path to financial independence and self-reliance"
-        ],
-        example: "Examples of MSMEs: the mechanic, the baker, the fashion designer, the tech freelancer. All generate local income and keep money in the community.",
-        discussion: "If the government stopped hiring people tomorrow, what would happen to the economy if MSMEs didn't exist?"
-      },
-      {
-        id: "theories",
-        title: "Theories of Entrepreneurship (Overview)",
-        tag: "Week 1 · Theories",
-        body: `Scholars have analyzed entrepreneurship through different lenses. Three core theoretical perspectives emerge: Economic, Sociological, and Conditional. Each answers a different version of the same question: Is an entrepreneur born, made by the market, shaped by their culture, or created by circumstances?`,
-        keypoints: [
-          "Economic Perspective — focuses on market incentives and profit",
-          "Sociological Perspective — focuses on social background, culture, values",
-          "Conditional Perspective — focuses on environmental stimuli and circumstances",
-          "Each theory is a different lens, not a complete picture alone",
-          "Real entrepreneurship is usually a combination of all three"
+          "Entrepreneurship ≠ just starting a business — it is the pursuit of opportunity",
+          "Three core elements: Value Creation, Risk, and Reward",
+          "Entrepreneurs see opportunity where others see problems or obstacles",
+          "Can occur inside existing organizations (intrapreneurship)"
         ]
       },
       {
-        id: "economic",
-        title: "The Economic Theory",
-        tag: "Week 1 · Theory",
-        body: `The Economic Perspective, associated with Richard Cantillon and Frank Knight, positions the entrepreneur as a risk-bearer who bridges the gap between supply and demand. They buy goods at a certain price today to sell at an uncertain price tomorrow. Their core motivation is profit.`,
+        id: "intrapreneurship",
+        title: "Intrapreneurship",
+        tag: "Week 1 · Concept",
+        body: `Intrapreneurship is the practice of applying entrepreneurial thinking and behavior WITHIN an existing organization, using the organization's resources.\n\nKey difference: Intrapreneurs have a safety net — they still earn a salary if the idea fails. Rewards are shared with the organization.`,
         keypoints: [
-          "Key Theorists: Richard Cantillon & Frank Knight",
-          "Entrepreneur = primary risk-bearer in the economy",
-          "Buys at certain price today, sells at uncertain price tomorrow",
-          "Bridges the gap between supply and demand",
-          "Motivation: Profit — filling market gaps for financial gain",
-          "Core concept: Arbitrage — buy low, sell high"
+          "Intrapreneurship = entrepreneurship inside a large organization",
+          "Uses company resources — no personal financial risk",
+          "Famous examples: Facebook 'Like' button (employee hackathon), Gmail (Google 20% time)",
+          "Benefit to companies: drives innovation without full startup risk"
         ],
-        example: "Buying goods in Onitsha market at wholesale prices and selling in Abuja at retail prices — classic economic entrepreneurship driven by spotting a price gap."
+        example: `The Gmail and Google Maps products were created by Google employees during their 20% free time — not top-down mandates from leadership. Facebook's 'Like' button emerged from an internal hackathon. Both changed the world and made billions.`
       },
       {
-        id: "sociological",
-        title: "The Sociological Theory",
-        tag: "Week 1 · Theory",
-        body: `The Sociological Perspective, associated with Max Weber, argues that entrepreneurship is influenced by social culture, values, religious beliefs, and community norms. Your environment shapes you. If you come from a community that values trade and apprenticeship, you are socially conditioned to be an entrepreneur.`,
+        id: "msmes",
+        title: "MSMEs & the Nigerian Economy",
+        tag: "Week 1 · Nigerian Context",
+        body: `Micro, Small, and Medium Enterprises (MSMEs) are the backbone of Nigeria's economy. They are not just entry-level businesses — they are the primary engine of employment and economic circulation.\n\nCritical insight: Multinational corporations (MNCs) repatriate profits back to their home countries. MSMEs spend profits locally, circulating wealth within communities.`,
         keypoints: [
-          "Key Theorist: Max Weber",
-          "Entrepreneurship shaped by culture, values, and religious beliefs",
-          "Your social environment conditions your entrepreneurial tendencies",
-          "Motivation: Social status, family tradition, or fitting into a social group",
-          "African Example: The Igbo Apprenticeship System (Igba-Boi)"
+          "MSMEs provide over 80% of all jobs in Nigeria",
+          "MSMEs contribute approximately 48% of Nigeria's GDP",
+          "Key advantage over MNCs: profits stay in the local economy",
+          "Challenge: Most Nigerian MSMEs remain informal, limiting growth and access to finance"
         ],
-        discussion: "Do you think your cultural background encourages or discourages starting a business? Think about your family, your ethnic group, your community."
+        table: {
+          headers: ["Category", "Employees", "Assets (excluding land)"],
+          rows: [
+            ["Micro", "< 10", "< ₦5 million"],
+            ["Small", "10–49", "₦5m – ₦50 million"],
+            ["Medium", "50–199", "₦50m – ₦500 million"],
+            ["Large", "200+", "> ₦500 million"]
+          ]
+        }
       },
       {
-        id: "conditional",
-        title: "The Conditional Theory",
+        id: "theories",
+        title: "Theories of Entrepreneurship",
         tag: "Week 1 · Theory",
-        body: `The Conditional Perspective explains entrepreneurship as driven by environmental stimuli — circumstances that push someone into entrepreneurship. Resource constraints and significant loss events (like a parent losing a job) motivate students to start businesses rather than drop out.\n\nModel: Environmental Stimuli → Conditional Student Entrepreneurship → Entrepreneurial Learning → Financial Stability.`,
+        body: `Three dominant theoretical lenses help explain WHY and HOW entrepreneurship happens:\n\n1. ECONOMIC THEORY — Entrepreneurs as risk-bearers and arbitrageurs\n2. SOCIOLOGICAL THEORY — Entrepreneurship as culturally and socially determined\n3. CONDITIONAL THEORY — Entrepreneurship triggered by environmental conditions`,
         keypoints: [
-          "Entrepreneurship driven by environmental stimuli and circumstances",
-          "Resource constraints or significant loss events trigger entrepreneurship",
-          "Students choose entrepreneurship over dropping out to do unskilled jobs",
-          "Model: Environmental stimuli → CSE → Entrepreneurial learning → Financial stability",
-          "Especially relevant in emerging economies like Nigeria"
-        ],
-        example: "A student whose parent loses a job starts selling food on campus not out of passion, but out of necessity — this is conditional entrepreneurship triggered by a loss event."
+          "Economic Theory: Richard Cantillon & Frank Knight — entrepreneur as risk-bearer and profit-seeker through arbitrage",
+          "Sociological Theory: Max Weber — culture, social values, and religion shape entrepreneurship",
+          "Igbo Apprenticeship System (Igba-Boi) is a perfect Nigerian example of Sociological Theory",
+          "Conditional Theory: loss events and resource constraints push people into entrepreneurship",
+          "Nigerian student example: starting a POS business to pay school fees = Conditional Theory"
+        ]
       },
       {
         id: "summary1",
         title: "Week 1 Summary",
         tag: "Week 1 · Key Takeaways",
-        body: `Everything from Week 1 condensed into the most testable points. Know these cold.`,
+        body: `Everything from Week 1 condensed into the most testable points.`,
         keypoints: [
-          "Entrepreneurship = pursuit of opportunity beyond resources controlled",
-          "Three elements: Value Creation, Risk, Reward",
-          "Intrapreneurship = entrepreneurship inside a company using company resources",
-          "MSMEs provide 80%+ of Nigerian jobs and circulate wealth locally",
-          "Economic Theory: Entrepreneurs are profit-driven risk-bearers (Cantillon, Knight)",
-          "Sociological Theory: Culture and social environment shape entrepreneurship (Weber)",
-          "Conditional Theory: Environmental stimuli (hardship) trigger entrepreneurship",
-          "Key takeaway: See the world as a map of opportunities — not a waiting room for jobs"
+          "Entrepreneurship = pursuing opportunity beyond resources controlled (not just 'starting a business')",
+          "Three elements: Value Creation + Risk + Reward",
+          "Intrapreneurship = entrepreneurship inside an organization using company resources",
+          "MSMEs provide 80%+ of Nigerian jobs; they are the backbone of the economy",
+          "MSMEs circulate profits locally; MNCs repatriate profits abroad",
+          "Economic Theory: risk-bearing and arbitrage (Cantillon, Knight)",
+          "Sociological Theory: culture and social values shape it (Weber, Igba-Boi system)",
+          "Conditional Theory: environmental triggers push people into entrepreneurship"
         ]
       }
     ]
@@ -1305,147 +1225,83 @@ const courseData = {
      WEEK 2 — The Entrepreneurial Character & Risk
      ---------------------------------------------------------- */
   2: {
-    label: "Week 2 — The Entrepreneurial Character & Risk",
+    label: "Week 2 — Entrepreneurial Character",
     topics: [
       {
-        id: "who_is",
-        title: "What is an Entrepreneur?",
-        tag: "Week 2 · Foundation",
-        body: `An entrepreneur is a person who identifies opportunities, takes calculated risks, and creates value by starting and managing a business venture. Five key elements define an entrepreneur: opportunity recognition, innovation, risk-taking, value creation, and being action-oriented.`,
-        keypoints: [
-          "Opportunity Recognition — seeing what others miss",
-          "Innovation — creating new things or improving existing ones",
-          "Risk-Taking — willing to face uncertainty",
-          "Value Creation — making something people want or need",
-          "Action-Oriented — turning ideas into reality, not just talking"
-        ]
-      },
-      {
         id: "ent_vs_owner",
-        title: "Entrepreneurs vs. Business Owners",
-        tag: "Week 2 · Key Distinction",
-        body: `One of the most important distinctions in the course. An entrepreneur creates something NEW, innovates, disrupts, seeks growth, embraces change, and takes calculated risks. A business owner operates an existing business, maintains the status quo, seeks stability, follows established practices, and minimizes risk. Both are valuable.`,
+        title: "Entrepreneur vs. Business Owner",
+        tag: "Week 2 · Distinction",
+        body: `Not all business owners are entrepreneurs, and not all entrepreneurs own businesses. The distinction matters because it changes how you approach growth, risk, and innovation.\n\nEntrepreneurs create new — they innovate, disrupt, and seek growth. Business owners operate existing — they maintain, stabilize, and minimize risk. Both are valuable, but they require different mindsets.`,
         keypoints: [
-          "Entrepreneur: Creates NEW things, innovates, disrupts markets",
-          "Entrepreneur: Seeks growth and scaling, embraces change",
-          "Business Owner/Manager: Operates existing business, maintains status quo",
-          "Business Owner: Seeks stability, follows established practices, minimizes risk",
-          "IMPORTANT: Both are valuable — entrepreneurship is not superior to ownership"
+          "Entrepreneur: Creates new, innovates, disrupts, seeks growth, tolerates uncertainty",
+          "Business owner: Operates existing, maintains status quo, seeks stability, minimizes risk",
+          "Key test: Are you creating something new, or maintaining something existing?",
+          "Both are valuable and necessary — the economy needs both innovators and stable operators"
         ],
         table: {
           headers: ["Dimension", "Entrepreneur", "Business Owner"],
           rows: [
-            ["Focus", "Creates something new", "Operates existing business"],
-            ["Approach", "Innovates and disrupts", "Maintains status quo"],
-            ["Goal", "Growth and scaling", "Stability"],
-            ["Attitude to Change", "Embraces change", "Follows established practices"],
-            ["Risk", "Takes calculated risks", "Minimizes risk"]
+            ["Orientation", "Creates and innovates", "Operates and maintains"],
+            ["Risk attitude", "Embraces calculated risk", "Minimizes risk"],
+            ["Goal", "Disruption and growth", "Stability and profit"],
+            ["Typical Nigerian example", "Flutterwave founder", "Local supermarket owner"]
           ]
         }
       },
       {
-        id: "traits",
-        title: "The 11 Core Entrepreneurial Characteristics",
-        tag: "Week 2 · Characteristics",
-        body: `The course covers 11 key characteristics of successful entrepreneurs. These are not a checklist — no one has all of them perfectly. The goal is awareness for development and building complementary teams.`,
+        id: "characteristics",
+        title: "The 11 Entrepreneurial Characteristics",
+        tag: "Week 2 · Traits",
+        body: `Successful entrepreneurs across cultures share a core set of characteristics. These are not just born — they can be deliberately cultivated.\n\nThe 11 traits: Passion, Vision & Opportunity Recognition, Self-Confidence, Persistence & Resilience, Creativity & Innovation, Risk Tolerance, Independence & Autonomy, Action Orientation, Adaptability & Flexibility, Leadership & Team Building, Resourcefulness.`,
         keypoints: [
-          "1. Passion & Motivation — genuine enthusiasm that sustains you through hard times",
-          "2. Vision & Opportunity Recognition — seeing future possibilities others miss",
-          "3. Self-Confidence & Belief — trust in your judgment without arrogance",
-          "4. Persistence & Resilience — bouncing back from failure",
-          "5. Creativity & Innovation — turning new ideas into practical value",
-          "6. Risk Tolerance — comfort with uncertainty (not reckless gambling)",
-          "7. Independence & Autonomy — desire to control your own direction",
-          "8. Action Orientation — bias for doing over talking; 'fail fast, learn faster'",
-          "9. Adaptability & Flexibility — pivoting when your original plan isn't working",
-          "10. Leadership & Team Building — inspiring and retaining talented people",
-          "11. Resourcefulness — making do with limited resources; 'bootstrapping'"
-        ],
-        example: "Twitter started as Odeo (podcasting platform). When iTunes dominated, they pivoted to microblogging — a classic display of Adaptability (Characteristic 9)."
+          "1. PASSION — intrinsic drive that sustains effort through inevitable hard times",
+          "2. VISION — ability to see opportunities others miss; long-term orientation",
+          "3. SELF-CONFIDENCE — not arrogance; belief that you can figure it out",
+          "4. PERSISTENCE & RESILIENCE — treating failure as data, not a verdict",
+          "5. CREATIVITY & INNOVATION — generating novel solutions to real problems",
+          "6. RISK TOLERANCE — comfort with uncertainty (not recklessness)",
+          "7. INDEPENDENCE — desire to control your own path and decisions",
+          "8. ACTION ORIENTATION — bias toward doing, not just planning",
+          "9. ADAPTABILITY — pivoting when market feedback demands it",
+          "10. LEADERSHIP — inspiring others to join your vision",
+          "11. RESOURCEFULNESS — doing more with less; bootstrapping creatively"
+        ]
       },
       {
         id: "nature_nurture",
-        title: "The Nature vs. Nurture Debate",
-        tag: "Week 2 · Key Debate",
-        body: `Are entrepreneurs BORN with special traits, or MADE through experience and learning? Twin studies show 30–40% of entrepreneurial tendency is heritable — but 60–70% is environmental. The modern consensus: BOTH play a role, and entrepreneurship can be learned and developed.`,
+        title: "Nature vs. Nurture in Entrepreneurship",
+        tag: "Week 2 · Debate",
+        body: `Are entrepreneurs born or made? The answer is both — but the evidence strongly supports that entrepreneurship can be learned and developed.\n\nTwin studies: 30–40% of entrepreneurial tendency is heritable (nature). 60–70% is explained by environment, education, and experience (nurture).\n\nModern consensus: Nature provides a predisposition. Environment activates and develops it. Deliberate practice builds the skills.`,
         keypoints: [
-          "Nature = genetic predisposition, inherited traits, natural talents",
-          "Nurture = environment, education, experiences, training, culture",
-          "Twin studies: 30–40% heritable — but nature is not destiny",
-          "Most successful entrepreneurs are 35–45 (experience matters — supports nurture)",
-          "Modern consensus: BOTH nature and nurture matter — interaction model",
-          "Empowering conclusion: Entrepreneurship CAN be taught and developed"
-        ],
-        table: {
-          headers: ["Nature Arguments", "Nurture Arguments"],
-          rows: [
-            ["Genetic risk-tolerance differences", "Business skills can be taught"],
-            ["Personality traits partly heritable (Big Five)", "Incubators and accelerators work"],
-            ["Entrepreneurship runs in families", "Cultural attitudes shape entrepreneurship"],
-            ["Brain scans show different risk processing", "Entrepreneurship education increases business creation"]
-          ]
-        }
+          "Twin studies: 30-40% heritable, 60-70% environmental — nurture dominates",
+          "Modern consensus: BOTH matter. Neither alone determines entrepreneurial success",
+          "Genes provide tendencies; environment and practice build capabilities",
+          "Key implication: Entrepreneurship CAN be taught, learned, and developed",
+          "This course is evidence that entrepreneurship is not just for 'born naturals'"
+        ]
       },
       {
-        id: "calc_vs_gamble",
+        id: "risk",
         title: "Calculated Risk vs. Gambling",
         tag: "Week 2 · Risk",
-        body: `One of the most critical distinctions in the course. Gambling is based on luck/chance — no skill improves the odds. Calculated risk is based on analysis and information — skill and knowledge improve outcomes and the risk can be managed.`,
+        body: `Entrepreneurs are not reckless gamblers — they are calculated risk-takers. This distinction is critical and commonly misunderstood.\n\nGambling: pure chance, no skill advantage, random outcomes.\nCalculated Risk: Based on research and analysis, probability can be estimated, skill and preparation improve outcomes, risk can be managed and reduced.`,
         keypoints: [
-          "GAMBLING: Based on luck/chance, random outcomes, no skill helps long-term",
-          "CALCULATED RISK: Based on analysis, probability estimated, skill improves odds",
-          "Entrepreneurs are calculated risk-takers — NOT gamblers",
-          "4 elements: Research/analysis, Probability assessment, Mitigation strategies, Affordable loss principle"
-        ],
-        table: {
-          headers: ["Feature", "Gambling", "Calculated Risk"],
-          rows: [
-            ["Basis", "Luck and chance", "Analysis and information"],
-            ["Outcomes", "Random", "Probability can be estimated"],
-            ["Skill Effect", "No skill improves long-run odds", "Skill and knowledge improve outcomes"],
-            ["Management", "Cannot be managed", "Can be mitigated and managed"],
-            ["Example", "Playing lottery, casino games", "Starting business after market research"]
-          ]
-        }
-      },
-      {
-        id: "risk_process",
-        title: "The Risk Management Process",
-        tag: "Week 2 · Risk Management",
-        body: `Risk management follows a 5-step process. Step 1: IDENTIFY — what could go wrong? Step 2: ASSESS — how likely and how severe? Step 3: PRIORITIZE — which risks matter most? Step 4: MITIGATE — how can we reduce them? Step 5: MONITOR — track and adjust as needed.`,
-        keypoints: [
-          "Step 1: IDENTIFY — what could go wrong?",
-          "Step 2: ASSESS — how likely? how severe?",
-          "Step 3: PRIORITIZE — which risks matter most?",
-          "Step 4: MITIGATE — how to reduce them?",
-          "Step 5: MONITOR — track and adjust ongoing",
-          "Risk Matrix — High Likelihood + High Impact = CRITICAL (address immediately)",
-          "Low Likelihood + High Impact = SIGNIFICANT (have contingency)"
+          "Gambling: chance-based, no skill advantage, uncontrollable outcomes",
+          "Calculated Risk: analysis-based, probability estimated, outcomes manageable",
+          "5-step risk management: Identify → Assess → Prioritize → Mitigate → Monitor",
+          "Affordable Loss Principle (Effectuation Theory): commit only what you can afford to lose",
+          "Practical rule: validate as a side hustle before going full-time"
         ]
       },
       {
-        id: "affordable_loss",
-        title: "The Affordable Loss Principle",
-        tag: "Week 2 · Risk Framework",
-        body: `From Effectuation Theory: entrepreneurs decide based on what they can afford to lose, not expected returns. Never risk more than you can afford to lose. Protect your downside. Ensure you can try again if you fail.\n\nPractical rule: Side hustle first → validate demand → then transition full-time.`,
-        keypoints: [
-          "From Effectuation Theory — focus on affordable loss, not expected return",
-          "Ask: What can I afford to lose? Time? Money? Reputation?",
-          "Ask: Can I recover and try again if things go wrong?",
-          "Never risk more than you can afford to lose",
-          "Practical rule: Side hustle first → validate → then transition full-time"
-        ]
-      },
-      {
-        id: "necessity_opp",
+        id: "necessity_opportunity",
         title: "Necessity vs. Opportunity Entrepreneurship",
-        tag: "Week 2 · Key Distinction",
-        body: `Necessity (Push) Entrepreneurship: Motivation is survival — "I have no job, so I must sell something." Low capital, low innovation, usually replicates existing businesses. Very prevalent in Nigeria.\n\nOpportunity (Pull) Entrepreneurship: Motivation is growth — "I see a problem I can solve to build wealth." Higher innovation, scalable, seeks to disrupt. Example: Paystack.`,
+        tag: "Week 2 · Types",
+        body: `Not all entrepreneurs start businesses for the same reason. Understanding the motivation matters because it affects innovation levels, scalability, and growth potential.`,
         keypoints: [
-          "Necessity (Push): Survival motivation — 'I must sell something to eat'",
-          "Necessity: Low capital, low innovation, replicates existing businesses",
-          "Necessity: Very high prevalence in developing economies like Nigeria",
-          "Opportunity (Pull): Growth motivation — 'I see a problem I can solve'",
+          "Necessity (Push): Survival-driven — no job, no income, must act",
+          "Opportunity (Pull): Growth-driven — spots a problem worth solving for profit",
+          "Necessity is more common in developing economies including Nigeria",
           "Opportunity: Higher innovation, scalable, market-disrupting",
           "Opportunity example: Paystack — Nigerian fintech acquired by Stripe"
         ],
@@ -1762,148 +1618,430 @@ const courseData = {
         ]
       },
       {
-        id: "knowledge_types",
-        title: "Knowledge as Foundation of Innovation",
-        tag: "Week 4 · Knowledge",
-        body: `You cannot innovate in a knowledge vacuum. There are four types of knowledge entrepreneurs need, and five ways to build that knowledge base.`,
-        keypoints: [
-          "Explicit Knowledge: documented, teachable — technical specs, market research, industry reports",
-          "Tacit Knowledge: experience-based — industry insights, customer understanding, cultural nuances",
-          "Internal Knowledge: your team's expertise, organizational learning, past successes and failures",
-          "External Knowledge: customer feedback, competitor intelligence, academic research, industry trends",
-          "Build knowledge by: Learning continuously, Experimenting, Networking, Observing, Collaborating"
-        ]
-      },
-      {
-        id: "tech_for_entrepreneurs",
-        title: "Leveraging Technology for Innovation",
-        tag: "Week 4 · Technology",
-        body: `Technology = the application of scientific knowledge for practical purposes. For entrepreneurs, technology is a tool to create, deliver, and capture value more effectively.\n\nCritical point: Most tools are FREE or very low-cost. Technology has DEMOCRATIZED entrepreneurship — a student with a laptop can now compete with a corporation.`,
-        keypoints: [
-          "Technology LOWERS barriers to entry — cloud computing, social media, e-commerce platforms",
-          "Technology REACHES MORE CUSTOMERS — mobile apps, online platforms, social media",
-          "Technology IMPROVES EFFICIENCY — automation, data analytics, digital workflows",
-          "Technology CREATES NEW POSSIBILITIES — AI, IoT, blockchain",
-          "KEY: Most tools are FREE or low-cost — technology has democratized entrepreneurship",
-          "Nigerian tools: Paystack/Flutterwave (payments), Jumia/Konga (e-commerce), WhatsApp Business (comms)"
-        ],
-        table: {
-          headers: ["Category", "Tools / Examples"],
-          rows: [
-            ["Communication", "Slack, Zoom, Google Meet, Trello, Asana"],
-            ["Customer Reach", "Instagram, Facebook, Mailchimp, WordPress, Shopify"],
-            ["Operations", "Google Drive, QuickBooks, Wave, Flutterwave, Paystack"],
-            ["Analytics", "Google Analytics, CRM tools, social media insights"],
-            ["Nigeria-Specific", "OPay, PalmPay, Jumia, Konga, WhatsApp Business"]
-          ]
-        }
-      },
-      {
-        id: "ip_intro",
-        title: "Intellectual Property (IP): Introduction",
-        tag: "Week 4 · IP",
-        body: `Intellectual Property (IP) refers to legal rights that protect creations of the mind — inventions, artistic works, designs, symbols, names, and images.\n\nIn a digital world where ideas spread instantly, IP protection is MORE important than ever. Four main types: Patents, Trademarks, Copyrights, and Trade Secrets.`,
-        keypoints: [
-          "IP = legal rights protecting creations of the mind",
-          "Protection: prevents others from copying your innovations",
-          "Competitive Advantage: exclusive rights give you market position",
-          "Monetization: can license or sell IP for revenue",
-          "Investor Confidence: shows you've secured your assets",
-          "Brand Building: trademarks protect your brand identity",
-          "Four main types: Patents, Trademarks, Copyrights, Trade Secrets"
-        ]
-      },
-      {
-        id: "patents",
-        title: "Patents",
-        tag: "Week 4 · Intellectual Property",
-        body: `A patent is an exclusive right granted for an invention, providing protection for a limited period (typically 20 years).\n\nWhat can be patented? Must be: New (novel), Non-obvious, and Useful (has practical application).\n\nIn Nigeria, managed by the Federal Ministry of Trade and Investment. Process: patent search → application → examination → publication → granting. Takes 2–4 years. Challenge: Patents are expensive and time-consuming — most early-stage startups can't afford comprehensive patent protection.`,
-        keypoints: [
-          "Patents protect: inventions, new products, processes, methods, software algorithms (some countries)",
-          "Duration: 20 years",
-          "Must be: New (novel), Non-obvious, Useful",
-          "Nigeria: managed by Federal Ministry of Trade and Investment",
-          "Challenge: Expensive and time-consuming (2–4 years) — not ideal for early startups"
-        ]
-      },
-      {
-        id: "trademarks",
-        title: "Trademarks",
-        tag: "Week 4 · Intellectual Property",
-        body: `A trademark is a recognizable sign, design, or expression that identifies products or services from a particular source.\n\nWhat can be trademarked: Brand names, logos, slogans, colors (Tiffany blue), sounds (Intel chime), product shapes (Coca-Cola bottle).\n\nIn Nigeria: Managed by the Trademarks, Patents and Designs Registry. Duration: 7 years, renewable indefinitely. ADVICE: Register your business name as trademark EARLY — it's relatively affordable and crucial.`,
-        keypoints: [
-          "Trademarks protect: brand names, logos, slogans, colors, sounds, product shapes",
-          "Duration: 7 years, renewable INDEFINITELY",
-          "Examples: Nike swoosh, McDonald's golden arches, GTBank branding",
-          "Nigeria: Trademarks, Patents and Designs Registry",
-          "ADVICE: Register your trademark EARLY — it's relatively affordable and critical for brand protection"
-        ]
-      },
-      {
-        id: "copyrights",
-        title: "Copyrights",
-        tag: "Week 4 · Intellectual Property",
-        body: `Copyright is the legal right that grants creators exclusive rights to their original works.\n\nGood news: Copyright protection is AUTOMATIC when you create original work — no registration required. Registration provides stronger legal evidence but isn't mandatory.\n\nIMPORTANT: Copyright does NOT protect ideas — only the expression of ideas.`,
-        keypoints: [
-          "Copyright protects: books, music, films, software code, paintings, architectural designs",
-          "AUTOMATIC protection upon creation — no registration needed",
-          "Duration: Life of author + 70 years",
-          "Nigeria: managed by Nigerian Copyright Commission (NCC)",
-          "Rights: reproduce, distribute, perform/display, create derivatives, license to others",
-          "IMPORTANT: Copyright does NOT protect IDEAS — only the expression of ideas"
-        ]
-      },
-      {
-        id: "trade_secrets",
-        title: "Trade Secrets",
-        tag: "Week 4 · Intellectual Property",
-        body: `A trade secret is confidential business information that provides competitive advantage. Unlike patents, trade secrets have NO expiration date — as long as they remain secret.\n\nExamples: Coca-Cola recipe, KFC's 11 herbs and spices, proprietary algorithms, customer databases.\n\nProtect with: NDAs, employee confidentiality agreements, limited access controls, and clear confidentiality policies.`,
-        keypoints: [
-          "Trade secrets protect: formulas, processes, customer lists, algorithms, business strategies",
-          "Duration: INDEFINITE — as long as kept secret",
-          "No registration required — just maintain secrecy",
-          "Must be: Secret + Valuable + Actively Protected",
-          "Protection tools: NDAs, confidentiality agreements, access control, digital security",
-          "Advantage over patents: no expiration, no public disclosure required",
-          "Classic example: Coca-Cola chose trade secret over patent to avoid disclosing the formula"
-        ],
-        table: {
-          headers: ["Type", "What it protects", "Duration", "Cost"],
-          rows: [
-            ["Patent", "Inventions, new processes", "20 years", "Expensive, 2–4 years"],
-            ["Trademark", "Brand names, logos, slogans", "7 years (renewable)", "Affordable"],
-            ["Copyright", "Creative works, software, art", "Life + 70 years", "Free (automatic)"],
-            ["Trade Secret", "Confidential business information", "Indefinite (if kept secret)", "Low (NDAs, access control)"]
-          ]
-        }
-      },
-      {
-        id: "ip_strategies",
-        title: "IP Protection Strategies for Startups",
-        tag: "Week 4 · IP Practical",
-        body: `Most startups can't afford full patent protection early on. Here's a practical, budget-conscious approach to IP protection.`,
-        keypoints: [
-          "IMMEDIATE (Low/No Cost): Document everything with timestamps; use NDAs; add © to all materials; label confidential documents; restrict access",
-          "WHEN YOU HAVE RESOURCES: Register trademarks (relatively affordable in Nigeria); register copyrights for important works; consider patents only for truly novel inventions",
-          "Digital-age tips: Watermark visual content; monitor for infringement (Google Alerts); act quickly when violations are found",
-          "KEY principle: Some protection is infinitely better than no protection — start now"
-        ]
-      },
-      {
         id: "summary4",
         title: "Week 4 Summary",
         tag: "Week 4 · Key Takeaways",
-        body: `Everything from Week 4 condensed into the most testable points. Know these cold.`,
+        body: `Everything from Week 4 condensed into the most testable points.`,
         keypoints: [
-          "Creative Destruction (Schumpeter): innovation destroys old industries while creating new ones — continuous cycle",
-          "Innovation ≠ Invention: Innovation = New Idea + Implementation + Value Creation + Adoption",
-          "Formula: Innovation = Creativity × Implementation × Value (zero in any = no innovation)",
-          "Four Dimensions: Product, Process, Market, Organizational innovation",
-          "Innovation Ecosystem: Change → Knowledge → Innovation → More Change (continuous loop)",
-          "Technology democratizes entrepreneurship — most tools are free or low-cost",
-          "Four IP Types: Patent (20yr), Trademark (renewable), Copyright (life+70yr), Trade Secret (indefinite)",
-          "Copyright is AUTOMATIC; Trademark should be registered EARLY; Patents are expensive",
-          "KEY MINDSET: Be the disruptor. Focus on value. Embrace change. Protect your ideas."
+          "Schumpeter: Creative Destruction = new innovations destroy old industries while creating new ones",
+          "Innovation Formula: Creativity × Implementation × Value (all three must be non-zero)",
+          "Invention ≠ Innovation: Kodak invented digital cameras but failed to innovate",
+          "4 Dimensions: Product, Process, Market, Organizational",
+          "4 IP Types: Patent (20yr), Trademark (7yr renewable), Copyright (life+70yr, automatic), Trade Secret (indefinite)",
+          "Change → Knowledge → Innovation → More Change (continuous cycle)",
+          "Technology democratizes entrepreneurship: most tools are free or low-cost"
+        ]
+      }
+    ]
+  },
+
+  /* ----------------------------------------------------------
+     WEEK 5 — Entrepreneurship in Nigeria: The Landscape
+     ---------------------------------------------------------- */
+  5: {
+    label: "Week 5 — The Nigerian Landscape",
+    topics: [
+      {
+        id: "nigerian_context",
+        title: "Entrepreneurship in the Nigerian Context",
+        tag: "Week 5 · Introduction",
+        body: `Entrepreneurship in Nigeria operates in a unique and complex landscape — shaped by a massive youth population, cultural forces, structural challenges, and the resilience of millions of entrepreneurs who build despite the odds.\n\nNigeria is home to some of Africa's most iconic business leaders, yet also one of the highest youth unemployment rates in the world (~42%). Understanding this landscape is essential for any Nigerian entrepreneur.`,
+        keypoints: [
+          "Nigeria has a ~42% youth unemployment rate — among the highest globally",
+          "This creates both pressure and motivation for entrepreneurship",
+          "Nigeria has one of the highest rates of female entrepreneurship globally (~41% of women)",
+          "The landscape is defined by both enormous opportunity and significant structural barriers",
+          "Understanding the landscape helps entrepreneurs navigate it strategically"
+        ],
+        discussion: "What comes to mind when you think of a Nigerian entrepreneur?"
+      },
+      {
+        id: "dangote",
+        title: "Aliko Dangote — Africa's Richest Person",
+        tag: "Week 5 · Nigerian Entrepreneurs",
+        body: `Aliko Dangote (born 1957, Kano State) is Africa's richest person and one of the most instructive entrepreneurial case studies on the continent.\n\nHe started trading commodities at age 21 with a loan from his uncle. Today, the Dangote Group spans crude oil refining, cement, sugar, salt, flour, and manufacturing — making him the largest oil refiner and cement producer in Africa.`,
+        keypoints: [
+          "Started small: commodity trading at 21 with an uncle's loan",
+          "Strategy: vertical integration — control the full supply chain",
+          "Focus on essential commodities that every Nigerian needs daily",
+          "Reinvested profits consistently instead of extracting them",
+          "Employs over 30,000 people; net worth exceeds $13 billion",
+          "Key lesson: 'To succeed in business, you must build a brand and never destroy it.'"
+        ],
+        example: `Dangote's vertical integration strategy is textbook: rather than just buying cement, he built cement plants. Rather than importing sugar, he built sugar refineries. This kept profits within his group and gave him cost advantages competitors couldn't match.`
+      },
+      {
+        id: "elumelu",
+        title: "Tony Elumelu — Banker, Investor & Philanthropist",
+        tag: "Week 5 · Nigerian Entrepreneurs",
+        body: `Tony Elumelu (born 1963, Jos) transformed Standard Trust Bank and became Chairman of UBA and Heirs Holdings. He is best known for pioneering "Africapitalism" — the philosophy that Africa's private sector can and must transform the continent.\n\nThrough the Tony Elumelu Foundation (TEF), he committed $100 million to African entrepreneurs, supporting over 18,000 across the continent.`,
+        keypoints: [
+          "Transformed Standard Trust Bank; became UBA Chairman",
+          "Founded Tony Elumelu Foundation (TEF)",
+          "TEF Entrepreneurship Programme: $100 million committed to African entrepreneurs",
+          "Supported over 18,000 entrepreneurs across Africa",
+          "Pioneer of 'Africapitalism': Africa's private sector as the engine of transformation",
+          "Africapitalism = investments that generate both economic prosperity AND social wealth"
+        ]
+      },
+      {
+        id: "tara",
+        title: "Tara Fela-Durotoye — Beauty Entrepreneur & Advocate",
+        tag: "Week 5 · Nigerian Entrepreneurs",
+        body: `Tara Fela-Durotoye (born 1977) trained as a lawyer but followed her passion into makeup artistry — becoming a pioneer in Nigeria's beauty industry.\n\nShe founded House of Tara International (makeup brand) and Tara Beauty Academy (training institution), and became the first makeup artist to franchise in Nigeria.`,
+        keypoints: [
+          "Trained lawyer who followed her passion into entrepreneurship",
+          "Pioneer of Nigeria's beauty industry",
+          "Founded House of Tara International — makeup brand",
+          "Founded Tara Beauty Academy — training institution",
+          "First makeup artist to franchise in Nigeria",
+          "Key lessons: Follow passion, invest in skills development, create systems for scalability, empower others"
+        ]
+      },
+      {
+        id: "aboyeji",
+        title: "Iyin Aboyeji — Tech Entrepreneur & Innovator",
+        tag: "Week 5 · Nigerian Entrepreneurs",
+        body: `Iyinoluwa (Iyin) Aboyeji (born 1991) is the youngest entrepreneur featured — and co-founded TWO unicorn startups before age 30. His story dismantles the myth that youth is a barrier.\n\nHe co-founded Andela (tech talent platform) and Flutterwave (fintech unicorn), then founded Future Africa (venture capital fund).`,
+        keypoints: [
+          "Co-founded Andela: connecting African tech talent with global companies",
+          "Co-founded Flutterwave: African fintech unicorn enabling cross-border payments",
+          "Founded Future Africa: VC fund investing in African startups",
+          "Key lesson: Age is not a barrier to entrepreneurial impact",
+          "Focus: solving African problems with technology",
+          "Collaboration over competition — built with others, not against them"
+        ],
+        discussion: "What common traits do Dangote, Elumelu, Fela-Durotoye, and Aboyeji share?"
+      },
+      {
+        id: "youth_entrepreneurship",
+        title: "Youth Entrepreneurship in Nigeria",
+        tag: "Week 5 · Youth & Women",
+        body: `Nigerian youth face a unique paradox: a ~42% unemployment rate creates massive pressure, but also a massive motivation to build. The youth population IS the demographic dividend — if channelled properly.`,
+        keypoints: [
+          "OPPORTUNITY: Large youth population (demographic dividend)",
+          "OPPORTUNITY: Tech-savvy generation with digital literacy",
+          "OPPORTUNITY: Growing digital economy and global market access",
+          "OPPORTUNITY: Government youth programs (NYIF, YouWiN)",
+          "CHALLENGE: Limited access to capital and collateral requirements",
+          "CHALLENGE: Lack of business experience and mentorship",
+          "CHALLENGE: Poor infrastructure hampering operations",
+          "~42% youth unemployment — highest globally — creates both pressure and motivation"
+        ],
+        table: {
+          headers: ["Factor", "Opportunity", "Challenge"],
+          rows: [
+            ["Population", "Huge youth demographic dividend", "High unemployment competition"],
+            ["Technology", "Tech-savvy, digital native", "Poor internet infrastructure"],
+            ["Market", "Growing digital economy", "Limited purchasing power"],
+            ["Support", "Government programs (NYIF, YouWiN)", "Complex application processes"]
+          ]
+        }
+      },
+      {
+        id: "women_entrepreneurship",
+        title: "Women Entrepreneurship in Nigeria",
+        tag: "Week 5 · Youth & Women",
+        body: `Nigeria has one of the highest rates of female entrepreneurship globally — approximately 41% of women are engaged in entrepreneurial activity. Yet women face disproportionate barriers.\n\nUnderstanding these barriers is the first step to dismantling them — and building support systems that work.`,
+        keypoints: [
+          "~41% of Nigerian women are engaged in entrepreneurial activity — one of the highest globally",
+          "OPPORTUNITIES: Women-focused funding programs, growing support networks, success stories inspiring others",
+          "CHALLENGE: Gender bias and stereotypes limiting credibility",
+          "CHALLENGE: Limited access to finance — banks often require male guarantors",
+          "CHALLENGE: Balancing family responsibilities with business demands",
+          "CHALLENGE: Cultural expectations about women's roles",
+          "CHALLENGE: Lower literacy rates in some regions limiting technical business skills"
+        ],
+        discussion: "How can society better support women entrepreneurs in Nigeria?"
+      },
+      {
+        id: "cultural_barriers",
+        title: "Cultural Barriers to Entrepreneurship",
+        tag: "Week 5 · Barriers",
+        body: `Cultural barriers are beliefs, attitudes, and social norms that discourage or limit entrepreneurial activity. In Nigeria, several deeply embedded cultural factors create friction for aspiring entrepreneurs — especially the young.`,
+        keypoints: [
+          "1. WHITE-COLLAR PREFERENCE: Civil service and corporate jobs seen as more prestigious than business",
+          "2. FEAR OF FAILURE: Business failure carries social stigma — 'what will people say?'",
+          "3. EXTENDED FAMILY PRESSURE: Financial obligations to family can drain business capital",
+          "4. RISK AVERSION: Cultural emphasis on security over uncertainty",
+          "5. AGE HIERARCHY: Young entrepreneurs may face credibility challenges from older clients and partners",
+          "Strategy to overcome: Change narratives, find mentors, celebrate local entrepreneurial success stories"
+        ],
+        discussion: "How can we shift cultural perceptions about entrepreneurship in Nigeria?"
+      },
+      {
+        id: "environmental_barriers",
+        title: "Environmental Barriers to Entrepreneurship",
+        tag: "Week 5 · Barriers",
+        body: `Environmental barriers are external factors in the business ecosystem that hinder entrepreneurial success. Nigerian entrepreneurs face a particularly challenging operating environment.\n\nCritical impact: Entrepreneurs spend significant time and money solving infrastructure problems (buying generators, water tanks, internet boosters) rather than focusing on core business activities.`,
+        keypoints: [
+          "INFRASTRUCTURE: Inconsistent power supply, poor road networks, limited internet, water scarcity",
+          "FINANCIAL: High interest rates (20-30%), strict collateral requirements, limited venture capital",
+          "INSTITUTIONAL: Complex regulations, multiple taxation, corruption, weak legal enforcement",
+          "Cost of infrastructure workarounds eats directly into business margins",
+          "Financial barriers disproportionately affect first-generation entrepreneurs without assets",
+          "Regulatory complexity increases time-to-market and ongoing compliance costs"
+        ]
+      },
+      {
+        id: "case_grace",
+        title: "Case Study 1 — Grace, the Young Tech Founder",
+        tag: "Week 5 · Case Study",
+        body: `Grace, 24, developed a mobile app connecting local farmers directly to consumers in Lagos. She needs ₦5 million to launch but faces multiple barriers:\n\n• Her parents want her to get a corporate job\n• Banks require collateral she doesn't have\n• Some farmers are skeptical about working with a young woman\n• Her uncle offers to invest but wants 60% equity`,
+        keypoints: [
+          "Cultural barrier: Parental pressure to take a 'safe' corporate job",
+          "Financial barrier: No collateral for bank loans",
+          "Cultural + gender barrier: Farmers skeptical of a young woman",
+          "Equity dilution risk: 60% equity offer would strip her of control",
+          "Strategies: Seek government youth programs (BOI Youth Fund), seek angel investors, build farmer trust through demos, negotiate uncle's equity down or find alternatives",
+          "Key insight: Multiple barriers often overlap — solutions must be multi-layered"
+        ],
+        discussion: "What would you do in Grace's situation? Which barrier would you tackle first and why?"
+      },
+      {
+        id: "case_chidi",
+        title: "Case Study 2 — Chidi's Fashion Brand",
+        tag: "Week 5 · Case Study",
+        body: `Chidi runs a successful fashion brand in Abuja with 15 employees. He wants to expand to online international sales but faces:\n\n• Unreliable internet at his workshop\n• High international shipping costs\n• Power outages affecting production deadlines\n• Difficulty opening a foreign currency account\n• Competition from established international brands`,
+        keypoints: [
+          "Environmental barriers: Poor internet, power outages, banking restrictions",
+          "Financial barriers: High shipping costs affecting price competitiveness",
+          "Competitive barriers: International brands have economies of scale",
+          "Solutions: Co-working hubs for reliable internet, solar inverters for power, freight aggregators for shipping, domiciliary accounts through fintech",
+          "Government role: Infrastructure investment, export incentives, forex access reform",
+          "Key insight: Environmental barriers don't just slow growth — they make local businesses uncompetitive globally"
+        ],
+        discussion: "What role can government and organizations play in helping entrepreneurs like Chidi?"
+      },
+      {
+        id: "overcoming_barriers",
+        title: "Strategies to Overcome Barriers",
+        tag: "Week 5 · Solutions",
+        body: `Every successful Nigerian entrepreneur profiled today overcame significant barriers. The key is not the absence of challenges but the strategy for navigating them.`,
+        keypoints: [
+          "INDIVIDUAL LEVEL: Continuous learning, strong networks, starting small/bootstrapping, seeking mentorship, leveraging technology",
+          "GOVERNMENT PROGRAMS: BOI (Bank of Industry), SMEDAN, CBN intervention funds",
+          "PRIVATE SUPPORT: Incubators, accelerators, angel investors, VCs, professional associations",
+          "KEY MINDSET: Challenges are opportunities for innovation and differentiation",
+          "Remember: Dangote, Elumelu, Fela-Durotoye, and Aboyeji all faced massive barriers",
+          "Action question: What resources are available in YOUR community right now?"
+        ]
+      },
+      {
+        id: "summary5",
+        title: "Week 5 Summary",
+        tag: "Week 5 · Key Takeaways",
+        body: `Everything from Week 5 condensed into the most testable points.`,
+        keypoints: [
+          "Success stories inspire: Dangote (commodities + vertical integration), Elumelu (Africapitalism + TEF), Fela-Durotoye (passion + franchise), Aboyeji (tech unicorns under 30)",
+          "Youth: ~42% unemployment creates pressure AND motivation. Opportunities: digital economy, tech-savvy population",
+          "Women: ~41% engaged in entrepreneurship (globally high rate) but face gender bias, finance gaps, and cultural expectations",
+          "Cultural barriers: white-collar preference, fear of failure, family obligations, risk aversion, age hierarchy",
+          "Environmental barriers: power outages, poor roads, high interest rates (20-30%), complex regulations, corruption",
+          "Barriers can be overcome: persistence, innovation, networking, and leveraging support systems"
+        ]
+      }
+    ]
+  },
+
+  /* ----------------------------------------------------------
+     WEEK 6 — The Entrepreneurship Ecosystem & Support
+     ---------------------------------------------------------- */
+  6: {
+    label: "Week 6 — The Ecosystem & Support",
+    topics: [
+      {
+        id: "ecosystem_intro",
+        title: "What is an Entrepreneurship Ecosystem?",
+        tag: "Week 6 · Introduction",
+        body: `An entrepreneurship ecosystem is the network of institutions, organizations, policies, resources, and cultural elements that interact to support the creation, growth, and sustainability of new ventures in a specific location.\n\nKey analogy: Think of it like a garden — entrepreneurs are seeds that need good soil (infrastructure), water (finance), sunlight (knowledge), and protection (policies) to grow into strong trees.`,
+        keypoints: [
+          "1. FINANCIAL CAPITAL: Banks, investors, grants, crowdfunding",
+          "2. HUMAN CAPITAL: Skilled workers, mentors, advisors, entrepreneurs",
+          "3. SUPPORT INFRASTRUCTURE: Government agencies, incubators, co-working spaces",
+          "4. MARKETS: Customers, suppliers, distribution channels",
+          "5. POLICIES & REGULATIONS: Business registration, tax policies, trade laws",
+          "6. CULTURE: Societal attitudes toward entrepreneurship and risk-taking",
+          "All six components must interact — removing any one weakens the entire ecosystem"
+        ],
+        discussion: "What elements of the entrepreneurship ecosystem exist in your community?"
+      },
+      {
+        id: "smedan",
+        title: "SMEDAN — The Coordinator",
+        tag: "Week 6 · Support Institutions",
+        body: `SMEDAN (Small and Medium Enterprises Development Agency of Nigeria) was established in 2003 with the mandate to facilitate, coordinate, and monitor the development of MSMEs in Nigeria.\n\nSMEDAN is the main government body that advocates for MSMEs and provides free training and capacity-building support.`,
+        keypoints: [
+          "Established: 2003 by SMEDAN Act",
+          "Mandate: Facilitate, coordinate, and monitor MSME development in Nigeria",
+          "Function 1: Policy Development — formulate policies and advise government on MSME matters",
+          "Function 2: Capacity Building — free training programs and business development workshops",
+          "Function 3: Research and Information — MSME surveys, database, reports",
+          "Function 4: Advocacy — represent MSME interests; link MSMEs to markets and opportunities",
+          "Key programs: OLOP (One LGA, One Product), National Business Skills Development Initiative, Virtual Trade Fair Platform",
+          "How to access: www.smedan.gov.ng | State offices | Free training programs open to all"
+        ],
+        table: {
+          headers: ["Program", "What it Does"],
+          rows: [
+            ["OLOP (One LGA, One Product)", "Develops unique products from each local government area"],
+            ["Nat'l Business Skills Development", "Free training for MSME owners and aspiring entrepreneurs"],
+            ["Virtual Trade Fair Platform", "Digital marketplace for MSMEs to showcase and sell products"],
+            ["Cluster Development", "Supports sectoral and geographic business clusters"]
+          ]
+        }
+      },
+      {
+        id: "boi",
+        title: "Bank of Industry (BOI) — Patient Capital",
+        tag: "Week 6 · Support Institutions",
+        body: `The Bank of Industry is Nigeria's oldest and largest development finance institution — providing long-term, low-interest financing that commercial banks won't. Established 2001 (evolved from Nigerian Industrial Development Bank, 1964).\n\nBOI differentiator: Long-term loans (5–15 years), lower interest rates (7–12%), and flexible collateral arrangements vs commercial banks (20–30% rates, rigid collateral).`,
+        keypoints: [
+          "Nigeria's oldest and largest development finance institution",
+          "Mission: Transform Nigeria's industrial sector through financial, advisory, and technical assistance",
+          "Long-term loans: 5–15 years tenure (vs 1–3 years commercial)",
+          "Lower interest: 7–12% per annum (vs 20–30% commercial)",
+          "Flexible collateral arrangements and grace periods available",
+          "BOI has disbursed over ₦1.3 trillion to Nigerian businesses"
+        ],
+        table: {
+          headers: ["Loan Product", "Target", "Max Amount", "Interest"],
+          rows: [
+            ["Cottage Agro Processing (CAP)", "Small-scale agro processors", "₦10 million", "7% p.a."],
+            ["Youth Entrepreneurship Support (YES)", "Young entrepreneurs 18–35", "₦5M (individual) / ₦50M (group)", "9% p.a."],
+            ["Graduate Entrepreneurship Fund (GEF)", "NYSC members & recent graduates", "₦3 million", "5% p.a."],
+            ["Creative Industry Financing (CIFI)", "Entertainment & creative businesses", "₦25 million", "9% p.a."],
+            ["MSME Growth & Development Fund", "Established MSMEs expanding", "₦1 billion", "Competitive rates"]
+          ]
+        }
+      },
+      {
+        id: "cbn_interventions",
+        title: "CBN Entrepreneurship Interventions",
+        tag: "Week 6 · Support Institutions",
+        body: `While the CBN's primary role is monetary policy, it has created numerous intervention programs to support entrepreneurship. Key benefit: CBN interventions typically offer 5–9% interest rates — far below commercial bank rates of 20–30%+.\n\nAll CBN programs are accessed through Participating Financial Institutions (PFIs) — your commercial bank.`,
+        keypoints: [
+          "CBN interventions = 5–9% interest vs commercial banks' 20–30%+ — massive cost saving",
+          "Anchor Borrowers' Programme (ABP): agricultural value chain financing",
+          "Nigeria Youth Investment Fund (NYIF): youth entrepreneurship funding",
+          "Tertiary Institutions Entrepreneurship Scheme (TIES): for university students and graduates",
+          "AGSMEIS: Agri-Business/Small and Medium Enterprise Investment Scheme",
+          "Creative Industry Financing Initiative (CIFI): for entertainment and creative sector",
+          "Access method: Apply through Participating Financial Institutions (your bank)",
+          "Requirement: business plan, CAC registration, TIN, bank account"
+        ]
+      },
+      {
+        id: "incubators_hubs",
+        title: "Incubators vs. Innovation Hubs",
+        tag: "Week 6 · Youth Networks",
+        body: `Business Incubator: Supports early-stage startups with workspace, mentorship, training, and sometimes funding to grow from idea to viable business.\n\nInnovation Hub: A collaborative workspace where entrepreneurs, developers, and creatives work, learn, network, and build innovative solutions.\n\nKey difference: Incubators are structured programs (may take equity); Hubs are open-access community spaces (no equity taken).`,
+        keypoints: [
+          "INCUBATOR: Structured programs (3–12 months), early-stage focus, intensive mentorship, may take equity, application required",
+          "HUB: Open-access community, collaboration and networking focus, pay-to-use or membership, no equity taken, anyone can join",
+          "Both provide: workspace, internet, training, mentorship, networks, and funding opportunities",
+          "Choose an incubator if: you need structured guidance for a specific startup",
+          "Choose a hub if: you need workspace, community, and flexible access"
+        ],
+        table: {
+          headers: ["Feature", "Incubator", "Innovation Hub"],
+          rows: [
+            ["Access", "Application + selection", "Open membership"],
+            ["Duration", "3–12 month structured program", "Ongoing / flexible"],
+            ["Equity", "May take small equity stake", "No equity taken"],
+            ["Focus", "Pre-revenue / early-stage startups", "Collaboration and networking"],
+            ["Cost", "Often subsidized or free", "Pay-to-use or membership fee"]
+          ]
+        }
+      },
+      {
+        id: "ccHub_and_hubs",
+        title: "Key Hubs & Incubators in Nigeria",
+        tag: "Week 6 · Youth Networks",
+        body: `Nigeria has a growing network of incubators and hubs, particularly in Lagos, Abuja, Port Harcourt, and Jos. Co-Creation Hub (CcHub) in Lagos is the most prominent — and produced some of Nigeria's biggest startup success stories.`,
+        keypoints: [
+          "Co-Creation Hub (CcHub) Lagos: Founded 2011, focus on tech and social innovation",
+          "CcHub provides: co-working space, mentorship, funding opportunities, investor access, prototyping lab",
+          "CcHub alumni: Paystack (acquired by Stripe for $200M+), LifeBank, BudgIT",
+          "Paystack success story: Founded by Shola Akinlade and Ezra Olubi; 2020 acquisition by Stripe was Nigeria's largest ever",
+          "Other notable hubs: Wennovation Hub (Lagos), nHub (Jos), CoLab (Kaduna), Passion Incubator (Abuja), StartZone (Abuja), Ventures Platform (Abuja)",
+          "How to join: Most hubs have open membership; check websites and social media for programs"
+        ],
+        example: `Paystack's journey: Started at CcHub Lagos in 2015 → grew into Nigeria's leading payment gateway → acquired by Stripe in 2020 for over $200 million. This is the largest startup acquisition in Nigerian history. The ecosystem support at CcHub was a critical enabler.`
+      },
+      {
+        id: "virtual_office",
+        title: "The Virtual Office",
+        tag: "Week 6 · Virtual Work",
+        body: `A virtual office provides businesses with a professional business address, communication services, and occasional access to physical workspace — WITHOUT the cost of permanent office space.\n\nFor Nigerian entrepreneurs, virtual offices solve the expensive problem of a credible business presence in prime locations without the overhead.`,
+        keypoints: [
+          "Virtual office = professional address + communication services + occasional workspace — no permanent rent",
+          "Key services: premium business address, mail collection/forwarding, call answering in company name, meeting room access (hourly), virtual receptionist",
+          "Cost in Nigeria: ₦15,000 – ₦100,000 per month depending on location and services",
+          "Major providers: Instant Offices Nigeria, Regus Nigeria, The Catalyst, Cranium One, Work Better, Café One",
+          "Benefit: Business credibility without ₦500,000+/month Lagos office rent",
+          "Also overcomes infrastructure challenges: work from multiple locations when power goes out"
+        ]
+      },
+      {
+        id: "remote_work",
+        title: "Remote Work & the Future of African Entrepreneurship",
+        tag: "Week 6 · Virtual Work",
+        body: `Remote work (telecommuting) allows entrepreneurs and employees to work from anywhere with internet connectivity. COVID-19 (2020–2021) proved that most knowledge work can be done remotely.\n\nFor African entrepreneurs, remote work is not just a lifestyle trend — it is a strategic lever that unlocks global markets, global talent, and dramatically lower startup costs.`,
+        keypoints: [
+          "COVID-19 accelerated remote work globally — proving location independence is possible",
+          "Cost savings: No office rent, lower utilities, lower transport costs — savings reinvested in growth",
+          "Global talent access: Hire the best people regardless of location",
+          "Global market access: Sell to international clients without leaving Nigeria",
+          "Tools: Zoom, Google Meet (video), Slack, WhatsApp Business (comms), Trello, Asana (project mgmt), Google Drive, Dropbox (storage)"
+        ]
+      },
+      {
+        id: "remote_trends",
+        title: "Remote Work Trends for Nigerian Entrepreneurs",
+        tag: "Week 6 · Virtual Work",
+        body: `Five major remote work trends are reshaping entrepreneurship for Africans — all representing real revenue opportunities for Nigerian entrepreneurs today.`,
+        keypoints: [
+          "1. GIG ECONOMY GROWTH: Upwork, Fiverr, Toptal — African freelancers earning in USD/EUR. Skills in demand: software dev, graphic design, writing, virtual assistance",
+          "2. DIGITAL NOMADISM: Entrepreneurs traveling while working; Kenya and Mauritius now offer digital nomad visas",
+          "3. REMOTE-FIRST STARTUPS: Launching without physical offices; all communication via Slack/Zoom; focus on output, not hours",
+          "4. E-COMMERCE & DIGITAL SERVICES: Online businesses, digital products (courses, e-books, software), social media businesses, dropshipping",
+          "5. VIRTUAL COLLABORATION TOOLS: Widespread adoption of Zoom, Google Meet, Trello, Asana, Google Workspace, Microsoft 365",
+          "Success examples: Andela (African devs for global companies), Flutterwave (distributed teams), African freelancers earning $30–$100+/hour"
+        ],
+        discussion: "What skills do you need to develop to succeed in a remote work environment?"
+      },
+      {
+        id: "maximizing_ecosystem",
+        title: "Maximizing Ecosystem Support — Practical Steps",
+        tag: "Week 6 · Action Plan",
+        body: `Knowing the ecosystem exists is not enough — you must actively engage it. Here is a practical framework for Nigerian aspiring entrepreneurs to extract maximum value from available support.`,
+        keypoints: [
+          "1. RESEARCH: List all available institutions; understand each one's focus; match your needs to their offerings",
+          "2. BUILD YOUR NETWORK: Attend startup events, join online and offline communities, visit incubator hubs regularly",
+          "3. PREPARE YOUR BUSINESS: Develop a business plan, register with CAC, get TIN, keep proper financial records",
+          "4. APPLY STRATEGICALLY: Don't wait until desperate; apply to multiple programs; tailor each application; follow up",
+          "5. LEVERAGE FREE RESOURCES: Free SMEDAN training, online webinars, YouTube, entrepreneur communities",
+          "6. GIVE BACK: As you grow, mentor others — the ecosystem is strengthened by those who pay it forward",
+          "RED FLAGS: Programs asking upfront fees for 'guaranteed' loans; unrealistic quick-funding promises; unregistered organizations"
+        ],
+        example: `Red flags to avoid:\n✗ Programs asking for upfront fees for "guaranteed" loans\n✗ Unrealistic promises of quick funding\n✗ Unregistered "support" organizations\n✗ Schemes requiring you to recruit others\n\nVerify legitimacy: check official government websites, confirm physical addresses, read reviews, consult experienced entrepreneurs.`
+      },
+      {
+        id: "summary6",
+        title: "Week 6 Summary",
+        tag: "Week 6 · Key Takeaways",
+        body: `Everything from Week 6 condensed into the most testable points.`,
+        keypoints: [
+          "Ecosystem = 6 components: Financial Capital, Human Capital, Support Infrastructure, Markets, Policies, Culture",
+          "SMEDAN: Coordinator of MSME development — policy, capacity building, advocacy, free training",
+          "BOI: Patient capital — long-term loans (5–15 years) at 7–12% interest; key products: YES, GEF, CAP, CIFI",
+          "CBN: Multiple intervention programs at 5–9% — accessed through Participating Financial Institutions (banks)",
+          "Incubators: Structured (3–12 months), may take equity. Hubs: Open-access, no equity",
+          "CcHub Lagos: Produced Paystack ($200M+ acquisition), LifeBank, BudgIT",
+          "Virtual offices: ₦15,000–₦100,000/month — professional address without permanent rent",
+          "Remote work trends: Gig economy, digital nomadism, remote-first startups, e-commerce, collaboration tools",
+          "Key institutions: SMEDAN (coordination), BOI (long-term financing), CBN (interventions), Hubs/Incubators (capacity building)"
         ]
       }
     ]
@@ -1912,7 +2050,7 @@ const courseData = {
 
 
 /* ============================================================
-   CHALLENGE QUESTIONS — exam-style, weeks 1–4
+   EXAM QUESTIONS — all weeks including Weeks 5 & 6
    ============================================================ */
 const allQuestions = {
 
@@ -1920,105 +2058,85 @@ const allQuestions = {
   1: [
     {
       category: "Definitions",
-      q: "Define entrepreneurship. What are its three key elements?",
-      a: `<strong>Entrepreneurship</strong> is the pursuit of opportunity beyond resources controlled. It involves innovation, risk-taking, and proactivity.<br><br>The three key elements are:<br>1. <strong>Value Creation</strong> — making something useful for others<br>2. <strong>Risk</strong> — putting time, money, and reputation on the line under uncertainty<br>3. <strong>Reward</strong> — profit and personal satisfaction`
+      q: "Define entrepreneurship and explain its three core elements.",
+      a: `<strong>Entrepreneurship</strong> is the pursuit of opportunity beyond resources currently controlled. It involves creating value by bringing together a unique combination of resources to exploit an opportunity.<br><br>Three core elements:<br>1. <strong>Value Creation</strong> — solving a real problem that people will pay for<br>2. <strong>Risk</strong> — time, money, and reputation are on the line<br>3. <strong>Reward</strong> — profit, impact, and personal fulfillment`
     },
     {
-      category: "Definitions",
-      q: "Define intrapreneurship and explain how it differs from entrepreneurship in terms of risk and reward.",
-      a: `<strong>Intrapreneurship</strong> is the act of behaving like an entrepreneur while working within a large organization — using the company's resources to innovate.<br><br>Differences:<br>• <strong>Risk</strong>: Intrapreneurs bear low risk (company capital); entrepreneurs bear high personal risk<br>• <strong>Reward</strong>: Intrapreneurs receive limited reward (bonus/salary); entrepreneurs keep all profit/equity<br>• <strong>Safety net</strong>: Intrapreneurs still earn salary if the idea fails; entrepreneurs have no safety net`
+      category: "Concept",
+      q: "What is intrapreneurship and how does it differ from entrepreneurship? Give a real-world example.",
+      a: `<strong>Intrapreneurship</strong> is the practice of applying entrepreneurial thinking and behavior within an existing organization using the organization's resources.<br><br><strong>Key differences:</strong><br>• Entrepreneurs risk personal capital; intrapreneurs use company resources with a salary safety net<br>• Entrepreneurs keep the rewards; intrapreneurs share rewards with the organization<br>• Entrepreneurs operate independently; intrapreneurs operate within existing structures<br><br><strong>Real example:</strong> Gmail — created by a Google employee during 20% free time, not by top leadership. Facebook's 'Like' button emerged from an internal hackathon. Both innovations transformed the companies.`
     },
     {
-      category: "MSMEs",
-      q: "Why are MSMEs called the 'engine' of the Nigerian economy? Give at least three reasons.",
-      a: `MSMEs are called the engine of the economy because:<br>1. <strong>Employment</strong>: They provide over 80% of all jobs in Nigeria<br>2. <strong>Wealth Creation</strong>: They transform raw materials/skills into valuable products, generating locally-circulating income<br>3. <strong>Local Retention</strong>: Unlike MNCs which repatriate profits abroad, MSMEs spend profits locally<br>4. <strong>Financial Independence</strong>: They are the primary path for individuals to move from salary-dependence to income creation`
+      category: "Nigerian Context",
+      q: "Why are MSMEs described as the backbone of the Nigerian economy? What is their key advantage over multinational corporations?",
+      a: `MSMEs (Micro, Small, and Medium Enterprises) are described as the backbone because they provide <strong>over 80% of all jobs</strong> in Nigeria and contribute approximately <strong>48% of GDP</strong>.<br><br><strong>Key advantage over MNCs:</strong> MSMEs circulate profits locally — spending and reinvesting within the community. Multinational corporations (MNCs) repatriate profits to their home countries, draining wealth from the local economy.<br><br>This makes MSMEs critical not just for employment but for genuine wealth circulation and community development.`
     },
     {
-      category: "Theories",
-      q: "Explain the Economic Theory of entrepreneurship. Who are the key theorists and what is the central concept?",
-      a: `The <strong>Economic Theory</strong>, associated with <strong>Richard Cantillon</strong> and <strong>Frank Knight</strong>, positions the entrepreneur as a <strong>risk-bearer</strong> who bridges the gap between supply and demand.<br><br>Core idea: Entrepreneurs buy goods at a certain price today and sell at an uncertain price tomorrow — bearing the risk of price fluctuation.<br><br>Motivation: <strong>Profit</strong> — they see a market gap and act to fill it for financial gain.<br><br>Key concept: <strong>Arbitrage</strong> — buying low in one market, selling high in another.`
-    },
-    {
-      category: "Theories",
-      q: "Explain the Sociological Theory of entrepreneurship. How does the Igbo Apprenticeship System relate to it?",
-      a: `The <strong>Sociological Theory</strong>, associated with <strong>Max Weber</strong>, argues that entrepreneurship is influenced by social culture, values, religious beliefs, and community norms.<br><br>Core idea: Your environment shapes you. Communities that value trade condition people to become entrepreneurs.<br><br>Motivation: Social status, family tradition, or fitting into a social group.<br><br>The <strong>Igbo Apprenticeship System (Igba-Boi)</strong> is a classic example: young men are trained under master traders, then set up their own businesses — entrepreneurship transmitted through cultural mechanisms.`
-    },
-    {
-      category: "Theories",
-      q: "Explain the Conditional Theory of entrepreneurship with a real-world example.",
-      a: `The <strong>Conditional Theory</strong> states that entrepreneurship is driven by <strong>environmental stimuli</strong> — circumstances that push people into starting businesses.<br><br>Key triggers: Resource constraints and significant loss events (like a parent losing income).<br><br>Model: Environmental Stimuli → Conditional Entrepreneurship → Entrepreneurial Learning (resourceful adaptation + partnering) → Financial Stability<br><br>Example: Nigerian university students from low-income families faced financial hardship. Rather than dropping out, they started micro-businesses (hair salons, campus delivery, laundry) to fund their education.`
+      category: "Theory",
+      q: "Briefly explain the three theories of entrepreneurship: Economic, Sociological, and Conditional.",
+      a: `<strong>1. Economic Theory</strong> (Cantillon & Knight): The entrepreneur is a risk-bearer and profit-seeker who bridges supply and demand through arbitrage — spotting price differentials and exploiting them. Motivation = profit.<br><br><strong>2. Sociological Theory</strong> (Weber): Entrepreneurship is shaped by culture, social values, and religious beliefs. Nigerian example: The Igbo Apprenticeship System (Igba-Boi) — a culturally embedded entrepreneurship training model that has created thousands of businesses.<br><br><strong>3. Conditional Theory</strong>: Entrepreneurship is triggered by environmental conditions — resource constraints, loss events, or forced circumstances. Example: Nigerian students starting businesses to fund their own education due to lack of support.`
     }
   ],
 
   /* --- WEEK 2 QUESTIONS --- */
   2: [
     {
-      category: "Entrepreneurs",
-      q: "Differentiate between an entrepreneur and a business owner/manager. Why does this distinction matter?",
-      a: `<strong>Entrepreneur</strong>: Creates something NEW, innovates and disrupts markets, seeks growth and scaling, embraces change, takes calculated risks.<br><br><strong>Business Owner/Manager</strong>: Operates an existing business, maintains the status quo, seeks stability, follows established practices, minimizes risk.<br><br>This distinction matters because owning a business ≠ being an entrepreneur. Entrepreneurship involves a fundamentally different orientation toward innovation and risk. However, <strong>both are valuable</strong> and serve different economic functions.`
+      category: "Distinction",
+      q: "Differentiate between an entrepreneur and a business owner. Give one Nigerian example of each.",
+      a: `<strong>Entrepreneur:</strong> Creates something new, innovates, seeks growth, disrupts markets, tolerates high uncertainty.<br><br><strong>Business Owner:</strong> Operates an existing model, maintains stability, minimizes risk, replicates proven models.<br><br><em>Both are valuable — the economy needs innovators AND stable operators.</em><br><br><strong>Nigerian Entrepreneur Example:</strong> Shola Akinlade (Paystack) — built a new fintech product that disrupted payments.<br><strong>Nigerian Business Owner Example:</strong> A local supermarket owner in Abuja — replicates an existing model, focuses on reliable operations and profit.`
     },
     {
       category: "Characteristics",
-      q: "List and briefly explain any SIX characteristics of a successful entrepreneur.",
-      a: `1. <strong>Passion & Motivation</strong>: Deep enthusiasm that sustains you through hardship and inspires others<br>2. <strong>Vision & Opportunity Recognition</strong>: Seeing future possibilities and market gaps others miss<br>3. <strong>Persistence & Resilience</strong>: Continuing despite setbacks; bouncing back from failure (Jason Njoku — iROKO TV)<br>4. <strong>Creativity & Innovation</strong>: Turning new ideas into practical, valuable solutions (M-Pesa)<br>5. <strong>Action Orientation</strong>: Bias for doing — launching MVPs and learning from feedback<br>6. <strong>Adaptability & Flexibility</strong>: Pivoting when circumstances change (Twitter from Odeo)<br><br>Others: Self-confidence, Risk Tolerance, Independence, Leadership, Resourcefulness`
+      q: "List and briefly explain any FIVE of the eleven entrepreneurial characteristics.",
+      a: `Any five from: <br><br>1. <strong>Passion</strong>: Intrinsic drive that sustains effort through hard times — not just excitement.<br>2. <strong>Vision</strong>: Ability to see opportunities others miss; long-term thinking.<br>3. <strong>Self-Confidence</strong>: Belief that you can figure it out — NOT arrogance.<br>4. <strong>Persistence & Resilience</strong>: Treating failure as data, not a final verdict.<br>5. <strong>Creativity & Innovation</strong>: Generating novel solutions to real problems.<br>6. <strong>Risk Tolerance</strong>: Comfort with uncertainty — calculated, not reckless.<br>7. <strong>Independence</strong>: Desire to control your own decisions and path.<br>8. <strong>Action Orientation</strong>: Bias toward doing, not just planning.<br>9. <strong>Adaptability</strong>: Pivoting when market feedback demands change.<br>10. <strong>Leadership</strong>: Inspiring others to join and sustain a vision.<br>11. <strong>Resourcefulness</strong>: Doing more with less; bootstrapping creatively.`
     },
     {
-      category: "Nature vs. Nurture",
-      q: "Discuss the Nature vs. Nurture debate in entrepreneurship. What is the modern consensus?",
-      a: `<strong>Nature (Born)</strong>: Twin studies show 30–40% of entrepreneurial tendency is heritable. Brain scans show entrepreneurs process risk differently. Some people are naturally more risk-tolerant.<br><br><strong>Nurture (Made)</strong>: 60–70% is environmental. Entrepreneurship education increases business creation. Most successful entrepreneurs are 35–45 (experience matters). Culture shapes entrepreneurial rates.<br><br><strong>Modern consensus</strong>: BOTH matter. Genetic predisposition provides a foundation; environment activates or suppresses traits; deliberate practice develops capabilities. Empowering conclusion: entrepreneurship CAN be learned and developed.`
+      category: "Nature vs Nurture",
+      q: "Are entrepreneurs born or made? Summarize the nature vs. nurture debate and state the modern consensus.",
+      a: `<strong>Nature argument:</strong> Twin studies show that 30–40% of entrepreneurial tendency is heritable — there are genetic predispositions toward traits like risk tolerance, creativity, and extroversion.<br><br><strong>Nurture argument:</strong> 60–70% of entrepreneurial behavior is explained by environment, education, cultural exposure, mentorship, and deliberate practice.<br><br><strong>Modern consensus:</strong> BOTH matter. Nature provides a predisposition or foundation; environment activates those traits; deliberate practice builds the skills over time. No single gene determines entrepreneurial success — and no environment alone can replace internal motivation.<br><br><strong>Key implication:</strong> Entrepreneurship CAN be taught and developed — this course is built on that premise.`
     },
     {
       category: "Risk",
-      q: "Distinguish between calculated risk and gambling. Give a practical business example of each.",
-      a: `<strong>Gambling</strong>: Based on luck/chance. Outcomes are random. No skill improves long-run odds. Pure speculation.<br><br><strong>Calculated Risk</strong>: Based on analysis and information. Probability can be estimated. Skill and knowledge improve outcomes. Can be managed and mitigated.<br><br><strong>Starting a food business:</strong><br>Gambling: Quit job, invest entire savings, open large restaurant with no research.<br><br>Calculated Risk: Keep job initially, start as home-based/food cart, test menu, research preferences, grow gradually based on demand.<br><br>Four elements of calculated risk: Research/analysis, Probability assessment, Mitigation strategies, Affordable loss principle.`
-    },
-    {
-      category: "Risk Management",
-      q: "Outline the five-step risk management process and explain the Risk Assessment Matrix.",
-      a: `<strong>5-Step Risk Management Process:</strong><br>1. <strong>IDENTIFY</strong> — What could go wrong?<br>2. <strong>ASSESS</strong> — How likely? How severe?<br>3. <strong>PRIORITIZE</strong> — Which risks matter most?<br>4. <strong>MITIGATE</strong> — How can we reduce them?<br>5. <strong>MONITOR</strong> — Track and adjust ongoing<br><br><strong>Risk Assessment Matrix (Likelihood × Impact):</strong><br>• High Likelihood + High Impact = <strong>CRITICAL</strong> (address immediately)<br>• High Likelihood + Low Impact = <strong>MODERATE</strong> (plan for it)<br>• Low Likelihood + High Impact = <strong>SIGNIFICANT</strong> (have contingency)<br>• Low Likelihood + Low Impact = <strong>MINOR</strong> (accept or ignore)`
-    },
-    {
-      category: "Necessity vs. Opportunity",
-      q: "Differentiate between necessity-based and opportunity-based entrepreneurship. Which is more prevalent in Nigeria and why?",
-      a: `<strong>Necessity (Push)</strong>: Motivated by survival — "I have no job, must sell something." Low capital, low innovation, replicates existing businesses. Very prevalent in developing economies.<br><br><strong>Opportunity (Pull)</strong>: Motivated by growth — "I see a problem I can solve and build wealth." Higher innovation, scalable, market-disrupting. Example: Paystack.<br><br><strong>Necessity is more prevalent in Nigeria</strong> because of high unemployment and economic pressure forcing people to generate income for survival rather than waiting for employment.<br><br>Economic implication: Opportunity entrepreneurs create more jobs and drive advancement; necessity entrepreneurs keep families alive but rarely scale.`
+      q: "What is the 'Affordable Loss Principle'? How does it differ from conventional expected-return thinking?",
+      a: `The <strong>Affordable Loss Principle</strong> (from Effectuation Theory) states that entrepreneurs should decide what to invest in a venture based on <strong>what they can afford to lose</strong> — not based on expected returns or projected profits.<br><br><strong>Conventional thinking:</strong> "If projected return is high enough, invest as much as possible."<br><strong>Affordable Loss thinking:</strong> "What is the maximum I could lose — and still be okay? Commit only that amount."<br><br>Practical application: Start your business as a side hustle while employed → validate demand → only go full-time when evidence justifies it.<br><br>This approach limits downside risk and keeps entrepreneurs in the game long enough to iterate and succeed.`
     }
   ],
 
   /* --- WEEK 3 QUESTIONS --- */
   3: [
     {
-      category: "Definitions",
-      q: "Define Entrepreneurial Thinking. How does it differ from ordinary thinking?",
-      a: `<strong>Entrepreneurial Thinking</strong> is a specific mental process where individuals identify opportunities and mobilize resources to create value, even in uncertain environments.<br><br>It differs from ordinary thinking in its orientation: ordinary thinking responds to problems with complaint or avoidance. Entrepreneurial thinking responds with: "How can I build a solution someone will pay for?"<br><br>It is not exclusive to startups — doctors, engineers, and teachers use it. It is built on three tools: <strong>Critical, Reflective, and Creative Thinking</strong>.`
+      category: "Concept",
+      q: "What is entrepreneurial thinking? Why is it relevant beyond just starting businesses?",
+      a: `<strong>Entrepreneurial Thinking</strong> is a specific mental process where individuals identify opportunities and mobilize resources to create value, even in uncertain environments.<br><br>It is relevant beyond startups because the same cognitive skills are used by:<br>• Doctors diagnosing rare conditions with limited information<br>• Engineers solving unforeseen construction problems on-site<br>• Teachers designing new learning approaches for struggling students<br><br>Core cognitive toolkit: <strong>Critical Thinking</strong> (analyze facts objectively), <strong>Reflective Thinking</strong> (learn from experience), and <strong>Creative Thinking</strong> (generate novel solutions).`
     },
     {
-      category: "Cognitive Skills",
-      q: "Define and distinguish between Critical, Reflective, and Creative Thinking in an entrepreneurial context.",
-      a: `<strong>Critical Thinking</strong>: Analyzing facts objectively to form a judgment. For entrepreneurs: fact-checking the market before spending money. Key question: "Is there really demand, or do I just like this idea?" Prevents costly emotional attachment mistakes.<br><br><strong>Reflective Thinking</strong>: Thinking about your own actions. Three steps: <strong>Recall → Question → Adapt</strong>. Customer rejection is feedback data, not failure.<br><br><strong>Creative Thinking</strong>: Generating novel ideas by breaking patterns. Two modes: <strong>Divergence</strong> (many options without judgment) and <strong>Convergence</strong> (picking the best). Creativity can be practiced like a sport.`
-    },
-    {
-      category: "Cognitive Skills",
-      q: "What is the 'Flip Mindset'? Give two real-world examples of problems that were flipped into major business opportunities.",
-      a: `The <strong>Flip Mindset</strong> is the entrepreneurial habit of seeing problems not as barriers but as raw materials for innovation — asking "How can this become a paid product or service?"<br><br>Classic example: A normal person sees a pothole and complains. An entrepreneur designs a durable asphalt patch or a pothole-reporting app.<br><br><strong>Real-world examples:</strong><br>1. <strong>No Taxis</strong> → Ride-sharing apps (Uber, Bolt) turned lack of transport into a multi-billion naira platform<br>2. <strong>No Bank</strong> → Fintech/M-Pesa solved the "unbanked" problem using mobile phones<br>3. <strong>No School</strong> → Online learning platforms turned distance barriers into accessible classrooms`
+      category: "Concept",
+      q: "Explain the 'Flip Mindset' with two specific Nigerian or African examples.",
+      a: `The <strong>Flip Mindset</strong> is the entrepreneurial habit of seeing problems as raw materials for innovation — rather than just obstacles to complain about.<br><br>Normal response: See a problem → complain → wait for someone to fix it.<br>Entrepreneurial response: See a problem → ask "How can I build a solution someone will pay for?"<br><br><strong>Nigerian/African Examples:</strong><br>1. <strong>No formal banking access</strong> → Entrepreneurs created Opay, Moniepoint, and M-Pesa (Kenya) — mobile money for the unbanked. Millions of Africans now have financial access without ever entering a bank branch.<br>2. <strong>Unreliable power supply</strong> → Entrepreneurs built solar energy companies (e.g., Lumos Nigeria, solar lantern companies) that turned Nigeria's grid failure into a commercial opportunity.`
     },
     {
       category: "Design Thinking",
-      q: "Explain the three phases of Design Thinking introduced in Week 3: Empathy, Define, and Ideate.",
-      a: `<strong>Phase 1 — Empathy</strong>: Observing and interviewing users to understand emotional AND practical needs. Rule: Don't assume — go watch people struggle with the problem. Example: Children terrified of MRI machines → decorate as pirate ships (insight came from observation, not engineering).<br><br><strong>Phase 2 — Define</strong>: Narrow empathy findings into one actionable POV Statement. Formula: <strong>Persona + Need + Insight</strong>. Example: Students with 30-minute breaks need food without long waits because time, not hunger, is their problem.<br><br><strong>Phase 3 — Ideate</strong>: Generate as many solutions as possible — quantity over quality. No idea is too crazy. First diverge wildly, then converge to the best option.`
+      q: "Explain the three phases of Design Thinking and why they must be done in order.",
+      a: `<strong>1. EMPATHY</strong> — Understand users' emotional and practical needs by observing and interviewing them directly. Key rule: Don't assume — go watch people struggle with the problem. You cannot solve a problem you don't truly understand.<br><br><strong>2. DEFINE</strong> — Narrow empathy findings into one actionable Point of View (POV) Statement. Formula: <strong>POV = Persona + Need + Insight</strong>. This ensures you're solving the RIGHT problem, not just any problem.<br><br><strong>3. IDEATE</strong> — Generate many possible solutions before evaluating any. Rule: Quantity over quality. No idea is too crazy. This prevents defaulting to the obvious solution.<br><br><strong>Why in order?</strong> You cannot define a problem you haven't empathized with. And you cannot ideate solutions to a problem you haven't clearly defined. Skipping steps leads to solving the wrong problem with the wrong solution.`
     },
     {
-      category: "Design Thinking",
-      q: "What is the POV Statement? Write the formula and give a full example.",
-      a: `A <strong>POV (Point of View) Statement</strong> is the output of the Define phase. It converts messy empathy findings into a single, precise, actionable problem statement that guides ideation.<br><br><strong>Formula: POV = Persona + Need + Insight</strong><br><br>• <strong>Persona</strong>: Who exactly is the user?<br>• <strong>Need</strong>: What do they actually need (not just want)?<br>• <strong>Insight</strong>: What surprising truth did empathy research uncover?<br><br><strong>Full Example</strong>: Students → stressed by long canteen lines → time (not food quality) is the real problem → POV: "University students with 30-minute breaks need food without waiting in line because time, not access to food, is their true constraint" → Solution: Pre-order app with pickup time.`
+      category: "Application",
+      q: "Write a POV (Point of View) Statement for this scenario: Students in your school often miss important assignment deadlines because they don't see them until it's too late.",
+      a: `<strong>POV Statement Formula: Persona + Need + Insight</strong><br><br><strong>Persona:</strong> University students at ASE Abuja<br><strong>Need:</strong> A way to receive immediate, unavoidable notifications about assignment deadlines<br><strong>Insight:</strong> The problem is not awareness (they know assignments exist) — it is TIMING. Students only check the school portal when they remember, not when deadlines change.<br><br><strong>Full POV Statement:</strong><br>"University students at ASE need a push notification system tied to the school portal because they miss deadlines not due to laziness but because passive information sources require them to remember to check — and the real constraint is timing, not awareness."<br><br>→ <strong>Solution direction:</strong> WhatsApp/SMS alert system that automatically notifies students when deadlines are posted or approaching.`
     }
   ],
 
   /* --- WEEK 4 QUESTIONS --- */
   4: [
     {
+      category: "Theory",
+      q: "Who was Joseph Schumpeter and what was his central contribution to entrepreneurship theory?",
+      a: `<strong>Joseph Alois Schumpeter</strong> (1883–1950) was an Austrian-American economist and Harvard professor — widely regarded as one of the most influential economists of the 20th century.<br><br><strong>Central contribution:</strong> He argued that <strong>entrepreneurs drive economic development through INNOVATION</strong> — not through price competition or efficiency improvements alone.<br><br>His key concept: <strong>Creative Destruction</strong> — the continuous process by which new innovations destroy old industries and business models while creating new ones. This is the mechanism of capitalist progress.<br><br>Quote: "The process of Creative Destruction is the essential fact about capitalism."<br><br><strong>Implication for entrepreneurs:</strong> Every industry destruction creates a new opportunity. But also — your own business could be disrupted next. Innovate continuously or face obsolescence.`
+    },
+    {
       category: "Creative Destruction",
-      q: "What is Creative Destruction? Who coined the term and what is its significance for entrepreneurs?",
-      a: `<strong>Creative Destruction</strong> was coined by <strong>Joseph Schumpeter</strong> (Austrian-American economist, Harvard Professor, 1883–1950).<br><br>Definition: The process by which new innovations destroy old industries and business models while simultaneously creating new ones.<br><br>The cycle: New innovation emerges → Old ways become obsolete → Economic resources shift → Economy grows → cycle repeats.<br><br>Significance for entrepreneurs:<br>• <strong>Opportunities</strong>: Every destruction creates new business possibilities; early movers gain advantages<br>• <strong>Threats</strong>: Your own business can be disrupted — you must continuously innovate<br>• Key lesson: Innovation is not optional — those who don't innovate will be innovated out of existence.`
+      q: "Explain Creative Destruction with one historical and one Nigerian example. What is the implication for entrepreneurs?",
+      a: `<strong>Creative Destruction</strong> is the process by which new innovations destroy existing industries while simultaneously creating new ones.<br><br><strong>Historical Example:</strong> Automobiles destroyed the horse-drawn carriage industry — but simultaneously created the auto manufacturing industry, petroleum/gas stations, road construction companies, and car insurance. Resources shifted from old to new.<br><br><strong>Nigerian Example:</strong> Mobile Money (Opay, Moniepoint, PalmPay) is destroying traditional bank branches as a service channel — millions of Nigerians now use POS agents and mobile apps instead of banks. But it created an entire new industry of mobile money agents, fintech startups, and digital payment infrastructure.<br><br><strong>Implication for entrepreneurs:</strong><br>1. Every destruction = a new business opportunity on the other side<br>2. Proactively look at which industries are being disrupted — that's where to build<br>3. Never assume your current business model is permanent — innovate continuously`
     },
     {
       category: "Innovation",
@@ -2050,12 +2168,75 @@ const allQuestions = {
       q: "Explain the innovation ecosystem. How do change, knowledge, and innovation interact?",
       a: `The innovation ecosystem is an <strong>interconnected triangle</strong> where Change, Knowledge, and Innovation continuously feed each other:<br><br>• <strong>CHANGE drives INNOVATION</strong>: Market changes create problems requiring new solutions. Technology changes enable new capabilities. Social and regulatory changes alter the landscape.<br><br>• <strong>KNOWLEDGE enables INNOVATION</strong>: You cannot innovate what you don't understand. Types needed: Explicit (documented), Tacit (experience-based), Internal (team expertise), External (customer/competitor feedback).<br><br>• <strong>INNOVATION creates CHANGE</strong>: New products change markets; new business models reshape industries; new technologies alter the competitive landscape.<br><br>The cycle is continuous: Change → Need for Knowledge → Innovation → More Change → Need for more knowledge…<br><br>Nigerian example: COVID-19 (change) drove massive innovation in remote work, e-commerce, and digital payments.`
     }
+  ],
+
+  /* --- WEEK 5 QUESTIONS --- */
+  5: [
+    {
+      category: "Nigerian Entrepreneurs",
+      q: "Describe the entrepreneurial journey of ONE Nigerian entrepreneur from the course. What barriers did they overcome and what lessons can be drawn?",
+      a: `<strong>Example: Aliko Dangote</strong><br><br><strong>Journey:</strong> Born in Kano State (1957). Started trading commodities at age 21 with a loan from his uncle. Grew systematically through the Dangote Group — cement, sugar, salt, flour, crude oil refining — becoming Africa's richest person with a net worth exceeding $13 billion and employing over 30,000 people.<br><br><strong>Barriers overcome:</strong><br>• Limited capital initially (started with a family loan)<br>• Operating in an infrastructure-challenged environment<br>• Building credibility in a relationship-driven Nigerian market<br><br><strong>Key lessons:</strong><br>1. Start small — he began as a commodity trader, not a refinery owner<br>2. Vertical integration: control your supply chain to reduce costs and build moats<br>3. Focus on essentials — commodities everyone needs daily (cement, food)<br>4. Reinvest profits instead of extracting them early<br>5. Build a brand and protect it relentlessly<br><br><em>(Note: Same framework applies to Elumelu, Fela-Durotoye, or Aboyeji — adapt accordingly)</em>`
+    },
+    {
+      category: "Cultural Barriers",
+      q: "Identify and explain THREE cultural barriers to entrepreneurship in Nigeria. Suggest strategies to overcome each.",
+      a: `<strong>1. PREFERENCE FOR WHITE-COLLAR JOBS</strong><br>Culture: Civil service and corporate employment are seen as more prestigious and secure than business ownership. Parents pressure children toward 'safe' careers.<br>Strategy: Highlight entrepreneurial success stories (Dangote, Aboyeji) in education and media; reframe entrepreneurship as a career of choice, not desperation.<br><br><strong>2. FEAR OF FAILURE / SOCIAL STIGMA</strong><br>Culture: Business failure is seen as personal failure, carrying social shame. "What will people say?" paralyzes action.<br>Strategy: Normalize failure as a learning step (not a verdict); celebrate people who tried, failed, and rebuilt; teach the Affordable Loss Principle to reduce fear.<br><br><strong>3. EXTENDED FAMILY FINANCIAL PRESSURE</strong><br>Culture: Successful individuals are expected to financially support extended family, which can drain business capital before it has time to compound.<br>Strategy: Set clear personal-business financial boundaries; build slowly before becoming the 'family bank'; educate family on the long-term value of reinvested capital.`
+    },
+    {
+      category: "Environmental Barriers",
+      q: "What are the main environmental barriers to entrepreneurship in Nigeria? How do they affect entrepreneurs differently than cultural barriers?",
+      a: `<strong>Environmental barriers</strong> are external factors in the business ecosystem — distinct from cultural/internal barriers because they exist regardless of the entrepreneur's mindset.<br><br><strong>Infrastructure Barriers:</strong><br>• Inconsistent power supply: entrepreneurs buy generators, spending money on power rather than growth<br>• Poor road networks: increase logistics costs and delivery unreliability<br>• Limited internet: hinders digital businesses and remote work<br><br><strong>Financial Barriers:</strong><br>• Commercial bank interest rates: 20–30% — among the highest globally<br>• Collateral requirements: first-generation entrepreneurs without land/assets excluded<br>• Limited venture capital ecosystem compared to global peers<br><br><strong>Institutional Barriers:</strong><br>• Complex regulations and multiple taxation layers<br>• Corruption increasing cost of doing business<br>• Weak legal enforcement making contracts unreliable<br><br><strong>Key difference from cultural barriers:</strong> Cultural barriers are internal (mindset, beliefs, family norms) and can be addressed through education and narrative change. Environmental barriers are external and require policy intervention, infrastructure investment, and institutional reform.`
+    },
+    {
+      category: "Case Study",
+      q: "In the Grace case study, she faces a 60% equity demand from her uncle-investor. Why is this a problem and what alternatives would you suggest?",
+      a: `<strong>Why 60% equity is a serious problem:</strong><br>• Founder control: Grace would own only 40% of her own company — losing majority control and decision-making power<br>• Future fundraising: external investors typically want founders to hold significant equity; 40% founder equity signals misalignment and makes future funding harder<br>• Motivation erosion: building a company where someone else owns 60% reduces founder drive and reward over time<br><br><strong>Alternative financing strategies:</strong><br>1. <strong>Government programs</strong>: BOI Youth Entrepreneurship Support (YES) Programme — up to ₦5 million at 9%, no equity dilution<br>2. <strong>CBN NYIF</strong>: Nigeria Youth Investment Fund for young entrepreneurs<br>3. <strong>Angel investors</strong>: seek multiple investors each taking 5–10% rather than one taking 60%<br>4. <strong>Grants</strong>: Tony Elumelu Foundation programme offers $5,000 seed funding with no equity taken<br>5. <strong>Negotiate differently with uncle</strong>: convert to a loan with interest repayment instead of equity, or offer 15–20% maximum<br>6. <strong>Bootstrap/pre-sales</strong>: sell the app concept to farmers or food buyers before building it, generating revenue to self-fund`
+    },
+    {
+      category: "Women Entrepreneurship",
+      q: "Despite Nigeria having one of the world's highest rates of female entrepreneurship, women still face disproportionate barriers. Explain this paradox.",
+      a: `<strong>The paradox:</strong> Nigeria has approximately 41% of women engaged in entrepreneurial activity — one of the highest rates globally — yet women face significantly more barriers than men.<br><br><strong>Why the high rate?</strong> Much of Nigerian female entrepreneurship is <strong>necessity-driven</strong> — women start businesses because of economic pressure, not primarily because of opportunity recognition. High participation does not necessarily mean high empowerment.<br><br><strong>Barriers they face:</strong><br>1. <strong>Gender bias</strong>: Banks and investors are more reluctant to fund women-led businesses; clients sometimes question women's authority<br>2. <strong>Limited finance access</strong>: Many banks historically required male guarantors for loans<br>3. <strong>Family responsibilities</strong>: Women disproportionately bear childcare and household responsibilities alongside business demands<br>4. <strong>Cultural expectations</strong>: Some cultures limit women's economic independence or require spousal permission for business decisions<br>5. <strong>Literacy gaps</strong>: In some Nigerian regions, lower female literacy reduces access to formal business training and financial systems<br><br><strong>Solutions:</strong> Women-focused funding programs, mentorship networks, policy reform in credit access, and celebrating successful female entrepreneurs as role models.`
+    }
+  ],
+
+  /* --- WEEK 6 QUESTIONS --- */
+  6: [
+    {
+      category: "Ecosystem",
+      q: "Define an entrepreneurship ecosystem and explain its six key components. Use the garden analogy from the course.",
+      a: `An <strong>entrepreneurship ecosystem</strong> is the network of institutions, organizations, policies, resources, and cultural elements that interact to support the creation, growth, and sustainability of new ventures in a specific location.<br><br><strong>Garden analogy:</strong> Entrepreneurs are seeds that need good soil (infrastructure), water (finance), sunlight (knowledge), and protection (policies) to grow into strong trees.<br><br><strong>Six key components:</strong><br>1. <strong>Financial Capital</strong>: Banks, investors, grants, crowdfunding — the water<br>2. <strong>Human Capital</strong>: Skilled workers, mentors, advisors, entrepreneurs — the gardeners<br>3. <strong>Support Infrastructure</strong>: Government agencies, incubators, co-working spaces — the soil<br>4. <strong>Markets</strong>: Customers, suppliers, distribution channels — the sun<br>5. <strong>Policies & Regulations</strong>: Business registration, tax policies, trade laws — the protection/fencing<br>6. <strong>Culture</strong>: Societal attitudes toward entrepreneurship and risk-taking — the climate<br><br>All six components must interact and reinforce each other. A strong financial ecosystem without good policy protection is like watering plants in toxic soil — the capital gets wasted.`
+    },
+    {
+      category: "Support Institutions",
+      q: "Compare and contrast the roles of SMEDAN and the Bank of Industry (BOI) in supporting Nigerian entrepreneurs.",
+      a: `<strong>SMEDAN (Small and Medium Enterprises Development Agency of Nigeria)</strong><br>• Role: Coordinator and capacity builder for MSMEs<br>• Focus: Policy development, advocacy, training, research — not financial lending<br>• Key programs: OLOP (One LGA, One Product), free business skills training, Virtual Trade Fair Platform<br>• Who it serves: All MSMEs, especially early-stage and aspiring entrepreneurs needing knowledge/skills<br>• Access: Free training, state offices, www.smedan.gov.ng<br><br><strong>Bank of Industry (BOI)</strong><br>• Role: Development finance institution — providing patient capital commercial banks won't<br>• Focus: Long-term loans at concessional rates for industrial and commercial enterprises<br>• Key products: YES Programme (youth, ₦5M at 9%), GEF (graduates, ₦3M at 5%), CAP Fund (agro, ₦10M at 7%), CIFI (creative sector, ₦25M at 9%)<br>• Interest rates: 7–12% vs commercial banks' 20–30%<br>• Loan tenure: 5–15 years vs commercial banks' 1–3 years<br><br><strong>Key difference:</strong> SMEDAN builds CAPACITY (knowledge and skills). BOI provides CAPITAL (funding and financing). Entrepreneurs need both — register with SMEDAN for training, then apply to BOI for funding.`
+    },
+    {
+      category: "Support Institutions",
+      q: "Why are CBN intervention programs important for Nigerian entrepreneurs? Name THREE specific CBN programs and explain each briefly.",
+      a: `<strong>Why CBN interventions matter:</strong> Commercial banks charge 20–30%+ interest on business loans in Nigeria. CBN interventions offer 5–9% — a massive cost saving that can mean the difference between a viable and unviable business. These programs are the government using the central bank's influence to channel affordable credit to priority sectors.<br><br><strong>Three CBN programs:</strong><br><br>1. <strong>Nigeria Youth Investment Fund (NYIF)</strong>: Targets youth entrepreneurs with affordable financing to stimulate youth employment and enterprise. Addresses Nigeria's ~42% youth unemployment challenge.<br><br>2. <strong>Anchor Borrowers' Programme (ABP)</strong>: Provides agricultural value chain financing — connecting smallholder farmers to large anchor processors. Aims to boost agricultural production and reduce food imports.<br><br>3. <strong>Tertiary Institutions Entrepreneurship Scheme (TIES)</strong>: Specifically for university students and recent graduates — providing funding and support to commercialize ideas developed during academic programs.<br><br><em>All accessed through Participating Financial Institutions (PFIs) — your commercial bank acts as the gateway.</em>`
+    },
+    {
+      category: "Incubators & Hubs",
+      q: "What is the difference between a business incubator and an innovation hub? Give a specific Nigerian example of each.",
+      a: `<strong>Business Incubator:</strong> A structured program that supports early-stage startups with workspace, mentorship, training, and sometimes funding — with the goal of growing the startup from idea to viable business.<br>• Structured: 3–12 month programs<br>• May take equity (small ownership stake)<br>• Application and selection process<br>• Intensive, hands-on support<br><br><strong>Innovation Hub:</strong> A collaborative workspace where entrepreneurs, developers, and creatives come together to work, learn, network, and build.<br>• Open-access community space<br>• No equity taken<br>• Pay-to-use or membership model<br>• Anyone can join<br><br><strong>Nigerian Examples:</strong><br>• <strong>Incubator: CcHub Lagos</strong> — structured programs, mentorship, investor access, prototyping lab. Produced Paystack (acquired by Stripe for $200M+), LifeBank, BudgIT<br>• <strong>Hub: Ventures Platform, Abuja</strong> — community-focused space connecting entrepreneurs with networks and resources in the FCT<br><br><strong>Which to choose?</strong> If you need structured intensive support for a specific startup → incubator. If you need workspace, community, and networking flexibility → hub.`
+    },
+    {
+      category: "Virtual Work",
+      q: "What is a virtual office and why is it particularly beneficial for Nigerian entrepreneurs? What services does it typically provide?",
+      a: `A <strong>virtual office</strong> provides businesses with a professional business address, communication services, and occasional access to physical workspace — WITHOUT the cost of permanent office space.<br><br><strong>Why particularly beneficial for Nigerian entrepreneurs:</strong><br>1. <strong>Cost savings</strong>: Prime Lagos or Abuja office space costs ₦500,000–₦2M/month. Virtual offices cost ₦15,000–₦100,000/month — a 90%+ saving that can be reinvested in the business<br>2. <strong>Business credibility</strong>: A professional address in Victoria Island or Maitama signals legitimacy to clients and partners<br>3. <strong>Infrastructure workaround</strong>: Power outages are less disruptive when you're not locked into one space — you can work from wherever power and internet are available<br>4. <strong>Reduced overhead</strong>: No utility bills, no facility management — eliminates a fixed cost that kills cash flow in the early stages<br><br><strong>Typical services:</strong><br>• Premium business address in a prime location<br>• Mail collection and forwarding<br>• Phone answering in the company's name<br>• Meeting room access (hourly booking when needed)<br>• Virtual receptionist services<br>• Sometimes includes business registration support`
+    },
+    {
+      category: "Remote Work",
+      q: "Explain how remote work and the gig economy create opportunities for Nigerian entrepreneurs and professionals. Give two concrete examples.",
+      a: `<strong>Remote work and the gig economy</strong> allow Nigerian entrepreneurs to access global markets and income streams without relocating — using only an internet connection and marketable skills.<br><br><strong>How they create opportunity:</strong><br>• <strong>Talent arbitrage</strong>: Nigerian professionals can deliver high-quality work at local cost structures while billing international clients at global rates — creating significant profit margins<br>• <strong>Lower startup costs</strong>: A business serving global clients doesn't need Lagos office space, local marketing budgets, or physical infrastructure<br>• <strong>Access to global capital</strong>: Services priced in USD/EUR provide natural protection against Naira depreciation<br><br><strong>Concrete Examples:</strong><br>1. <strong>Software Development via Andela/Upwork</strong>: Nigerian developers work remotely for US/European companies, earning $30–$100+/hour while living in Nigeria. Andela specifically trained African developers and placed them with global tech companies — creating a new class of high-income professionals without anyone needing to emigrate.<br>2. <strong>Flutterwave</strong>: Built as a remote-first distributed team that now enables cross-border payments for businesses across Africa and globally. Their distributed work model meant they could hire the best talent regardless of location, and their product serves the remote/digital economy directly.`
+    }
   ]
 };
 
 
 /* ============================================================
-   FLASHCARDS — rapid fire mode, all weeks including Week 4
+   FLASHCARDS — all weeks including Weeks 5 & 6
    ============================================================ */
 const allFlashcards = {
 
@@ -2113,6 +2294,35 @@ const allFlashcards = {
     { q: "What is the Innovation Ecosystem triangle?", a: "<strong>CHANGE</strong> drives need for innovation<br><strong>KNOWLEDGE</strong> enables innovation<br><strong>INNOVATION</strong> creates more change<br><br>Continuous cycle: Change → Need for Knowledge → Innovation → More Change → ..." },
     { q: "5 ways to build knowledge for innovation?", a: "1. <strong>Learn continuously</strong> — read, research, study<br>2. <strong>Experiment</strong> — test ideas, learn from failures<br>3. <strong>Network</strong> — learn from others in your industry<br>4. <strong>Observe</strong> — watch customers, competitors, trends<br>5. <strong>Collaborate</strong> — partner to access complementary knowledge" },
     { q: "What is Schumpeter's core thesis?", a: "Entrepreneurs drive economic development through <strong>INNOVATION</strong> — not through price competition or efficiency improvements alone.<br><br>Economic progress comes from doing NEW things that make old things obsolete — not doing the same things better." }
+  ],
+
+  /* --- WEEK 5 FLASHCARDS --- */
+  5: [
+    { q: "Who is Aliko Dangote and what makes him a model entrepreneur?", a: "<strong>Africa's richest person.</strong> Born Kano 1957. Started trading commodities at 21 with an uncle's loan. Built Dangote Group (cement, oil, sugar, salt, flour).<br><br>Key strategy: <strong>Vertical integration</strong> — control the full supply chain. Focus on essentials. Reinvest profits. Net worth: >$13 billion." },
+    { q: "What is Tony Elumelu's 'Africapitalism'?", a: "The belief that <strong>Africa's private sector</strong> can and must transform the continent through investments that generate <strong>both economic prosperity AND social wealth.</strong><br><br>TEF: $100 million committed → 18,000+ African entrepreneurs supported." },
+    { q: "What did Iyin Aboyeji co-found — and why does he matter?", a: "Co-founded <strong>Andela</strong> (African tech talent platform) and <strong>Flutterwave</strong> (fintech unicorn) — BOTH before age 30.<br><br>Key lesson: <strong>Age is not a barrier.</strong> Also founded Future Africa VC fund." },
+    { q: "What is Tara Fela-Durotoye's key entrepreneurial lesson?", a: "Trained lawyer who followed her passion into makeup artistry. Founded <strong>House of Tara International</strong> and <strong>Tara Beauty Academy.</strong> First makeup artist to franchise in Nigeria.<br><br>Key lesson: <strong>Follow your passion; create systems for scalability.</strong>" },
+    { q: "What is Nigeria's youth unemployment rate and what does it mean for entrepreneurship?", a: "Approximately <strong>~42%</strong> — among the highest in the world.<br><br>Creates both <strong>pressure</strong> (necessity entrepreneurship) and <strong>motivation</strong> (urgency to create opportunities). The large youth population is a potential <strong>demographic dividend.</strong>" },
+    { q: "Nigeria's female entrepreneurship rate — and the paradox?", a: "~<strong>41% of women</strong> engaged in entrepreneurial activity — one of the world's highest.<br><br><strong>Paradox:</strong> High participation is largely <strong>necessity-driven</strong> (not opportunity-driven), and women still face disproportionate barriers: gender bias, finance gaps, family pressure, cultural expectations." },
+    { q: "Name 3 cultural barriers to entrepreneurship in Nigeria", a: "1. <strong>White-collar preference</strong>: civil/corporate jobs seen as more prestigious<br>2. <strong>Fear of failure</strong>: business failure carries social stigma<br>3. <strong>Extended family pressure</strong>: financial obligations drain business capital<br><br>(Also: Risk aversion, Age hierarchy)" },
+    { q: "Name 3 environmental barriers to entrepreneurship in Nigeria", a: "1. <strong>Infrastructure</strong>: power outages, poor roads, limited internet<br>2. <strong>Financial</strong>: 20–30% bank interest rates, strict collateral requirements<br>3. <strong>Institutional</strong>: complex regulations, multiple taxation, corruption<br><br>Key impact: entrepreneurs spend money solving infrastructure problems instead of growing the business." },
+    { q: "What is the key difference between cultural and environmental barriers?", a: "<strong>Cultural barriers</strong> are internal — mindsets, beliefs, social norms. Can be changed through education and narrative shifts.<br><br><strong>Environmental barriers</strong> are external — infrastructure, policy, financial systems. Require structural/policy change." },
+    { q: "Common traits shared by Nigeria's top entrepreneurs?", a: "Vision, Resilience, Focus on local problems, Reinvestment of profits, Long-term thinking, Commitment to mentoring and giving back, Willingness to start small and scale." }
+  ],
+
+  /* --- WEEK 6 FLASHCARDS --- */
+  6: [
+    { q: "Define entrepreneurship ecosystem", a: "The <strong>network of institutions, organizations, policies, resources, and cultural elements</strong> that interact to support new venture creation, growth, and sustainability in a specific location.<br><br>Garden analogy: Entrepreneurs = seeds. They need soil (infrastructure), water (finance), sunlight (knowledge), and protection (policies)." },
+    { q: "6 components of an entrepreneurship ecosystem?", a: "1. <strong>Financial Capital</strong> — banks, investors, grants<br>2. <strong>Human Capital</strong> — mentors, skilled workers<br>3. <strong>Support Infrastructure</strong> — incubators, agencies<br>4. <strong>Markets</strong> — customers, suppliers<br>5. <strong>Policies & Regulations</strong> — registration, tax laws<br>6. <strong>Culture</strong> — societal attitudes to risk and entrepreneurship" },
+    { q: "What does SMEDAN stand for and what does it do?", a: "<strong>Small and Medium Enterprises Development Agency of Nigeria.</strong> Est. 2003.<br><br>Role: Facilitate, coordinate, and monitor MSME development — through policy, <strong>free training</strong>, advocacy, and research. NOT a lending institution." },
+    { q: "BOI — what makes it different from a commercial bank?", a: "<strong>Bank of Industry:</strong> Nigeria's oldest development finance institution.<br><br>Key differences:<br>• Interest: <strong>7–12%</strong> (vs 20–30% commercial)<br>• Tenure: <strong>5–15 years</strong> (vs 1–3 years commercial)<br>• Flexible collateral + grace periods<br>• Disbursed over <strong>₦1.3 trillion</strong> to Nigerian businesses" },
+    { q: "Name 3 BOI loan products and their rates", a: "<strong>YES</strong> (Youth 18–35): ₦5M / 9% p.a.<br><strong>GEF</strong> (Graduates/NYSC): ₦3M / 5% p.a.<br><strong>CAP Fund</strong> (Agro processors): ₦10M / 7% p.a.<br><strong>CIFI</strong> (Creative industry): ₦25M / 9% p.a." },
+    { q: "CBN interventions — key benefit and access method?", a: "Key benefit: <strong>5–9% interest rates</strong> vs commercial banks' 20–30%+.<br><br>Access method: Apply through <strong>Participating Financial Institutions (PFIs)</strong> — your commercial bank is the gateway.<br><br>Key programs: NYIF (youth), ABP (agriculture), TIES (graduates), AGSMEIS, CIFI." },
+    { q: "Incubator vs Hub — key differences?", a: "<strong>Incubator</strong>: Structured 3–12 month program, early-stage startups, may take equity, application required.<br><br><strong>Hub</strong>: Open-access community space, collaboration/networking focus, no equity taken, membership model, anyone can join." },
+    { q: "What is CcHub and why does it matter?", a: "<strong>Co-Creation Hub (CcHub)</strong> — Lagos, founded 2011. Nigeria's most prominent incubator/hub.<br><br>Services: Co-working, mentorship, investor access, prototyping lab.<br>Notable alumni: <strong>Paystack</strong> (acquired by Stripe for $200M+ in 2020 — largest Nigerian startup acquisition ever), LifeBank, BudgIT." },
+    { q: "What is a virtual office and why is it useful in Nigeria?", a: "Provides <strong>professional business address + communication services + occasional workspace</strong> — without permanent office rent.<br><br>Cost: <strong>₦15,000–₦100,000/month</strong> (vs ₦500K–₦2M for physical Lagos office).<br><br>Solves: Cost, credibility, and infrastructure problems simultaneously." },
+    { q: "5 remote work trends for African entrepreneurs?", a: "1. <strong>Gig Economy</strong>: Upwork/Fiverr freelancing in USD/EUR<br>2. <strong>Digital Nomadism</strong>: work while traveling; Kenya/Mauritius offer digital nomad visas<br>3. <strong>Remote-First Startups</strong>: launch without physical offices; focus on output<br>4. <strong>E-commerce & Digital Products</strong>: courses, software, dropshipping<br>5. <strong>Virtual Collaboration Tools</strong>: Zoom, Slack, Trello, Google Workspace" },
+    { q: "Red flags to avoid when accessing ecosystem support", a: "✗ Programs asking <strong>upfront fees for 'guaranteed' loans</strong><br>✗ Unrealistic promises of quick funding<br>✗ Unregistered 'support' organizations<br>✗ Schemes requiring you to <strong>recruit others</strong> (pyramid structures)<br><br>Verify: check official government websites, confirm physical addresses, read reviews." }
   ]
 };
 
@@ -2120,11 +2330,11 @@ const allFlashcards = {
 /* ============================================================
    APP STATE — tracks current week, question index, grades, etc.
    ============================================================ */
-let currentWeek    = 1;   // selected week (1, 2, 3, 4, or 'all')
-let currentTopicIdx = 0;  // index in the active topics array
-let currentQIdx    = 0;   // index in the active questions array
-let grades         = {};  // stores got/partial/missed per question index
-let rapidIdx       = 0;   // current flashcard index
+let currentWeek    = 1;   // selected week (1–6, or 'all')
+let currentTopicIdx = 0;
+let currentQIdx    = 0;
+let grades         = {};
+let rapidIdx       = 0;
 let isFlipped      = false;
 let activeQuestions  = [];
 let activeFlashcards = [];
@@ -2140,36 +2350,40 @@ function selectWeek(week, btn) {
   btn.classList.add('active');
 }
 
-/** Returns a human-readable label for the header. */
 function getWeekLabel() {
-  const labels = { 1: 'Week 1', 2: 'Week 2', 3: 'Week 3', 4: 'Week 4', all: 'All Weeks' };
+  const labels = { 1: 'Week 1', 2: 'Week 2', 3: 'Week 3', 4: 'Week 4', 5: 'Week 5', 6: 'Week 6', all: 'All Weeks' };
   return labels[currentWeek] || 'Week 1';
 }
 
-/** Flatten questions for selected weeks. */
 function getQuestions() {
   if (currentWeek === 'all') {
-    return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3], ...allQuestions[4]];
+    return [
+      ...allQuestions[1], ...allQuestions[2], ...allQuestions[3],
+      ...allQuestions[4], ...allQuestions[5], ...allQuestions[6]
+    ];
   }
   return allQuestions[currentWeek] || [];
 }
 
-/** Flatten flashcards for selected weeks. */
 function getFlashcards() {
   if (currentWeek === 'all') {
-    return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3], ...allFlashcards[4]];
+    return [
+      ...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3],
+      ...allFlashcards[4], ...allFlashcards[5], ...allFlashcards[6]
+    ];
   }
   return allFlashcards[currentWeek] || [];
 }
 
-/** Flatten topics for selected weeks. */
 function getTopics() {
   if (currentWeek === 'all') {
     return [
       ...courseData[1].topics,
       ...courseData[2].topics,
       ...courseData[3].topics,
-      ...courseData[4].topics
+      ...courseData[4].topics,
+      ...courseData[5].topics,
+      ...courseData[6].topics
     ];
   }
   return courseData[currentWeek]?.topics || [];
@@ -2218,8 +2432,6 @@ function openRapid() {
 /* ============================================================
    LEARN MODE RENDERING
    ============================================================ */
-
-/** Render the sidebar topic list with active state. */
 function renderTopicList() {
   const list = document.getElementById('topicList');
   list.innerHTML = activeTopics.map((t, i) => `
@@ -2229,7 +2441,6 @@ function renderTopicList() {
   `).join('');
 }
 
-/** Render the main content panel for a given topic index. */
 function renderTopicContent(idx) {
   currentTopicIdx = idx;
   renderTopicList();
@@ -2242,7 +2453,6 @@ function renderTopicContent(idx) {
     <div class="topic-body">${t.body.replace(/\n/g, '<br><br>')}</div>
   `;
 
-  /* key points section */
   if (t.keypoints) {
     html += `<div class="keypoints-title">Key Points</div><div class="keypoints-list">`;
     t.keypoints.forEach(kp => {
@@ -2251,7 +2461,6 @@ function renderTopicContent(idx) {
     html += `</div>`;
   }
 
-  /* comparison / data table */
   if (t.table) {
     html += `<table class="comparison-table"><thead><tr>`;
     t.table.headers.forEach(h => html += `<th>${h}</th>`);
@@ -2264,7 +2473,6 @@ function renderTopicContent(idx) {
     html += `</tbody></table>`;
   }
 
-  /* example block */
   if (t.example) {
     html += `<div class="example-block">
       <div class="example-label">📌 Real Example</div>
@@ -2272,7 +2480,6 @@ function renderTopicContent(idx) {
     </div>`;
   }
 
-  /* discussion prompt */
   if (t.discussion) {
     html += `<div class="discussion-block">
       <div class="discussion-label">💬 Discussion Question</div>
@@ -2280,7 +2487,6 @@ function renderTopicContent(idx) {
     </div>`;
   }
 
-  /* prev / next navigation */
   html += `<div class="nav-buttons">`;
   if (idx > 0) {
     html += `<button class="nav-btn" onclick="renderTopicContent(${idx - 1})">← Previous</button>`;
@@ -2292,7 +2498,6 @@ function renderTopicContent(idx) {
 
   const content = document.getElementById('topicContent');
   content.innerHTML = html;
-  /* scroll back to top of content area */
   content.scrollTo(0, 0);
   window.scrollTo(0, 0);
 }
@@ -2301,13 +2506,10 @@ function renderTopicContent(idx) {
 /* ============================================================
    CHALLENGE MODE
    ============================================================ */
-
-/** Reset and start (or restart) the challenge session. */
 function restartChallenge() {
   grades = {};
   currentQIdx = 0;
 
-  /* show question UI, hide score panel */
   document.getElementById('scoreDisplay').style.display = 'none';
   document.getElementById('qMeta').style.display = 'flex';
   document.getElementById('qText').style.display = 'block';
@@ -2317,7 +2519,6 @@ function restartChallenge() {
   renderQuestion();
 }
 
-/** Render the current question. */
 function renderQuestion() {
   const q = activeQuestions[currentQIdx];
   if (!q) { showScore(); return; }
@@ -2331,12 +2532,10 @@ function renderQuestion() {
   document.getElementById('qNav').style.display       = 'none';
   document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected'));
 
-  /* update progress bar */
   const pct = (currentQIdx / activeQuestions.length) * 100;
   document.getElementById('challengeProgress').style.width = `${pct}%`;
 }
 
-/** Reveal the model answer for the current question. */
 function revealAnswer() {
   const q = activeQuestions[currentQIdx];
   document.getElementById('answerText').innerHTML   = q.a;
@@ -2345,7 +2544,6 @@ function revealAnswer() {
   document.getElementById('qNav').style.display       = 'flex';
 }
 
-/** Record a self-grade (got / partial / missed) for the current question. */
 function grade(type) {
   grades[currentQIdx] = type;
   document.querySelectorAll('.grade-btn').forEach(b => b.classList.remove('selected'));
@@ -2369,7 +2567,6 @@ function prevQ() {
   }
 }
 
-/** Calculate and display the final score. */
 function showScore() {
   const got     = Object.values(grades).filter(g => g === 'got').length;
   const partial = Object.values(grades).filter(g => g === 'partial').length;
@@ -2384,7 +2581,6 @@ function showScore() {
   document.getElementById('missedCount').textContent = missed;
   document.getElementById('scoreDisplay').style.display = 'block';
 
-  /* hide the question elements */
   ['qText', 'answerArea', 'revealBtn', 'modelAnswer', 'qNav'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.style.display = 'none';
@@ -2396,8 +2592,6 @@ function showScore() {
 /* ============================================================
    RAPID FIRE MODE
    ============================================================ */
-
-/** Render the current flashcard (reset flip state). */
 function renderRapidCard() {
   const card = activeFlashcards[rapidIdx];
   document.getElementById('rapidQ').textContent   = card.q;
@@ -2406,12 +2600,10 @@ function renderRapidCard() {
   document.getElementById('rapidProgress').textContent =
     `Card ${rapidIdx + 1} of ${activeFlashcards.length}`;
 
-  /* reset flip */
   document.getElementById('rapidCard').classList.remove('flipped');
   isFlipped = false;
 }
 
-/** Toggle the flip state of the current flashcard. */
 function flipCard() {
   isFlipped = !isFlipped;
   document.getElementById('rapidCard').classList.toggle('flipped', isFlipped);
@@ -2430,6 +2622,5 @@ function rapidPrev() {
     renderRapidCard();
   }
 }
-</script>
 </body>
 </html>
