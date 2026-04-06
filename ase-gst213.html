@@ -1,1 +1,1465 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASE-GST 213 - Study Assistant</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:    #f7f4ef;
+  --paper2:   #eeeae2;
+  --paper3:   #e3dfd5;
+  --ink:      #1a1714;
+  --ink2:     #4a443c;
+  --ink3:     #8a8278;
+  --rust:     #c0440a;
+  --rust-lt:  #f0ede8;
+  --rust-mid: #e8835a;
+  --green:    #1e5c3a;
+  --green-lt: #e8f2ec;
+  --navy:     #1c3555;
+  --navy-lt:  #e6ecf4;
+  --success:  #1e7a4a;
+  --danger:   #b52a2a;
+  --font-display: 'Clash Display', sans-serif;
+  --font-serif:   'Instrument Serif', serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --shadow-sm: 0 1px 3px rgba(26,23,20,0.08), 0 1px 2px rgba(26,23,20,0.04);
+  --shadow-md: 0 4px 12px rgba(26,23,20,0.10), 0 2px 4px rgba(26,23,20,0.06);
+  --shadow-lg: 0 12px 32px rgba(26,23,20,0.12), 0 4px 8px rgba(26,23,20,0.06);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
+}
+#home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+#home::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 200px; height: 200px;
+  border-right: 1px solid var(--paper3);
+  border-bottom: 1px solid var(--paper3);
+  border-radius: 0 0 100% 0;
+  pointer-events: none;
+}
+#home::after {
+  content: '';
+  position: fixed;
+  bottom: 0; right: 0;
+  width: 200px; height: 200px;
+  border-left: 1px solid var(--paper3);
+  border-top: 1px solid var(--paper3);
+  border-radius: 100% 0 0 0;
+  pointer-events: none;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 7px 18px;
+  border-radius: 2px;
+  margin-bottom: 2.5rem;
+}
+.badge-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--rust-mid);
+  animation: blink 2.4s ease-in-out infinite;
+}
+@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
+.home-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 10vw, 7rem);
+  font-weight: 700;
+  line-height: 0.88;
+  text-align: center;
+  letter-spacing: -0.04em;
+  margin-bottom: 1.25rem;
+  color: var(--ink);
+}
+.home-title em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--rust);
+}
+.title-rule { width: 60px; height: 3px; background: var(--rust); margin: 0 auto 1.5rem; }
+.home-sub {
+  color: var(--ink3);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+  text-align: center;
+  max-width: 440px;
+  margin-bottom: 3rem;
+}
+.week-selector {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.week-btn {
+  background: transparent;
+  border: 1.5px solid var(--paper3);
+  color: var(--ink3);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 8px 18px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+.week-btn:hover { border-color: var(--ink2); color: var(--ink); }
+.week-btn.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.25rem;
+  max-width: 960px;
+  width: 100%;
+}
+.mode-card {
+  background: #fff;
+  border: 1.5px solid var(--paper3);
+  border-radius: 4px;
+  padding: 2rem;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.mode-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
+.mode-card.learn:hover   { border-color: var(--rust); }
+.mode-card.challenge:hover { border-color: var(--green); }
+.mode-card.rapid:hover   { border-color: var(--navy); }
+.mode-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+.mode-card.learn::before   { background: var(--rust); }
+.mode-card.challenge::before { background: var(--green); }
+.mode-card.rapid::before   { background: var(--navy); }
+.mode-card:hover::before   { transform: scaleX(1); }
+.mode-icon { font-size: 1.75rem; margin-bottom: 1rem; display: block; }
+.mode-label { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.6rem; letter-spacing: -0.02em; color: var(--ink); }
+.mode-desc { color: var(--ink3); font-size: 0.78rem; line-height: 1.7; font-weight: 400; }
+.mode-arrow { position: absolute; bottom: 1.25rem; right: 1.25rem; font-size: 1rem; color: var(--paper3); transition: all 0.25s; font-weight: 600; }
+.mode-card:hover .mode-arrow { color: var(--ink2); transform: translate(3px,-3px); }
+.other-course-bar {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1.5px solid var(--paper3);
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.other-course-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink3); }
+.other-course-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1.5px solid var(--paper3);
+  color: var(--ink2);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border-radius: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.other-course-btn:hover { border-color: var(--ink); color: var(--ink); background: var(--paper2); }
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; }
+.screen-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  border-bottom: 1.5px solid var(--paper3);
+  position: sticky;
+  top: 0;
+  background: rgba(247,244,239,0.96);
+  backdrop-filter: blur(10px);
+  z-index: 100;
+}
+.back-btn {
+  background: transparent;
+  border: 1.5px solid var(--paper3);
+  color: var(--ink2);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.back-btn:hover { border-color: var(--ink); color: var(--ink); background: var(--paper2); }
+.screen-title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; color: var(--ink); }
+.screen-week { margin-left: auto; color: var(--ink3); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
+.learn-layout { display: grid; grid-template-columns: 268px 1fr; min-height: calc(100vh - 61px); }
+.topic-sidebar {
+  border-right: 1.5px solid var(--paper3);
+  padding: 1.5rem 1rem;
+  position: sticky;
+  top: 61px;
+  height: calc(100vh - 61px);
+  overflow-y: auto;
+  background: #faf8f4;
+}
+.sidebar-label { color: var(--ink3); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; padding: 0 0.5rem; }
+.topic-item {
+  padding: 0.55rem 0.75rem;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: var(--ink3);
+  transition: all 0.18s;
+  margin-bottom: 2px;
+  line-height: 1.4;
+  border: 1.5px solid transparent;
+}
+.topic-item:hover { background: var(--paper2); color: var(--ink); }
+.topic-item.active { background: var(--rust-lt); color: var(--rust); border-color: rgba(192,68,10,0.2); font-weight: 600; }
+.topic-content { padding: 3rem 3.5rem; max-width: 800px; }
+.topic-tag {
+  display: inline-flex;
+  align-items: center;
+  background: var(--paper2);
+  border: 1px solid var(--paper3);
+  color: var(--ink3);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 2px;
+  margin-bottom: 1.25rem;
+}
+.topic-heading { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 0.25rem; color: var(--ink); }
+.topic-hr { width: 40px; height: 2.5px; background: var(--rust); margin: 1rem 0 1.5rem; }
+.topic-body { color: var(--ink2); font-size: 0.84rem; line-height: 1.9; margin-bottom: 2rem; font-weight: 400; }
+.keypoints-title { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.85rem; }
+.keypoints-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+.keypoint {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #fff;
+  border: 1px solid var(--paper3);
+  border-left: 3px solid var(--rust);
+  border-radius: 0 3px 3px 0;
+  padding: 0.7rem 1rem;
+  font-size: 0.81rem;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.55;
+  box-shadow: var(--shadow-sm);
+}
+.keypoint-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rust); margin-top: 5px; flex-shrink: 0; }
+.comparison-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; font-size: 0.79rem; font-weight: 400; box-shadow: var(--shadow-sm); }
+.comparison-table th { background: var(--ink); color: var(--paper); padding: 0.75rem 1rem; text-align: left; font-family: var(--font-display); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.03em; border: 1px solid var(--ink); }
+.comparison-table td { padding: 0.65rem 1rem; border: 1px solid var(--paper3); color: var(--ink2); line-height: 1.55; vertical-align: top; background: #fff; font-weight: 500; }
+.comparison-table tr:nth-child(even) td { background: var(--paper); }
+.comparison-table tr:hover td { background: var(--rust-lt); }
+.example-block { background: var(--green-lt); border: 1.5px solid rgba(30,92,58,0.2); border-radius: 3px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
+.example-label { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
+.example-text { color: var(--ink2); font-size: 0.81rem; line-height: 1.7; font-weight: 500; }
+.discussion-block { background: var(--navy-lt); border: 1.5px solid rgba(28,53,85,0.2); border-radius: 3px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
+.discussion-label { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.5rem; }
+.discussion-text { color: var(--ink2); font-size: 0.81rem; line-height: 1.7; font-weight: 500; }
+.nav-buttons { display: flex; gap: 1rem; margin-top: 3rem; padding-top: 2rem; border-top: 1.5px solid var(--paper3); }
+.nav-btn {
+  background: transparent;
+  border: 1.5px solid var(--paper3);
+  color: var(--ink2);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.nav-btn:hover { border-color: var(--ink); color: var(--ink); background: var(--paper2); }
+.nav-btn.primary { background: var(--rust); color: #fff; border-color: var(--rust); }
+.nav-btn.primary:hover { background: #a83a08; border-color: #a83a08; }
+
+/* ══════════════════════════════════════════════════
+   CHALLENGE MODE — MULTIPLE CHOICE
+   ══════════════════════════════════════════════════ */
+.challenge-container { max-width: 780px; margin: 0 auto; padding: 3rem 2rem; }
+.progress-bar-wrap { background: var(--paper3); border-radius: 100px; height: 3px; margin-bottom: 2.5rem; }
+.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--rust), var(--rust-mid)); border-radius: 100px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+.q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+.q-counter { color: var(--ink3); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; }
+.q-category { background: var(--ink); color: var(--paper); font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 14px; border-radius: 2px; }
+.q-text { font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; line-height: 1.3; margin-bottom: 2rem; letter-spacing: -0.02em; color: var(--ink); }
+
+/* Multiple choice */
+.mc-options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+.mc-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: #fff;
+  border: 1.5px solid var(--paper3);
+  border-radius: 3px;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-size: 0.83rem;
+  font-weight: 500;
+  color: var(--ink2);
+  line-height: 1.5;
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+  width: 100%;
+  font-family: var(--font-mono);
+}
+.mc-option:hover:not(.disabled) { border-color: var(--navy); background: var(--navy-lt); color: var(--navy); }
+.mc-option.correct  { border-color: var(--success); background: var(--green-lt); color: var(--success); }
+.mc-option.wrong    { border-color: var(--danger);  background: #fdecea; color: var(--danger); }
+.mc-option.reveal-correct { border-color: var(--success); background: var(--green-lt); color: var(--success); }
+.mc-option.disabled { cursor: default; pointer-events: none; }
+.mc-letter {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--paper2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all 0.18s;
+}
+.mc-option:hover:not(.disabled) .mc-letter { background: var(--navy); color: #fff; }
+.mc-option.correct .mc-letter  { background: var(--success); color: #fff; }
+.mc-option.wrong .mc-letter    { background: var(--danger);  color: #fff; }
+.mc-option.reveal-correct .mc-letter { background: var(--success); color: #fff; }
+
+.mc-feedback {
+  display: none;
+  border-radius: 3px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.83rem;
+  line-height: 1.75;
+  animation: slideUp 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.mc-feedback.correct-fb { background: var(--green-lt); border: 1.5px solid rgba(30,92,58,0.25); border-left: 4px solid var(--success); }
+.mc-feedback.wrong-fb   { background: #fdecea; border: 1.5px solid rgba(181,42,42,0.2); border-left: 4px solid var(--danger); }
+.mc-feedback-label { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.6rem; }
+.correct-fb .mc-feedback-label { color: var(--success); }
+.wrong-fb   .mc-feedback-label { color: var(--danger); }
+.mc-feedback-text { color: var(--ink2); font-size: 0.83rem; font-weight: 400; }
+.mc-feedback-text strong { color: var(--ink); font-weight: 700; }
+
+@keyframes slideUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.q-nav { display: flex; gap: 1rem; margin-top: 1.5rem; }
+.score-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 55vh; text-align: center; padding: 3rem; }
+.score-number { font-family: var(--font-display); font-size: 6rem; font-weight: 700; color: var(--rust); line-height: 1; margin-bottom: 0.5rem; letter-spacing: -0.04em; }
+.score-label { color: var(--ink3); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 2.5rem; }
+.score-breakdown { display: flex; gap: 2.5rem; margin-bottom: 3rem; }
+.score-stat { text-align: center; }
+.stat-num { font-family: var(--font-display); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
+.stat-label { color: var(--ink3); font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
+
+/* ══════════════════════════════════════════════════
+   RAPID FIRE
+   ══════════════════════════════════════════════════ */
+.rapid-container { max-width: 700px; margin: 0 auto; padding: 3rem 2rem; text-align: center; }
+.rapid-progress { color: var(--ink3); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2rem; }
+.rapid-card {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  cursor: pointer;
+  perspective: 1000px;
+  margin-bottom: 2rem;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+.rapid-card.flipped { transform: rotateY(180deg); }
+.rapid-question, .rapid-answer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+  border-radius: 4px;
+  backface-visibility: hidden;
+  box-shadow: var(--shadow-md);
+}
+.rapid-question { background: var(--ink); color: var(--paper); font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; }
+.rapid-answer { background: #fff; color: var(--ink2); font-size: 0.84rem; line-height: 1.75; transform: rotateY(180deg); border: 1.5px solid var(--paper3); text-align: left; overflow-y: auto; }
+.rapid-answer strong { color: var(--ink); font-weight: 700; }
+.flip-hint { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,244,239,0.4); }
+.rapid-counter { position: absolute; top: 1rem; right: 1rem; font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: rgba(247,244,239,0.15); line-height: 1; }
+.rapid-controls { display: flex; gap: 1rem; justify-content: center; }
+.rapid-btn { padding: 11px 28px; border-radius: 2px; border: 1.5px solid var(--paper3); font-family: var(--font-mono); font-size: 0.76rem; font-weight: 600; cursor: pointer; transition: all 0.2s; letter-spacing: 0.06em; text-transform: uppercase; }
+.rapid-btn.prev { background: transparent; color: var(--ink3); }
+.rapid-btn.prev:hover { color: var(--ink); border-color: var(--ink); background: var(--paper2); }
+.rapid-btn.flip { background: var(--navy); color: #fff; border-color: var(--navy); }
+.rapid-btn.flip:hover { background: #142844; border-color: #142844; }
+.rapid-btn.next { background: transparent; color: var(--ink3); }
+.rapid-btn.next:hover { color: var(--ink); border-color: var(--ink); background: var(--paper2); }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--paper); }
+::-webkit-scrollbar-thumb { background: var(--paper3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink3); }
+
+@media (max-width: 720px) {
+  .learn-layout { grid-template-columns: 1fr; }
+  .topic-sidebar { position: static; height: auto; border-right: none; border-bottom: 1.5px solid var(--paper3); }
+  .topic-content { padding: 1.5rem; }
+  .home-title { font-size: 3rem; }
+  .other-course-bar { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div id="home">
+  <div class="badge"><span class="badge-dot"></span>ASE-GST 213 · African School of Economics</div>
+  <h1 class="home-title">Study<br><em>Assistant</em></h1>
+  <div class="title-rule"></div>
+  <p class="home-sub">Introduction to Programming &amp; Artificial Intelligence.<br>Pick your week, pick your mode.</p>
+
+  <div class="week-selector">
+    <button class="week-btn active" onclick="selectWeek(1,this)">Week 1 — Programming Fundamentals</button>
+    <button class="week-btn" onclick="selectWeek(2,this)">Week 2 — Structured &amp; Modular Programming</button>
+    <button class="week-btn" onclick="selectWeek('all',this)">All Weeks</button>
+  </div>
+
+  <div class="mode-grid">
+    <div class="mode-card learn" onclick="openLearn()">
+      <span class="mode-icon">📖</span>
+      <div class="mode-label">Learn Mode</div>
+      <div class="mode-desc">Deep-dive every topic from your slides. Clean breakdowns, key points, comparisons, and real examples.</div>
+      <div class="mode-arrow">↗</div>
+    </div>
+    <div class="mode-card challenge" onclick="openChallenge()">
+      <span class="mode-icon">⚔️</span>
+      <div class="mode-label">Challenge Mode</div>
+      <div class="mode-desc">Multiple-choice questions straight from the slides. Pick your answer, get instant feedback with a full explanation.</div>
+      <div class="mode-arrow">↗</div>
+    </div>
+    <div class="mode-card rapid" onclick="openRapid()">
+      <span class="mode-icon">⚡</span>
+      <div class="mode-label">Rapid Fire</div>
+      <div class="mode-desc">Flashcard mode. Concept on front, full explanation on back. Active recall — the real way to pass.</div>
+      <div class="mode-arrow">↗</div>
+    </div>
+  </div>
+
+  <div class="other-course-bar">
+    <span class="other-course-label">Also studying</span>
+    <a class="other-course-btn" href="index.html">ENT 211 — Study Assistant →</a>
+  </div>
+</div>
+
+<!-- LEARN SCREEN -->
+<div id="learnScreen" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="screen-title">📖 Learn Mode</div>
+    <div class="screen-week" id="learnWeekLabel">Week 1</div>
+  </div>
+  <div class="learn-layout">
+    <div class="topic-sidebar">
+      <div class="sidebar-label">Topics</div>
+      <div id="topicList"></div>
+    </div>
+    <div class="topic-content" id="topicContent"></div>
+  </div>
+</div>
+
+<!-- CHALLENGE SCREEN -->
+<div id="challengeScreen" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="screen-title">⚔️ Challenge Mode</div>
+    <div class="screen-week" id="challengeWeekLabel">Week 1</div>
+  </div>
+  <div class="challenge-container">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="challengeProgress" style="width:0%"></div>
+    </div>
+    <div class="q-meta" id="qMeta">
+      <div class="q-counter" id="qCounter">Q 1 / 12</div>
+      <div class="q-category" id="qCategory">Definitions</div>
+    </div>
+    <div class="q-text" id="qText"></div>
+    <div class="mc-options" id="mcOptions"></div>
+    <div class="mc-feedback" id="mcFeedback">
+      <div class="mc-feedback-label" id="mcFeedbackLabel"></div>
+      <div class="mc-feedback-text" id="mcFeedbackText"></div>
+    </div>
+    <div class="q-nav" id="qNav" style="display:none">
+      <button class="nav-btn primary" onclick="nextQ()">Next Question →</button>
+    </div>
+    <div id="scoreDisplay" class="score-screen" style="display:none">
+      <div class="score-number" id="scorePct"></div>
+      <div class="score-label">Score</div>
+      <div class="score-breakdown">
+        <div class="score-stat">
+          <div class="stat-num" id="gotCount" style="color:var(--success)">0</div>
+          <div class="stat-label">Correct</div>
+        </div>
+        <div class="score-stat">
+          <div class="stat-num" id="missedCount" style="color:var(--danger)">0</div>
+          <div class="stat-label">Wrong</div>
+        </div>
+      </div>
+      <button class="nav-btn primary" onclick="restartChallenge()">Try Again</button>
+    </div>
+  </div>
+</div>
+
+<!-- RAPID FIRE SCREEN -->
+<div id="rapidScreen" class="screen">
+  <div class="screen-header">
+    <button class="back-btn" onclick="goHome()">← Back</button>
+    <div class="screen-title">⚡ Rapid Fire</div>
+    <div class="screen-week" id="rapidWeekLabel">Week 1</div>
+  </div>
+  <div class="rapid-container">
+    <div class="rapid-progress" id="rapidProgress">Card 1 of 10</div>
+    <div class="rapid-card" id="rapidCard" onclick="flipCard()">
+      <div class="flip-hint">tap to flip</div>
+      <div class="rapid-question" id="rapidQ"></div>
+      <div class="rapid-answer" id="rapidA"></div>
+      <div class="rapid-counter" id="rapidCounter">1</div>
+    </div>
+    <div class="rapid-controls">
+      <button class="rapid-btn prev" onclick="rapidPrev()">← Prev</button>
+      <button class="rapid-btn flip" onclick="flipCard()">Flip Card</button>
+      <button class="rapid-btn next" onclick="rapidNext()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ASE-GST 213 — COURSE DATA
+   ============================================================ */
+const courseData = {
+
+  /* ── WEEK 1 — Programming Fundamentals (2 Dec 2025) ── */
+  1: {
+    label: "Week 1 — Programming Fundamentals",
+    topics: [
+      {
+        id: "building_blocks",
+        title: "Programming Building Blocks",
+        tag: "Week 1 · Overview",
+        body: `Every program, no matter how complex, is built from four essential concepts working together. Understanding these building blocks is the foundation of all programming.\n\nThe four building blocks are Variables, Data Types, Loops, and Functions. They are not independent — they work as a system:\n1. Variables store data\n2. Data types define what operations are possible on that data\n3. Loops process multiple items efficiently\n4. Functions organize and reuse logic`,
+        keypoints: [
+          "Variables: containers for storing data in memory",
+          "Data Types: categories that define what kind of data is stored and what can be done with it",
+          "Loops: mechanisms for repeating a block of code",
+          "Functions: named, reusable blocks of organized code",
+          "Key insight: all four work together as a system — they are not isolated tools"
+        ]
+      },
+      {
+        id: "variables",
+        title: "Variables: Data Containers",
+        tag: "Week 1 · Core Concept",
+        body: `A variable is a named storage location in memory that holds a data value. Think of it like a labelled box — the label is the variable name, and whatever is inside the box is the value.\n\nVariables have four key characteristics:\n• A name (identifier) — used to refer to the stored value in your code\n• A value — the actual data stored at this moment\n• A data type — determines what kind of data it holds and what operations are valid\n• Mutability — most variables can have their value changed (reassigned) after creation`,
+        keypoints: [
+          "Definition: a named storage location in memory that holds a data value",
+          "Name (identifier): how you refer to the variable in code — e.g. student_age, total_score",
+          "Value: the actual data the variable currently holds — e.g. 21, 95.5, 'Alice'",
+          "Data type: determines what kind of data and what operations are allowed",
+          "Can be modified: most variables can have their value updated (reassigned) later"
+        ],
+        example: `Analogy: Think of a variable like a labelled jar on a shelf. The label 'sugar' is the variable name. The sugar inside is the value. The fact that it holds a granular food product is like the data type. You can refill it (reassign the value) any time.`
+      },
+      {
+        id: "data_types",
+        title: "Basic Data Types",
+        tag: "Week 1 · Core Concept",
+        body: `Data types are categories for different kinds of data. They tell the computer what type of value a variable holds and what operations can be performed on it.\n\nFor example, you can add two integers (5 + 3 = 8), but you cannot divide a string. The data type enforces what is and is not allowed.\n\nChoosing the correct data type is a fundamental programming decision that affects performance, correctness, and clarity.`,
+        keypoints: [
+          "Integer: whole numbers (positive, negative, or zero) — e.g. 42, -7, 0",
+          "Float: decimal / fractional numbers — e.g. 3.14, -0.5, 2.0",
+          "String: text data enclosed in quotes — e.g. 'hello', 'ASE-GST 213'",
+          "Boolean: logical values — only True or False. Used in conditions and comparisons",
+          "None / Null: represents the complete absence of a value — not 0, not '' — genuinely nothing"
+        ],
+        table: {
+          headers: ["Type", "Example", "Description"],
+          rows: [
+            ["Integer", "42, -7", "Whole numbers"],
+            ["Float", "3.14, -0.5", "Decimal numbers"],
+            ["String", '"hello"', "Text data"],
+            ["Boolean", "True, False", "Logical values"],
+            ["None / Null", "None, null", "No value / absence of value"]
+          ]
+        }
+      },
+      {
+        id: "for_loops",
+        title: "For Loops: Fixed Iterations",
+        tag: "Week 1 · Core Concept",
+        body: `A for loop executes a block of code a specific, known number of times — or iterates over every item in a collection (like a list or string) one by one.\n\nUse a for loop when you know in advance how many repetitions are needed, or when you want to process every single item in a collection.\n\nFor loops are more predictable than while loops — they have a clear, defined stopping point built into the structure.`,
+        keypoints: [
+          "For loops execute code a fixed, known number of times",
+          "They can iterate over collections: lists, strings, ranges, tuples",
+          "Best used when: you know exactly how many repetitions are needed",
+          "Common use: process every item in a list — e.g. print every student's name",
+          "More predictable and safer than while loops — clear stopping point"
+        ],
+        example: `Real-world analogy: A teacher calling out each student's name from a register. Starting at the top, working through it one by one. The teacher doesn't need to decide 'should I stop?' — the list ends naturally. That's a for loop.`
+      },
+      {
+        id: "while_loops",
+        title: "While Loops: Conditional Iteration",
+        tag: "Week 1 · Core Concept",
+        body: `A while loop repeats a block of code for as long as a specified condition remains true. Unlike a for loop (fixed iterations), a while loop keeps going until the condition becomes false.\n\nCritical warning from the slides: If the condition NEVER becomes false, the loop runs forever — this is called an infinite loop. It will crash or freeze your program. Always ensure something inside the loop changes the condition toward false.`,
+        keypoints: [
+          "While loops repeat as long as a condition remains true",
+          "Best used when: you don't know in advance how many times to repeat",
+          "The condition is checked BEFORE each iteration — if false immediately, loop never runs",
+          "WARNING: Always ensure the condition will eventually become false",
+          "Infinite loop: condition never becomes false — program hangs or crashes"
+        ],
+        discussion: "Can you think of a real-world situation where a while loop is more appropriate than a for loop? What is the danger of writing a while loop without carefully thinking through the exit condition?"
+      },
+      {
+        id: "functions",
+        title: "Functions: Reusable Code Blocks",
+        tag: "Week 1 · Core Concept",
+        body: `A function is a named, reusable block of code that performs a specific task. Instead of writing the same code over and over, you write it once inside a function and call (invoke) it whenever you need it.\n\nFunctions follow the DRY principle: Don't Repeat Yourself. They organize code into logical units, make it easier to read, and dramatically simplify maintenance — fix the function once, fixed everywhere it is used.\n\nA function has a name, may accept inputs (parameters), performs a defined task, and may return an output (return value).`,
+        keypoints: [
+          "Function: a named, reusable block of code that performs a specific, defined task",
+          "DRY Principle: Don't Repeat Yourself — write once, call many times",
+          "Improves readability: complex operations get a clear, descriptive name",
+          "Improves maintainability: fix the function in one place, fixed everywhere it is used",
+          "Functions organize code into logical, testable, understandable units"
+        ]
+      },
+      {
+        id: "function_components",
+        title: "Function Components: Parameters & Return",
+        tag: "Week 1 · Core Concept",
+        body: `Functions have two important mechanisms that control how data flows in and out:\n\nPARAMETERS vs ARGUMENTS:\n• Parameters are the placeholder variable names listed in the function definition\n• Arguments are the actual values you pass in when calling the function\n\nRETURN STATEMENT:\n• The return statement sends a computed value back to whoever called the function\n• A function without a return statement automatically returns None (no value)`,
+        keypoints: [
+          "Parameters: the placeholder variables in the function definition — e.g. def greet(name)",
+          "Arguments: the actual values supplied when calling the function — e.g. greet('Alice')",
+          "Return statement: sends a computed value back to the caller",
+          "No return statement: function automatically returns None",
+          "A function can have multiple parameters but should do ONE clear, focused task"
+        ],
+        example: `Analogy: Think of a function like a vending machine. The buttons are the parameters (what you can input). Your actual button press is the argument (what you specifically input). The snack that comes out is the return value. The internal wiring is hidden — you just use the interface.`
+      },
+      {
+        id: "summary1",
+        title: "Week 1 Summary",
+        tag: "Week 1 · Key Takeaways",
+        body: `Everything from Week 1 condensed into the most testable points.`,
+        keypoints: [
+          "4 building blocks: Variables, Data Types, Loops, Functions — they work together as a system",
+          "Variable: named storage in memory. Has a name, value, type, and can usually be modified",
+          "5 data types: Integer (whole), Float (decimal), String (text), Boolean (True/False), None (no value)",
+          "For loop: fixed/known iterations — iterate over collections or a set number of times",
+          "While loop: conditional iteration — repeats while condition is true. DANGER: infinite loop",
+          "Function: reusable block of code. DRY = Don't Repeat Yourself",
+          "Parameter = placeholder in definition. Argument = actual value when calling",
+          "Return statement: sends a value back. No return = function returns None",
+          "Best practices: meaningful variable names, appropriate data types, focused functions, efficient loops"
+        ]
+      }
+    ]
+  },
+
+  /* ── WEEK 2 — Structured & Modular Programming (9 Dec 2025) ── */
+  2: {
+    label: "Week 2 — Structured & Modular Programming",
+    topics: [
+      {
+        id: "paradigm_shift",
+        title: "The Paradigm Shift",
+        tag: "Week 2 · Introduction",
+        body: `In the late 1960s and early 1970s, a revolution happened in software development. As programs grew larger, developers were writing what became known as "spaghetti code" — tangled, unpredictable programs full of arbitrary GOTO jumps that could send execution anywhere.\n\nThe response was a shift to two complementary approaches that together solved the problem:\n• Structured Programming — controlling the flow of logic inside functions\n• Modular Programming — organizing functions and data into independent units\n\nKey formula: Structured Programming + Modular Programming = Better Software`,
+        keypoints: [
+          "Spaghetti code: programs with tangled, unpredictable GOTO jumps to arbitrary lines",
+          "The problem: monolithic, impossible-to-maintain programs with uncontrolled logic",
+          "The solution: two complementary paradigms working at different levels",
+          "Structured Programming: fixes how code flows INSIDE a function",
+          "Modular Programming: fixes how functions are ORGANIZED across the system"
+        ],
+        table: {
+          headers: ["Before", "After"],
+          rows: [
+            ['"Spaghetti Code"', "Structured Flow"],
+            ["Unpredictable GOTO", "Controlled Logic"],
+            ["Monolithic Programs", "Modular Systems"],
+            ["Hard to Maintain", "Designed for Change"]
+          ]
+        }
+      },
+      {
+        id: "structured_core",
+        title: "Structured Programming: Core Principles",
+        tag: "Week 2 · Structured Programming",
+        body: `Structured Programming is built on three — and only three — basic control constructs. The Böhm-Jacopini theorem proves that any possible program logic can be expressed using just these three:\n\n1. SEQUENCE — statements execute one after another, in order, top to bottom\n2. SELECTION — a condition decides which path to take (if/else, switch)\n3. ITERATION — code repeats while a condition holds (for/while loops)\n\nThe Golden Rule: No Arbitrary GOTO. Control flow must always pass through one of these three predictable constructs.`,
+        keypoints: [
+          "Sequence: statements execute in order, top to bottom — the default, natural flow",
+          "Selection: conditional execution — if/else. Code chooses a path based on a condition",
+          "Iteration: repeated execution — for/while loops. Code repeats while condition holds",
+          "Golden Rule: NO arbitrary GOTO statements — ever",
+          "Böhm-Jacopini theorem: ANY program logic can be expressed with just these three constructs",
+          "All modern programming languages enforce these three constructs"
+        ]
+      },
+      {
+        id: "historical_context",
+        title: "Historical Context: Dijkstra & Design Rules",
+        tag: "Week 2 · History",
+        body: `In 1968, Dutch computer scientist Edsger Dijkstra published a letter titled "GOTO Statement Considered Harmful." This became the founding document of structured programming.\n\nDijkstra's argument: unrestricted use of GOTO makes programs impossible to reason about mathematically, impossible to formally verify, and impossible to maintain reliably as they grow.\n\nFrom this work emerged three key design rules that remain industry standard today.`,
+        keypoints: [
+          "Edsger Dijkstra (1968): 'GOTO Statement Considered Harmful' — the founding document",
+          "Argument: arbitrary GOTOs make formal verification and mathematical reasoning impossible",
+          "Mathematical foundation: structured programs can be formally proven correct",
+          "Design Rule 1: Single entry, single exit — one way in and one way out for each block",
+          "Design Rule 2: Programs decomposed into functions — top-down design",
+          "Design Rule 3: Local variables over global state — keep data close to where it is used"
+        ],
+        example: `Single entry/exit analogy: Emergency evacuation procedures. Everyone enters through the front and exits through designated fire doors. If people could break through any random wall (GOTO), you cannot track anyone, verify safety, or reason about where anyone is. Structured programming prevents this chaos.`
+      },
+      {
+        id: "structured_benefits",
+        title: "Benefits of Structured Programming",
+        tag: "Week 2 · Structured Programming",
+        body: `The benefits of structured programming have direct, practical impact on how software is built, debugged, and maintained professionally.`,
+        keypoints: [
+          "Readability: code flows logically — anyone can follow the execution path",
+          "Maintainability: changes have predictable, localized effects — fix one thing without breaking another",
+          "Verifiability: formal mathematical proof of correctness becomes possible",
+          "Debugging: errors are easier to isolate and fix — you know exactly where execution can go",
+          "Team Collaboration: consistent control patterns across all developers on a project"
+        ],
+        table: {
+          headers: ["Benefit", "Impact"],
+          rows: [
+            ["Readability", "Code flows logically, easier to understand and follow"],
+            ["Maintainability", "Changes have predictable, localized effects"],
+            ["Verifiability", "Formal proof of correctness becomes possible"],
+            ["Debugging", "Errors are easier to isolate and fix"],
+            ["Team Collaboration", "Consistent patterns across all developers"]
+          ]
+        }
+      },
+      {
+        id: "modular_core",
+        title: "Modular Programming: Core Concepts",
+        tag: "Week 2 · Modular Programming",
+        body: `Modular Programming is about grouping related functions and data into independent, interchangeable units called modules.\n\nA module is a logical unit with one specific responsibility. The key idea: a module exposes a public interface (what it does) while hiding its private implementation (how it does it). Users of the module only need to know the interface — the internal details are hidden.\n\nReal examples from the slides: .c/.h files in C, Python modules (.py files), Java packages.`,
+        keypoints: [
+          "Module: an independent unit grouping related functions and data with one responsibility",
+          "Public interface: what the module does — visible and accessible to other modules",
+          "Private implementation: how the module works — hidden from other modules",
+          "Real examples: Python modules (.py files), Java packages, C header files (.h)",
+          "Interchangeable: modules with the same interface can be swapped without breaking the system"
+        ]
+      },
+      {
+        id: "key_principles",
+        title: "The 4 Key Principles of Modular Programming",
+        tag: "Week 2 · Modular Programming",
+        body: `Modular Programming rests on four core principles that together ensure modules are independent, focused, and maintainable.`,
+        keypoints: [
+          "1. ENCAPSULATION: hide implementation details, expose only the interface — the outside world sees WHAT, not HOW",
+          "2. HIGH COHESION: all elements inside a module serve a single, unified purpose — the module does ONE thing well",
+          "3. LOOSE COUPLING: minimize dependencies between modules — modules interact only through interfaces, not internals",
+          "4. INFORMATION HIDING: implementation details are private — changes inside a module don't affect other modules"
+        ],
+        discussion: "Why is Loose Coupling important? What happens to a system where every module depends on the internal implementation details of every other module? How does that affect maintainability?"
+      },
+      {
+        id: "modular_benefits",
+        title: "Benefits of Modular Programming",
+        tag: "Week 2 · Modular Programming",
+        body: `Modular programming benefits apply across both the development phase (when building) and the maintenance phase (after deployment).\n\nKey Metric from the slides: Complexity = Sum of understandable parts\n\nThis means a complex system becomes manageable when it is divided into smaller, independently understandable modules.`,
+        keypoints: [
+          "DEVELOPMENT — Parallel Development: different teams build different modules simultaneously",
+          "DEVELOPMENT — Reusability: a module built for one project can be reused in others",
+          "DEVELOPMENT — Testability: each module can be tested in isolation (unit testing)",
+          "MAINTENANCE — Localized Changes: a fix in one module doesn't break others",
+          "MAINTENANCE — Easier Updates: individual modules can be replaced or upgraded independently",
+          "MAINTENANCE — Clear Ownership: each module has a defined responsible team"
+        ]
+      },
+      {
+        id: "structured_vs_modular",
+        title: "Structured vs. Modular: Working Together",
+        tag: "Week 2 · Comparison",
+        body: `Structured and Modular Programming are complementary — not competing. They work at different levels:\n\nStructured Programming = MICRO level\nControls how code flows INSIDE a single function. Focus: correctness.\n\nModular Programming = MACRO level\nOrganizes how functions and data are grouped ACROSS the system. Focus: architecture.\n\nNeither alone is sufficient. System Quality = Structured Programming + Modular Programming`,
+        keypoints: [
+          "Structured = micro level. Controls flow WITHIN functions. Focus: correctness",
+          "Modular = macro level. Organizes functions BETWEEN modules. Focus: architecture",
+          "Analogy: Structured = writing clear paragraphs. Modular = organizing chapters in a book",
+          "You need both: well-written code in a poorly organized system still fails at scale",
+          "System Quality = Structured + Modular — the 1970s formula still holds today"
+        ],
+        table: {
+          headers: ["Aspect", "Structured Programming", "Modular Programming"],
+          rows: [
+            ["Primary Focus", "Control flow within routines", "Organization of routines and data"],
+            ["Unit of Work", "Function / Procedure", "Module / Library / Package"],
+            ["Key Mechanism", "Sequences, Selection, Iteration", "Encapsulation, Interfaces"],
+            ["Main Goal", "Correctness, Readability", "Maintainability, Reusability"],
+            ["Analogy", "Writing clear paragraphs", "Organizing into chapters"],
+            ["Timeframe", "1970s", "1970s–1980s"],
+            ["Pioneers", "Dijkstra, Wirth", "Parnas, Liskov"]
+          ]
+        }
+      },
+      {
+        id: "oop_evolution",
+        title: "Evolution to Object-Oriented Programming",
+        tag: "Week 2 · Modern Context",
+        body: `Object-Oriented Programming (OOP) is the natural evolutionary next step from Modular Programming. It takes the same core ideas and extends them with more powerful mechanisms:\n\n• Class = Module with data AND methods bundled more tightly together\n• Inheritance = Module specialization — a class can inherit and extend another class's behaviour\n• Polymorphism = Flexible interfaces — same interface, different implementations\n• Encapsulation = Stronger information hiding — access modifiers (public, private, protected)\n\nOOP did not discard structured or modular programming. It extended them.`,
+        keypoints: [
+          "OOP = Enhanced Modular Programming — same principles, more powerful mechanisms",
+          "Class = Module with data + methods bundled together more tightly",
+          "Inheritance = Module specialization — reuse and extend existing behaviour",
+          "Polymorphism = Flexible interfaces — one interface, multiple implementations",
+          "Encapsulation = Stronger — access modifiers enforce information hiding",
+          "Structured programming principles still apply inside every OOP method"
+        ]
+      },
+      {
+        id: "modern_applications",
+        title: "Modern Applications",
+        tag: "Week 2 · Relevance Today",
+        body: `The 1970s principles of modular and structured programming are directly visible in modern software engineering. They did not go away — they scaled up.\n\nAPI Design: REST APIs expose clean public endpoints (interfaces) that hide the server implementation. Modular thinking at the service level.\n\nMicroservices: Each microservice is a module at system scale — independent, loosely coupled, with its own responsibility and interface.\n\nPackage Managers: npm (JavaScript), pip (Python), Maven (Java) — entire ecosystems built around discovering and reusing modules others have built.`,
+        keypoints: [
+          "REST APIs: clean public interfaces hiding implementation — modular thinking at service level",
+          "Microservices: independent modules at system scale — loosely coupled services",
+          "Package Managers (npm/pip/Maven): ecosystems for discovering and reusing modules",
+          "Containerization (Docker): each container is an independent deployment module",
+          "Serverless: function-level modules deployed independently",
+          "Fundamentals Matter: modern frameworks come and go — these principles endure"
+        ]
+      },
+      {
+        id: "summary2",
+        title: "Week 2 Summary",
+        tag: "Week 2 · Key Takeaways",
+        body: `Everything from Week 2 condensed into the most testable points.`,
+        keypoints: [
+          "The problem: spaghetti code (late 1960s). The solution: Structured + Modular Programming",
+          "Structured Programming: ONLY 3 constructs — Sequence, Selection, Iteration. Golden Rule: No GOTO",
+          "Dijkstra (1968): 'GOTO Statement Considered Harmful' — founded structured programming",
+          "3 Design Rules: Single entry/exit; decompose into functions; local over global variables",
+          "Modular Programming: modules with public interface + private implementation",
+          "4 Principles: Encapsulation, High Cohesion, Loose Coupling, Information Hiding",
+          "Structured = micro (inside functions, correctness). Modular = macro (between modules, architecture)",
+          "System Quality = Structured + Modular — neither alone is sufficient",
+          "OOP = enhanced modular programming. Class = Module. Inheritance = specialization",
+          "Modern: REST APIs, Microservices, Docker, npm/pip — all modular thinking at scale"
+        ]
+      }
+    ]
+  }
+};
+
+
+/* ============================================================
+   MULTIPLE CHOICE QUESTIONS
+   ============================================================ */
+const allQuestions = {
+
+  1: [
+    {
+      category: "Variables",
+      q: "What is a variable in programming?",
+      options: [
+        "A fixed value that cannot change during program execution",
+        "A named storage location in memory that holds a data value",
+        "A type of loop used to repeat code",
+        "A function that returns a value to the caller"
+      ],
+      correct: 1,
+      explanation: "<strong>A variable is a named storage location in memory that holds a data value.</strong> The name is called an identifier. Variables can usually be modified (reassigned) after creation. A fixed value that cannot change would be a constant, not a variable."
+    },
+    {
+      category: "Variables",
+      q: "Which of the following is NOT a key characteristic of a variable?",
+      options: [
+        "It has a name (identifier)",
+        "It stores a value",
+        "It always performs an arithmetic operation",
+        "It has a specific data type"
+      ],
+      correct: 2,
+      explanation: "<strong>Variables store data — they do not perform operations.</strong> The four characteristics of a variable are: a name (identifier), a value, a data type, and the ability to be modified. Performing operations is the role of operators and functions."
+    },
+    {
+      category: "Data Types",
+      q: "What data type would you use to store the value 3.14?",
+      options: ["Integer", "Boolean", "Float", "String"],
+      correct: 2,
+      explanation: "<strong>Float</strong> is used for decimal/fractional numbers like 3.14. Integer is for whole numbers only (e.g. 42, -7). Boolean holds only True or False. String holds text data enclosed in quotes."
+    },
+    {
+      category: "Data Types",
+      q: "Which data type represents the complete absence of a value?",
+      options: [
+        "Boolean set to False",
+        "Integer with value 0",
+        "String with value ''",
+        "None / Null"
+      ],
+      correct: 3,
+      explanation: "<strong>None (Python) / Null</strong> explicitly represents the absence of a value — 'nothing is here.' This is completely different from 0 (a valid integer), '' (an empty string — still a string), or False (a valid Boolean). None/Null is its own distinct type."
+    },
+    {
+      category: "Data Types",
+      q: "What is the data type of the value True?",
+      options: ["String", "Integer", "Boolean", "Float"],
+      correct: 2,
+      explanation: "<strong>Boolean</strong> is the data type holding only two possible values: True or False. Booleans power all decision-making in programming — conditions, comparisons, while loops. True is not a string (no quotes) and not an integer."
+    },
+    {
+      category: "Loops",
+      q: "Which type of loop is best when you know exactly how many times to repeat?",
+      options: ["While loop", "For loop", "If statement", "Recursive call"],
+      correct: 1,
+      explanation: "<strong>For loops</strong> are designed for fixed, known iterations — you specify how many times or iterate over every item in a collection. While loops are better when the number of repetitions depends on a changing condition you can't predict in advance."
+    },
+    {
+      category: "Loops",
+      q: "What is an infinite loop?",
+      options: [
+        "A loop that runs exactly 1,000 times",
+        "A for loop that iterates over a very large list",
+        "A while loop whose condition never becomes false",
+        "A loop nested inside another loop"
+      ],
+      correct: 2,
+      explanation: "<strong>An infinite loop is a while loop whose condition never becomes false</strong> — so it runs forever. This is a critical programming bug that will hang or crash the program. The slides specifically warn: always ensure the loop condition eventually becomes false."
+    },
+    {
+      category: "Loops",
+      q: "When does a while loop check its condition?",
+      options: [
+        "Only once, at the start of the program",
+        "After every 10 iterations",
+        "Before each iteration",
+        "Only when the programmer explicitly calls check()"
+      ],
+      correct: 2,
+      explanation: "<strong>A while loop checks its condition before each iteration.</strong> If true → body executes → condition checked again. If the condition is false at the very start, the loop body never executes at all. This is how while loops avoid running when not needed."
+    },
+    {
+      category: "Functions",
+      q: "What does the DRY principle stand for?",
+      options: [
+        "Define, Run, Yield",
+        "Don't Repeat Yourself",
+        "Data Requires Yardstick",
+        "Define Reusable Yields"
+      ],
+      correct: 1,
+      explanation: "<strong>DRY = Don't Repeat Yourself.</strong> The core principle behind functions: write code once inside a function and call it wherever needed, instead of copying and pasting the same code in multiple places. This makes maintenance much easier — fix once, fixed everywhere."
+    },
+    {
+      category: "Functions",
+      q: "What is the difference between a parameter and an argument?",
+      options: [
+        "They are exactly the same thing — the terms are interchangeable",
+        "A parameter is the actual value passed; an argument is the placeholder in the definition",
+        "A parameter is the placeholder in the function definition; an argument is the actual value passed when calling",
+        "Parameters are only used in for loops; arguments are only used in while loops"
+      ],
+      correct: 2,
+      explanation: "<strong>Parameters</strong> are the placeholder variable names in the function definition (e.g. def greet(name) — 'name' is the parameter). <strong>Arguments</strong> are the actual values supplied when calling the function (e.g. greet('Alice') — 'Alice' is the argument)."
+    },
+    {
+      category: "Functions",
+      q: "What does a function return if it has no return statement?",
+      options: ["0", "An error message", "False", "None"],
+      correct: 3,
+      explanation: "<strong>None.</strong> A function without an explicit return statement automatically returns None — representing no output value. This is not an error; it is valid and correct for functions that perform an action (like printing to screen) rather than computing a value."
+    },
+    {
+      category: "Concepts",
+      q: "Which statement best describes the four programming building blocks?",
+      options: [
+        "They are completely independent — you pick one and use only that",
+        "They work together as a system: variables store typed data, loops process collections, functions organize reusable logic",
+        "Functions are the only important one; the others are optional extras",
+        "Data types are only needed inside loops"
+      ],
+      correct: 1,
+      explanation: "<strong>All four building blocks work together as a system.</strong> Variables store data. Data types define what operations are possible. Loops process multiple items (often stored in variables). Functions encapsulate all of the above into reusable, organized, named logic."
+    }
+  ],
+
+  2: [
+    {
+      category: "History",
+      q: "What problem in the late 1960s led to the development of structured programming?",
+      options: [
+        "Programs were too short and lacked functionality",
+        "Computers were too slow to run complex programs",
+        "'Spaghetti code' — tangled, unmaintainable programs full of arbitrary GOTO jumps",
+        "There were not enough programming languages available"
+      ],
+      correct: 2,
+      explanation: "<strong>Spaghetti code</strong> was the problem — programs full of unpredictable GOTO statements that jumped execution to arbitrary lines, creating tangled logic impossible to follow, test, or maintain. As programs grew, this approach collapsed."
+    },
+    {
+      category: "Structured Programming",
+      q: "What are the THREE basic constructs of structured programming?",
+      options: [
+        "Variables, Functions, Modules",
+        "Sequence, Selection, Iteration",
+        "Input, Processing, Output",
+        "Classes, Objects, Inheritance"
+      ],
+      correct: 1,
+      explanation: "<strong>Sequence, Selection, and Iteration.</strong> Sequence = statements in order. Selection = conditional execution (if/else). Iteration = repeated execution (loops). The Böhm-Jacopini theorem proves any program logic can be expressed using just these three constructs."
+    },
+    {
+      category: "Structured Programming",
+      q: "What is the 'Golden Rule' of structured programming?",
+      options: [
+        "Always use at least one function",
+        "No Arbitrary GOTO",
+        "Write a comment for every line of code",
+        "Use global variables for all shared data"
+      ],
+      correct: 1,
+      explanation: "<strong>No Arbitrary GOTO</strong> is the golden rule. GOTO statements jump execution to any random line, creating unpredictable, unverifiable programs. Structured programming forbids this — all control flow must pass through Sequence, Selection, or Iteration."
+    },
+    {
+      category: "History",
+      q: "Who wrote 'GOTO Statement Considered Harmful' and when?",
+      options: [
+        "Dennis Ritchie, 1972",
+        "Alan Turing, 1950",
+        "Edsger Dijkstra, 1968",
+        "Linus Torvalds, 1991"
+      ],
+      correct: 2,
+      explanation: "<strong>Edsger Dijkstra, 1968.</strong> His letter 'GOTO Statement Considered Harmful' became the founding document of structured programming. Dijkstra argued that unrestricted GOTO use makes programs impossible to reason about or formally verify."
+    },
+    {
+      category: "Structured Programming",
+      q: "Which of the following is a key design rule from structured programming?",
+      options: [
+        "Use as many global variables as possible for efficiency",
+        "Each block of code should have a single entry and a single exit point",
+        "Avoid functions to keep all code visible in one place",
+        "GOTO is acceptable when the code is well-commented"
+      ],
+      correct: 1,
+      explanation: "<strong>Single entry, single exit</strong> is a core design rule from Dijkstra's structured programming. Each code block has one way in and one way out — making it predictable and mathematically verifiable. The other rules are: decompose into functions; prefer local over global variables."
+    },
+    {
+      category: "Modular Programming",
+      q: "What is a module in modular programming?",
+      options: [
+        "A single line of code",
+        "A type of conditional loop",
+        "An independent unit grouping related functions and data with a specific responsibility",
+        "A hardware component of a computer"
+      ],
+      correct: 2,
+      explanation: "<strong>A module is an independent unit</strong> that groups related functions and data together around one specific responsibility. It has a public interface (what it does) and a private implementation (how it does it). Examples: Python modules, Java packages, C header files."
+    },
+    {
+      category: "Modular Programming",
+      q: "What does 'High Cohesion' mean in modular programming?",
+      options: [
+        "Modules are tightly dependent on each other's internals",
+        "All elements inside a module serve a single, unified purpose",
+        "Modules share all their internal data freely",
+        "Implementation details are always publicly accessible"
+      ],
+      correct: 1,
+      explanation: "<strong>High Cohesion</strong> means all elements inside a module serve a single, unified purpose — the module does ONE thing and does it well. This is distinct from Loose Coupling (minimize inter-module dependencies) and Encapsulation (hide implementation)."
+    },
+    {
+      category: "Modular Programming",
+      q: "What is 'Loose Coupling' in modular programming?",
+      options: [
+        "Modules are so tightly connected they cannot function independently",
+        "Minimizing dependencies between modules so they interact only through public interfaces",
+        "Sharing all global variables between every module in the system",
+        "Using GOTO statements to jump between different modules"
+      ],
+      correct: 1,
+      explanation: "<strong>Loose Coupling</strong> means minimizing dependencies between modules. Modules interact only through well-defined public interfaces — neither needs to know the other's internal implementation. This means changing one module's internals doesn't break other modules."
+    },
+    {
+      category: "Comparison",
+      q: "How do Structured and Modular Programming relate to each other?",
+      options: [
+        "They are the same concept with two different names",
+        "Structured programming replaced modular programming in the 1980s",
+        "Structured works at the micro level (inside functions); Modular works at the macro level (between modules)",
+        "Modular programming is for large companies only; structured is for individuals"
+      ],
+      correct: 2,
+      explanation: "<strong>They are complementary and operate at different levels.</strong> Structured = micro-level, controls flow inside a function, focus: correctness. Modular = macro-level, organizes how functions are grouped across the system, focus: architecture. System Quality = Structured + Modular."
+    },
+    {
+      category: "Modular Programming",
+      q: "Which modular programming benefit allows different development teams to build different parts simultaneously?",
+      options: ["Verifiability", "Parallel Development", "Single Entry/Exit", "Iteration"],
+      correct: 1,
+      explanation: "<strong>Parallel Development</strong> — because modules are independent, Team A can build the Database module while Team B builds the User Interface module without blocking each other. This is one of the core practical advantages of modular design."
+    },
+    {
+      category: "OOP & Modern",
+      q: "How does Object-Oriented Programming (OOP) relate to Modular Programming?",
+      options: [
+        "OOP completely replaced and discarded modular programming",
+        "OOP is enhanced modular programming — a Class is essentially a Module with data and methods combined",
+        "OOP and modular programming have no connection to each other",
+        "Modular programming was invented after OOP as a simplification"
+      ],
+      correct: 1,
+      explanation: "<strong>OOP is enhanced Modular Programming.</strong> Class = Module with data + methods. Inheritance = Module specialization. Polymorphism = Flexible interfaces. Encapsulation = Stronger information hiding. OOP built on top of — not replaced — structured and modular programming."
+    },
+    {
+      category: "Modern Applications",
+      q: "Which modern software architecture is a direct application of modular programming at system scale?",
+      options: [
+        "Spaghetti code",
+        "Arbitrary GOTO statements",
+        "Microservices architecture",
+        "Monolithic single-file programs"
+      ],
+      correct: 2,
+      explanation: "<strong>Microservices</strong> are modules at system scale — each is an independent unit with its own responsibility, interface, and implementation, communicating only through public APIs. Other examples: REST APIs (clean interfaces), Docker (deployment modules), npm/pip packages (reusable modules)."
+    }
+  ]
+};
+
+
+/* ============================================================
+   FLASHCARDS
+   ============================================================ */
+const allFlashcards = {
+  1: [
+    { q: "What is a variable?", a: "A <strong>named storage location in memory</strong> that holds a data value.<br><br>4 characteristics: has a name (identifier), stores a value, has a data type, and can usually be modified (reassigned)." },
+    { q: "Name the 5 basic data types", a: "<strong>Integer</strong> — whole numbers (42, -7)<br><strong>Float</strong> — decimal numbers (3.14, -0.5)<br><strong>String</strong> — text data ('hello')<br><strong>Boolean</strong> — True or False only<br><strong>None / Null</strong> — the complete absence of a value" },
+    { q: "What is a Boolean?", a: "A data type holding only <strong>two values: True or False.</strong><br><br>Powers all decision-making in programming — conditions, comparisons, loop checks. True is not a string or integer." },
+    { q: "What is None / Null?", a: "The data type representing the <strong>complete absence of a value.</strong><br><br>Not 0 (an integer). Not '' (an empty string). Not False (a Boolean). Genuinely nothing — used when a variable has not been assigned a value." },
+    { q: "For loop vs While loop", a: "<strong>For loop</strong>: best when you know exactly how many times to repeat, or want to iterate over every item in a collection.<br><br><strong>While loop</strong>: best when you don't know — repeat until a condition changes." },
+    { q: "What is an infinite loop and why is it dangerous?", a: "A <strong>while loop whose condition never becomes false</strong> — runs forever.<br><br>Danger: hangs or crashes the program. Always ensure something inside the loop will eventually make the condition false." },
+    { q: "What is the DRY principle?", a: "<strong>Don't Repeat Yourself.</strong><br><br>The core principle behind functions: write code once, call it many times. Prevents duplication and makes maintenance easy — fix in one place, fixed everywhere." },
+    { q: "Parameter vs Argument", a: "<strong>Parameter</strong>: the placeholder variable name in the function <em>definition</em>.<br>def greet(<u>name</u>) ← parameter<br><br><strong>Argument</strong>: the actual value passed when <em>calling</em> the function.<br>greet(<u>'Alice'</u>) ← argument" },
+    { q: "What does a function return with no return statement?", a: "<strong>None.</strong><br><br>Python automatically returns None when a function has no return statement. Not an error — valid for functions that perform an action without computing a value." },
+    { q: "What are the 4 programming building blocks and how do they relate?", a: "1. <strong>Variables</strong> — store data<br>2. <strong>Data Types</strong> — define what operations are possible<br>3. <strong>Loops</strong> — process multiple items<br>4. <strong>Functions</strong> — organize and reuse logic<br><br>They work as a <strong>system</strong>, not in isolation." }
+  ],
+  2: [
+    { q: "What was 'spaghetti code'?", a: "Programs with <strong>tangled, unpredictable GOTO jumps</strong> to arbitrary lines — impossible to follow, test, or maintain as programs grew larger. The problem that motivated structured programming." },
+    { q: "The 3 constructs of structured programming", a: "1. <strong>Sequence</strong> — statements execute in order, top to bottom<br>2. <strong>Selection</strong> — conditional execution (if/else)<br>3. <strong>Iteration</strong> — repeated execution (loops)<br><br>Böhm-Jacopini: ANY program logic can be expressed with just these three." },
+    { q: "Golden Rule of structured programming", a: "<strong>No Arbitrary GOTO.</strong><br><br>All control flow must pass through Sequence, Selection, or Iteration. Arbitrary jumps destroy the ability to reason about or verify a program." },
+    { q: "Who founded structured programming?", a: "<strong>Edsger Dijkstra, 1968.</strong><br><br>Published 'GOTO Statement Considered Harmful' — the founding document of structured programming. Changed software development permanently." },
+    { q: "3 Key Design Rules of structured programming", a: "1. <strong>Single entry, single exit</strong> — one way in, one way out<br>2. <strong>Decompose programs into functions</strong> — top-down design<br>3. <strong>Local variables over global state</strong> — keep data close to where it is used" },
+    { q: "What is a module?", a: "An <strong>independent unit</strong> grouping related functions and data with one responsibility.<br><br>Has a public interface (what it does) and private implementation (how it does it). Examples: Python .py files, Java packages, C headers." },
+    { q: "4 Principles of Modular Programming", a: "1. <strong>Encapsulation</strong> — hide implementation, expose interface<br>2. <strong>High Cohesion</strong> — all elements serve one purpose<br>3. <strong>Loose Coupling</strong> — minimize inter-module dependencies<br>4. <strong>Information Hiding</strong> — implementation is private" },
+    { q: "Structured vs Modular — what level does each work at?", a: "<strong>Structured</strong> = micro level. Controls flow <em>inside</em> a function. Focus: correctness.<br><br><strong>Modular</strong> = macro level. Organizes functions <em>between</em> modules. Focus: architecture.<br><br><strong>System Quality = Structured + Modular</strong>" },
+    { q: "How is OOP related to Modular Programming?", a: "OOP is <strong>enhanced modular programming.</strong><br>Class = Module with data + methods<br>Inheritance = Module specialization<br>Polymorphism = Flexible interfaces<br>Encapsulation = Stronger information hiding" },
+    { q: "3 modern applications of modular programming", a: "<strong>REST APIs</strong> — clean public interfaces, hidden implementation<br><strong>Microservices</strong> — modules at system scale<br><strong>Docker containers</strong> — deployment modules<br><strong>npm / pip / Maven</strong> — reusable module ecosystems" }
+  ]
+};
+
+
+/* ============================================================
+   APP STATE
+   ============================================================ */
+let currentWeek     = 1;
+let currentTopicIdx = 0;
+let currentQIdx     = 0;
+let correctCount    = 0;
+let wrongCount      = 0;
+let answered        = false;
+let rapidIdx        = 0;
+let isFlipped       = false;
+let activeQuestions  = [];
+let activeFlashcards = [];
+let activeTopics     = [];
+
+
+/* ============================================================
+   WEEK SELECTION
+   ============================================================ */
+function selectWeek(week, btn) {
+  currentWeek = week;
+  document.querySelectorAll('.week-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function getWeekLabel() {
+  return { 1: 'Week 1', 2: 'Week 2', all: 'All Weeks' }[currentWeek] || 'Week 1';
+}
+function getQuestions() {
+  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2]];
+  return allQuestions[currentWeek] || [];
+}
+function getFlashcards() {
+  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2]];
+  return allFlashcards[currentWeek] || [];
+}
+function getTopics() {
+  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics];
+  return courseData[currentWeek]?.topics || [];
+}
+
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+function goHome() {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('home').style.display = 'flex';
+}
+function openLearn() {
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('learnScreen').classList.add('active');
+  document.getElementById('learnWeekLabel').textContent = getWeekLabel();
+  activeTopics = getTopics();
+  currentTopicIdx = 0;
+  renderTopicList();
+  renderTopicContent(0);
+}
+function openChallenge() {
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('challengeScreen').classList.add('active');
+  document.getElementById('challengeWeekLabel').textContent = getWeekLabel();
+  activeQuestions = shuffle([...getQuestions()]);
+  currentQIdx = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  restartChallenge();
+}
+function openRapid() {
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('rapidScreen').classList.add('active');
+  document.getElementById('rapidWeekLabel').textContent = getWeekLabel();
+  activeFlashcards = getFlashcards();
+  rapidIdx = 0;
+  isFlipped = false;
+  renderRapidCard();
+}
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+
+/* ============================================================
+   LEARN MODE
+   ============================================================ */
+function renderTopicList() {
+  const list = document.getElementById('topicList');
+  list.innerHTML = activeTopics.map((t, i) => `
+    <div class="topic-item ${i === currentTopicIdx ? 'active' : ''}" onclick="renderTopicContent(${i})">${t.title}</div>
+  `).join('');
+}
+function renderTopicContent(idx) {
+  currentTopicIdx = idx;
+  renderTopicList();
+  const t = activeTopics[idx];
+  let html = `
+    <div class="topic-tag">${t.tag}</div>
+    <h2 class="topic-heading">${t.title}</h2>
+    <div class="topic-hr"></div>
+    <div class="topic-body">${t.body.replace(/\n/g, '<br><br>')}</div>
+  `;
+  if (t.keypoints) {
+    html += `<div class="keypoints-title">Key Points</div><div class="keypoints-list">`;
+    t.keypoints.forEach(kp => { html += `<div class="keypoint"><div class="keypoint-dot"></div><span>${kp}</span></div>`; });
+    html += `</div>`;
+  }
+  if (t.table) {
+    html += `<table class="comparison-table"><thead><tr>`;
+    t.table.headers.forEach(h => html += `<th>${h}</th>`);
+    html += `</tr></thead><tbody>`;
+    t.table.rows.forEach(row => { html += `<tr>`; row.forEach(cell => html += `<td>${cell}</td>`); html += `</tr>`; });
+    html += `</tbody></table>`;
+  }
+  if (t.example) html += `<div class="example-block"><div class="example-label">📌 Real Example</div><div class="example-text">${t.example.replace(/\n/g,'<br>')}</div></div>`;
+  if (t.discussion) html += `<div class="discussion-block"><div class="discussion-label">💬 Discussion Question</div><div class="discussion-text">${t.discussion}</div></div>`;
+  html += `<div class="nav-buttons">`;
+  if (idx > 0) html += `<button class="nav-btn" onclick="renderTopicContent(${idx - 1})">← Previous</button>`;
+  if (idx < activeTopics.length - 1) html += `<button class="nav-btn primary" onclick="renderTopicContent(${idx + 1})">Next Topic →</button>`;
+  html += `</div>`;
+  const content = document.getElementById('topicContent');
+  content.innerHTML = html;
+  content.scrollTo(0, 0);
+  window.scrollTo(0, 0);
+}
+
+
+/* ============================================================
+   CHALLENGE MODE — MULTIPLE CHOICE
+   ============================================================ */
+function restartChallenge() {
+  activeQuestions = shuffle([...getQuestions()]);
+  currentQIdx = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  answered = false;
+  document.getElementById('scoreDisplay').style.display = 'none';
+  document.getElementById('qMeta').style.display = 'flex';
+  document.getElementById('qText').style.display = 'block';
+  document.getElementById('mcOptions').style.display = 'flex';
+  document.getElementById('mcFeedback').style.display = 'none';
+  document.getElementById('qNav').style.display = 'none';
+  renderQuestion();
+}
+function renderQuestion() {
+  const q = activeQuestions[currentQIdx];
+  if (!q) { showScore(); return; }
+  answered = false;
+  document.getElementById('qCounter').textContent  = `Q ${currentQIdx + 1} / ${activeQuestions.length}`;
+  document.getElementById('qCategory').textContent = q.category;
+  document.getElementById('qText').textContent     = q.q;
+  document.getElementById('mcFeedback').style.display = 'none';
+  document.getElementById('qNav').style.display = 'none';
+  const letters = ['A', 'B', 'C', 'D'];
+  document.getElementById('mcOptions').innerHTML = q.options.map((opt, i) => `
+    <button class="mc-option" onclick="selectAnswer(${i})">
+      <span class="mc-letter">${letters[i]}</span>
+      <span>${opt}</span>
+    </button>
+  `).join('');
+  document.getElementById('challengeProgress').style.width = `${(currentQIdx / activeQuestions.length) * 100}%`;
+}
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = activeQuestions[currentQIdx];
+  const options = document.querySelectorAll('.mc-option');
+  const feedback = document.getElementById('mcFeedback');
+  options.forEach(opt => opt.classList.add('disabled'));
+  if (idx === q.correct) {
+    correctCount++;
+    options[idx].classList.add('correct');
+    feedback.className = 'mc-feedback correct-fb';
+    document.getElementById('mcFeedbackLabel').textContent = '✓ Correct!';
+  } else {
+    wrongCount++;
+    options[idx].classList.add('wrong');
+    options[q.correct].classList.add('reveal-correct');
+    feedback.className = 'mc-feedback wrong-fb';
+    document.getElementById('mcFeedbackLabel').textContent = '✗ Not quite.';
+  }
+  document.getElementById('mcFeedbackText').innerHTML = q.explanation;
+  feedback.style.display = 'block';
+  document.getElementById('qNav').style.display = 'flex';
+}
+function nextQ() {
+  if (currentQIdx < activeQuestions.length - 1) { currentQIdx++; renderQuestion(); }
+  else showScore();
+}
+function showScore() {
+  const pct = Math.round((correctCount / activeQuestions.length) * 100);
+  document.getElementById('challengeProgress').style.width = '100%';
+  document.getElementById('scorePct').textContent    = `${pct}%`;
+  document.getElementById('gotCount').textContent    = correctCount;
+  document.getElementById('missedCount').textContent = wrongCount;
+  document.getElementById('scoreDisplay').style.display = 'block';
+  ['qText','mcOptions','mcFeedback','qNav'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.style.display = 'none';
+  });
+  document.getElementById('qMeta').style.display = 'none';
+}
+
+
+/* ============================================================
+   RAPID FIRE
+   ============================================================ */
+function renderRapidCard() {
+  const card = activeFlashcards[rapidIdx];
+  document.getElementById('rapidQ').textContent = card.q;
+  document.getElementById('rapidA').innerHTML   = card.a;
+  document.getElementById('rapidCounter').textContent = rapidIdx + 1;
+  document.getElementById('rapidProgress').textContent = `Card ${rapidIdx + 1} of ${activeFlashcards.length}`;
+  document.getElementById('rapidCard').classList.remove('flipped');
+  isFlipped = false;
+}
+function flipCard() {
+  isFlipped = !isFlipped;
+  document.getElementById('rapidCard').classList.toggle('flipped', isFlipped);
+}
+function rapidNext() { if (rapidIdx < activeFlashcards.length - 1) { rapidIdx++; renderRapidCard(); } }
+function rapidPrev() { if (rapidIdx > 0) { rapidIdx--; renderRapidCard(); } }
+</script>
+</body>
+</html>
