@@ -5,56 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ENT 211 - Study Assistant</title>
 
-<!-- ============================================================
-     FONTS: Clash Display for headings, Instrument Serif for
-     italics, and JetBrains Mono for the code/mono feel.
-     ============================================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================================
-   ROOT DESIGN TOKENS — light-mode, warm paper + ink palette
-   ============================================================ */
 :root {
-  --paper:    #f7f4ef;        /* warm off-white background        */
-  --paper2:   #eeeae2;        /* slightly darker surface           */
-  --paper3:   #e3dfd5;        /* borders and dividers              */
-  --ink:      #1a1714;        /* primary text — near-black         */
-  --ink2:     #4a443c;        /* secondary text                    */
-  --ink3:     #8a8278;        /* muted / placeholder text          */
-
-  /* accent family — rust-orange primary */
-  --rust:     #c0440a;        /* primary accent — bold rust        */
-  --rust-lt:  #f0ede8;        /* rust tint for backgrounds         */
-  --rust-mid: #e8835a;        /* mid-tone rust                     */
-
-  /* secondary accent — deep forest green */
+  --paper:    #f7f4ef;
+  --paper2:   #eeeae2;
+  --paper3:   #e3dfd5;
+  --ink:      #1a1714;
+  --ink2:     #4a443c;
+  --ink3:     #8a8278;
+  --rust:     #c0440a;
+  --rust-lt:  #f0ede8;
+  --rust-mid: #e8835a;
   --green:    #1e5c3a;
   --green-lt: #e8f2ec;
-
-  /* tertiary accent — navy */
   --navy:     #1c3555;
   --navy-lt:  #e6ecf4;
-
-  /* success / danger signals */
   --success:  #1e7a4a;
   --danger:   #b52a2a;
-
-  /* type scale */
   --font-display: 'Clash Display', sans-serif;
   --font-serif:   'Instrument Serif', serif;
   --font-mono:    'JetBrains Mono', monospace;
-
-  /* shadows */
   --shadow-sm: 0 1px 3px rgba(26,23,20,0.08), 0 1px 2px rgba(26,23,20,0.04);
   --shadow-md: 0 4px 12px rgba(26,23,20,0.10), 0 2px 4px rgba(26,23,20,0.06);
   --shadow-lg: 0 12px 32px rgba(26,23,20,0.12), 0 4px 8px rgba(26,23,20,0.06);
 }
 
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -63,13 +41,9 @@ body {
   font-family: var(--font-mono);
   min-height: 100vh;
   overflow-x: hidden;
-  /* subtle grain texture overlaid for tactile feel */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
 }
 
-/* ============================================================
-   HOME SCREEN
-   ============================================================ */
 #home {
   min-height: 100vh;
   display: flex;
@@ -81,7 +55,6 @@ body {
   overflow: hidden;
 }
 
-/* decorative corner lines — editorial touch */
 #home::before {
   content: '';
   position: fixed;
@@ -103,7 +76,6 @@ body {
   pointer-events: none;
 }
 
-/* ── course badge ── */
 .badge {
   display: inline-flex;
   align-items: center;
@@ -130,7 +102,6 @@ body {
   50%      { opacity: 0.2; }
 }
 
-/* ── hero title ── */
 .home-title {
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 10vw, 7rem);
@@ -148,7 +119,6 @@ body {
   color: var(--rust);
 }
 
-/* decorative rule below title */
 .title-rule {
   width: 60px;
   height: 3px;
@@ -166,7 +136,6 @@ body {
   margin-bottom: 3rem;
 }
 
-/* ── week selector tabs ── */
 .week-selector {
   display: flex;
   gap: 0.5rem;
@@ -198,7 +167,6 @@ body {
   color: var(--paper);
 }
 
-/* ── mode cards grid ── */
 .mode-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -226,7 +194,6 @@ body {
 .mode-card.challenge:hover { border-color: var(--green); }
 .mode-card.rapid:hover   { border-color: var(--navy); }
 
-/* colored top-border accent on hover */
 .mode-card::before {
   content: '';
   position: absolute;
@@ -274,16 +241,55 @@ body {
   transform: translate(3px, -3px);
 }
 
-/* ============================================================
-   SHARED SCREEN INFRASTRUCTURE
-   ============================================================ */
+/* ── other course link bar ── */
+.other-course-bar {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1.5px solid var(--paper3);
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.other-course-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink3);
+}
+.other-course-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1.5px solid var(--paper3);
+  color: var(--ink2);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  border-radius: 2px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.other-course-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--paper2);
+}
+
 .screen {
   display: none;
   min-height: 100vh;
 }
 .screen.active { display: block; }
 
-/* ── sticky top header bar ── */
 .screen-header {
   display: flex;
   align-items: center;
@@ -331,16 +337,12 @@ body {
   font-weight: 500;
 }
 
-/* ============================================================
-   LEARN MODE
-   ============================================================ */
 .learn-layout {
   display: grid;
   grid-template-columns: 268px 1fr;
   min-height: calc(100vh - 61px);
 }
 
-/* ── sidebar ── */
 .topic-sidebar {
   border-right: 1.5px solid var(--paper3);
   padding: 1.5rem 1rem;
@@ -382,7 +384,6 @@ body {
   font-weight: 600;
 }
 
-/* ── main content area ── */
 .topic-content {
   padding: 3rem 3.5rem;
   max-width: 800px;
@@ -414,7 +415,6 @@ body {
 }
 .topic-heading .highlight { color: var(--rust); }
 
-/* horizontal rule below heading */
 .topic-hr {
   width: 40px;
   height: 2.5px;
@@ -430,7 +430,6 @@ body {
   font-weight: 400;
 }
 
-/* ── key points ── */
 .keypoints-title {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -469,7 +468,6 @@ body {
   flex-shrink: 0;
 }
 
-/* ── comparison table ── */
 .comparison-table {
   width: 100%;
   border-collapse: collapse;
@@ -505,7 +503,6 @@ body {
   background: var(--rust-lt);
 }
 
-/* ── example block ── */
 .example-block {
   background: var(--green-lt);
   border: 1.5px solid rgba(30,92,58,0.2);
@@ -529,7 +526,6 @@ body {
   font-weight: 500;
 }
 
-/* ── discussion block ── */
 .discussion-block {
   background: var(--navy-lt);
   border: 1.5px solid rgba(28,53,85,0.2);
@@ -553,7 +549,6 @@ body {
   font-weight: 500;
 }
 
-/* ── nav buttons ── */
 .nav-buttons {
   display: flex;
   gap: 1rem;
@@ -590,16 +585,12 @@ body {
   border-color: #a83a08;
 }
 
-/* ============================================================
-   CHALLENGE MODE
-   ============================================================ */
 .challenge-container {
   max-width: 780px;
   margin: 0 auto;
   padding: 3rem 2rem;
 }
 
-/* ── progress bar ── */
 .progress-bar-wrap {
   background: var(--paper3);
   border-radius: 100px;
@@ -613,7 +604,6 @@ body {
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ── question meta row ── */
 .q-meta {
   display: flex;
   align-items: center;
@@ -639,7 +629,6 @@ body {
   border-radius: 2px;
 }
 
-/* ── question text ── */
 .q-text {
   font-family: var(--font-display);
   font-size: 1.55rem;
@@ -650,7 +639,6 @@ body {
   color: var(--ink);
 }
 
-/* ── answer textarea ── */
 .answer-area {
   background: #fff;
   border: 1.5px solid var(--paper3);
@@ -673,7 +661,6 @@ body {
   box-shadow: 0 0 0 3px rgba(192,68,10,0.08);
 }
 
-/* ── reveal button ── */
 .reveal-btn {
   background: var(--rust);
   border: none;
@@ -697,7 +684,6 @@ body {
   box-shadow: 0 6px 20px rgba(192,68,10,0.25);
 }
 
-/* ── model answer panel ── */
 .model-answer {
   background: #fff;
   border: 1.5px solid var(--paper3);
@@ -729,7 +715,6 @@ body {
 }
 .answer-text strong { color: var(--ink); font-weight: 700; }
 
-/* ── self-grade buttons ── */
 .self-grade {
   display: flex;
   gap: 0.75rem;
@@ -756,14 +741,12 @@ body {
 .grade-btn.partial:hover, .grade-btn.partial.selected { background: var(--rust-lt); border-color: var(--rust); color: var(--rust); }
 .grade-btn.missed:hover, .grade-btn.missed.selected   { background: #fdecea; border-color: var(--danger); color: var(--danger); }
 
-/* ── q navigation ── */
 .q-nav {
   display: flex;
   gap: 1rem;
   margin-top: 1.5rem;
 }
 
-/* ── score screen ── */
 .score-screen {
   display: flex;
   flex-direction: column;
@@ -809,9 +792,6 @@ body {
   margin-top: 2px;
 }
 
-/* ============================================================
-   RAPID FIRE MODE
-   ============================================================ */
 .rapid-container {
   max-width: 700px;
   margin: 0 auto;
@@ -828,7 +808,6 @@ body {
   text-transform: uppercase;
 }
 
-/* ── flashcard ── */
 .rapid-card {
   background: #fff;
   border: 1.5px solid var(--paper3);
@@ -851,7 +830,6 @@ body {
   border-color: var(--navy);
   box-shadow: var(--shadow-lg);
 }
-/* accent top-stripe on card */
 .rapid-card::before {
   content: '';
   position: absolute;
@@ -902,7 +880,6 @@ body {
 .rapid-card.flipped .rapid-answer   { display: block; }
 .rapid-card.flipped .flip-hint      { display: none; }
 
-/* big card number — decorative */
 .rapid-counter {
   font-family: var(--font-display);
   font-size: 5rem;
@@ -915,7 +892,6 @@ body {
   letter-spacing: -0.04em;
 }
 
-/* ── rapid controls ── */
 .rapid-controls {
   display: flex;
   gap: 1rem;
@@ -934,33 +910,18 @@ body {
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.rapid-btn.prev {
-  background: transparent;
-  color: var(--ink3);
-}
+.rapid-btn.prev { background: transparent; color: var(--ink3); }
 .rapid-btn.prev:hover { color: var(--ink); border-color: var(--ink); background: var(--paper2); }
-
-.rapid-btn.flip {
-  background: var(--navy);
-  color: #fff;
-  border-color: var(--navy);
-}
+.rapid-btn.flip { background: var(--navy); color: #fff; border-color: var(--navy); }
 .rapid-btn.flip:hover { background: #142844; border-color: #142844; }
-
 .rapid-btn.next { background: transparent; color: var(--ink3); }
 .rapid-btn.next:hover { color: var(--ink); border-color: var(--ink); background: var(--paper2); }
 
-/* ============================================================
-   SCROLLBAR — subtle, on-theme
-   ============================================================ */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--paper); }
 ::-webkit-scrollbar-thumb { background: var(--paper3); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--ink3); }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 @media (max-width: 720px) {
   .learn-layout { grid-template-columns: 1fr; }
   .topic-sidebar {
@@ -970,23 +931,20 @@ body {
   }
   .topic-content { padding: 1.5rem; }
   .home-title { font-size: 3rem; }
+  .other-course-bar { flex-direction: column; align-items: flex-start; }
 }
 </style>
 </head>
 <body>
 
-<!-- ============================================================
-     HOME SCREEN
-     ============================================================ -->
+<!-- HOME SCREEN -->
 <div id="home">
 
-  <!-- top badge -->
   <div class="badge">
     <span class="badge-dot"></span>
     ENT 211 · African School of Economics
   </div>
 
-  <!-- hero -->
   <h1 class="home-title">Study<br><em>Assistant</em></h1>
   <div class="title-rule"></div>
   <p class="home-sub">
@@ -994,20 +952,18 @@ body {
     Pick your week, pick your mode.
   </p>
 
-  <!-- week picker -->
   <div class="week-selector">
     <button class="week-btn active" onclick="selectWeek(1, this)">Week 1 — Value Creation</button>
     <button class="week-btn" onclick="selectWeek(2, this)">Week 2 — Entrepreneurial Character</button>
     <button class="week-btn" onclick="selectWeek(3, this)">Week 3 — Entrepreneurial Thinking</button>
     <button class="week-btn" onclick="selectWeek(4, this)">Week 4 — Innovation Theory</button>
-       <button class="week-btn" onclick="selectWeek(5, this)">Week 5 — The Nigerian Landscape</button>
-       <button class="week-btn" onclick="selectWeek(6, this)">Week 6 — The Ecosystem & Support</button>
-       <button class="week-btn" onclick="selectWeek(7, this)">Week 7 — Starting a Startup</button>
-       <button class="week-btn" onclick="selectWeek(8, this)">Week 8 — The Lean Canvas</button>
+    <button class="week-btn" onclick="selectWeek(5, this)">Week 5 — The Nigerian Landscape</button>
+    <button class="week-btn" onclick="selectWeek(6, this)">Week 6 — The Ecosystem &amp; Support</button>
+    <button class="week-btn" onclick="selectWeek(7, this)">Week 7 — Starting a Startup</button>
+    <button class="week-btn" onclick="selectWeek(8, this)">Week 8 — The Lean Canvas</button>
     <button class="week-btn" onclick="selectWeek('all', this)">All Weeks</button>
   </div>
 
-  <!-- mode cards -->
   <div class="mode-grid">
     <div class="mode-card learn" onclick="openLearn()">
       <span class="mode-icon">📖</span>
@@ -1029,12 +985,18 @@ body {
     </div>
   </div>
 
+  <!-- other course link -->
+  <div class="other-course-bar">
+    <span class="other-course-label">Also studying</span>
+    <a class="other-course-btn" href="ase-gst213.html">
+      ASE-GST 213 — Study Assistant →
+    </a>
+  </div>
+
 </div><!-- /home -->
 
 
-<!-- ============================================================
-     LEARN SCREEN
-     ============================================================ -->
+<!-- LEARN SCREEN -->
 <div id="learnScreen" class="screen">
   <div class="screen-header">
     <button class="back-btn" onclick="goHome()">← Back</button>
@@ -1051,9 +1013,7 @@ body {
 </div>
 
 
-<!-- ============================================================
-     CHALLENGE SCREEN
-     ============================================================ -->
+<!-- CHALLENGE SCREEN -->
 <div id="challengeScreen" class="screen">
   <div class="screen-header">
     <button class="back-btn" onclick="goHome()">← Back</button>
@@ -1084,7 +1044,6 @@ body {
       <button class="nav-btn" onclick="prevQ()">← Prev</button>
       <button class="nav-btn primary" onclick="nextQ()">Next →</button>
     </div>
-    <!-- score results panel -->
     <div id="scoreDisplay" class="score-screen" style="display:none">
       <div class="score-number" id="scorePct"></div>
       <div class="score-label">Overall Score</div>
@@ -1108,9 +1067,7 @@ body {
 </div>
 
 
-<!-- ============================================================
-     RAPID FIRE SCREEN
-     ============================================================ -->
+<!-- RAPID FIRE SCREEN -->
 <div id="rapidScreen" class="screen">
   <div class="screen-header">
     <button class="back-btn" onclick="goHome()">← Back</button>
@@ -1132,6 +1089,7 @@ body {
     </div>
   </div>
 </div>
+
 
 <script>
 /* ============================================================
