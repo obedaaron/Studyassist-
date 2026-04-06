@@ -1002,6 +1002,8 @@ body {
     <button class="week-btn" onclick="selectWeek(4, this)">Week 4 — Innovation Theory</button>
        <button class="week-btn" onclick="selectWeek(5, this)">Week 5 — The Nigerian Landscape</button>
        <button class="week-btn" onclick="selectWeek(6, this)">Week 6 — The Ecosystem & Support</button>
+       <button class="week-btn" onclick="selectWeek(7, this)">Week 7 — Starting a Startup</button>
+       <button class="week-btn" onclick="selectWeek(8, this)">Week 8 — The Lean Canvas</button>
     <button class="week-btn" onclick="selectWeek('all', this)">All Weeks</button>
   </div>
 
@@ -2045,6 +2047,349 @@ const courseData = {
         ]
       }
     ]
+  },
+    /* ----------------------------------------------------------
+     WEEK 7 — Starting a Startup: From Idea to Execution
+     ---------------------------------------------------------- */
+  7: {
+    label: "Week 7 — Starting a Startup",
+    topics: [
+      {
+        id: "what_is_startup",
+        title: "What is a Tech Startup?",
+        tag: "Week 7 · Foundations",
+        body: `A startup is a company designed to grow fast. It is not just a small business — it is an experiment in scaling a solution to a large market.\n\nThe Goal: Build something people want and do it at massive scale using technology.\n\nThe Mindset: Speed, iteration, and solving "pain points" — problems that cause people real frustration.\n\nSimple analogy: A local bakery vs. an app like Uber. Both are businesses, but only one is built to serve millions of people simultaneously across the globe.`,
+        keypoints: [
+          "Startup = company designed to GROW FAST — not just a small business",
+          "Goal: Build something people want at massive scale using technology",
+          "Mindset: Speed, iteration, and solving pain points",
+          "Key difference from small business: scalability and technology leverage"
+        ]
+      },
+      {
+        id: "founding_team",
+        title: "Building the Core Team",
+        tag: "Week 7 · Team",
+        body: `The founding team is the single most important ingredient in a startup. Y Combinator (the world's top startup accelerator) is very specific about what the ideal founding team looks like.\n\nThe Magic Number: 2 to 4 co-founders.\nTechnical Balance: At least 50% of the team should be engineers — people who can actually BUILD the product.\nCommitment: Everyone must quit their day jobs and be "all in."\nFinancial Reality: You need enough money to survive on "ramen noodles" for a year — low costs, high focus.`,
+        keypoints: [
+          "Ideal founding team size: 2 to 4 co-founders",
+          "At least 50% must be technical (engineers who can build the product)",
+          "100% commitment required — everyone must be all-in",
+          "Financial discipline: survive on minimal personal expenses for at least a year",
+          "Why technical? You can't build a product if no one on the team can write code"
+        ],
+        discussion: "Why do you think Michael Seibel insists that half the team must be able to write code? Can a startup survive with only 'idea people'?"
+      },
+      {
+        id: "ideas_vs_problems",
+        title: "Ideas vs. Problems",
+        tag: "Week 7 · Core Concept",
+        body: `The most common mistake first-time founders make is starting with a solution and then looking for a problem. The correct approach is the opposite.\n\n"Problem First" Principle: Start with a problem you personally understand and experience.\n\nThe Frequency Filter: Focus on daily or weekly problems (like hunger or transport) rather than monthly or yearly ones (like buying a car). The more frequent the problem, the larger the market.\n\nMarket Research (simplified): Spend even just one hour to see if billions of dollars are already being spent in that area. If no money is flowing there, there may not be a real market.`,
+        keypoints: [
+          "Don't start with a solution looking for a problem — start with a PROBLEM",
+          "The Frequency Filter: daily/weekly problems = bigger markets than monthly/yearly ones",
+          "Personal understanding of the problem = founder-market fit",
+          "Market Research: check if money is already being spent in this space",
+          "No existing spending = potentially no real market"
+        ],
+        example: `Scenario: An app that helps people choose a new brand of luggage.\nAnalysis: How often do people buy luggage? Once every few years — a 'yearly' problem.\nThis is a weak market compared to a 'daily' problem like food delivery or transport.\n\nBetter approach: Look at the apps on your phone's home screen. Which ones solve a problem you have EVERY single day? Those are the big markets.`
+      },
+      {
+        id: "mvp",
+        title: "The Minimum Viable Product (MVP)",
+        tag: "Week 7 · Core Concept",
+        body: `The MVP is one of the most important concepts in startup thinking.\n\nDefinition: The simplest version of your product that allows you to start learning from users with the least amount of effort.\n\nThe Two-Month Rule: If it takes more than two months to build, you are overcomplicating it.\n\nThe Goal: Launching is not a "grand opening." It is the beginning of a conversation with your users.\n\nAirbnb's first MVP was just a simple website offering air mattresses in the founders' living room. No search, no payment system — just enough to test the idea.`,
+        keypoints: [
+          "MVP = simplest version of product that enables learning from real users",
+          "The Two-Month Rule: if it takes more than 2 months to build, you're overcomplicating it",
+          "Launch = beginning of a conversation with users, NOT a grand opening",
+          "Airbnb MVP: just a basic website offering air mattresses — no search, no payments",
+          "Goal of MVP: validate assumptions before investing heavily"
+        ]
+      },
+      {
+        id: "launch_mentality",
+        title: "The Launch Mentality",
+        tag: "Week 7 · Execution",
+        body: `Most founders fail not because their idea is bad — but because they never ship.\n\nDon't Over-Iterate: Founders keep "polishing" the product and never show it to anyone. This is a trap.\n\nUser Feedback: You know NOTHING about your product until a stranger uses it and tells you why it's bad.\n\nDefinition — Iteration: The process of making small, rapid changes to your product based on what users ACTUALLY do — not what you THINK they will do.\n\nKey quote: "You are nothing until you launch." — Michael Seibel, CEO of Y Combinator`,
+        keypoints: [
+          "Most founders fail because they polish forever and never launch",
+          "You know nothing about your product until strangers use it and give brutal feedback",
+          "Iteration = rapid small changes based on ACTUAL user behavior, not assumptions",
+          "Launch fast → get feedback → iterate → launch again (continuous cycle)",
+          "Key quote: 'You are nothing until you launch.' — Michael Seibel"
+        ]
+      },
+      {
+        id: "growth",
+        title: "Growth: The Ultimate Metric",
+        tag: "Week 7 · Growth",
+        body: `For investors — and for your own validation — growth is the number one indicator that your startup is working.\n\nThe 10% Rule: High-performing startups aim for 10% growth week-over-week.\n\nThree Growth Paths:\n1. ADS — Least preferred. Expensive and doesn't prove product-market fit.\n2. B2B (Business to Business) — Provide such amazing service that customers tell their friends and colleagues.\n3. CONSUMER — Product design that forces sharing. Example: When you send a Venmo payment, the other person must download the app to receive it.`,
+        keypoints: [
+          "Growth is the #1 metric investors care about — more than team or experience",
+          "Target: 10% growth week-over-week for high-performing startups",
+          "Ads: least preferred growth path — expensive and masks real product-market fit",
+          "B2B: amazing service → word of mouth referrals",
+          "Consumer: design product so usage forces sharing (e.g. Venmo, WhatsApp)",
+          "Growth proves your idea works — nothing else does"
+        ]
+      },
+      {
+        id: "fundraising",
+        title: "Fundraising: The Art of Momentum",
+        tag: "Week 7 · Finance",
+        body: `Fundraising is counterintuitive. The less you need money, the more investors want to give it to you.\n\nThe Paradox: If you don't need money, everyone wants to give it to you.\n\nFOMO (Fear Of Missing Out): Investors are driven by fear of missing the next big thing. Use this strategically.\n\nThe Strategy: Schedule ALL your investor meetings in the same week. This creates a buzz and forces quick decisions.\n\nThe Best Pitch: "We are growing with or without you. Do you want to join us?"`,
+        keypoints: [
+          "Fundraising paradox: not needing money makes investors want to give it more",
+          "FOMO (Fear Of Missing Out) drives investor decisions — use this strategically",
+          "Strategy: cluster all investor meetings in ONE week to create competitive pressure",
+          "Best pitch: 'We are growing with or without you. Do you want to join us?'",
+          "Show growth first — fundraising follows traction, not the other way around"
+        ]
+      },
+      {
+        id: "operations",
+        title: "Operations: Runway & Burn Rate",
+        tag: "Week 7 · Finance",
+        body: `Two financial concepts every founder must understand from Day 1:\n\nRunway: How many months your business can survive before it runs out of money.\n\nBurn Rate: The amount of money you spend each month (Rent + Salaries + Server costs + all expenses).\n\nThe CEO's Job: Know EXACTLY what is being spent. "Download the spreadsheet and read every single line."\n\nThe Advice: Spend less, pay yourself less, and get a "crappy" office. Survival is the first step to success.`,
+        keypoints: [
+          "Runway = how many months before the business runs out of money",
+          "Burn Rate = total monthly spending (rent + salaries + servers + all costs)",
+          "CEO responsibility: know every single line item of spending",
+          "Rule: Spend less, pay yourself less, get cheap office space — survival first",
+          "Extending runway = more time to find product-market fit before running out"
+        ]
+      },
+      {
+        id: "hiring",
+        title: "Hiring the First Ten",
+        tag: "Week 7 · Team",
+        body: `Your first 10 hires define the culture, capability, and trajectory of your company. Get it wrong and it is nearly impossible to fix.\n\nThe Talent Bar: Every hire should increase the "average intelligence" of the company. If you're not hiring someone smarter than you, do the work yourself.\n\nHire Slow: Instagram sold for $1 BILLION with only 13 employees. A small, elite team beats a large, mediocre one every time.\n\nEquity/Stock: Early employees should be treated like owners. Be transparent about exactly how much of the company they own.`,
+        keypoints: [
+          "Every hire must raise the average intelligence of the company — or don't hire",
+          "Hire slow: Instagram had 13 employees when acquired for $1 billion",
+          "Small elite team > large mediocre team — always",
+          "Early employees should receive equity and be treated like owners",
+          "Be transparent about equity — show exactly what percentage they own",
+          "Hiring too fast too early = most common startup operations mistake"
+        ],
+        discussion: "Why is it dangerous to hire too many people too quickly in the beginning?"
+      },
+      {
+        id: "summary7",
+        title: "Week 7 Summary",
+        tag: "Week 7 · Key Takeaways",
+        body: `Everything from Week 7 condensed into the most testable points.`,
+        keypoints: [
+          "Startup = company designed to grow fast using technology at massive scale",
+          "Team: 2–4 co-founders, 50% technical, 100% committed",
+          "Ideas vs Problems: Start with a PROBLEM, not a solution. Use the Frequency Filter (daily/weekly problems = big markets)",
+          "MVP = simplest product that enables learning. Two-Month Rule: if longer, you're overbuilding",
+          "Launch Mentality: ship fast, get feedback, iterate. 'You are nothing until you launch.'",
+          "Growth = the only metric that truly proves your idea works. Target: 10% week-over-week",
+          "Fundraising: cluster meetings, create FOMO, show traction first",
+          "Runway = months left. Burn Rate = monthly spend. Keep both in check",
+          "Hiring: raise the bar every time. Hire slow, treat early employees as owners"
+        ]
+      }
+    ]
+  },
+
+  /* ----------------------------------------------------------
+     WEEK 8 — The Lean Canvas: Your One-Page Business Plan
+     ---------------------------------------------------------- */
+  8: {
+    label: "Week 8 — The Lean Canvas",
+    topics: [
+      {
+        id: "what_is_lean_canvas",
+        title: "What is the Lean Canvas?",
+        tag: "Week 8 · Introduction",
+        body: `The Lean Canvas is a 1-page template used to break down a business idea into its most essential components.\n\nThe "One-Page" Philosophy: Traditional business plans are 50 pages long — and often completely wrong by the time you finish writing them. The Lean Canvas is designed to be fast, concise, and portable.\n\nThink of it as the "Scientific Method" for business. You aren't writing a final report — you are forming a hypothesis to test in the real world.\n\nCreated by: Ash Maurya, adapted from the Business Model Canvas by Alex Osterwalder.`,
+        keypoints: [
+          "Lean Canvas = 1-page template breaking a business idea into its essential components",
+          "Alternative to the traditional 50-page business plan (which is usually wrong anyway)",
+          "Philosophy: form a hypothesis to test in the real world — not write a final report",
+          "Think of it as the Scientific Method for business",
+          "Created by Ash Maurya, adapted from Alex Osterwalder's Business Model Canvas",
+          "Key principle: a startup is a SEARCH for a business model — the canvas is your map"
+        ],
+        discussion: "Why might a 50-page business plan be a waste of time for a brand-new startup?"
+      },
+      {
+        id: "order_of_operations",
+        title: "The Order of Operations",
+        tag: "Week 8 · Framework",
+        body: `The Lean Canvas has 9 blocks — and there is a specific logical order to fill them in. Do NOT fill it out randomly.\n\nThe Foundation: Always start with the Customer and the Problem.\n\nThe Logic: You cannot build a solution if you don't know WHO has the problem and WHY existing alternatives aren't working.\n\nOfficial Fill Order:\n1. Customer Segments & Early Adopters\n2. Problems & Existing Alternatives\n3. Revenue Streams\n4. Solution\n5. Unique Value Proposition\n6. Channels\n7. Key Metrics\n8. Cost Structure\n9. Unfair Advantage`,
+        keypoints: [
+          "Fill order matters — never start with the solution",
+          "Always start with: Customer Segments → Problems → then everything else",
+          "Official order: Customer (1) → Problem (2) → Revenue (3) → Solution (4) → UVP (5) → Channels (6) → Metrics (7) → Costs (8) → Unfair Advantage (9)",
+          "Logic: can't build a solution without knowing WHO has the problem and WHY alternatives fail"
+        ]
+      },
+      {
+        id: "block1_customers",
+        title: "Block 1: Customer Segments & Early Adopters",
+        tag: "Week 8 · Lean Canvas",
+        body: `Customer Segments: Who exactly are you solving the problem for? Be as specific as possible — narrow it down accurately.\n\nImportant: Separate USERS (people who use the product) from CUSTOMERS (people who pay for it). These are not always the same person.\n\nEarly Adopters: The small, specific group of people who feel the "pain" of the problem so intensely that they are willing to try an unpolished, imperfect, new product.\n\nUber Example:\n• Customer Segments: Passengers (need a ride) and Drivers (have a car, need income)\n• Early Adopters: Tech-savvy professionals in San Francisco who hated waiting for taxis`,
+        keypoints: [
+          "Customer Segments = who you are solving the problem for — be as specific as possible",
+          "Separate USERS (use the product) from CUSTOMERS (pay for the product)",
+          "Early Adopters = people who feel the pain so much they'll try an unpolished product",
+          "Early adopters are who you build for FIRST — not the mass market",
+          "Uber early adopters: tech-savvy San Francisco professionals who hated taxi waits",
+          "Specify actual people who will be FIRST to use and give feedback"
+        ]
+      },
+      {
+        id: "block2_problems",
+        title: "Block 2: Problems & Existing Alternatives",
+        tag: "Week 8 · Lean Canvas",
+        body: `List your customers' TOP 3 problems. These must be real, specific problems — not vague complaints.\n\nExisting Alternatives: How are people solving this problem RIGHT NOW? List your closest competitors — the alternatives customers use today.\n\nUber Example:\n• Problems: Taxis are hard to find, drivers are sometimes unprofessional, pricing isn't transparent\n• Existing Alternatives: Calling a cab company, taking a bus, walking\n\nKey insight: If you don't have "Existing Alternatives," the problem might not be big enough for people to care about. Competition validates the market.`,
+        keypoints: [
+          "List the top 3 customer problems your product is meant to solve",
+          "Existing Alternatives = how customers solve this problem TODAY (your real competitors)",
+          "No existing alternatives = potentially no real market (the problem isn't urgent enough)",
+          "Competition is GOOD — it validates that people care about this problem",
+          "Uber problems: expensive taxis, unprofessional drivers, no price transparency",
+          "Uber alternatives: public transport, classic taxi service"
+        ]
+      },
+      {
+        id: "block3_revenue",
+        title: "Block 3: Revenue Streams",
+        tag: "Week 8 · Lean Canvas",
+        body: `How exactly will the business make money? List the ways your product will generate revenue from each customer segment.\n\nUber Example: A percentage-based commission (25%) from every ride booked through the app.\n\nKey concept: Startups often focus on "Growth" first — but the Lean Canvas forces you to think about "Sustainability" from day one. If you can't articulate how you'll make money, you don't have a business — you have a project.`,
+        keypoints: [
+          "Revenue Streams = exactly how the business makes money from each customer segment",
+          "Must specify per segment: passengers pay per ride; drivers earn per ride",
+          "Uber model: commission-based (25% of each ride fare)",
+          "The Lean Canvas forces you to think about sustainability from Day 1",
+          "No revenue model = no business. A product without a path to revenue is just a project",
+          "Common models: subscription, commission, freemium, advertising, licensing"
+        ]
+      },
+      {
+        id: "block4_solution",
+        title: "Block 4: The Solution",
+        tag: "Week 8 · Lean Canvas",
+        body: `Define the minimum features needed to solve the problems you listed in Block 2. This is your MVP translated into the canvas.\n\nNovice Tip: Don't try to build every feature at once. Solve the CORE problem first.\n\nUber Example: A mobile app that connects a rider to a driver with one tap, using GPS to track the car in real-time. That's it — that's the core solution.\n\nRemember: Solution comes AFTER you've defined your customer and problem. Most founders start here — that's the mistake.`,
+        keypoints: [
+          "Solution = minimum features needed to solve the problems in Block 2",
+          "This is essentially your MVP described in the canvas",
+          "Solve the CORE problem first — don't try to build every feature at once",
+          "Uber solution: one-tap ride request + real-time GPS tracking",
+          "Critical rule: Solution comes AFTER Customer and Problem — not before",
+          "Solution must map directly to each problem listed in Block 2"
+        ]
+      },
+      {
+        id: "block5_uvp",
+        title: "Block 5: Unique Value Proposition (UVP)",
+        tag: "Week 8 · Lean Canvas",
+        body: `The UVP is a single, clear, compelling message that states why you are different and worth choosing over the alternatives.\n\nHigh-Level Concept: Use the "X for Y" analogy to explain your business simply.\n• "The Uber for laundry"\n• "The Airbnb for dogs"\n• "The Netflix for African content"\n\nUber's UVP: "The smartest way to get around." — Promises speed, ease, and modern technology.\n\nYour UVP should turn an unaware visitor into an interested prospect in one sentence. If it takes a paragraph, it's not working yet.`,
+        keypoints: [
+          "UVP = single, clear, compelling message explaining why you're different and worth it",
+          "High-Level Concept: use the 'X for Y' analogy (e.g. 'The Uber for laundry')",
+          "Uber's UVP: 'The smartest way to get around' — speed, ease, modern tech",
+          "Good UVP: turns an unaware visitor into an interested prospect in ONE sentence",
+          "Must show key difference from existing alternatives — not just what you do",
+          "Describes the uniqueness of your product in short, easy-to-understand language"
+        ]
+      },
+      {
+        id: "block6_channels",
+        title: "Block 6: Channels",
+        tag: "Week 8 · Lean Canvas",
+        body: `Channels are your path to customers — how they will actually hear about you and start using your product.\n\nCommon Channels: Social media, word of mouth, SEO (Google search), email marketing, physical ads, referral programs, PR.\n\nUber Example: Early on, Uber relied heavily on Word of Mouth and PR in tech cities to reach their early adopters. They didn't run TV ads — they got journalists to write about them.\n\nKey principle: Specify COMMUNICATION channels to reach your target audience — not just "social media." Which platform? Which community?`,
+        keypoints: [
+          "Channels = your path to customers — how they hear about and find you",
+          "Common options: social media, word of mouth, SEO, email, PR, referrals",
+          "Uber early channels: Word of Mouth + PR in tech-savvy cities",
+          "Be specific: not just 'social media' — which platform? which community?",
+          "Early-stage startups: word of mouth and PR are often more powerful than paid ads",
+          "Channel choice must match where your early adopters actually spend their time"
+        ]
+      },
+      {
+        id: "block7_metrics",
+        title: "Block 7: Key Metrics",
+        tag: "Week 8 · Lean Canvas",
+        body: `Key Metrics are the small number of critical numbers that tell you whether your business is actually succeeding.\n\nUber Example: Number of completed rides per week, Number of active drivers, Customer acquisition cost, Income per ride.\n\nVanity Metrics vs. Actionable Metrics:\n• VANITY: Social media likes, total app downloads, website visitors. These feel good but don't prove business success.\n• ACTIONABLE: Number of paying customers, repeat purchase rate, revenue per user, churn rate. These drive real decisions.`,
+        keypoints: [
+          "Key Metrics = the few critical numbers that prove the business is working",
+          "Uber metrics: completed rides/week, active drivers, customer acquisition cost, income",
+          "VANITY Metrics: likes, downloads, page views — feel good but don't prove anything",
+          "ACTIONABLE Metrics: paying customers, revenue, retention, churn rate — drive decisions",
+          "Rule: only track metrics you can ACT on if they move in the wrong direction",
+          "Choose metrics that directly measure whether you're solving the problem"
+        ]
+      },
+      {
+        id: "block8_costs",
+        title: "Block 8: Cost Structure",
+        tag: "Week 8 · Lean Canvas",
+        body: `Cost Structure lists all the expenses it takes to run the business.\n\nFixed Costs: Costs that don't change regardless of how many customers you have.\n• Examples: Salaries, office rent.\n\nVariable Costs: Costs that grow as your business grows.\n• Examples: Server hosting fees, credit card processing fees, delivery costs.\n\nUber Example: Product development (building the app), marketing costs, legal and insurance costs, driver support.\n\nConnected to Week 7 concept: Cost Structure directly determines your Burn Rate and therefore your Runway.`,
+        keypoints: [
+          "Cost Structure = all expenses required to run the business",
+          "Fixed Costs: don't change with sales volume (rent, salaries)",
+          "Variable Costs: grow as the business scales (servers, processing fees)",
+          "Uber costs: app development, marketing, legal/insurance, driver support",
+          "Cost Structure directly determines Burn Rate and Runway (Week 7 connection)",
+          "Rule: keep fixed costs as LOW as possible in the early stage — stay lean"
+        ]
+      },
+      {
+        id: "block9_unfair",
+        title: "Block 9: Unfair Advantage",
+        tag: "Week 8 · Lean Canvas",
+        body: `The Unfair Advantage is something that cannot be easily copied or bought by competitors. It is the last block because it is the hardest to identify — and most founders can't answer it on Day 1.\n\nWhat it is NOT: "We have a great team" or "We work hard." Every startup says that.\n\nWhat it IS: Insider information, exclusive data, a dream technical team, a massive existing network, regulatory access, or a powerful network effect.\n\nUber's Unfair Advantage: Network Effect — the more drivers they have, the faster pickups become, which attracts more riders, which attracts more drivers. This flywheel is nearly impossible for a new competitor to replicate.`,
+        keypoints: [
+          "Unfair Advantage = something that cannot be easily copied or bought by competitors",
+          "What it's NOT: 'great team' or 'hard work' — everyone says this",
+          "What it IS: insider knowledge, exclusive data, network effects, regulatory access",
+          "Uber's advantage: Network Effect — more drivers → faster pickups → more riders → more drivers",
+          "Network effects create a flywheel that's nearly impossible for competitors to replicate",
+          "Most founders can't answer this on Day 1 — that's okay. Keep building toward it"
+        ]
+      },
+      {
+        id: "iteration_living_doc",
+        title: "The Lean Canvas as a Living Document",
+        tag: "Week 8 · Key Insight",
+        body: `Your first Lean Canvas is almost certainly wrong — and that's completely fine. The whole point is to iterate.\n\nThe Process: Fill it out → talk to customers → discover your assumptions are wrong → update the canvas → repeat.\n\nFinal Tip: A startup is a SEARCH for a business model. The Lean Canvas is your map for that search.\n\nSpeed is Key: The Lean Canvas helps you fail fast or succeed faster by keeping everything on one page. You can update it in 30 minutes. A 50-page business plan takes months to rewrite.`,
+        keypoints: [
+          "Your first Lean Canvas is almost certainly wrong — that's expected and okay",
+          "Process: Fill out → talk to customers → find what's wrong → update → repeat",
+          "A startup is a SEARCH for a business model — the canvas is the map",
+          "Speed advantage: update a 1-page canvas in 30 mins vs. rewriting a 50-page plan",
+          "Treat it as a living document that evolves with every round of customer feedback",
+          "When your solution block needs changing, check if your UVP and metrics need updating too"
+        ],
+        discussion: "Which of the 9 blocks do you think is the hardest for a new founder to figure out? Why?"
+      },
+      {
+        id: "summary8",
+        title: "Week 8 Summary",
+        tag: "Week 8 · Key Takeaways",
+        body: `Everything from Week 8 condensed into the most testable points.`,
+        keypoints: [
+          "Lean Canvas = 1-page business plan. Faster, more honest, and more useful than 50-page plans",
+          "Fill order: Customer (1) → Problem (2) → Revenue (3) → Solution (4) → UVP (5) → Channels (6) → Metrics (7) → Costs (8) → Unfair Advantage (9)",
+          "Customer Segments: separate USERS from CUSTOMERS. Early Adopters = first testers",
+          "Problems: list top 3. Existing Alternatives = today's competition (validates market)",
+          "Revenue Streams: how you make money from each segment — sustainability from Day 1",
+          "Solution: minimum features to solve the core problem (= your MVP on the canvas)",
+          "UVP: one compelling sentence why you're different. Use 'X for Y' analogy",
+          "Channels: specific path to reach early adopters — word of mouth and PR first",
+          "Key Metrics: actionable (revenue, retention) NOT vanity (likes, downloads)",
+          "Cost Structure: fixed costs + variable costs = Burn Rate",
+          "Unfair Advantage: network effect, exclusive data, or insider knowledge — hardest block",
+          "Living Document: update it every time you learn something new from customers"
+        ]
+      }
+    ]
   }
 };
 
@@ -2232,6 +2577,73 @@ const allQuestions = {
       a: `<strong>Remote work and the gig economy</strong> allow Nigerian entrepreneurs to access global markets and income streams without relocating — using only an internet connection and marketable skills.<br><br><strong>How they create opportunity:</strong><br>• <strong>Talent arbitrage</strong>: Nigerian professionals can deliver high-quality work at local cost structures while billing international clients at global rates — creating significant profit margins<br>• <strong>Lower startup costs</strong>: A business serving global clients doesn't need Lagos office space, local marketing budgets, or physical infrastructure<br>• <strong>Access to global capital</strong>: Services priced in USD/EUR provide natural protection against Naira depreciation<br><br><strong>Concrete Examples:</strong><br>1. <strong>Software Development via Andela/Upwork</strong>: Nigerian developers work remotely for US/European companies, earning $30–$100+/hour while living in Nigeria. Andela specifically trained African developers and placed them with global tech companies — creating a new class of high-income professionals without anyone needing to emigrate.<br>2. <strong>Flutterwave</strong>: Built as a remote-first distributed team that now enables cross-border payments for businesses across Africa and globally. Their distributed work model meant they could hire the best talent regardless of location, and their product serves the remote/digital economy directly.`
     }
   ]
+   , /* --- WEEK 7 QUESTIONS --- */
+  7: [
+    {
+      category: "Definitions",
+      q: "What is a startup and how does it differ from a regular small business? Give a concrete example to illustrate the difference.",
+      a: `A <strong>startup</strong> is a company designed to grow fast — it is an experiment in scaling a solution to a large market using technology.<br><br><strong>Key differences from a small business:</strong><br>• <strong>Scale</strong>: A small business serves a local market. A startup is designed to serve millions simultaneously.<br>• <strong>Technology leverage</strong>: Startups use technology to scale without proportional cost increases.<br>• <strong>Speed</strong>: Startups optimize for rapid iteration and learning, not steady operations.<br>• <strong>Goal</strong>: Small business goal = stable profit. Startup goal = massive scale and growth.<br><br><strong>Example:</strong> A local bakery in Abuja vs. an app like Uber. Both are businesses. But the bakery serves hundreds of customers with physical constraints. Uber serves millions simultaneously across the globe using the same app.`
+    },
+    {
+      category: "Team",
+      q: "According to Y Combinator, what are the requirements for an ideal startup founding team?",
+      a: `<strong>Y Combinator's founding team requirements (Michael Seibel):</strong><br><br>1. <strong>Size</strong>: 2 to 4 co-founders — not 1 (too lonely and unbalanced) and not 5+ (too many cooks)<br>2. <strong>Technical balance</strong>: At least 50% of the team must be engineers who can BUILD the product<br>3. <strong>Commitment</strong>: Everyone must quit their jobs and be 100% all-in — no "side project" mentality<br>4. <strong>Financial discipline</strong>: Survive on minimal personal expenses — "ramen noodle" lifestyle for at least a year<br><br><strong>Why technical balance matters:</strong> If no one on your founding team can build the product, you will be permanently dependent on expensive contractors and unable to iterate quickly. The ability to build is the startup's most critical early resource.`
+    },
+    {
+      category: "Core Concept",
+      q: "Explain the 'Frequency Filter' for evaluating startup ideas. Why do daily/weekly problems make better startup opportunities than monthly/yearly ones?",
+      a: `The <strong>Frequency Filter</strong> is a test for evaluating whether a problem is worth building a startup around.<br><br><strong>Rule:</strong> Focus on problems that occur daily or weekly rather than monthly or yearly.<br><br><strong>Why frequency matters:</strong><br>• <strong>Market size</strong>: The more often a problem occurs, the more times people need your solution — larger addressable market<br>• <strong>Habit formation</strong>: Daily/weekly products become habits (WhatsApp, Google Maps). Monthly/yearly products don't<br>• <strong>Revenue potential</strong>: More usage = more monetization opportunities<br>• <strong>Growth loops</strong>: Frequent use creates word-of-mouth referrals and network effects<br><br><strong>Example:</strong> A luggage-selection app = problem occurs once every few years. Weak market. Compare to transport (daily problem) or food (multiple times daily). Huge markets.`
+    },
+    {
+      category: "Core Concept",
+      q: "Define an MVP. Why is the Two-Month Rule important? What was Airbnb's first MVP?",
+      a: `<strong>MVP (Minimum Viable Product)</strong>: The simplest version of your product that allows you to start learning from real users with the least amount of effort.<br><br><strong>The Two-Month Rule:</strong> If your MVP takes more than two months to build, you are overcomplicating it. The goal of the MVP is not perfection — it is validated learning. Spending six months building means six months of untested assumptions.<br><br><strong>Key insight:</strong> Launching is not a grand opening. It is the beginning of a conversation with users. You know nothing until strangers use your product and tell you why it's bad.<br><br><strong>Airbnb's first MVP:</strong> Just a simple website offering air mattresses in the founders' own living room. No search function, no payment system, no reviews. Just enough to test: "Will strangers actually pay to sleep in someone else's home?" The answer was yes — and that validated everything.`
+    },
+    {
+      category: "Finance",
+      q: "Define Runway and Burn Rate. Why are these the most important financial metrics for an early-stage startup?",
+      a: `<strong>Burn Rate:</strong> The total amount of money a startup spends each month — rent + salaries + server costs + all other expenses.<br><br><strong>Runway:</strong> How many months the business can survive before running out of money. Formula: Runway = Cash in Bank ÷ Monthly Burn Rate.<br><br><strong>Why they are critical:</strong><br>• <strong>Time to find product-market fit</strong>: If you run out of money before finding what works, the startup dies regardless of how good the idea is<br>• <strong>Negotiating power</strong>: Startups with long runways can say no to bad investor deals<br>• <strong>Iteration time</strong>: Every month of runway = one more month to learn, pivot, and improve<br><br><strong>YC Advice:</strong> "Spend less, pay yourself less, get a crappy office." Extending runway is more important than comfort in the early stage.`
+    },
+    {
+      category: "Growth",
+      q: "What are the three growth paths for a startup? Which is least preferred and why?",
+      a: `<strong>Three Growth Paths (Michael Seibel / YC):</strong><br><br>1. <strong>Ads</strong> — LEAST PREFERRED. Expensive, doesn't prove product-market fit, and stops working the moment you stop paying. Growth through ads is rented, not earned.<br><br>2. <strong>B2B (Business to Business)</strong> — Provide such exceptional service to customers that they organically tell their colleagues and networks. Word-of-mouth driven by real value.<br><br>3. <strong>Consumer</strong> — Design the product so that usage inherently forces sharing and network growth. Example: Venmo — when you send a payment, the recipient must download the app to receive it. The product grows itself.<br><br><strong>Best growth:</strong> Consumer (product-led) → B2B (service-led) → Ads (paid) — in order of quality and sustainability.`
+    }
+  ],
+
+  /* --- WEEK 8 QUESTIONS --- */
+  8: [
+    {
+      category: "Definitions",
+      q: "What is the Lean Canvas and why is it preferred over a traditional business plan for startups?",
+      a: `The <strong>Lean Canvas</strong> is a 1-page template used to break a business idea into its most essential components. Created by Ash Maurya, adapted from Alex Osterwalder's Business Model Canvas.<br><br><strong>Why preferred over traditional business plans:</strong><br>• <strong>Speed</strong>: Can be completed and updated in under an hour; traditional plans take weeks or months<br>• <strong>Honesty</strong>: A 50-page plan creates a false sense of certainty — startups don't know enough to justify 50 pages of projections<br>• <strong>Iteration</strong>: When assumptions prove wrong (and they will), updating one page takes 30 minutes; rewriting a 50-page document takes months<br>• <strong>Focus</strong>: Forces you to identify the riskiest assumptions and test them first<br><br><strong>Key insight:</strong> A startup is a SEARCH for a business model. The Lean Canvas is your map for that search — not a final report, but a hypothesis to test.`
+    },
+    {
+      category: "Framework",
+      q: "What is the correct fill order for the Lean Canvas and why does it matter?",
+      a: `<strong>Correct fill order:</strong><br>1. Customer Segments & Early Adopters<br>2. Problems & Existing Alternatives<br>3. Revenue Streams<br>4. Solution<br>5. Unique Value Proposition<br>6. Channels<br>7. Key Metrics<br>8. Cost Structure<br>9. Unfair Advantage<br><br><strong>Why order matters:</strong> The canvas has a logical dependency chain. You cannot define a Solution (Block 4) until you clearly understand WHO has the problem (Block 1) and WHAT the problem actually is (Block 2). Most first-time founders start with the solution — this is the core mistake the fill order is designed to prevent.<br><br>Starting with customers and problems means your solution is grounded in real human need, not personal assumptions.`
+    },
+    {
+      category: "Lean Canvas",
+      q: "Explain the difference between Customer Segments and Early Adopters. Why is the distinction important?",
+      a: `<strong>Customer Segments:</strong> The full range of people you are solving the problem for — your total target market.<br><br><strong>Early Adopters:</strong> The specific, small group within your customer segments who feel the pain so intensely that they will try an unpolished, imperfect version of your product and give honest feedback.<br><br><strong>Why the distinction matters:</strong><br>• <strong>Who you build for first</strong>: You build for early adopters first — not the mass market. They give you the feedback that makes the product good enough for everyone else<br>• <strong>Targeting</strong>: Early adopters are easier to find and reach because their need is acute<br>• <strong>Also:</strong> Separate USERS (who use the product) from CUSTOMERS (who pay for it) — these are not always the same person<br><br><strong>Uber example:</strong> Customer Segments = Passengers + Drivers. Early Adopters = Tech-savvy San Francisco professionals who hated waiting for taxis.`
+    },
+    {
+      category: "Lean Canvas",
+      q: "What is a Unique Value Proposition (UVP)? Write one for a Nigerian food delivery startup.",
+      a: `A <strong>Unique Value Proposition (UVP)</strong> is a single, clear, compelling message that states why your product is different from existing alternatives and worth choosing.<br><br><strong>Rules for a good UVP:</strong><br>• One sentence maximum<br>• Turns an unaware visitor into an interested prospect immediately<br>• Shows key difference from alternatives — not just what you do<br>• Often uses the "X for Y" High-Level Concept analogy<br><br><strong>Uber's UVP:</strong> "The smartest way to get around." — Promises speed, ease, and modern technology in five words.<br><br><strong>Nigerian food delivery startup UVP example:</strong><br>"Fresh, hot meals from your favourite Abuja restaurants — delivered in 30 minutes or free."<br><br>This communicates: what (meals), who (Abuja restaurants), promise (30 min), and guarantee (or free) — all in one sentence.`
+    },
+    {
+      category: "Lean Canvas",
+      q: "What is an Unfair Advantage? Why can't 'hard work' or 'great team' be a genuine unfair advantage?",
+      a: `An <strong>Unfair Advantage</strong> is something about your business that cannot be easily copied or bought by a well-funded competitor.<br><br><strong>Why 'great team' and 'hard work' don't count:</strong> Every startup claims this. A competitor with $10 million in funding can hire a great team. They can hire people who work hard. These qualities are universal claims that any competitor can match with enough money — they are NOT defensible advantages.<br><br><strong>Real Unfair Advantages:</strong><br>• <strong>Network Effects</strong>: The product becomes more valuable as more people use it (Uber, WhatsApp, Facebook)<br>• <strong>Exclusive insider knowledge</strong>: Deep domain expertise competitors can't acquire quickly<br>• <strong>Exclusive data</strong>: Proprietary data that enables better decisions or products<br>• <strong>Regulatory access</strong>: Licenses or approvals that are hard to obtain<br>• <strong>Dream technical team</strong>: Extremely rare specialists in a narrow critical field<br><br><strong>Uber's Unfair Advantage:</strong> Network effect — more drivers → faster pickups → more riders → more drivers. A flywheel that's nearly impossible to replicate from scratch.`
+    },
+    {
+      category: "Lean Canvas",
+      q: "What is the difference between Vanity Metrics and Actionable Metrics? Give two examples of each.",
+      a: `<strong>Vanity Metrics:</strong> Numbers that look impressive but don't indicate real business health or help you make better decisions.<br><br><strong>Vanity examples:</strong><br>• Total app downloads (≠ active users)<br>• Social media likes and followers (≠ paying customers)<br><br><strong>Actionable Metrics:</strong> Numbers that directly measure whether you are solving the problem and moving toward sustainability — and that you can act on if they go wrong.<br><br><strong>Actionable examples:</strong><br>• Number of PAYING customers this week (measures real value delivery)<br>• Customer retention/churn rate (measures whether the product is actually good enough to keep)<br><br><strong>Key rule:</strong> Only track metrics you can take ACTION on if they move in the wrong direction. If a metric can decline by 50% and you wouldn't change anything, it's vanity. If it declines and you'd immediately investigate and change course, it's actionable.`
+    }
+  ]
 };
 
 
@@ -2323,6 +2735,34 @@ const allFlashcards = {
     { q: "What is a virtual office and why is it useful in Nigeria?", a: "Provides <strong>professional business address + communication services + occasional workspace</strong> — without permanent office rent.<br><br>Cost: <strong>₦15,000–₦100,000/month</strong> (vs ₦500K–₦2M for physical Lagos office).<br><br>Solves: Cost, credibility, and infrastructure problems simultaneously." },
     { q: "5 remote work trends for African entrepreneurs?", a: "1. <strong>Gig Economy</strong>: Upwork/Fiverr freelancing in USD/EUR<br>2. <strong>Digital Nomadism</strong>: work while traveling; Kenya/Mauritius offer digital nomad visas<br>3. <strong>Remote-First Startups</strong>: launch without physical offices; focus on output<br>4. <strong>E-commerce & Digital Products</strong>: courses, software, dropshipping<br>5. <strong>Virtual Collaboration Tools</strong>: Zoom, Slack, Trello, Google Workspace" },
     { q: "Red flags to avoid when accessing ecosystem support", a: "✗ Programs asking <strong>upfront fees for 'guaranteed' loans</strong><br>✗ Unrealistic promises of quick funding<br>✗ Unregistered 'support' organizations<br>✗ Schemes requiring you to <strong>recruit others</strong> (pyramid structures)<br><br>Verify: check official government websites, confirm physical addresses, read reviews." }
+  ],
+  /* --- WEEK 7 FLASHCARDS --- */
+  7: [
+    { q: "What is a startup?", a: "A company <strong>designed to grow fast</strong> — not just a small business. It is an experiment in scaling a technology-powered solution to a large market at massive speed." },
+    { q: "YC's ideal founding team requirements?", a: "<strong>2–4 co-founders</strong><br>At least <strong>50% technical</strong> (engineers who can build)<br><strong>100% committed</strong> — everyone all-in<br>Financial discipline: survive on minimal personal expenses for 1+ year" },
+    { q: "What is the Frequency Filter?", a: "Test startup ideas by frequency: focus on <strong>daily or weekly problems</strong> — not monthly or yearly ones. More frequent = bigger market, stronger habits, more revenue potential." },
+    { q: "What is an MVP?", a: "<strong>Minimum Viable Product</strong> = simplest version of your product that enables learning from real users with minimum effort.<br><br><strong>Two-Month Rule:</strong> If it takes more than 2 months to build, you're overcomplicating it." },
+    { q: "What was Airbnb's first MVP?", a: "Just a <strong>simple website offering air mattresses</strong> in the founders' living room. No search, no payments — just enough to test: 'Will strangers pay to sleep in someone else's home?'" },
+    { q: "What is Burn Rate?", a: "The <strong>total amount of money a startup spends each month</strong> — rent + salaries + servers + all expenses. Keep it as low as possible in the early stage." },
+    { q: "What is Runway?", a: "How many <strong>months the business can survive</strong> before running out of money.<br>Formula: <strong>Runway = Cash ÷ Monthly Burn Rate</strong><br>More runway = more time to find product-market fit." },
+    { q: "3 growth paths — best to worst?", a: "Best to worst:<br>1. <strong>Consumer</strong>: product design forces sharing (e.g. Venmo)<br>2. <strong>B2B</strong>: amazing service → word of mouth<br>3. <strong>Ads</strong>: least preferred — expensive, rented growth" },
+    { q: "What is FOMO in fundraising?", a: "<strong>Fear Of Missing Out</strong> — investors fear missing the next big thing.<br><br>Strategy: schedule ALL investor meetings in the SAME week to create competitive pressure and force quick decisions." },
+    { q: "YC hiring rule?", a: "Every hire must <strong>raise the average intelligence</strong> of the company. If not — do the work yourself.<br><br>Instagram: $1 billion acquisition with only <strong>13 employees</strong>. Hire slow, hire elite." },
+    { q: "Michael Seibel's most important quote?", a: "<strong>'You are nothing until you launch.'</strong><br><br>Most founders fail by polishing forever and never shipping. Launch fast, get real feedback, iterate — this is the only path to learning." }
+  ],
+
+  /* --- WEEK 8 FLASHCARDS --- */
+  8: [
+    { q: "What is the Lean Canvas?", a: "A <strong>1-page template</strong> that breaks a business idea into its 9 most essential components. Created by Ash Maurya. Faster, more honest, and more useful than a 50-page business plan." },
+    { q: "Lean Canvas fill order (all 9)?", a: "1. Customer Segments<br>2. Problems<br>3. Revenue Streams<br>4. Solution<br>5. Unique Value Proposition<br>6. Channels<br>7. Key Metrics<br>8. Cost Structure<br>9. Unfair Advantage" },
+    { q: "Customer Segments vs. Early Adopters?", a: "<strong>Customer Segments</strong>: full target market (who you solve for)<br><strong>Early Adopters</strong>: small group who feel pain so much they'll try an unpolished product first<br><br>Also separate: <strong>USERS</strong> (use it) vs <strong>CUSTOMERS</strong> (pay for it)" },
+    { q: "What are Existing Alternatives in the Lean Canvas?", a: "How customers solve the problem <strong>RIGHT NOW</strong> — your real competitors today.<br><br>No alternatives = no urgency = probably not a real market. Competition <strong>validates</strong> the market." },
+    { q: "What is a UVP?", a: "<strong>Unique Value Proposition</strong> = single, clear, compelling sentence explaining why you're different and worth choosing.<br><br>Use <strong>'X for Y'</strong> analogy: 'The Uber for laundry', 'The Airbnb for dogs'<br>Uber's UVP: 'The smartest way to get around.'" },
+    { q: "What is an Unfair Advantage?", a: "Something that <strong>cannot be easily copied or bought</strong> by competitors.<br><br>NOT: 'great team' or 'hard work' (everyone says this).<br>IS: network effects, exclusive data, insider knowledge, regulatory access.<br><br>Uber's: <strong>Network Effect flywheel</strong>." },
+    { q: "Vanity vs. Actionable Metrics?", a: "<strong>Vanity</strong>: looks good but doesn't drive decisions (likes, downloads, page views)<br><strong>Actionable</strong>: measures real health and drives decisions (paying customers, retention, churn, revenue)<br><br>Rule: only track what you'd ACT on if it dropped." },
+    { q: "Fixed Costs vs. Variable Costs?", a: "<strong>Fixed Costs</strong>: don't change with sales volume — rent, salaries<br><strong>Variable Costs</strong>: grow as business scales — servers, processing fees, delivery costs<br><br>Keep fixed costs LOW in early stage — stay lean." },
+    { q: "What is the Lean Canvas final insight?", a: "A startup is a <strong>SEARCH for a business model</strong>. The Lean Canvas is the map for that search.<br><br>Treat it as a <strong>living document</strong> — update it every time you learn something new from customers. Your first version is almost certainly wrong." },
+    { q: "Why does Solution come 4th — not 1st?", a: "Because you cannot design a good solution without first knowing <strong>WHO</strong> has the problem (Block 1) and exactly <strong>WHAT</strong> the problem is and why alternatives fail (Block 2).<br><br>Starting with the solution is the #1 first-time founder mistake." }
   ]
 };
 
@@ -2351,7 +2791,8 @@ function selectWeek(week, btn) {
 }
 
 function getWeekLabel() {
-  const labels = { 1: 'Week 1', 2: 'Week 2', 3: 'Week 3', 4: 'Week 4', 5: 'Week 5', 6: 'Week 6', all: 'All Weeks' };
+  const labels = { 1: 'Week 1', 2: 'Week 2', 3: 'Week 3', 4: 'Week 4', 
+                 5: 'Week 5', 6: 'Week 6', 7: 'Week 7', 8: 'Week 8', all: 'All Weeks' };
   return labels[currentWeek] || 'Week 1';
 }
 
@@ -2359,7 +2800,8 @@ function getQuestions() {
   if (currentWeek === 'all') {
     return [
       ...allQuestions[1], ...allQuestions[2], ...allQuestions[3],
-      ...allQuestions[4], ...allQuestions[5], ...allQuestions[6]
+      ...allQuestions[4], ...allQuestions[5], ...allQuestions[6],
+      ...allQuestions[7], ...allQuestions[8]
     ];
   }
   return allQuestions[currentWeek] || [];
@@ -2369,7 +2811,8 @@ function getFlashcards() {
   if (currentWeek === 'all') {
     return [
       ...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3],
-      ...allFlashcards[4], ...allFlashcards[5], ...allFlashcards[6]
+      ...allFlashcards[4], ...allFlashcards[5], ...allFlashcards[6],
+      ...allFlashcards[7], ...allFlashcards[8]
     ];
   }
   return allFlashcards[currentWeek] || [];
@@ -2378,12 +2821,10 @@ function getFlashcards() {
 function getTopics() {
   if (currentWeek === 'all') {
     return [
-      ...courseData[1].topics,
-      ...courseData[2].topics,
-      ...courseData[3].topics,
-      ...courseData[4].topics,
-      ...courseData[5].topics,
-      ...courseData[6].topics
+      ...courseData[1].topics, ...courseData[2].topics,
+      ...courseData[3].topics, ...courseData[4].topics,
+      ...courseData[5].topics, ...courseData[6].topics,
+      ...courseData[7].topics, ...courseData[8].topics
     ];
   }
   return courseData[currentWeek]?.topics || [];
