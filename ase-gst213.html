@@ -1,1257 +1,647 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASE-GST 213 - Study Assistant</title>
-
+<title>ASE-GST 213 — Study Assistant</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['Clash Display', 'sans-serif'],
+          serif: ['Instrument Serif', 'serif'],
+          mono: ['JetBrains Mono', 'monospace'],
+        },
+        colors: {
+          paper:   '#f7f4ef',
+          paper2:  '#eeeae2',
+          paper3:  '#e3dfd5',
+          ink:     '#1a1714',
+          ink2:    '#4a443c',
+          ink3:    '#8a8278',
+          rust:    '#c0440a',
+          'rust-lt':'#f0ede8',
+          'rust-mid':'#e8835a',
+          green:   '#1e5c3a',
+          'green-lt':'#e8f2ec',
+          navy:    '#1c3555',
+          'navy-lt':'#e6ecf4',
+          success: '#1e7a4a',
+          danger:  '#b52a2a',
+        },
+        boxShadow: {
+          sm: '0 1px 3px rgba(26,23,20,0.08), 0 1px 2px rgba(26,23,20,0.04)',
+          md: '0 4px 12px rgba(26,23,20,0.10), 0 2px 4px rgba(26,23,20,0.06)',
+          lg: '0 12px 32px rgba(26,23,20,0.12), 0 4px 8px rgba(26,23,20,0.06)',
+        },
+        animation: {
+          blink: 'blink 2.4s ease-in-out infinite',
+          slideUp: 'slideUp 0.3s cubic-bezier(0.4,0,0.2,1)',
+          flip: 'flip 0.55s cubic-bezier(0.4,0,0.2,1)',
+        },
+        keyframes: {
+          blink: { '0%,100%': {opacity:'1'}, '50%': {opacity:'0.2'} },
+          slideUp: { 'from': {opacity:'0', transform:'translateY(10px)'}, 'to': {opacity:'1', transform:'translateY(0)'} },
+        },
+      }
+    }
+  }
+</script>
+
 <style>
-:root {
-  --paper:    #f7f4ef;
-  --paper2:   #eeeae2;
-  --paper3:   #e3dfd5;
-  --ink:      #1a1714;
-  --ink2:     #4a443c;
-  --ink3:     #8a8278;
-  --rust:     #c0440a;
-  --rust-lt:  #f0ede8;
-  --rust-mid: #e8835a;
-  --green:    #1e5c3a;
-  --green-lt: #e8f2ec;
-  --navy:     #1c3555;
-  --navy-lt:  #e6ecf4;
-  --success:  #1e7a4a;
-  --danger:   #b52a2a;
-  --font-display: 'Clash Display', sans-serif;
-  --font-serif:   'Instrument Serif', serif;
-  --font-mono:    'JetBrains Mono', monospace;
-  --shadow-sm: 0 1px 3px rgba(26,23,20,0.08), 0 1px 2px rgba(26,23,20,0.04);
-  --shadow-md: 0 4px 12px rgba(26,23,20,0.10), 0 2px 4px rgba(26,23,20,0.06);
-  --shadow-lg: 0 12px 32px rgba(26,23,20,0.12), 0 4px 8px rgba(26,23,20,0.06);
-}
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-mono);
-  min-height: 100vh;
-  overflow-x: hidden;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
-}
-#home {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 3rem 2rem;
-  position: relative;
-  overflow: hidden;
-}
-#home::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0;
-  width: 200px; height: 200px;
-  border-right: 1px solid var(--paper3);
-  border-bottom: 1px solid var(--paper3);
-  border-radius: 0 0 100% 0;
-  pointer-events: none;
-}
-#home::after {
-  content: '';
-  position: fixed;
-  bottom: 0; right: 0;
-  width: 200px; height: 200px;
-  border-left: 1px solid var(--paper3);
-  border-top: 1px solid var(--paper3);
-  border-radius: 100% 0 0 0;
-  pointer-events: none;
-}
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 600;
-  padding: 7px 18px;
-  border-radius: 2px;
-  margin-bottom: 2.5rem;
-}
-.badge-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--rust-mid);
-  animation: blink 2.4s ease-in-out infinite;
-}
-@keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
-.home-title {
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 10vw, 7rem);
-  font-weight: 700;
-  line-height: 0.88;
-  text-align: center;
-  letter-spacing: -0.04em;
-  margin-bottom: 1.25rem;
-  color: var(--ink);
-}
-.home-title em {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  color: var(--rust);
-}
-.title-rule { width: 60px; height: 3px; background: var(--rust); margin: 0 auto 1.5rem; }
-.home-sub {
-  color: var(--ink3);
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-  line-height: 1.7;
-  text-align: center;
-  max-width: 440px;
-  margin-bottom: 3rem;
-}
-.week-selector {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.week-btn {
-  background: transparent;
-  border: 1.5px solid var(--paper3);
-  color: var(--ink3);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  padding: 8px 18px;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-}
-.week-btn:hover { border-color: var(--ink2); color: var(--ink); }
-.week-btn.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.mode-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  gap: 1.25rem;
-  max-width: 960px;
-  width: 100%;
-}
-.mode-card {
-  background: #fff;
-  border: 1.5px solid var(--paper3);
-  border-radius: 4px;
-  padding: 2rem;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-}
-.mode-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-.mode-card.learn:hover   { border-color: var(--rust); }
-.mode-card.challenge:hover { border-color: var(--green); }
-.mode-card.rapid:hover   { border-color: var(--navy); }
-.mode-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-  transform-origin: left;
-}
-.mode-card.learn::before   { background: var(--rust); }
-.mode-card.challenge::before { background: var(--green); }
-.mode-card.rapid::before   { background: var(--navy); }
-.mode-card:hover::before   { transform: scaleX(1); }
-.mode-icon { font-size: 1.75rem; margin-bottom: 1rem; display: block; }
-.mode-label { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; margin-bottom: 0.6rem; letter-spacing: -0.02em; color: var(--ink); }
-.mode-desc { color: var(--ink3); font-size: 0.78rem; line-height: 1.7; font-weight: 400; }
-.mode-arrow { position: absolute; bottom: 1.25rem; right: 1.25rem; font-size: 1rem; color: var(--paper3); transition: all 0.25s; font-weight: 600; }
-.mode-card:hover .mode-arrow { color: var(--ink2); transform: translate(3px,-3px); }
-.other-course-bar {
-  margin-top: 2.5rem;
-  padding-top: 2rem;
-  border-top: 1.5px solid var(--paper3);
-  width: 100%;
-  max-width: 960px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-.other-course-label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink3); }
-.other-course-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: transparent;
-  border: 1.5px solid var(--paper3);
-  color: var(--ink2);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 10px 22px;
-  border-radius: 2px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.other-course-btn:hover { border-color: var(--ink); color: var(--ink); background: var(--paper2); }
-.screen { display: none; min-height: 100vh; }
-.screen.active { display: block; }
-.screen-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 2rem;
-  border-bottom: 1.5px solid var(--paper3);
-  position: sticky;
-  top: 0;
-  background: rgba(247,244,239,0.96);
-  backdrop-filter: blur(10px);
-  z-index: 100;
-}
-.back-btn {
-  background: transparent;
-  border: 1.5px solid var(--paper3);
-  color: var(--ink2);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 7px 16px;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.back-btn:hover { border-color: var(--ink); color: var(--ink); background: var(--paper2); }
-.screen-title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; color: var(--ink); }
-.screen-week { margin-left: auto; color: var(--ink3); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
-.learn-layout { display: grid; grid-template-columns: 268px 1fr; min-height: calc(100vh - 61px); }
-.topic-sidebar {
-  border-right: 1.5px solid var(--paper3);
-  padding: 1.5rem 1rem;
-  position: sticky;
-  top: 61px;
-  height: calc(100vh - 61px);
-  overflow-y: auto;
-  background: #faf8f4;
-}
-.sidebar-label { color: var(--ink3); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.75rem; padding: 0 0.5rem; }
-.topic-item {
-  padding: 0.55rem 0.75rem;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 0.76rem;
-  font-weight: 500;
-  color: var(--ink3);
-  transition: all 0.18s;
-  margin-bottom: 2px;
-  line-height: 1.4;
-  border: 1.5px solid transparent;
-}
-.topic-item:hover { background: var(--paper2); color: var(--ink); }
-.topic-item.active { background: var(--rust-lt); color: var(--rust); border-color: rgba(192,68,10,0.2); font-weight: 600; }
-.topic-content { padding: 3rem 3.5rem; max-width: 800px; }
-.topic-tag {
-  display: inline-flex;
-  align-items: center;
-  background: var(--paper2);
-  border: 1px solid var(--paper3);
-  color: var(--ink3);
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 4px 12px;
-  border-radius: 2px;
-  margin-bottom: 1.25rem;
-}
-.topic-heading { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 0.25rem; color: var(--ink); }
-.topic-hr { width: 40px; height: 2.5px; background: var(--rust); margin: 1rem 0 1.5rem; }
-.topic-body { color: var(--ink2); font-size: 0.84rem; line-height: 1.9; margin-bottom: 2rem; font-weight: 400; }
-.keypoints-title { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.85rem; }
-.keypoints-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
-.keypoint {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  background: #fff;
-  border: 1px solid var(--paper3);
-  border-left: 3px solid var(--rust);
-  border-radius: 0 3px 3px 0;
-  padding: 0.7rem 1rem;
-  font-size: 0.81rem;
-  font-weight: 500;
-  color: var(--ink);
-  line-height: 1.55;
-  box-shadow: var(--shadow-sm);
-}
-.keypoint-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rust); margin-top: 5px; flex-shrink: 0; }
-.comparison-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; font-size: 0.79rem; font-weight: 400; box-shadow: var(--shadow-sm); }
-.comparison-table th { background: var(--ink); color: var(--paper); padding: 0.75rem 1rem; text-align: left; font-family: var(--font-display); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.03em; border: 1px solid var(--ink); }
-.comparison-table td { padding: 0.65rem 1rem; border: 1px solid var(--paper3); color: var(--ink2); line-height: 1.55; vertical-align: top; background: #fff; font-weight: 500; }
-.comparison-table tr:nth-child(even) td { background: var(--paper); }
-.comparison-table tr:hover td { background: var(--rust-lt); }
-.example-block { background: var(--green-lt); border: 1.5px solid rgba(30,92,58,0.2); border-radius: 3px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
-.example-label { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); margin-bottom: 0.5rem; }
-.example-text { color: var(--ink2); font-size: 0.81rem; line-height: 1.7; font-weight: 500; }
-.discussion-block { background: var(--navy-lt); border: 1.5px solid rgba(28,53,85,0.2); border-radius: 3px; padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
-.discussion-label { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy); margin-bottom: 0.5rem; }
-.discussion-text { color: var(--ink2); font-size: 0.81rem; line-height: 1.7; font-weight: 500; }
-.nav-buttons { display: flex; gap: 1rem; margin-top: 3rem; padding-top: 2rem; border-top: 1.5px solid var(--paper3); }
-.nav-btn {
-  background: transparent;
-  border: 1.5px solid var(--paper3);
-  color: var(--ink2);
-  font-family: var(--font-mono);
-  font-size: 0.76rem;
-  font-weight: 600;
-  padding: 10px 24px;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: all 0.2s;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.nav-btn:hover { border-color: var(--ink); color: var(--ink); background: var(--paper2); }
-.nav-btn.primary { background: var(--rust); color: #fff; border-color: var(--rust); }
-.nav-btn.primary:hover { background: #a83a08; border-color: #a83a08; }
-
-/* ══════════════════════════════════════════════════
-   CHALLENGE MODE — MULTIPLE CHOICE
-   ══════════════════════════════════════════════════ */
-.challenge-container { max-width: 780px; margin: 0 auto; padding: 3rem 2rem; }
-.progress-bar-wrap { background: var(--paper3); border-radius: 100px; height: 3px; margin-bottom: 2.5rem; }
-.progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--rust), var(--rust-mid)); border-radius: 100px; transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
-.q-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
-.q-counter { color: var(--ink3); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; }
-.q-category { background: var(--ink); color: var(--paper); font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 5px 14px; border-radius: 2px; }
-.q-text { font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; line-height: 1.3; margin-bottom: 2rem; letter-spacing: -0.02em; color: var(--ink); }
-
-/* Multiple choice */
-.mc-options { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
-.mc-option {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  background: #fff;
-  border: 1.5px solid var(--paper3);
-  border-radius: 3px;
-  padding: 1rem 1.25rem;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  font-size: 0.83rem;
-  font-weight: 500;
-  color: var(--ink2);
-  line-height: 1.5;
-  box-shadow: var(--shadow-sm);
-  text-align: left;
-  width: 100%;
-  font-family: var(--font-mono);
-}
-.mc-option:hover:not(.disabled) { border-color: var(--navy); background: var(--navy-lt); color: var(--navy); }
-.mc-option.correct  { border-color: var(--success); background: var(--green-lt); color: var(--success); }
-.mc-option.wrong    { border-color: var(--danger);  background: #fdecea; color: var(--danger); }
-.mc-option.reveal-correct { border-color: var(--success); background: var(--green-lt); color: var(--success); }
-.mc-option.disabled { cursor: default; pointer-events: none; }
-.mc-letter {
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  font-weight: 700;
-  min-width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--paper2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-  transition: all 0.18s;
-}
-.mc-option:hover:not(.disabled) .mc-letter { background: var(--navy); color: #fff; }
-.mc-option.correct .mc-letter  { background: var(--success); color: #fff; }
-.mc-option.wrong .mc-letter    { background: var(--danger);  color: #fff; }
-.mc-option.reveal-correct .mc-letter { background: var(--success); color: #fff; }
-
-.mc-feedback {
-  display: none;
-  border-radius: 3px;
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.83rem;
-  line-height: 1.75;
-  animation: slideUp 0.3s cubic-bezier(0.4,0,0.2,1);
-}
-.mc-feedback.correct-fb { background: var(--green-lt); border: 1.5px solid rgba(30,92,58,0.25); border-left: 4px solid var(--success); }
-.mc-feedback.wrong-fb   { background: #fdecea; border: 1.5px solid rgba(181,42,42,0.2); border-left: 4px solid var(--danger); }
-.mc-feedback-label { font-family: var(--font-mono); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 0.6rem; }
-.correct-fb .mc-feedback-label { color: var(--success); }
-.wrong-fb   .mc-feedback-label { color: var(--danger); }
-.mc-feedback-text { color: var(--ink2); font-size: 0.83rem; font-weight: 400; }
-.mc-feedback-text strong { color: var(--ink); font-weight: 700; }
-
-@keyframes slideUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-
-.q-nav { display: flex; gap: 1rem; margin-top: 1.5rem; }
-.score-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 55vh; text-align: center; padding: 3rem; }
-.score-number { font-family: var(--font-display); font-size: 6rem; font-weight: 700; color: var(--rust); line-height: 1; margin-bottom: 0.5rem; letter-spacing: -0.04em; }
-.score-label { color: var(--ink3); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 2.5rem; }
-.score-breakdown { display: flex; gap: 2.5rem; margin-bottom: 3rem; }
-.score-stat { text-align: center; }
-.stat-num { font-family: var(--font-display); font-size: 2rem; font-weight: 700; letter-spacing: -0.02em; }
-.stat-label { color: var(--ink3); font-family: var(--font-mono); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px; }
-
-/* ══════════════════════════════════════════════════
-   RAPID FIRE
-   ══════════════════════════════════════════════════ */
-.rapid-container { max-width: 700px; margin: 0 auto; padding: 3rem 2rem; text-align: center; }
-.rapid-progress { color: var(--ink3); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 2rem; }
-.rapid-card {
-  position: relative;
-  width: 100%;
-  height: 360px;
-  cursor: pointer;
-  perspective: 1000px;
-  margin-bottom: 2rem;
-  transform-style: preserve-3d;
-  transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
-}
-.rapid-card.flipped { transform: rotateY(180deg); }
-.rapid-question, .rapid-answer {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2.5rem;
-  border-radius: 4px;
-  backface-visibility: hidden;
-  box-shadow: var(--shadow-md);
-}
-.rapid-question { background: var(--ink); color: var(--paper); font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; line-height: 1.3; letter-spacing: -0.02em; }
-.rapid-answer { background: #fff; color: var(--ink2); font-size: 0.84rem; line-height: 1.75; transform: rotateY(180deg); border: 1.5px solid var(--paper3); text-align: left; overflow-y: auto; }
-.rapid-answer strong { color: var(--ink); font-weight: 700; }
-.flip-hint { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,244,239,0.4); }
-.rapid-counter { position: absolute; top: 1rem; right: 1rem; font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: rgba(247,244,239,0.15); line-height: 1; }
-.rapid-controls { display: flex; gap: 1rem; justify-content: center; }
-.rapid-btn { padding: 11px 28px; border-radius: 2px; border: 1.5px solid var(--paper3); font-family: var(--font-mono); font-size: 0.76rem; font-weight: 600; cursor: pointer; transition: all 0.2s; letter-spacing: 0.06em; text-transform: uppercase; }
-.rapid-btn.prev { background: transparent; color: var(--ink3); }
-.rapid-btn.prev:hover { color: var(--ink); border-color: var(--ink); background: var(--paper2); }
-.rapid-btn.flip { background: var(--navy); color: #fff; border-color: var(--navy); }
-.rapid-btn.flip:hover { background: #142844; border-color: #142844; }
-.rapid-btn.next { background: transparent; color: var(--ink3); }
-.rapid-btn.next:hover { color: var(--ink); border-color: var(--ink); background: var(--paper2); }
-
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: var(--paper); }
-::-webkit-scrollbar-thumb { background: var(--paper3); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: var(--ink3); }
-
-@media (max-width: 720px) {
-  .learn-layout { grid-template-columns: 1fr; }
-  .topic-sidebar { position: static; height: auto; border-right: none; border-bottom: 1.5px solid var(--paper3); }
-  .topic-content { padding: 1.5rem; }
-  .home-title { font-size: 3rem; }
-  .other-course-bar { flex-direction: column; align-items: flex-start; }
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background-color: #f7f4ef;
+    color: #1a1714;
+    font-family: 'JetBrains Mono', monospace;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+  @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
+  @keyframes slideUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  .badge-dot { animation: blink 2.4s ease-in-out infinite; }
+  .mc-feedback { animation: slideUp 0.3s cubic-bezier(0.4,0,0.2,1); }
+  .rapid-card {
+    position: relative; width: 100%; height: 360px; cursor: pointer;
+    perspective: 1000px; transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+  }
+  .rapid-card.flipped { transform: rotateY(180deg); }
+  .rapid-question, .rapid-answer {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; padding: 2.5rem;
+    border-radius: 4px; backface-visibility: hidden;
+  }
+  .rapid-question {
+    background: #1a1714; color: #f7f4ef;
+    font-family: 'Clash Display', sans-serif; font-size: 1.5rem; font-weight: 700;
+    line-height: 1.3; letter-spacing: -0.02em;
+    box-shadow: 0 4px 12px rgba(26,23,20,0.10);
+  }
+  .rapid-answer {
+    background: #fff; color: #4a443c; font-size: 0.84rem; line-height: 1.75;
+    transform: rotateY(180deg); border: 1.5px solid #e3dfd5;
+    text-align: left; overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(26,23,20,0.10);
+  }
+  .rapid-answer strong { color: #1a1714; font-weight: 700; }
+  .flip-hint {
+    position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase; color: rgba(247,244,239,0.4);
+    white-space: nowrap;
+  }
+  .rapid-counter {
+    position: absolute; top: 1rem; right: 1rem;
+    font-family: 'Clash Display', sans-serif; font-size: 2rem; font-weight: 700;
+    color: rgba(247,244,239,0.15); line-height: 1;
+  }
+  #home::before {
+    content: ''; position: fixed; top: 0; left: 0;
+    width: 200px; height: 200px;
+    border-right: 1px solid #e3dfd5; border-bottom: 1px solid #e3dfd5;
+    border-radius: 0 0 100% 0; pointer-events: none;
+  }
+  #home::after {
+    content: ''; position: fixed; bottom: 0; right: 0;
+    width: 200px; height: 200px;
+    border-left: 1px solid #e3dfd5; border-top: 1px solid #e3dfd5;
+    border-radius: 100% 0 0 0; pointer-events: none;
+  }
+  .mode-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left;
+  }
+  .mode-card.learn::before   { background: #c0440a; }
+  .mode-card.challenge::before { background: #1e5c3a; }
+  .mode-card.rapid::before   { background: #1c3555; }
+  .mode-card:hover::before   { transform: scaleX(1); }
+  .mode-card:hover .mode-arrow { color: #4a443c; transform: translate(3px,-3px); }
+  .topic-item.active { background: #f0ede8; color: #c0440a; border-color: rgba(192,68,10,0.2); font-weight: 600; }
+  .mc-option.correct  { border-color: #1e7a4a; background: #e8f2ec; color: #1e7a4a; pointer-events: none; }
+  .mc-option.wrong    { border-color: #b52a2a; background: #fdecea; color: #b52a2a; pointer-events: none; }
+  .mc-option.reveal-correct { border-color: #1e7a4a; background: #e8f2ec; color: #1e7a4a; pointer-events: none; }
+  .mc-option.disabled { cursor: default; pointer-events: none; }
+  .mc-option.correct .mc-letter  { background: #1e7a4a; color: #fff; }
+  .mc-option.wrong .mc-letter    { background: #b52a2a; color: #fff; }
+  .mc-option.reveal-correct .mc-letter { background: #1e7a4a; color: #fff; }
+  .progress-bar-fill { transition: width 0.4s cubic-bezier(0.4,0,0.2,1); }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #f7f4ef; }
+  ::-webkit-scrollbar-thumb { background: #e3dfd5; border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: #8a8278; }
+  .theory-answer-area { resize: vertical; min-height: 120px; }
+  .challenge-type-btn.active { background: #1a1714; color: #f7f4ef; border-color: #1a1714; }
+  .week-btn.active { background: #1a1714; border-color: #1a1714; color: #f7f4ef; }
+  .comparison-table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; font-size: 0.79rem; }
+  .comparison-table th { background: #1a1714; color: #f7f4ef; padding: 0.75rem 1rem; text-align: left; font-family: 'Clash Display', sans-serif; font-weight: 700; font-size: 0.75rem; border: 1px solid #1a1714; }
+  .comparison-table td { padding: 0.65rem 1rem; border: 1px solid #e3dfd5; color: #4a443c; line-height: 1.55; vertical-align: top; background: #fff; font-weight: 500; }
+  .comparison-table tr:nth-child(even) td { background: #f7f4ef; }
+  .comparison-table tr:hover td { background: #f0ede8; }
 </style>
 </head>
 <body>
 
-<!-- HOME -->
-<div id="home">
-  <div class="badge"><span class="badge-dot"></span>ASE-GST 213 · African School of Economics</div>
-  <h1 class="home-title">Study<br><em>Assistant</em></h1>
-  <div class="title-rule"></div>
-  <p class="home-sub">Introduction to Programming &amp; Artificial Intelligence.<br>Pick your week, pick your mode.</p>
-
-  <div class="week-selector">
-    <button class="week-btn active" onclick="selectWeek(1,this)">Week 1 — Programming Fundamentals</button>
-    <button class="week-btn" onclick="selectWeek(2,this)">Week 2 — Structured &amp; Modular Programming</button>
-    <button class="week-btn" onclick="selectWeek('all',this)">All Weeks</button>
+<!-- ══════════════════ HOME ══════════════════ -->
+<div id="home" class="min-h-screen flex flex-col items-center justify-center px-8 py-12 relative overflow-hidden">
+  <div class="flex items-center gap-2 bg-ink text-paper font-mono text-xs font-semibold tracking-widest uppercase px-5 py-2 rounded-sm mb-10">
+    <span class="badge-dot w-1.5 h-1.5 rounded-full bg-rust-mid"></span>
+    ASE-GST 213 · African School of Economics
   </div>
 
-  <div class="mode-grid">
-    <div class="mode-card learn" onclick="openLearn()">
-      <span class="mode-icon">📖</span>
-      <div class="mode-label">Learn Mode</div>
-      <div class="mode-desc">Deep-dive every topic from your slides. Clean breakdowns, key points, comparisons, and real examples.</div>
-      <div class="mode-arrow">↗</div>
+  <h1 class="font-display text-[clamp(3.5rem,10vw,7rem)] font-bold leading-none text-center tracking-tight mb-5">
+    Study<br><em class="font-serif italic font-normal text-rust not-italic" style="font-style:italic">Assistant</em>
+  </h1>
+  <div class="w-16 h-1 bg-rust mx-auto mb-6 rounded-sm"></div>
+  <p class="text-ink3 text-sm tracking-wide leading-relaxed text-center max-w-md mb-12 font-mono">
+    Introduction to Programming &amp; Artificial Intelligence.<br>Pick your week, pick your mode.
+  </p>
+
+  <div class="flex gap-2 mb-12 flex-wrap justify-center">
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3 active" onclick="selectWeek(1,this)">Week 1 — Programming Fundamentals</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(2,this)">Week 2 — Structured &amp; Modular</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(3,this)">Week 3 — R vs Python &amp; AI vs Stats</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek('all',this)">All Weeks</button>
+  </div>
+
+  <div class="grid gap-5 w-full max-w-4xl" style="grid-template-columns: repeat(auto-fit, minmax(270px, 1fr))">
+    <div class="mode-card learn bg-white border border-paper3 rounded-sm p-8 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-lg hover:border-rust relative overflow-hidden" onclick="openLearn()">
+      <span class="text-3xl mb-4 block">📖</span>
+      <div class="font-display text-xl font-bold mb-3 tracking-tight text-ink">Learn Mode</div>
+      <div class="text-ink3 text-sm leading-relaxed">Deep-dive every topic from your slides. Clean breakdowns, key points, comparisons, and real examples.</div>
+      <div class="mode-arrow absolute bottom-5 right-5 text-paper3 transition-all duration-300 font-semibold">↗</div>
     </div>
-    <div class="mode-card challenge" onclick="openChallenge()">
-      <span class="mode-icon">⚔️</span>
-      <div class="mode-label">Challenge Mode</div>
-      <div class="mode-desc">Multiple-choice questions straight from the slides. Pick your answer, get instant feedback with a full explanation.</div>
-      <div class="mode-arrow">↗</div>
+    <div class="mode-card challenge bg-white border border-paper3 rounded-sm p-8 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-lg hover:border-green relative overflow-hidden" onclick="openChallenge()">
+      <span class="text-3xl mb-4 block">⚔️</span>
+      <div class="font-display text-xl font-bold mb-3 tracking-tight text-ink">Challenge Mode</div>
+      <div class="text-ink3 text-sm leading-relaxed">Multiple-choice <em>or</em> theory questions straight from the slides. Pick your format and test yourself.</div>
+      <div class="mode-arrow absolute bottom-5 right-5 text-paper3 transition-all duration-300 font-semibold">↗</div>
     </div>
-    <div class="mode-card rapid" onclick="openRapid()">
-      <span class="mode-icon">⚡</span>
-      <div class="mode-label">Rapid Fire</div>
-      <div class="mode-desc">Flashcard mode. Concept on front, full explanation on back. Active recall — the real way to pass.</div>
-      <div class="mode-arrow">↗</div>
+    <div class="mode-card rapid bg-white border border-paper3 rounded-sm p-8 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-lg hover:border-navy relative overflow-hidden" onclick="openRapid()">
+      <span class="text-3xl mb-4 block">⚡</span>
+      <div class="font-display text-xl font-bold mb-3 tracking-tight text-ink">Rapid Fire</div>
+      <div class="text-ink3 text-sm leading-relaxed">Flashcard mode. Concept on front, full explanation on back. Active recall — the real way to pass.</div>
+      <div class="mode-arrow absolute bottom-5 right-5 text-paper3 transition-all duration-300 font-semibold">↗</div>
     </div>
   </div>
 
-  <div class="other-course-bar">
-    <span class="other-course-label">Also studying</span>
-    <a class="other-course-btn" href="index.html">ENT 211 — Study Assistant →</a>
+  <div class="mt-10 pt-8 border-t border-paper3 w-full max-w-4xl flex items-center justify-between gap-4 flex-wrap">
+    <span class="font-mono text-xs tracking-widest uppercase text-ink3">Also studying</span>
+    <a class="inline-flex items-center gap-2 border border-paper3 text-ink2 font-mono text-xs font-semibold tracking-wide uppercase px-6 py-3 rounded-sm hover:border-ink hover:bg-paper2 transition-all duration-200" href="index.html">ENT 211 — Study Assistant →</a>
   </div>
 </div>
 
-<!-- LEARN SCREEN -->
-<div id="learnScreen" class="screen">
-  <div class="screen-header">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <div class="screen-title">📖 Learn Mode</div>
-    <div class="screen-week" id="learnWeekLabel">Week 1</div>
+<!-- ══════════════════ LEARN SCREEN ══════════════════ -->
+<div id="learnScreen" class="hidden min-h-screen">
+  <div class="flex items-center gap-4 px-8 py-4 border-b border-paper3 sticky top-0 bg-paper/95 backdrop-blur z-50">
+    <button class="border border-paper3 text-ink2 font-mono text-xs font-semibold px-4 py-2 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide" onclick="goHome()">← Back</button>
+    <div class="font-display font-bold text-base tracking-tight">📖 Learn Mode</div>
+    <div class="ml-auto text-ink3 text-xs tracking-widest uppercase font-semibold" id="learnWeekLabel">Week 1</div>
   </div>
-  <div class="learn-layout">
-    <div class="topic-sidebar">
-      <div class="sidebar-label">Topics</div>
+  <div class="grid min-h-[calc(100vh-61px)]" style="grid-template-columns: 268px 1fr">
+    <div class="border-r border-paper3 p-6 sticky top-[61px] h-[calc(100vh-61px)] overflow-y-auto" style="background:#faf8f4">
+      <div class="text-ink3 text-[0.62rem] font-semibold tracking-[0.18em] uppercase mb-3 px-2">Topics</div>
       <div id="topicList"></div>
     </div>
-    <div class="topic-content" id="topicContent"></div>
+    <div class="p-12 max-w-3xl" id="topicContent"></div>
   </div>
 </div>
 
-<!-- CHALLENGE SCREEN -->
-<div id="challengeScreen" class="screen">
-  <div class="screen-header">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <div class="screen-title">⚔️ Challenge Mode</div>
-    <div class="screen-week" id="challengeWeekLabel">Week 1</div>
+<!-- ══════════════════ CHALLENGE SCREEN ══════════════════ -->
+<div id="challengeScreen" class="hidden min-h-screen">
+  <div class="flex items-center gap-4 px-8 py-4 border-b border-paper3 sticky top-0 bg-paper/95 backdrop-blur z-50">
+    <button class="border border-paper3 text-ink2 font-mono text-xs font-semibold px-4 py-2 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide" onclick="goHome()">← Back</button>
+    <div class="font-display font-bold text-base tracking-tight">⚔️ Challenge Mode</div>
+    <div class="ml-auto text-ink3 text-xs tracking-widest uppercase font-semibold" id="challengeWeekLabel">Week 1</div>
   </div>
-  <div class="challenge-container">
-    <div class="progress-bar-wrap">
-      <div class="progress-bar-fill" id="challengeProgress" style="width:0%"></div>
+
+  <!-- Challenge Type Selector -->
+  <div id="challengeTypeSelector" class="max-w-2xl mx-auto px-8 pt-12 pb-6">
+    <div class="text-center mb-8">
+      <div class="font-mono text-xs font-bold tracking-[0.18em] uppercase text-ink3 mb-3">Select Challenge Format</div>
+      <h2 class="font-display text-3xl font-bold tracking-tight text-ink">How do you want to be tested?</h2>
     </div>
-    <div class="q-meta" id="qMeta">
-      <div class="q-counter" id="qCounter">Q 1 / 12</div>
-      <div class="q-category" id="qCategory">Definitions</div>
+    <div class="grid gap-4" style="grid-template-columns: 1fr 1fr">
+      <div onclick="startChallenge('mc')" class="bg-white border-2 border-paper3 rounded-sm p-6 cursor-pointer hover:border-navy hover:-translate-y-1 transition-all duration-300 hover:shadow-lg group relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-0.5 bg-navy scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+        <div class="text-3xl mb-3">🧠</div>
+        <div class="font-display text-lg font-bold tracking-tight mb-2 text-ink">Multiple Choice</div>
+        <div class="text-ink3 text-sm leading-relaxed font-mono">4 options per question. Select the correct answer and get instant feedback with a full explanation.</div>
+      </div>
+      <div onclick="startChallenge('theory')" class="bg-white border-2 border-paper3 rounded-sm p-6 cursor-pointer hover:border-rust hover:-translate-y-1 transition-all duration-300 hover:shadow-lg group relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-0.5 bg-rust scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+        <div class="text-3xl mb-3">✍️</div>
+        <div class="font-display text-lg font-bold tracking-tight mb-2 text-ink">Theory Questions</div>
+        <div class="text-ink3 text-sm leading-relaxed font-mono">Write out your answer in your own words. Reveal the model answer and self-assess your response.</div>
+      </div>
     </div>
-    <div class="q-text" id="qText"></div>
-    <div class="mc-options" id="mcOptions"></div>
-    <div class="mc-feedback" id="mcFeedback">
-      <div class="mc-feedback-label" id="mcFeedbackLabel"></div>
-      <div class="mc-feedback-text" id="mcFeedbackText"></div>
+  </div>
+
+  <!-- MC Challenge Area -->
+  <div id="mcArea" class="hidden max-w-3xl mx-auto px-8 pb-12">
+    <div class="h-0.5 bg-paper3 rounded-full mb-10">
+      <div class="h-full bg-gradient-to-r from-rust to-rust-mid rounded-full progress-bar-fill" id="challengeProgress" style="width:0%"></div>
     </div>
-    <div class="q-nav" id="qNav" style="display:none">
-      <button class="nav-btn primary" onclick="nextQ()">Next Question →</button>
+    <div class="flex items-center justify-between mb-8" id="qMeta">
+      <div class="font-mono text-xs font-semibold tracking-widest text-ink3" id="qCounter">Q 1 / 12</div>
+      <div class="bg-ink text-paper font-mono text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-sm" id="qCategory">Definitions</div>
     </div>
-    <div id="scoreDisplay" class="score-screen" style="display:none">
-      <div class="score-number" id="scorePct"></div>
-      <div class="score-label">Score</div>
-      <div class="score-breakdown">
-        <div class="score-stat">
-          <div class="stat-num" id="gotCount" style="color:var(--success)">0</div>
-          <div class="stat-label">Correct</div>
+    <div class="font-display text-2xl font-bold leading-snug mb-8 tracking-tight text-ink" id="qText"></div>
+    <div class="flex flex-col gap-3 mb-6" id="mcOptions"></div>
+    <div class="hidden rounded-sm p-5 mb-6" id="mcFeedback">
+      <div class="font-mono text-xs font-bold tracking-[0.18em] uppercase mb-2" id="mcFeedbackLabel"></div>
+      <div class="text-ink2 text-sm leading-relaxed" id="mcFeedbackText"></div>
+    </div>
+    <div class="hidden gap-4" id="qNav" style="display:none">
+      <button class="bg-rust text-white border border-rust font-mono text-sm font-semibold px-6 py-3 rounded-sm hover:bg-opacity-90 transition-all uppercase tracking-wide" onclick="nextQ()">Next Question →</button>
+    </div>
+    <div id="scoreDisplay" class="hidden flex-col items-center justify-center min-h-[55vh] text-center py-12">
+      <div class="font-display text-8xl font-bold text-rust leading-none mb-2 tracking-tighter" id="scorePct"></div>
+      <div class="text-ink3 font-mono text-xs font-semibold tracking-widest uppercase mb-10">Score</div>
+      <div class="flex gap-10 mb-12">
+        <div class="text-center">
+          <div class="font-display text-4xl font-bold tracking-tight" style="color:#1e7a4a" id="gotCount">0</div>
+          <div class="text-ink3 font-mono text-xs font-semibold tracking-widest uppercase mt-1">Correct</div>
         </div>
-        <div class="score-stat">
-          <div class="stat-num" id="missedCount" style="color:var(--danger)">0</div>
-          <div class="stat-label">Wrong</div>
+        <div class="text-center">
+          <div class="font-display text-4xl font-bold tracking-tight" style="color:#b52a2a" id="missedCount">0</div>
+          <div class="text-ink3 font-mono text-xs font-semibold tracking-widest uppercase mt-1">Wrong</div>
         </div>
       </div>
-      <button class="nav-btn primary" onclick="restartChallenge()">Try Again</button>
+      <div class="flex gap-3">
+        <button class="bg-rust text-white border border-rust font-mono text-sm font-semibold px-6 py-3 rounded-sm hover:bg-opacity-90 transition-all uppercase tracking-wide" onclick="restartMC()">Try Again</button>
+        <button class="border border-paper3 text-ink2 font-mono text-sm font-semibold px-6 py-3 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide" onclick="showChallengeTypeSelector()">Change Format</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theory Challenge Area -->
+  <div id="theoryArea" class="hidden max-w-3xl mx-auto px-8 pb-12">
+    <div class="h-0.5 bg-paper3 rounded-full mb-10">
+      <div class="h-full bg-gradient-to-r from-rust to-rust-mid rounded-full progress-bar-fill" id="theoryProgress" style="width:0%"></div>
+    </div>
+    <div class="flex items-center justify-between mb-8">
+      <div class="font-mono text-xs font-semibold tracking-widest text-ink3" id="theoryCounter">Q 1 / 10</div>
+      <div class="bg-ink text-paper font-mono text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-sm" id="theoryCategory">Theory</div>
+    </div>
+    <div class="font-display text-2xl font-bold leading-snug mb-6 tracking-tight text-ink" id="theoryQText"></div>
+    <div id="theoryWriteArea" class="">
+      <div class="font-mono text-xs font-bold tracking-[0.18em] uppercase text-ink3 mb-3">Your Answer</div>
+      <textarea id="theoryUserAnswer" class="theory-answer-area w-full bg-white border border-paper3 rounded-sm p-4 font-mono text-sm text-ink2 focus:outline-none focus:border-ink transition-colors leading-relaxed" placeholder="Write your answer here..."></textarea>
+      <button onclick="revealTheoryAnswer()" class="mt-4 bg-ink text-paper font-mono text-sm font-semibold px-6 py-3 rounded-sm hover:opacity-90 transition-all uppercase tracking-wide">Reveal Model Answer →</button>
+    </div>
+    <div id="theoryModelAnswer" class="hidden">
+      <div class="bg-green-lt border border-green/20 border-l-4 border-l-success rounded-sm p-5 mb-5">
+        <div class="font-mono text-xs font-bold tracking-[0.18em] uppercase text-success mb-3">📋 Model Answer</div>
+        <div class="text-ink2 text-sm leading-relaxed" id="theoryModelText"></div>
+      </div>
+      <div class="font-mono text-xs font-bold tracking-[0.18em] uppercase text-ink3 mb-3">How did you do?</div>
+      <div class="flex gap-3 mb-6">
+        <button onclick="theoryScore('got')" class="flex-1 border-2 border-success text-success font-mono text-sm font-semibold py-3 rounded-sm hover:bg-green-lt transition-all uppercase tracking-wide">✓ Got it</button>
+        <button onclick="theoryScore('partial')" class="flex-1 border-2 border-paper3 text-ink3 font-mono text-sm font-semibold py-3 rounded-sm hover:border-ink hover:text-ink transition-all uppercase tracking-wide">~ Partially</button>
+        <button onclick="theoryScore('missed')" class="flex-1 border-2 border-danger text-danger font-mono text-sm font-semibold py-3 rounded-sm hover:bg-red-50 transition-all uppercase tracking-wide">✗ Missed</button>
+      </div>
+    </div>
+    <div id="theoryScoreDisplay" class="hidden flex-col items-center justify-center min-h-[55vh] text-center py-12">
+      <div class="font-display text-8xl font-bold text-rust leading-none mb-2 tracking-tighter" id="theoryScorePct"></div>
+      <div class="text-ink3 font-mono text-xs font-semibold tracking-widest uppercase mb-10">Theory Score</div>
+      <div class="flex gap-10 mb-12">
+        <div class="text-center">
+          <div class="font-display text-4xl font-bold tracking-tight" style="color:#1e7a4a" id="theoryGotCount">0</div>
+          <div class="text-ink3 font-mono text-xs font-semibold tracking-widest uppercase mt-1">Got It</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display text-4xl font-bold tracking-tight" style="color:#c0440a" id="theoryPartialCount">0</div>
+          <div class="text-ink3 font-mono text-xs font-semibold tracking-widest uppercase mt-1">Partial</div>
+        </div>
+        <div class="text-center">
+          <div class="font-display text-4xl font-bold tracking-tight" style="color:#b52a2a" id="theoryMissedCount">0</div>
+          <div class="text-ink3 font-mono text-xs font-semibold tracking-widest uppercase mt-1">Missed</div>
+        </div>
+      </div>
+      <div class="flex gap-3">
+        <button class="bg-rust text-white border border-rust font-mono text-sm font-semibold px-6 py-3 rounded-sm hover:bg-opacity-90 transition-all uppercase tracking-wide" onclick="restartTheory()">Try Again</button>
+        <button class="border border-paper3 text-ink2 font-mono text-sm font-semibold px-6 py-3 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide" onclick="showChallengeTypeSelector()">Change Format</button>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- RAPID FIRE SCREEN -->
-<div id="rapidScreen" class="screen">
-  <div class="screen-header">
-    <button class="back-btn" onclick="goHome()">← Back</button>
-    <div class="screen-title">⚡ Rapid Fire</div>
-    <div class="screen-week" id="rapidWeekLabel">Week 1</div>
+<!-- ══════════════════ RAPID FIRE SCREEN ══════════════════ -->
+<div id="rapidScreen" class="hidden min-h-screen">
+  <div class="flex items-center gap-4 px-8 py-4 border-b border-paper3 sticky top-0 bg-paper/95 backdrop-blur z-50">
+    <button class="border border-paper3 text-ink2 font-mono text-xs font-semibold px-4 py-2 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide" onclick="goHome()">← Back</button>
+    <div class="font-display font-bold text-base tracking-tight">⚡ Rapid Fire</div>
+    <div class="ml-auto text-ink3 text-xs tracking-widest uppercase font-semibold" id="rapidWeekLabel">Week 1</div>
   </div>
-  <div class="rapid-container">
-    <div class="rapid-progress" id="rapidProgress">Card 1 of 10</div>
-    <div class="rapid-card" id="rapidCard" onclick="flipCard()">
+  <div class="max-w-2xl mx-auto px-8 py-12 text-center">
+    <div class="font-mono text-xs font-semibold tracking-widest uppercase text-ink3 mb-8" id="rapidProgress">Card 1 of 10</div>
+    <div class="rapid-card mb-8" id="rapidCard" onclick="flipCard()">
       <div class="flip-hint">tap to flip</div>
       <div class="rapid-question" id="rapidQ"></div>
       <div class="rapid-answer" id="rapidA"></div>
       <div class="rapid-counter" id="rapidCounter">1</div>
     </div>
-    <div class="rapid-controls">
-      <button class="rapid-btn prev" onclick="rapidPrev()">← Prev</button>
-      <button class="rapid-btn flip" onclick="flipCard()">Flip Card</button>
-      <button class="rapid-btn next" onclick="rapidNext()">Next →</button>
+    <div class="flex gap-3 justify-center">
+      <button onclick="rapidPrev()" class="px-7 py-3 border border-paper3 font-mono text-xs font-semibold uppercase tracking-wide text-ink3 hover:border-ink hover:text-ink hover:bg-paper2 rounded-sm transition-all">← Prev</button>
+      <button onclick="flipCard()" class="px-7 py-3 bg-navy text-white font-mono text-xs font-semibold uppercase tracking-wide rounded-sm hover:opacity-90 transition-all">Flip Card</button>
+      <button onclick="rapidNext()" class="px-7 py-3 border border-paper3 font-mono text-xs font-semibold uppercase tracking-wide text-ink3 hover:border-ink hover:text-ink hover:bg-paper2 rounded-sm transition-all">Next →</button>
     </div>
   </div>
 </div>
 
 <script>
 /* ============================================================
-   ASE-GST 213 — COURSE DATA
+   COURSE DATA
    ============================================================ */
 const courseData = {
-
-  /* ── WEEK 1 — Programming Fundamentals (2 Dec 2025) ── */
   1: {
     label: "Week 1 — Programming Fundamentals",
     topics: [
       {
-        id: "building_blocks",
-        title: "Programming Building Blocks",
-        tag: "Week 1 · Overview",
+        id: "building_blocks", title: "Programming Building Blocks", tag: "Week 1 · Overview",
         body: `Every program, no matter how complex, is built from four essential concepts working together. Understanding these building blocks is the foundation of all programming.\n\nThe four building blocks are Variables, Data Types, Loops, and Functions. They are not independent — they work as a system:\n1. Variables store data\n2. Data types define what operations are possible on that data\n3. Loops process multiple items efficiently\n4. Functions organize and reuse logic`,
-        keypoints: [
-          "Variables: containers for storing data in memory",
-          "Data Types: categories that define what kind of data is stored and what can be done with it",
-          "Loops: mechanisms for repeating a block of code",
-          "Functions: named, reusable blocks of organized code",
-          "Key insight: all four work together as a system — they are not isolated tools"
-        ]
+        keypoints: ["Variables: containers for storing data in memory","Data Types: categories that define what kind of data is stored and what can be done with it","Loops: mechanisms for repeating a block of code","Functions: named, reusable blocks of organized code","Key insight: all four work together as a system — they are not isolated tools"]
       },
       {
-        id: "variables",
-        title: "Variables: Data Containers",
-        tag: "Week 1 · Core Concept",
+        id: "variables", title: "Variables: Data Containers", tag: "Week 1 · Core Concept",
         body: `A variable is a named storage location in memory that holds a data value. Think of it like a labelled box — the label is the variable name, and whatever is inside the box is the value.\n\nVariables have four key characteristics:\n• A name (identifier) — used to refer to the stored value in your code\n• A value — the actual data stored at this moment\n• A data type — determines what kind of data it holds and what operations are valid\n• Mutability — most variables can have their value changed (reassigned) after creation`,
-        keypoints: [
-          "Definition: a named storage location in memory that holds a data value",
-          "Name (identifier): how you refer to the variable in code — e.g. student_age, total_score",
-          "Value: the actual data the variable currently holds — e.g. 21, 95.5, 'Alice'",
-          "Data type: determines what kind of data and what operations are allowed",
-          "Can be modified: most variables can have their value updated (reassigned) later"
-        ],
+        keypoints: ["Definition: a named storage location in memory that holds a data value","Name (identifier): how you refer to the variable in code — e.g. student_age, total_score","Value: the actual data the variable currently holds — e.g. 21, 95.5, 'Alice'","Data type: determines what kind of data and what operations are allowed","Can be modified: most variables can have their value updated (reassigned) later"],
         example: `Analogy: Think of a variable like a labelled jar on a shelf. The label 'sugar' is the variable name. The sugar inside is the value. The fact that it holds a granular food product is like the data type. You can refill it (reassign the value) any time.`
       },
       {
-        id: "data_types",
-        title: "Basic Data Types",
-        tag: "Week 1 · Core Concept",
+        id: "data_types", title: "Basic Data Types", tag: "Week 1 · Core Concept",
         body: `Data types are categories for different kinds of data. They tell the computer what type of value a variable holds and what operations can be performed on it.\n\nFor example, you can add two integers (5 + 3 = 8), but you cannot divide a string. The data type enforces what is and is not allowed.\n\nChoosing the correct data type is a fundamental programming decision that affects performance, correctness, and clarity.`,
-        keypoints: [
-          "Integer: whole numbers (positive, negative, or zero) — e.g. 42, -7, 0",
-          "Float: decimal / fractional numbers — e.g. 3.14, -0.5, 2.0",
-          "String: text data enclosed in quotes — e.g. 'hello', 'ASE-GST 213'",
-          "Boolean: logical values — only True or False. Used in conditions and comparisons",
-          "None / Null: represents the complete absence of a value — not 0, not '' — genuinely nothing"
-        ],
-        table: {
-          headers: ["Type", "Example", "Description"],
-          rows: [
-            ["Integer", "42, -7", "Whole numbers"],
-            ["Float", "3.14, -0.5", "Decimal numbers"],
-            ["String", '"hello"', "Text data"],
-            ["Boolean", "True, False", "Logical values"],
-            ["None / Null", "None, null", "No value / absence of value"]
-          ]
-        }
+        keypoints: ["Integer: whole numbers (positive, negative, or zero) — e.g. 42, -7, 0","Float: decimal / fractional numbers — e.g. 3.14, -0.5, 2.0","String: text data enclosed in quotes — e.g. 'hello', 'ASE-GST 213'","Boolean: logical values — only True or False. Used in conditions and comparisons","None / Null: represents the complete absence of a value — not 0, not '' — genuinely nothing"],
+        table: { headers: ["Type","Example","Description"], rows: [["Integer","42, -7","Whole numbers"],["Float","3.14, -0.5","Decimal numbers"],["String",'"hello"',"Text data"],["Boolean","True, False","Logical values"],["None / Null","None, null","No value / absence of value"]] }
       },
       {
-        id: "for_loops",
-        title: "For Loops: Fixed Iterations",
-        tag: "Week 1 · Core Concept",
+        id: "for_loops", title: "For Loops: Fixed Iterations", tag: "Week 1 · Core Concept",
         body: `A for loop executes a block of code a specific, known number of times — or iterates over every item in a collection (like a list or string) one by one.\n\nUse a for loop when you know in advance how many repetitions are needed, or when you want to process every single item in a collection.\n\nFor loops are more predictable than while loops — they have a clear, defined stopping point built into the structure.`,
-        keypoints: [
-          "For loops execute code a fixed, known number of times",
-          "They can iterate over collections: lists, strings, ranges, tuples",
-          "Best used when: you know exactly how many repetitions are needed",
-          "Common use: process every item in a list — e.g. print every student's name",
-          "More predictable and safer than while loops — clear stopping point"
-        ],
+        keypoints: ["For loops execute code a fixed, known number of times","They can iterate over collections: lists, strings, ranges, tuples","Best used when: you know exactly how many repetitions are needed","Common use: process every item in a list — e.g. print every student's name","More predictable and safer than while loops — clear stopping point"],
         example: `Real-world analogy: A teacher calling out each student's name from a register. Starting at the top, working through it one by one. The teacher doesn't need to decide 'should I stop?' — the list ends naturally. That's a for loop.`
       },
       {
-        id: "while_loops",
-        title: "While Loops: Conditional Iteration",
-        tag: "Week 1 · Core Concept",
+        id: "while_loops", title: "While Loops: Conditional Iteration", tag: "Week 1 · Core Concept",
         body: `A while loop repeats a block of code for as long as a specified condition remains true. Unlike a for loop (fixed iterations), a while loop keeps going until the condition becomes false.\n\nCritical warning from the slides: If the condition NEVER becomes false, the loop runs forever — this is called an infinite loop. It will crash or freeze your program. Always ensure something inside the loop changes the condition toward false.`,
-        keypoints: [
-          "While loops repeat as long as a condition remains true",
-          "Best used when: you don't know in advance how many times to repeat",
-          "The condition is checked BEFORE each iteration — if false immediately, loop never runs",
-          "WARNING: Always ensure the condition will eventually become false",
-          "Infinite loop: condition never becomes false — program hangs or crashes"
-        ],
+        keypoints: ["While loops repeat as long as a condition remains true","Best used when: you don't know in advance how many times to repeat","The condition is checked BEFORE each iteration — if false immediately, loop never runs","WARNING: Always ensure the condition will eventually become false","Infinite loop: condition never becomes false — program hangs or crashes"],
         discussion: "Can you think of a real-world situation where a while loop is more appropriate than a for loop? What is the danger of writing a while loop without carefully thinking through the exit condition?"
       },
       {
-        id: "functions",
-        title: "Functions: Reusable Code Blocks",
-        tag: "Week 1 · Core Concept",
+        id: "functions", title: "Functions: Reusable Code Blocks", tag: "Week 1 · Core Concept",
         body: `A function is a named, reusable block of code that performs a specific task. Instead of writing the same code over and over, you write it once inside a function and call (invoke) it whenever you need it.\n\nFunctions follow the DRY principle: Don't Repeat Yourself. They organize code into logical units, make it easier to read, and dramatically simplify maintenance — fix the function once, fixed everywhere it is used.\n\nA function has a name, may accept inputs (parameters), performs a defined task, and may return an output (return value).`,
-        keypoints: [
-          "Function: a named, reusable block of code that performs a specific, defined task",
-          "DRY Principle: Don't Repeat Yourself — write once, call many times",
-          "Improves readability: complex operations get a clear, descriptive name",
-          "Improves maintainability: fix the function in one place, fixed everywhere it is used",
-          "Functions organize code into logical, testable, understandable units"
-        ]
+        keypoints: ["Function: a named, reusable block of code that performs a specific, defined task","DRY Principle: Don't Repeat Yourself — write once, call many times","Improves readability: complex operations get a clear, descriptive name","Improves maintainability: fix the function in one place, fixed everywhere it is used","Functions organize code into logical, testable, understandable units"]
       },
       {
-        id: "function_components",
-        title: "Function Components: Parameters & Return",
-        tag: "Week 1 · Core Concept",
+        id: "function_components", title: "Function Components: Parameters & Return", tag: "Week 1 · Core Concept",
         body: `Functions have two important mechanisms that control how data flows in and out:\n\nPARAMETERS vs ARGUMENTS:\n• Parameters are the placeholder variable names listed in the function definition\n• Arguments are the actual values you pass in when calling the function\n\nRETURN STATEMENT:\n• The return statement sends a computed value back to whoever called the function\n• A function without a return statement automatically returns None (no value)`,
-        keypoints: [
-          "Parameters: the placeholder variables in the function definition — e.g. def greet(name)",
-          "Arguments: the actual values supplied when calling the function — e.g. greet('Alice')",
-          "Return statement: sends a computed value back to the caller",
-          "No return statement: function automatically returns None",
-          "A function can have multiple parameters but should do ONE clear, focused task"
-        ],
-        example: `Analogy: Think of a function like a vending machine. The buttons are the parameters (what you can input). Your actual button press is the argument (what you specifically input). The snack that comes out is the return value. The internal wiring is hidden — you just use the interface.`
+        keypoints: ["Parameters: the placeholder variables in the function definition — e.g. def greet(name)","Arguments: the actual values supplied when calling the function — e.g. greet('Alice')","Return statement: sends a computed value back to the caller","No return statement: function automatically returns None","A function can have multiple parameters but should do ONE clear, focused task"],
+        example: `Analogy: Think of a function like a vending machine. The buttons are the parameters (what you can input). Your actual button press is the argument (what you specifically input). The snack that comes out is the return value.`
       },
       {
-        id: "summary1",
-        title: "Week 1 Summary",
-        tag: "Week 1 · Key Takeaways",
+        id: "summary1", title: "Week 1 Summary", tag: "Week 1 · Key Takeaways",
         body: `Everything from Week 1 condensed into the most testable points.`,
-        keypoints: [
-          "4 building blocks: Variables, Data Types, Loops, Functions — they work together as a system",
-          "Variable: named storage in memory. Has a name, value, type, and can usually be modified",
-          "5 data types: Integer (whole), Float (decimal), String (text), Boolean (True/False), None (no value)",
-          "For loop: fixed/known iterations — iterate over collections or a set number of times",
-          "While loop: conditional iteration — repeats while condition is true. DANGER: infinite loop",
-          "Function: reusable block of code. DRY = Don't Repeat Yourself",
-          "Parameter = placeholder in definition. Argument = actual value when calling",
-          "Return statement: sends a value back. No return = function returns None",
-          "Best practices: meaningful variable names, appropriate data types, focused functions, efficient loops"
-        ]
+        keypoints: ["4 building blocks: Variables, Data Types, Loops, Functions — they work together as a system","Variable: named storage in memory. Has a name, value, type, and can usually be modified","5 data types: Integer (whole), Float (decimal), String (text), Boolean (True/False), None (no value)","For loop: fixed/known iterations — iterate over collections or a set number of times","While loop: conditional iteration — repeats while condition is true. DANGER: infinite loop","Function: reusable block of code. DRY = Don't Repeat Yourself","Parameter = placeholder in definition. Argument = actual value when calling","Return statement: sends a value back. No return = function returns None"]
       }
     ]
   },
-
-  /* ── WEEK 2 — Structured & Modular Programming (9 Dec 2025) ── */
   2: {
     label: "Week 2 — Structured & Modular Programming",
     topics: [
       {
-        id: "paradigm_shift",
-        title: "The Paradigm Shift",
-        tag: "Week 2 · Introduction",
-        body: `In the late 1960s and early 1970s, a revolution happened in software development. As programs grew larger, developers were writing what became known as "spaghetti code" — tangled, unpredictable programs full of arbitrary GOTO jumps that could send execution anywhere.\n\nThe response was a shift to two complementary approaches that together solved the problem:\n• Structured Programming — controlling the flow of logic inside functions\n• Modular Programming — organizing functions and data into independent units\n\nKey formula: Structured Programming + Modular Programming = Better Software`,
-        keypoints: [
-          "Spaghetti code: programs with tangled, unpredictable GOTO jumps to arbitrary lines",
-          "The problem: monolithic, impossible-to-maintain programs with uncontrolled logic",
-          "The solution: two complementary paradigms working at different levels",
-          "Structured Programming: fixes how code flows INSIDE a function",
-          "Modular Programming: fixes how functions are ORGANIZED across the system"
-        ],
-        table: {
-          headers: ["Before", "After"],
-          rows: [
-            ['"Spaghetti Code"', "Structured Flow"],
-            ["Unpredictable GOTO", "Controlled Logic"],
-            ["Monolithic Programs", "Modular Systems"],
-            ["Hard to Maintain", "Designed for Change"]
-          ]
-        }
+        id: "paradigm_shift", title: "The Paradigm Shift", tag: "Week 2 · Introduction",
+        body: `In the late 1960s and early 1970s, a revolution happened in software development. As programs grew larger, developers were writing what became known as "spaghetti code" — tangled, unpredictable programs full of arbitrary GOTO jumps that could send execution anywhere.\n\nThe response was a shift to two complementary approaches that together solved the problem:\n• Structured Programming — controlling the flow of logic inside functions\n• Modular Programming — organizing functions and data into independent units`,
+        keypoints: ["Spaghetti code: programs with tangled, unpredictable GOTO jumps to arbitrary lines","The problem: monolithic, impossible-to-maintain programs with uncontrolled logic","The solution: two complementary paradigms working at different levels","Structured Programming: fixes how code flows INSIDE a function","Modular Programming: fixes how functions are ORGANIZED across the system"],
+        table: { headers: ["Before","After"], rows: [['"Spaghetti Code"',"Structured Flow"],["Unpredictable GOTO","Controlled Logic"],["Monolithic Programs","Modular Systems"],["Hard to Maintain","Designed for Change"]] }
       },
       {
-        id: "structured_core",
-        title: "Structured Programming: Core Principles",
-        tag: "Week 2 · Structured Programming",
-        body: `Structured Programming is built on three — and only three — basic control constructs. The Böhm-Jacopini theorem proves that any possible program logic can be expressed using just these three:\n\n1. SEQUENCE — statements execute one after another, in order, top to bottom\n2. SELECTION — a condition decides which path to take (if/else, switch)\n3. ITERATION — code repeats while a condition holds (for/while loops)\n\nThe Golden Rule: No Arbitrary GOTO. Control flow must always pass through one of these three predictable constructs.`,
-        keypoints: [
-          "Sequence: statements execute in order, top to bottom — the default, natural flow",
-          "Selection: conditional execution — if/else. Code chooses a path based on a condition",
-          "Iteration: repeated execution — for/while loops. Code repeats while condition holds",
-          "Golden Rule: NO arbitrary GOTO statements — ever",
-          "Böhm-Jacopini theorem: ANY program logic can be expressed with just these three constructs",
-          "All modern programming languages enforce these three constructs"
-        ]
+        id: "structured_core", title: "Structured Programming: Core Principles", tag: "Week 2 · Structured Programming",
+        body: `Structured Programming is built on three — and only three — basic control constructs. The Böhm-Jacopini theorem proves that any possible program logic can be expressed using just these three:\n\n1. SEQUENCE — statements execute one after another, in order, top to bottom\n2. SELECTION — a condition decides which path to take (if/else, switch)\n3. ITERATION — code repeats while a condition holds (for/while loops)\n\nThe Golden Rule: No Arbitrary GOTO.`,
+        keypoints: ["Sequence: statements execute in order, top to bottom — the default, natural flow","Selection: conditional execution — if/else. Code chooses a path based on a condition","Iteration: repeated execution — for/while loops. Code repeats while condition holds","Golden Rule: NO arbitrary GOTO statements — ever","Böhm-Jacopini theorem: ANY program logic can be expressed with just these three constructs"]
       },
       {
-        id: "historical_context",
-        title: "Historical Context: Dijkstra & Design Rules",
-        tag: "Week 2 · History",
+        id: "historical_context", title: "Historical Context: Dijkstra & Design Rules", tag: "Week 2 · History",
         body: `In 1968, Dutch computer scientist Edsger Dijkstra published a letter titled "GOTO Statement Considered Harmful." This became the founding document of structured programming.\n\nDijkstra's argument: unrestricted use of GOTO makes programs impossible to reason about mathematically, impossible to formally verify, and impossible to maintain reliably as they grow.\n\nFrom this work emerged three key design rules that remain industry standard today.`,
-        keypoints: [
-          "Edsger Dijkstra (1968): 'GOTO Statement Considered Harmful' — the founding document",
-          "Argument: arbitrary GOTOs make formal verification and mathematical reasoning impossible",
-          "Mathematical foundation: structured programs can be formally proven correct",
-          "Design Rule 1: Single entry, single exit — one way in and one way out for each block",
-          "Design Rule 2: Programs decomposed into functions — top-down design",
-          "Design Rule 3: Local variables over global state — keep data close to where it is used"
-        ],
-        example: `Single entry/exit analogy: Emergency evacuation procedures. Everyone enters through the front and exits through designated fire doors. If people could break through any random wall (GOTO), you cannot track anyone, verify safety, or reason about where anyone is. Structured programming prevents this chaos.`
+        keypoints: ["Edsger Dijkstra (1968): 'GOTO Statement Considered Harmful' — the founding document","Argument: arbitrary GOTOs make formal verification and mathematical reasoning impossible","Design Rule 1: Single entry, single exit — one way in and one way out for each block","Design Rule 2: Programs decomposed into functions — top-down design","Design Rule 3: Local variables over global state — keep data close to where it is used"],
+        example: `Single entry/exit analogy: Emergency evacuation procedures. Everyone enters through the front and exits through designated fire doors. If people could break through any random wall (GOTO), you cannot track anyone. Structured programming prevents this chaos.`
       },
       {
-        id: "structured_benefits",
-        title: "Benefits of Structured Programming",
-        tag: "Week 2 · Structured Programming",
-        body: `The benefits of structured programming have direct, practical impact on how software is built, debugged, and maintained professionally.`,
-        keypoints: [
-          "Readability: code flows logically — anyone can follow the execution path",
-          "Maintainability: changes have predictable, localized effects — fix one thing without breaking another",
-          "Verifiability: formal mathematical proof of correctness becomes possible",
-          "Debugging: errors are easier to isolate and fix — you know exactly where execution can go",
-          "Team Collaboration: consistent control patterns across all developers on a project"
-        ],
-        table: {
-          headers: ["Benefit", "Impact"],
-          rows: [
-            ["Readability", "Code flows logically, easier to understand and follow"],
-            ["Maintainability", "Changes have predictable, localized effects"],
-            ["Verifiability", "Formal proof of correctness becomes possible"],
-            ["Debugging", "Errors are easier to isolate and fix"],
-            ["Team Collaboration", "Consistent patterns across all developers"]
-          ]
-        }
+        id: "modular_core", title: "Modular Programming: Core Concepts", tag: "Week 2 · Modular Programming",
+        body: `Modular Programming is about grouping related functions and data into independent, interchangeable units called modules.\n\nA module is a logical unit with one specific responsibility. The key idea: a module exposes a public interface (what it does) while hiding its private implementation (how it does it). Users of the module only need to know the interface — the internal details are hidden.\n\nReal examples: .c/.h files in C, Python modules (.py files), Java packages.`,
+        keypoints: ["Module: an independent unit grouping related functions and data with one responsibility","Public interface: what the module does — visible and accessible to other modules","Private implementation: how the module works — hidden from other modules","Real examples: Python modules (.py files), Java packages, C header files (.h)","Interchangeable: modules with the same interface can be swapped without breaking the system"]
       },
       {
-        id: "modular_core",
-        title: "Modular Programming: Core Concepts",
-        tag: "Week 2 · Modular Programming",
-        body: `Modular Programming is about grouping related functions and data into independent, interchangeable units called modules.\n\nA module is a logical unit with one specific responsibility. The key idea: a module exposes a public interface (what it does) while hiding its private implementation (how it does it). Users of the module only need to know the interface — the internal details are hidden.\n\nReal examples from the slides: .c/.h files in C, Python modules (.py files), Java packages.`,
-        keypoints: [
-          "Module: an independent unit grouping related functions and data with one responsibility",
-          "Public interface: what the module does — visible and accessible to other modules",
-          "Private implementation: how the module works — hidden from other modules",
-          "Real examples: Python modules (.py files), Java packages, C header files (.h)",
-          "Interchangeable: modules with the same interface can be swapped without breaking the system"
-        ]
-      },
-      {
-        id: "key_principles",
-        title: "The 4 Key Principles of Modular Programming",
-        tag: "Week 2 · Modular Programming",
+        id: "key_principles", title: "The 4 Key Principles of Modular Programming", tag: "Week 2 · Modular Programming",
         body: `Modular Programming rests on four core principles that together ensure modules are independent, focused, and maintainable.`,
-        keypoints: [
-          "1. ENCAPSULATION: hide implementation details, expose only the interface — the outside world sees WHAT, not HOW",
-          "2. HIGH COHESION: all elements inside a module serve a single, unified purpose — the module does ONE thing well",
-          "3. LOOSE COUPLING: minimize dependencies between modules — modules interact only through interfaces, not internals",
-          "4. INFORMATION HIDING: implementation details are private — changes inside a module don't affect other modules"
-        ],
-        discussion: "Why is Loose Coupling important? What happens to a system where every module depends on the internal implementation details of every other module? How does that affect maintainability?"
+        keypoints: ["1. ENCAPSULATION: hide implementation details, expose only the interface — outside world sees WHAT, not HOW","2. HIGH COHESION: all elements inside a module serve a single, unified purpose — the module does ONE thing well","3. LOOSE COUPLING: minimize dependencies between modules — modules interact only through interfaces, not internals","4. INFORMATION HIDING: implementation details are private — changes inside a module don't affect other modules"],
+        discussion: "Why is Loose Coupling important? What happens to a system where every module depends on the internal implementation details of every other module?"
       },
       {
-        id: "modular_benefits",
-        title: "Benefits of Modular Programming",
-        tag: "Week 2 · Modular Programming",
-        body: `Modular programming benefits apply across both the development phase (when building) and the maintenance phase (after deployment).\n\nKey Metric from the slides: Complexity = Sum of understandable parts\n\nThis means a complex system becomes manageable when it is divided into smaller, independently understandable modules.`,
-        keypoints: [
-          "DEVELOPMENT — Parallel Development: different teams build different modules simultaneously",
-          "DEVELOPMENT — Reusability: a module built for one project can be reused in others",
-          "DEVELOPMENT — Testability: each module can be tested in isolation (unit testing)",
-          "MAINTENANCE — Localized Changes: a fix in one module doesn't break others",
-          "MAINTENANCE — Easier Updates: individual modules can be replaced or upgraded independently",
-          "MAINTENANCE — Clear Ownership: each module has a defined responsible team"
-        ]
+        id: "structured_vs_modular", title: "Structured vs. Modular: Working Together", tag: "Week 2 · Comparison",
+        body: `Structured and Modular Programming are complementary — not competing. They work at different levels:\n\nStructured Programming = MICRO level\nControls how code flows INSIDE a single function. Focus: correctness.\n\nModular Programming = MACRO level\nOrganizes how functions and data are grouped ACROSS the system. Focus: architecture.\n\nSystem Quality = Structured Programming + Modular Programming`,
+        keypoints: ["Structured = micro level. Controls flow WITHIN functions. Focus: correctness","Modular = macro level. Organizes functions BETWEEN modules. Focus: architecture","Analogy: Structured = writing clear paragraphs. Modular = organizing chapters in a book","You need both: well-written code in a poorly organized system still fails at scale","System Quality = Structured + Modular — the 1970s formula still holds today"],
+        table: { headers: ["Aspect","Structured Programming","Modular Programming"], rows: [["Primary Focus","Control flow within routines","Organization of routines and data"],["Unit of Work","Function / Procedure","Module / Library / Package"],["Key Mechanism","Sequences, Selection, Iteration","Encapsulation, Interfaces"],["Main Goal","Correctness, Readability","Maintainability, Reusability"],["Timeframe","1970s","1970s–1980s"],["Pioneers","Dijkstra, Wirth","Parnas, Liskov"]] }
       },
       {
-        id: "structured_vs_modular",
-        title: "Structured vs. Modular: Working Together",
-        tag: "Week 2 · Comparison",
-        body: `Structured and Modular Programming are complementary — not competing. They work at different levels:\n\nStructured Programming = MICRO level\nControls how code flows INSIDE a single function. Focus: correctness.\n\nModular Programming = MACRO level\nOrganizes how functions and data are grouped ACROSS the system. Focus: architecture.\n\nNeither alone is sufficient. System Quality = Structured Programming + Modular Programming`,
-        keypoints: [
-          "Structured = micro level. Controls flow WITHIN functions. Focus: correctness",
-          "Modular = macro level. Organizes functions BETWEEN modules. Focus: architecture",
-          "Analogy: Structured = writing clear paragraphs. Modular = organizing chapters in a book",
-          "You need both: well-written code in a poorly organized system still fails at scale",
-          "System Quality = Structured + Modular — the 1970s formula still holds today"
-        ],
-        table: {
-          headers: ["Aspect", "Structured Programming", "Modular Programming"],
-          rows: [
-            ["Primary Focus", "Control flow within routines", "Organization of routines and data"],
-            ["Unit of Work", "Function / Procedure", "Module / Library / Package"],
-            ["Key Mechanism", "Sequences, Selection, Iteration", "Encapsulation, Interfaces"],
-            ["Main Goal", "Correctness, Readability", "Maintainability, Reusability"],
-            ["Analogy", "Writing clear paragraphs", "Organizing into chapters"],
-            ["Timeframe", "1970s", "1970s–1980s"],
-            ["Pioneers", "Dijkstra, Wirth", "Parnas, Liskov"]
-          ]
-        }
-      },
-      {
-        id: "oop_evolution",
-        title: "Evolution to Object-Oriented Programming",
-        tag: "Week 2 · Modern Context",
-        body: `Object-Oriented Programming (OOP) is the natural evolutionary next step from Modular Programming. It takes the same core ideas and extends them with more powerful mechanisms:\n\n• Class = Module with data AND methods bundled more tightly together\n• Inheritance = Module specialization — a class can inherit and extend another class's behaviour\n• Polymorphism = Flexible interfaces — same interface, different implementations\n• Encapsulation = Stronger information hiding — access modifiers (public, private, protected)\n\nOOP did not discard structured or modular programming. It extended them.`,
-        keypoints: [
-          "OOP = Enhanced Modular Programming — same principles, more powerful mechanisms",
-          "Class = Module with data + methods bundled together more tightly",
-          "Inheritance = Module specialization — reuse and extend existing behaviour",
-          "Polymorphism = Flexible interfaces — one interface, multiple implementations",
-          "Encapsulation = Stronger — access modifiers enforce information hiding",
-          "Structured programming principles still apply inside every OOP method"
-        ]
-      },
-      {
-        id: "modern_applications",
-        title: "Modern Applications",
-        tag: "Week 2 · Relevance Today",
-        body: `The 1970s principles of modular and structured programming are directly visible in modern software engineering. They did not go away — they scaled up.\n\nAPI Design: REST APIs expose clean public endpoints (interfaces) that hide the server implementation. Modular thinking at the service level.\n\nMicroservices: Each microservice is a module at system scale — independent, loosely coupled, with its own responsibility and interface.\n\nPackage Managers: npm (JavaScript), pip (Python), Maven (Java) — entire ecosystems built around discovering and reusing modules others have built.`,
-        keypoints: [
-          "REST APIs: clean public interfaces hiding implementation — modular thinking at service level",
-          "Microservices: independent modules at system scale — loosely coupled services",
-          "Package Managers (npm/pip/Maven): ecosystems for discovering and reusing modules",
-          "Containerization (Docker): each container is an independent deployment module",
-          "Serverless: function-level modules deployed independently",
-          "Fundamentals Matter: modern frameworks come and go — these principles endure"
-        ]
-      },
-      {
-        id: "summary2",
-        title: "Week 2 Summary",
-        tag: "Week 2 · Key Takeaways",
+        id: "summary2", title: "Week 2 Summary", tag: "Week 2 · Key Takeaways",
         body: `Everything from Week 2 condensed into the most testable points.`,
-        keypoints: [
-          "The problem: spaghetti code (late 1960s). The solution: Structured + Modular Programming",
-          "Structured Programming: ONLY 3 constructs — Sequence, Selection, Iteration. Golden Rule: No GOTO",
-          "Dijkstra (1968): 'GOTO Statement Considered Harmful' — founded structured programming",
-          "3 Design Rules: Single entry/exit; decompose into functions; local over global variables",
-          "Modular Programming: modules with public interface + private implementation",
-          "4 Principles: Encapsulation, High Cohesion, Loose Coupling, Information Hiding",
-          "Structured = micro (inside functions, correctness). Modular = macro (between modules, architecture)",
-          "System Quality = Structured + Modular — neither alone is sufficient",
-          "OOP = enhanced modular programming. Class = Module. Inheritance = specialization",
-          "Modern: REST APIs, Microservices, Docker, npm/pip — all modular thinking at scale"
-        ]
+        keypoints: ["The problem: spaghetti code (late 1960s). The solution: Structured + Modular Programming","Structured Programming: ONLY 3 constructs — Sequence, Selection, Iteration. Golden Rule: No GOTO","Dijkstra (1968): 'GOTO Statement Considered Harmful' — founded structured programming","3 Design Rules: Single entry/exit; decompose into functions; local over global variables","Modular Programming: modules with public interface + private implementation","4 Principles: Encapsulation, High Cohesion, Loose Coupling, Information Hiding","Structured = micro (inside functions). Modular = macro (between modules)","System Quality = Structured + Modular — neither alone is sufficient"]
+      }
+    ]
+  },
+  3: {
+    label: "Week 3 — R vs Python & AI vs Statistical Computing",
+    topics: [
+      {
+        id: "two_languages", title: "Two Languages, One Goal", tag: "Week 3 · Overview",
+        body: `Both R and Python serve the broad domain of data science, but they come from very different origins and philosophies. Understanding their differences helps you choose the right tool for each task.\n\nR was created by statisticians for statisticians — it treats data and statistical operations as first-class citizens. Python was created as a general-purpose language and later evolved into a data science powerhouse through its vast ecosystem.\n\nNeither language is universally better. The best data scientists understand both and use them strategically.`,
+        keypoints: ["R: statistical computing and graphics, strong in academia, designed for statisticians","Python: general-purpose programming, strong in industry/production, designed for programmers","R excels at: statistical analysis, publication-quality graphics, academic research","Python excels at: ML pipelines, production systems, web integration, automation","Key insight: Many professionals learn both and use each for what it does best"],
+        table: { headers: ["Feature","R","Python"], rows: [["Origin","Statistics","General programming"],["Syntax","Domain-specific","General-purpose"],["Best For","Statistical analysis","ML, production systems"],["Learning Curve","Steeper for programmers","Steeper for statisticians"],["Package Management","CRAN, Bioconductor","pip, conda"]] }
+      },
+      {
+        id: "r_ecosystem", title: "R Ecosystem", tag: "Week 3 · R",
+        body: `R has a rich, specialized ecosystem built around statistical computing and data visualization. The Comprehensive R Archive Network (CRAN) hosts thousands of peer-reviewed packages.\n\nThe RStudio IDE has become the standard development environment for R users. The Tidyverse — a collection of packages sharing a design philosophy — revolutionized how R users work with data.\n\nR's visualization capabilities through ggplot2 are considered by many to be unmatched for publication-quality statistical graphics.`,
+        keypoints: ["RStudio: the dominant IDE — excellent data viewer, integrated debugging, project management","Tidyverse: a collection of packages for consistent data manipulation (dplyr, tidyr, purrr)","ggplot2: grammar of graphics — highly customizable, publication-quality visualizations","Shiny: build interactive web applications directly in R without web development knowledge","RMarkdown: reproducible research reports combining code, output, and narrative text","CRAN: the official package repository — packages are peer-reviewed for quality"],
+        example: `R Code Example:\n# Calculate mean\ndata <- c(1,2,3,4,5)\nmean_value <- mean(data)\nprint(paste("Mean:", mean_value))`
+      },
+      {
+        id: "python_ecosystem", title: "Python Ecosystem", tag: "Week 3 · Python",
+        body: `Python's ecosystem for data science is vast, general, and deeply integrated with production software engineering. The same language used for web servers, automation, and APIs is also used for machine learning.\n\nJupyter Notebooks democratized interactive data analysis. Libraries like pandas and scikit-learn brought data manipulation and machine learning to a general programming audience.\n\nPython dominates in deep learning through TensorFlow and PyTorch, both developed by major tech companies (Google and Meta respectively).`,
+        keypoints: ["Jupyter: interactive notebooks mixing code, visualizations, and text — the standard for exploration","pandas: DataFrame-based data manipulation — the Python equivalent of R's tidyverse","matplotlib/seaborn: visualization libraries (less elegant than ggplot2 but highly flexible)","scikit-learn: machine learning — consistent API across classification, regression, clustering","TensorFlow (Google) and PyTorch (Meta): deep learning frameworks dominating AI research and production","pip/conda: package managers — pip for pure Python packages, conda manages environments"],
+        example: `Python Code Example:\n# Calculate mean\nimport numpy as np\ndata = [1,2,3,4,5]\nmean_value = np.mean(data)\nprint(f"Mean: {mean_value}")`
+      },
+      {
+        id: "use_cases", title: "When to Use Which Language", tag: "Week 3 · Decision Guide",
+        body: `The choice between R and Python should be driven by your use case, team, and organizational context — not tribalism.\n\nIn practice, many organizations use both: R for statistical modeling and analysis, Python for productionizing models and building data pipelines. The two languages can even interoperate: the reticulate package runs Python from R, and rpy2 runs R from Python.`,
+        keypoints: ["Choose R when: conducting statistical research, creating publication-quality graphics, working in academia/research","Choose R when: using specialized statistical methods (Bayesian, survival analysis, mixed models)","Choose Python when: building production systems, working with deep learning, needing web service integration","Choose Python when: automating tasks, building tools and applications, joining industry teams","Integration options: reticulate (Python in R), rpy2 (R in Python), common formats (CSV, Parquet)","Pro tip: Many data scientists learn both — use each according to the specific task requirements"],
+        table: { headers: ["Task","R (Package)","Python (Library)"], rows: [["Data Manipulation","dplyr","pandas"],["Visualization","ggplot2","matplotlib/seaborn"],["Machine Learning","caret","scikit-learn"],["Deep Learning","keras","TensorFlow/PyTorch"],["Web Scraping","rvest","BeautifulSoup"],["Reporting","RMarkdown","Jupyter"]] }
+      },
+      {
+        id: "philosophical_diff", title: "AI vs Statistical Computing: Two Mindsets", tag: "Week 3 · Philosophical Differences",
+        body: `Beyond the language choice, there is a deeper philosophical divide between Artificial Intelligence programming and Statistical Computing. These represent two fundamentally different ways of thinking about data and models.\n\nAI/ML takes an engineering approach: build a system that performs well on a task. Statistical computing takes a scientific approach: build a model that helps understand a phenomenon.\n\nThese mindsets produce different kinds of code, different workflows, and different definitions of "success."`,
+        keypoints: ["AI Goal: Mimic human intelligence — prediction and automation","Statistical Computing Goal: Understand data structure — inference and explanation","AI Approach: Pattern recognition using large datasets","Statistical Approach: Mathematical modeling with explicit assumptions","AI Validation: Performance metrics (accuracy, F1, AUC-ROC)","Statistical Validation: Statistical significance (p-values, confidence intervals, AIC/BIC)"],
+        table: { headers: ["Aspect","AI Programming","Statistical Computing"], rows: [["Primary Goal","Prediction accuracy","Parameter estimation"],["Data Usage","Learn patterns","Test hypotheses"],["Model Focus","Black-box","Interpretable"],["Uncertainty","Probabilistic outputs","Confidence intervals"],["Validation","Test set performance","P-values, AIC, BIC"],["Code Style","Pipeline-oriented","Analysis-oriented"]] }
+      },
+      {
+        id: "model_characteristics", title: "Model Philosophy: AI vs Statistical Models", tag: "Week 3 · Model Characteristics",
+        body: `AI models and statistical models have fundamentally different design philosophies. These differences reflect their different goals: prediction versus understanding.\n\nAI models (especially deep neural networks) can be extremely powerful predictors but operate as "black boxes" — even their creators often cannot fully explain why they make specific predictions.\n\nStatistical models prioritize interpretability: every coefficient has a meaning, every assumption is documented, and uncertainty is explicitly quantified through confidence intervals and p-values.`,
+        keypoints: ["AI Interpretability: often black-box — predictions without explanations (deep nets)","Statistical Interpretability: designed for interpretation — every parameter has meaning","AI Complexity: high — deep nets with millions of parameters","Statistical Complexity: simpler — parsimony is a virtue (Occam's Razor)","AI Data Requirements: large datasets — deep learning typically needs thousands to millions of examples","Statistical Data Requirements: can work with small data — classical statistics designed for small samples","AI Computational Needs: GPU-intensive","Statistical Computational Needs: CPU-efficient"],
+        table: { headers: ["Aspect","AI Models","Statistical Models"], rows: [["Interpretability","Often black-box","Designed for interpretation"],["Complexity","High (deep nets)","Simpler (parsimony)"],["Data Requirements","Large datasets","Can work with small data"],["Computational Needs","GPU-intensive","CPU-efficient"],["Assumptions","Fewer assumptions","Many explicit assumptions"],["Output","Predictions only","Parameters + predictions"]] }
+      },
+      {
+        id: "workflows", title: "Development Workflows: AI vs Statistical", tag: "Week 3 · Workflows",
+        body: `The development workflow reflects each approach's priorities. AI/ML is engineering-oriented: collect data, build pipelines, train and deploy. Statistical computing is science-oriented: formulate hypotheses, build interpretable models, perform inference.\n\nBoth workflows are rigorous, but rigor means different things in each context. AI rigour = high test set performance. Statistical rigour = valid assumptions, correct inference, reproducibility.`,
+        keypoints: ["AI Workflow Step 1: Data collection/ingestion","AI Workflow Steps 2-3: Feature engineering and model selection","AI Workflow Steps 4-5: Training loop and hyperparameter tuning","AI Workflow Steps 6-8: Performance evaluation, deployment, monitoring","Statistical Workflow: Problem definition → Data exploration → Hypothesis formulation","Statistical Workflow continues: Model specification → Assumption checking → Parameter estimation → Inference → Interpretation"],
+        example: `ML vs Statistical Code:\n\nPython AI (neural net): model.fit(X_train, y_train, epochs=10)\n\nR Statistical: model <- lm(y ~ x1 + x2, data=dataset); summary(model)`
+      },
+      {
+        id: "validation_approaches", title: "Validation: How We Know Our Model Works", tag: "Week 3 · Validation",
+        body: `Validation is how we confirm our model is doing what we intend. The approach differs dramatically between AI and statistical computing, reflecting their different definitions of success.\n\nAI validation is empirical: does the model perform well on data it hasn't seen? Statistical validation is theoretical: are the model's assumptions met? Is the inference statistically valid?\n\nNeither approach is sufficient alone for all problems. The emerging field of explainable AI (XAI) tries to bring statistical interpretability to AI models.`,
+        keypoints: ["AI Validation: accuracy on test set, precision/recall (F1-score), cross-validation scores","AI Validation: AUC-ROC curves, learning curves, A/B testing in production","Statistical Validation: p-values for coefficients, confidence intervals","Statistical Validation: R-squared / Adjusted R², residual diagnostics","Statistical Validation: model comparison (AIC/BIC), power analysis","Convergence: Explainable AI (XAI), Bayesian deep learning, causal inference with ML"]
+      },
+      {
+        id: "industry_applications", title: "Industry Applications", tag: "Week 3 · Applications",
+        body: `The choice of approach and language has real industry implications. Different sectors and problem types favor different approaches.\n\nHealthcare, economics, and social science heavily favor statistical approaches where interpretability and valid inference are legally or ethically required. Tech companies and consumer-facing AI favor ML approaches where performance at scale matters most.\n\nIncreasingly, teams need both: data scientists who can do rigorous statistical analysis AND build scalable ML systems. This is the convergence the slides describe.`,
+        keypoints: ["AI Applications: image recognition, NLP, recommendation systems, autonomous vehicles","AI Applications: fraud detection, chatbots/virtual assistants, game playing (AlphaGo)","Statistical Applications: clinical trial analysis, economic forecasting, quality control","Statistical Applications: survey analysis, risk assessment, epidemiology, social science research","Convergence: Bayesian deep learning, Explainable AI (XAI), causal inference with ML","Key message: The future belongs to those who bridge both worlds"],
+        table: { headers: ["Field","Preferred Approach","Reason"], rows: [["Healthcare","Statistical","Interpretability required, small samples"],["Tech Companies","AI/ML","Scale, prediction performance matters"],["Economics","Statistical","Causal inference, hypothesis testing"],["Computer Vision","AI/ML","Massive data, pattern recognition"],["Clinical Research","Statistical","Regulatory compliance, valid inference"],["NLP/Chatbots","AI/ML","Deep learning dominates language"]] }
+      },
+      {
+        id: "choosing_path", title: "Choosing Your Path", tag: "Week 3 · Learning Path",
+        body: `For beginners, the advice from the slides is practical: pick based on your goals, learn the basics of both to understand strengths, and focus on one initially based on your primary needs.\n\nFor aspiring data scientists, the highest-value path is mastering both — using R for exploratory data analysis and statistical modeling, and Python for ML pipelines, automation, and deployment.\n\nThe slides conclude with an important message: "The future belongs to those who bridge both worlds." The convergence of AI and statistical computing is the frontier of modern data science.`,
+        keypoints: ["Beginners: start with your use case — pick the language that matches your goals","Beginners: learn basics of both to understand their different strengths","Data Scientists: use R for exploratory data analysis and statistical modeling","Data Scientists: use Python for ML pipelines, deployment, and production systems","Advanced: master both for maximum flexibility","The convergence point: XAI, Bayesian deep learning, causal ML are blending both worlds"],
+        discussion: "Given your career goals in economics and data science, which approach — AI programming or statistical computing — do you think will be more important in your work? Why might the answer be 'both'?"
+      },
+      {
+        id: "summary3", title: "Week 3 Summary", tag: "Week 3 · Key Takeaways",
+        body: `Everything from Week 3 condensed into the most testable points.`,
+        keypoints: ["R vs Python: R for statistics/academia; Python for ML/production/general programming","R ecosystem: RStudio, Tidyverse, ggplot2, Shiny, RMarkdown, CRAN","Python ecosystem: Jupyter, pandas, matplotlib, scikit-learn, TensorFlow, PyTorch","Use R when: statistical research, publication graphics, academic settings, specialized stat methods","Use Python when: production systems, deep learning, web integration, automation","AI vs Statistical Computing: two different mindsets and goals","AI: prediction accuracy, black-box models, large data, GPU-intensive, pipeline-oriented","Statistical Computing: parameter estimation, interpretable models, small data ok, inference-oriented","AI Validation: accuracy, F1, AUC-ROC, cross-validation, A/B testing","Statistical Validation: p-values, confidence intervals, R², AIC/BIC, residual diagnostics","Integration: reticulate (Python in R), rpy2 (R in Python)","Convergence: XAI, Bayesian deep learning, causal inference with ML","Key message: The future belongs to those who bridge both worlds"]
       }
     ]
   }
 };
 
-
 /* ============================================================
    MULTIPLE CHOICE QUESTIONS
    ============================================================ */
 const allQuestions = {
-
   1: [
-    {
-      category: "Variables",
-      q: "What is a variable in programming?",
-      options: [
-        "A fixed value that cannot change during program execution",
-        "A named storage location in memory that holds a data value",
-        "A type of loop used to repeat code",
-        "A function that returns a value to the caller"
-      ],
-      correct: 1,
-      explanation: "<strong>A variable is a named storage location in memory that holds a data value.</strong> The name is called an identifier. Variables can usually be modified (reassigned) after creation. A fixed value that cannot change would be a constant, not a variable."
-    },
-    {
-      category: "Variables",
-      q: "Which of the following is NOT a key characteristic of a variable?",
-      options: [
-        "It has a name (identifier)",
-        "It stores a value",
-        "It always performs an arithmetic operation",
-        "It has a specific data type"
-      ],
-      correct: 2,
-      explanation: "<strong>Variables store data — they do not perform operations.</strong> The four characteristics of a variable are: a name (identifier), a value, a data type, and the ability to be modified. Performing operations is the role of operators and functions."
-    },
-    {
-      category: "Data Types",
-      q: "What data type would you use to store the value 3.14?",
-      options: ["Integer", "Boolean", "Float", "String"],
-      correct: 2,
-      explanation: "<strong>Float</strong> is used for decimal/fractional numbers like 3.14. Integer is for whole numbers only (e.g. 42, -7). Boolean holds only True or False. String holds text data enclosed in quotes."
-    },
-    {
-      category: "Data Types",
-      q: "Which data type represents the complete absence of a value?",
-      options: [
-        "Boolean set to False",
-        "Integer with value 0",
-        "String with value ''",
-        "None / Null"
-      ],
-      correct: 3,
-      explanation: "<strong>None (Python) / Null</strong> explicitly represents the absence of a value — 'nothing is here.' This is completely different from 0 (a valid integer), '' (an empty string — still a string), or False (a valid Boolean). None/Null is its own distinct type."
-    },
-    {
-      category: "Data Types",
-      q: "What is the data type of the value True?",
-      options: ["String", "Integer", "Boolean", "Float"],
-      correct: 2,
-      explanation: "<strong>Boolean</strong> is the data type holding only two possible values: True or False. Booleans power all decision-making in programming — conditions, comparisons, while loops. True is not a string (no quotes) and not an integer."
-    },
-    {
-      category: "Loops",
-      q: "Which type of loop is best when you know exactly how many times to repeat?",
-      options: ["While loop", "For loop", "If statement", "Recursive call"],
-      correct: 1,
-      explanation: "<strong>For loops</strong> are designed for fixed, known iterations — you specify how many times or iterate over every item in a collection. While loops are better when the number of repetitions depends on a changing condition you can't predict in advance."
-    },
-    {
-      category: "Loops",
-      q: "What is an infinite loop?",
-      options: [
-        "A loop that runs exactly 1,000 times",
-        "A for loop that iterates over a very large list",
-        "A while loop whose condition never becomes false",
-        "A loop nested inside another loop"
-      ],
-      correct: 2,
-      explanation: "<strong>An infinite loop is a while loop whose condition never becomes false</strong> — so it runs forever. This is a critical programming bug that will hang or crash the program. The slides specifically warn: always ensure the loop condition eventually becomes false."
-    },
-    {
-      category: "Loops",
-      q: "When does a while loop check its condition?",
-      options: [
-        "Only once, at the start of the program",
-        "After every 10 iterations",
-        "Before each iteration",
-        "Only when the programmer explicitly calls check()"
-      ],
-      correct: 2,
-      explanation: "<strong>A while loop checks its condition before each iteration.</strong> If true → body executes → condition checked again. If the condition is false at the very start, the loop body never executes at all. This is how while loops avoid running when not needed."
-    },
-    {
-      category: "Functions",
-      q: "What does the DRY principle stand for?",
-      options: [
-        "Define, Run, Yield",
-        "Don't Repeat Yourself",
-        "Data Requires Yardstick",
-        "Define Reusable Yields"
-      ],
-      correct: 1,
-      explanation: "<strong>DRY = Don't Repeat Yourself.</strong> The core principle behind functions: write code once inside a function and call it wherever needed, instead of copying and pasting the same code in multiple places. This makes maintenance much easier — fix once, fixed everywhere."
-    },
-    {
-      category: "Functions",
-      q: "What is the difference between a parameter and an argument?",
-      options: [
-        "They are exactly the same thing — the terms are interchangeable",
-        "A parameter is the actual value passed; an argument is the placeholder in the definition",
-        "A parameter is the placeholder in the function definition; an argument is the actual value passed when calling",
-        "Parameters are only used in for loops; arguments are only used in while loops"
-      ],
-      correct: 2,
-      explanation: "<strong>Parameters</strong> are the placeholder variable names in the function definition (e.g. def greet(name) — 'name' is the parameter). <strong>Arguments</strong> are the actual values supplied when calling the function (e.g. greet('Alice') — 'Alice' is the argument)."
-    },
-    {
-      category: "Functions",
-      q: "What does a function return if it has no return statement?",
-      options: ["0", "An error message", "False", "None"],
-      correct: 3,
-      explanation: "<strong>None.</strong> A function without an explicit return statement automatically returns None — representing no output value. This is not an error; it is valid and correct for functions that perform an action (like printing to screen) rather than computing a value."
-    },
-    {
-      category: "Concepts",
-      q: "Which statement best describes the four programming building blocks?",
-      options: [
-        "They are completely independent — you pick one and use only that",
-        "They work together as a system: variables store typed data, loops process collections, functions organize reusable logic",
-        "Functions are the only important one; the others are optional extras",
-        "Data types are only needed inside loops"
-      ],
-      correct: 1,
-      explanation: "<strong>All four building blocks work together as a system.</strong> Variables store data. Data types define what operations are possible. Loops process multiple items (often stored in variables). Functions encapsulate all of the above into reusable, organized, named logic."
-    }
+    { category:"Variables", q:"What is a variable in programming?", options:["A fixed value that cannot change during program execution","A named storage location in memory that holds a data value","A type of loop used to repeat code","A function that returns a value to the caller"], correct:1, explanation:"<strong>A variable is a named storage location in memory that holds a data value.</strong> The name is called an identifier. Variables can usually be modified (reassigned) after creation. A fixed value that cannot change would be a constant." },
+    { category:"Data Types", q:"What data type would you use to store the value 3.14?", options:["Integer","Boolean","Float","String"], correct:2, explanation:"<strong>Float</strong> is used for decimal/fractional numbers like 3.14. Integer is for whole numbers only. Boolean holds only True or False. String holds text data." },
+    { category:"Data Types", q:"Which data type represents the complete absence of a value?", options:["Boolean set to False","Integer with value 0","String with value ''","None / Null"], correct:3, explanation:"<strong>None (Python) / Null</strong> explicitly represents the absence of a value — 'nothing is here.' This is completely different from 0, '', or False." },
+    { category:"Loops", q:"Which type of loop is best when you know exactly how many times to repeat?", options:["While loop","For loop","If statement","Recursive call"], correct:1, explanation:"<strong>For loops</strong> are designed for fixed, known iterations. While loops are better when the number of repetitions depends on a changing condition." },
+    { category:"Loops", q:"What is an infinite loop?", options:["A loop that runs exactly 1,000 times","A for loop that iterates over a very large list","A while loop whose condition never becomes false","A loop nested inside another loop"], correct:2, explanation:"<strong>An infinite loop is a while loop whose condition never becomes false</strong> — it runs forever, hanging or crashing the program." },
+    { category:"Functions", q:"What does the DRY principle stand for?", options:["Define, Run, Yield","Don't Repeat Yourself","Data Requires Yardstick","Define Reusable Yields"], correct:1, explanation:"<strong>DRY = Don't Repeat Yourself.</strong> Write code once inside a function and call it wherever needed." },
+    { category:"Functions", q:"What is the difference between a parameter and an argument?", options:["They are exactly the same thing","A parameter is the actual value passed; an argument is the placeholder in the definition","A parameter is the placeholder in the function definition; an argument is the actual value passed when calling","Parameters are only used in for loops; arguments only in while loops"], correct:2, explanation:"<strong>Parameters</strong> are placeholder variable names in the function definition. <strong>Arguments</strong> are the actual values supplied when calling." },
+    { category:"Functions", q:"What does a function return if it has no return statement?", options:["0","An error message","False","None"], correct:3, explanation:"<strong>None.</strong> A function without an explicit return statement automatically returns None — representing no output value." }
   ],
-
   2: [
-    {
-      category: "History",
-      q: "What problem in the late 1960s led to the development of structured programming?",
-      options: [
-        "Programs were too short and lacked functionality",
-        "Computers were too slow to run complex programs",
-        "'Spaghetti code' — tangled, unmaintainable programs full of arbitrary GOTO jumps",
-        "There were not enough programming languages available"
-      ],
-      correct: 2,
-      explanation: "<strong>Spaghetti code</strong> was the problem — programs full of unpredictable GOTO statements that jumped execution to arbitrary lines, creating tangled logic impossible to follow, test, or maintain. As programs grew, this approach collapsed."
-    },
-    {
-      category: "Structured Programming",
-      q: "What are the THREE basic constructs of structured programming?",
-      options: [
-        "Variables, Functions, Modules",
-        "Sequence, Selection, Iteration",
-        "Input, Processing, Output",
-        "Classes, Objects, Inheritance"
-      ],
-      correct: 1,
-      explanation: "<strong>Sequence, Selection, and Iteration.</strong> Sequence = statements in order. Selection = conditional execution (if/else). Iteration = repeated execution (loops). The Böhm-Jacopini theorem proves any program logic can be expressed using just these three constructs."
-    },
-    {
-      category: "Structured Programming",
-      q: "What is the 'Golden Rule' of structured programming?",
-      options: [
-        "Always use at least one function",
-        "No Arbitrary GOTO",
-        "Write a comment for every line of code",
-        "Use global variables for all shared data"
-      ],
-      correct: 1,
-      explanation: "<strong>No Arbitrary GOTO</strong> is the golden rule. GOTO statements jump execution to any random line, creating unpredictable, unverifiable programs. Structured programming forbids this — all control flow must pass through Sequence, Selection, or Iteration."
-    },
-    {
-      category: "History",
-      q: "Who wrote 'GOTO Statement Considered Harmful' and when?",
-      options: [
-        "Dennis Ritchie, 1972",
-        "Alan Turing, 1950",
-        "Edsger Dijkstra, 1968",
-        "Linus Torvalds, 1991"
-      ],
-      correct: 2,
-      explanation: "<strong>Edsger Dijkstra, 1968.</strong> His letter 'GOTO Statement Considered Harmful' became the founding document of structured programming. Dijkstra argued that unrestricted GOTO use makes programs impossible to reason about or formally verify."
-    },
-    {
-      category: "Structured Programming",
-      q: "Which of the following is a key design rule from structured programming?",
-      options: [
-        "Use as many global variables as possible for efficiency",
-        "Each block of code should have a single entry and a single exit point",
-        "Avoid functions to keep all code visible in one place",
-        "GOTO is acceptable when the code is well-commented"
-      ],
-      correct: 1,
-      explanation: "<strong>Single entry, single exit</strong> is a core design rule from Dijkstra's structured programming. Each code block has one way in and one way out — making it predictable and mathematically verifiable. The other rules are: decompose into functions; prefer local over global variables."
-    },
-    {
-      category: "Modular Programming",
-      q: "What is a module in modular programming?",
-      options: [
-        "A single line of code",
-        "A type of conditional loop",
-        "An independent unit grouping related functions and data with a specific responsibility",
-        "A hardware component of a computer"
-      ],
-      correct: 2,
-      explanation: "<strong>A module is an independent unit</strong> that groups related functions and data together around one specific responsibility. It has a public interface (what it does) and a private implementation (how it does it). Examples: Python modules, Java packages, C header files."
-    },
-    {
-      category: "Modular Programming",
-      q: "What does 'High Cohesion' mean in modular programming?",
-      options: [
-        "Modules are tightly dependent on each other's internals",
-        "All elements inside a module serve a single, unified purpose",
-        "Modules share all their internal data freely",
-        "Implementation details are always publicly accessible"
-      ],
-      correct: 1,
-      explanation: "<strong>High Cohesion</strong> means all elements inside a module serve a single, unified purpose — the module does ONE thing and does it well. This is distinct from Loose Coupling (minimize inter-module dependencies) and Encapsulation (hide implementation)."
-    },
-    {
-      category: "Modular Programming",
-      q: "What is 'Loose Coupling' in modular programming?",
-      options: [
-        "Modules are so tightly connected they cannot function independently",
-        "Minimizing dependencies between modules so they interact only through public interfaces",
-        "Sharing all global variables between every module in the system",
-        "Using GOTO statements to jump between different modules"
-      ],
-      correct: 1,
-      explanation: "<strong>Loose Coupling</strong> means minimizing dependencies between modules. Modules interact only through well-defined public interfaces — neither needs to know the other's internal implementation. This means changing one module's internals doesn't break other modules."
-    },
-    {
-      category: "Comparison",
-      q: "How do Structured and Modular Programming relate to each other?",
-      options: [
-        "They are the same concept with two different names",
-        "Structured programming replaced modular programming in the 1980s",
-        "Structured works at the micro level (inside functions); Modular works at the macro level (between modules)",
-        "Modular programming is for large companies only; structured is for individuals"
-      ],
-      correct: 2,
-      explanation: "<strong>They are complementary and operate at different levels.</strong> Structured = micro-level, controls flow inside a function, focus: correctness. Modular = macro-level, organizes how functions are grouped across the system, focus: architecture. System Quality = Structured + Modular."
-    },
-    {
-      category: "Modular Programming",
-      q: "Which modular programming benefit allows different development teams to build different parts simultaneously?",
-      options: ["Verifiability", "Parallel Development", "Single Entry/Exit", "Iteration"],
-      correct: 1,
-      explanation: "<strong>Parallel Development</strong> — because modules are independent, Team A can build the Database module while Team B builds the User Interface module without blocking each other. This is one of the core practical advantages of modular design."
-    },
-    {
-      category: "OOP & Modern",
-      q: "How does Object-Oriented Programming (OOP) relate to Modular Programming?",
-      options: [
-        "OOP completely replaced and discarded modular programming",
-        "OOP is enhanced modular programming — a Class is essentially a Module with data and methods combined",
-        "OOP and modular programming have no connection to each other",
-        "Modular programming was invented after OOP as a simplification"
-      ],
-      correct: 1,
-      explanation: "<strong>OOP is enhanced Modular Programming.</strong> Class = Module with data + methods. Inheritance = Module specialization. Polymorphism = Flexible interfaces. Encapsulation = Stronger information hiding. OOP built on top of — not replaced — structured and modular programming."
-    },
-    {
-      category: "Modern Applications",
-      q: "Which modern software architecture is a direct application of modular programming at system scale?",
-      options: [
-        "Spaghetti code",
-        "Arbitrary GOTO statements",
-        "Microservices architecture",
-        "Monolithic single-file programs"
-      ],
-      correct: 2,
-      explanation: "<strong>Microservices</strong> are modules at system scale — each is an independent unit with its own responsibility, interface, and implementation, communicating only through public APIs. Other examples: REST APIs (clean interfaces), Docker (deployment modules), npm/pip packages (reusable modules)."
-    }
+    { category:"History", q:"What problem in the late 1960s led to the development of structured programming?", options:["Programs were too short and lacked functionality","Computers were too slow","'Spaghetti code' — tangled, unmaintainable programs full of arbitrary GOTO jumps","There were not enough programming languages"], correct:2, explanation:"<strong>Spaghetti code</strong> — programs full of unpredictable GOTO statements jumping to arbitrary lines, creating tangled logic impossible to follow, test, or maintain." },
+    { category:"Structured Programming", q:"What are the THREE basic constructs of structured programming?", options:["Variables, Functions, Modules","Sequence, Selection, Iteration","Input, Processing, Output","Classes, Objects, Inheritance"], correct:1, explanation:"<strong>Sequence, Selection, and Iteration.</strong> The Böhm-Jacopini theorem proves any program logic can be expressed using just these three constructs." },
+    { category:"Structured Programming", q:"What is the 'Golden Rule' of structured programming?", options:["Always use at least one function","No Arbitrary GOTO","Write a comment for every line","Use global variables for shared data"], correct:1, explanation:"<strong>No Arbitrary GOTO</strong> is the golden rule. All control flow must pass through Sequence, Selection, or Iteration." },
+    { category:"History", q:"Who wrote 'GOTO Statement Considered Harmful' and when?", options:["Dennis Ritchie, 1972","Alan Turing, 1950","Edsger Dijkstra, 1968","Linus Torvalds, 1991"], correct:2, explanation:"<strong>Edsger Dijkstra, 1968.</strong> His letter became the founding document of structured programming." },
+    { category:"Modular Programming", q:"What does 'High Cohesion' mean in modular programming?", options:["Modules are tightly dependent on each other's internals","All elements inside a module serve a single, unified purpose","Modules share all their internal data freely","Implementation details are always publicly accessible"], correct:1, explanation:"<strong>High Cohesion</strong> means all elements inside a module serve a single, unified purpose — the module does ONE thing and does it well." },
+    { category:"Modular Programming", q:"What is 'Loose Coupling' in modular programming?", options:["Modules so tightly connected they cannot function independently","Minimizing dependencies between modules so they interact only through public interfaces","Sharing all global variables between every module","Using GOTO statements to jump between modules"], correct:1, explanation:"<strong>Loose Coupling</strong> means minimizing dependencies between modules. Modules interact only through well-defined public interfaces." },
+    { category:"Comparison", q:"How do Structured and Modular Programming relate to each other?", options:["They are the same concept with two different names","Structured programming replaced modular programming","Structured works at the micro level (inside functions); Modular works at the macro level (between modules)","Modular programming is for large companies only"], correct:2, explanation:"<strong>They are complementary.</strong> Structured = micro-level, correctness. Modular = macro-level, architecture. System Quality = Structured + Modular." },
+    { category:"OOP", q:"How does Object-Oriented Programming (OOP) relate to Modular Programming?", options:["OOP completely replaced modular programming","OOP is enhanced modular programming — a Class is essentially a Module with data and methods combined","OOP and modular programming have no connection","Modular programming was invented after OOP"], correct:1, explanation:"<strong>OOP is enhanced Modular Programming.</strong> Class = Module with data + methods. Inheritance = Module specialization. Encapsulation = stronger information hiding." }
+  ],
+  3: [
+    { category:"R vs Python", q:"Which of the following best describes R's primary strength over Python?", options:["Building production web applications","Deep learning with neural networks","Statistical computing, academic research, and publication-quality graphics","General-purpose automation and scripting"], correct:2, explanation:"<strong>R was designed by statisticians for statisticians.</strong> Its primary strengths are statistical computing, academic research workflows, and producing publication-quality graphics through ggplot2." },
+    { category:"R vs Python", q:"What is the key package manager difference between R and Python?", options:["R uses pip; Python uses CRAN","R uses CRAN and Bioconductor; Python uses pip and conda","Both use the same package manager","R doesn't have a package manager"], correct:1, explanation:"<strong>R uses CRAN (Comprehensive R Archive Network) and Bioconductor</strong> for specialized bioinformatics packages. Python uses <strong>pip</strong> for packages and <strong>conda</strong> for environment management." },
+    { category:"R vs Python", q:"Which Python library is the primary equivalent of R's Tidyverse for data manipulation?", options:["matplotlib","TensorFlow","pandas","scikit-learn"], correct:2, explanation:"<strong>pandas</strong> is Python's primary data manipulation library, providing DataFrame structures similar to R's data frames. scikit-learn is for ML, matplotlib for visualization, and TensorFlow for deep learning." },
+    { category:"R vs Python", q:"What does 'reticulate' do in the context of R and Python?", options:["It replaces Python in data science workflows","It allows R to run Python code natively","It is R's machine learning framework","It is R's visualization package"], correct:1, explanation:"<strong>reticulate</strong> is an R package that allows you to run Python code from within R, enabling integration of both languages. The reverse (running R from Python) is done with rpy2." },
+    { category:"AI vs Stats", q:"What is the primary goal of AI/ML programming?", options:["Understanding the mathematical structure of data","Estimating parameters of a statistical model","Prediction accuracy and automation","Testing statistical hypotheses"], correct:2, explanation:"<strong>AI/ML programming focuses on prediction accuracy and automation</strong> — building systems that perform well on tasks. Statistical computing focuses on inference, explanation, and understanding data structure." },
+    { category:"AI vs Stats", q:"Which validation approach belongs to AI/ML (not statistical computing)?", options:["P-values for coefficients","Confidence intervals","R-squared","AUC-ROC curves and cross-validation scores"], correct:3, explanation:"<strong>AUC-ROC curves and cross-validation</strong> are AI/ML validation methods focused on prediction performance. P-values, confidence intervals, and R-squared are statistical validation tools focused on inference." },
+    { category:"AI vs Stats", q:"What characterizes AI/ML models' interpretability compared to statistical models?", options:["AI models are always more interpretable","AI models are often black-box; statistical models are designed for interpretation","Both types are equally interpretable","Statistical models are always less interpretable"], correct:1, explanation:"<strong>AI models (especially deep neural networks) are often black-box</strong> — powerful predictors but difficult to interpret. Statistical models are explicitly designed for interpretation, with each coefficient having a defined meaning." },
+    { category:"AI vs Stats", q:"What does 'Explainable AI (XAI)' represent in the convergence of AI and statistical computing?", options:["A new programming language combining R and Python","An effort to bring statistical interpretability to AI models","A package for running R code in Python","A type of neural network"], correct:1, explanation:"<strong>Explainable AI (XAI)</strong> represents the convergence of AI and statistical thinking — attempting to make AI models more interpretable and transparent, bringing the explanatory goals of statistical computing to the predictive power of AI." },
+    { category:"Ecosystems", q:"Which Python framework, developed by Google, dominates deep learning?", options:["scikit-learn","pandas","TensorFlow","Shiny"], correct:2, explanation:"<strong>TensorFlow</strong>, developed by Google, is one of the two dominant deep learning frameworks (alongside PyTorch by Meta). scikit-learn is for traditional ML, pandas for data manipulation, and Shiny is an R web app framework." },
+    { category:"Ecosystems", q:"For which scenario should you choose Python over R, according to the slides?", options:["Creating publication-quality statistical graphics","Conducting specialized statistical research in academia","Building production ML systems with web service integration","Working with small experimental datasets requiring formal inference"], correct:2, explanation:"<strong>Python is the choice for production ML systems with web service integration.</strong> R is preferred for publication-quality graphics, academic statistical research, and specialized statistical methods." }
   ]
 };
 
+/* ============================================================
+   THEORY QUESTIONS
+   ============================================================ */
+const allTheoryQuestions = {
+  1: [
+    { category:"Variables", q:"Explain what a variable is in programming and describe its four key characteristics.", answer:"A variable is a named storage location in memory that holds a data value. Its four key characteristics are: (1) Name/Identifier — how you refer to the variable in code (e.g. student_age); (2) Value — the actual data currently stored; (3) Data Type — determines what kind of data and what operations are valid; (4) Mutability — most variables can have their value reassigned after creation. Analogy: a labelled jar — the label is the name, the contents are the value, and the type of contents is the data type." },
+    { category:"Data Types", q:"List and describe the five basic data types covered in the course. Give an example of each.", answer:"(1) Integer — whole numbers, positive or negative, e.g. 42, -7, 0. (2) Float — decimal/fractional numbers, e.g. 3.14, -0.5, 2.0. (3) String — text data in quotes, e.g. 'hello', 'ASE'. (4) Boolean — only True or False, used in conditions and comparisons. (5) None/Null — represents the complete absence of a value — not 0, not '', genuinely nothing. Each type determines what operations are valid on the variable." },
+    { category:"Loops", q:"Contrast for loops and while loops. When should you use each, and what is the danger unique to while loops?", answer:"A for loop executes code a known, fixed number of times or iterates over every item in a collection. Use it when you know exactly how many repetitions are needed. A while loop repeats as long as a condition remains true — use it when you don't know in advance how many iterations are needed. The unique danger of while loops is the infinite loop: if the condition never becomes false, the program runs forever, hanging or crashing it. You must always ensure something inside the loop will eventually make the condition false." },
+    { category:"Functions", q:"What is the DRY principle and how do functions embody it? Distinguish between parameters and arguments.", answer:"DRY stands for Don't Repeat Yourself. Functions embody DRY by letting you write code once inside a named, reusable block and call it wherever needed — instead of copying code multiple times. Benefits: easier maintenance (fix in one place, fixed everywhere), better readability, and logical organization. Parameters are the placeholder variable names in the function definition (e.g. def greet(name) — 'name' is the parameter). Arguments are the actual values supplied when calling the function (e.g. greet('Alice') — 'Alice' is the argument). A function with no return statement automatically returns None." }
+  ],
+  2: [
+    { category:"History", q:"What was 'spaghetti code' and what historical response did it produce? Name the key figure and their contribution.", answer:"Spaghetti code refers to programs from the late 1960s full of unpredictable GOTO statements that jumped execution to arbitrary lines, creating tangled, unmaintainable logic. As programs grew larger, this approach became unworkable. The response was the development of Structured Programming. Key figure: Edsger Dijkstra (1968) published 'GOTO Statement Considered Harmful,' the founding document of structured programming. He argued unrestricted GOTO use makes programs impossible to reason about mathematically or formally verify." },
+    { category:"Structured Programming", q:"Name and explain the three basic constructs of structured programming. What theorem proves these are sufficient for any program?", answer:"(1) Sequence — statements execute in order, top to bottom, the natural flow. (2) Selection — conditional execution using if/else — code chooses a path based on a condition. (3) Iteration — repeated execution using for/while loops — code repeats while a condition holds. The Golden Rule: No Arbitrary GOTO. The Böhm-Jacopini theorem mathematically proves that ANY program logic can be expressed using only these three constructs — making GOTO statements completely unnecessary." },
+    { category:"Modular Programming", q:"Define a module and explain the four key principles of modular programming.", answer:"A module is an independent unit grouping related functions and data with a single specific responsibility. It has a public interface (what it does, visible to others) and a private implementation (how it works, hidden). The four key principles: (1) Encapsulation — hide implementation, expose only the interface. (2) High Cohesion — all elements inside a module serve one purpose. (3) Loose Coupling — minimize dependencies between modules; they interact only through interfaces. (4) Information Hiding — implementation details are private, so changes inside don't break other modules." },
+    { category:"Comparison", q:"Explain the relationship between Structured and Modular Programming. Why is System Quality = Structured + Modular?", answer:"Structured and Modular Programming are complementary — not competing — operating at different levels. Structured Programming works at the micro level: controlling how code flows inside a single function, with focus on correctness. Modular Programming works at the macro level: organizing how functions and data are grouped across the system, with focus on architecture. Analogy: Structured = writing clear paragraphs; Modular = organizing chapters in a book. You need both because well-written code in a poorly organized system still fails at scale. System Quality = Structured + Modular." }
+  ],
+  3: [
+    { category:"R vs Python", q:"Compare R and Python as languages for data science. What are the key strengths of each?", answer:"R was created by statisticians for statisticians, making it strongest for statistical computing, academic research, and publication-quality graphics (ggplot2). Its ecosystem (Tidyverse, RStudio, RMarkdown) is optimized for data analysis and reproducible research. CRAN provides peer-reviewed packages. Python is a general-purpose language that became a data science powerhouse through its ecosystem. Its strengths are ML/deep learning (scikit-learn, TensorFlow, PyTorch), production systems, web integration, and automation. Python is stronger for deploying models to production. Many professionals learn both: R for analysis, Python for production." },
+    { category:"AI vs Stats", q:"Explain the philosophical difference between AI programming and statistical computing. How do their goals, approaches, and validation methods differ?", answer:"AI programming takes an engineering approach: Goal = prediction accuracy and automation; Approach = pattern recognition from large datasets; Model Focus = black-box models that perform well; Validation = test set performance, accuracy, F1, AUC-ROC, cross-validation. Statistical computing takes a scientific approach: Goal = understand data structure — inference and explanation; Approach = mathematical modeling with explicit assumptions; Model Focus = interpretable models where every parameter has meaning; Validation = p-values, confidence intervals, R-squared, residual diagnostics, AIC/BIC. AI models require large datasets and GPUs; statistical models can work with small data and are CPU-efficient." },
+    { category:"Ecosystems", q:"Name and describe the key tools in both the R ecosystem and the Python data science ecosystem.", answer:"R Ecosystem: RStudio (excellent IDE), Tidyverse (consistent data manipulation — dplyr, tidyr), ggplot2 (publication-quality visualization), Shiny (interactive web apps in R), RMarkdown (reproducible research reports), CRAN (peer-reviewed package repository). Python Ecosystem: Jupyter (interactive notebooks), pandas (data manipulation, DataFrames), matplotlib/seaborn (visualization), scikit-learn (machine learning), TensorFlow/PyTorch (deep learning), pip/conda (package management), MLflow (experiment tracking)." },
+    { category:"Convergence", q:"What is the 'convergence' between AI and statistical computing? Give three examples of hybrid approaches.", answer:"The convergence is the growing recognition that AI and statistical thinking are complementary, not competing. Modern data science increasingly requires both: the predictive power of AI and the interpretability and rigor of statistical computing. Three hybrid approaches: (1) Bayesian deep learning — combines neural network flexibility with Bayesian probability for uncertainty quantification. (2) Explainable AI (XAI) — techniques like SHAP and LIME apply statistical concepts to explain AI model predictions. (3) Causal inference with ML — uses statistical causal frameworks with ML flexibility to answer 'why' questions, not just 'what.' The slides conclude: 'The future belongs to those who bridge both worlds.'" }
+  ]
+};
 
 /* ============================================================
    FLASHCARDS
    ============================================================ */
 const allFlashcards = {
   1: [
-    { q: "What is a variable?", a: "A <strong>named storage location in memory</strong> that holds a data value.<br><br>4 characteristics: has a name (identifier), stores a value, has a data type, and can usually be modified (reassigned)." },
-    { q: "Name the 5 basic data types", a: "<strong>Integer</strong> — whole numbers (42, -7)<br><strong>Float</strong> — decimal numbers (3.14, -0.5)<br><strong>String</strong> — text data ('hello')<br><strong>Boolean</strong> — True or False only<br><strong>None / Null</strong> — the complete absence of a value" },
-    { q: "What is a Boolean?", a: "A data type holding only <strong>two values: True or False.</strong><br><br>Powers all decision-making in programming — conditions, comparisons, loop checks. True is not a string or integer." },
-    { q: "What is None / Null?", a: "The data type representing the <strong>complete absence of a value.</strong><br><br>Not 0 (an integer). Not '' (an empty string). Not False (a Boolean). Genuinely nothing — used when a variable has not been assigned a value." },
-    { q: "For loop vs While loop", a: "<strong>For loop</strong>: best when you know exactly how many times to repeat, or want to iterate over every item in a collection.<br><br><strong>While loop</strong>: best when you don't know — repeat until a condition changes." },
-    { q: "What is an infinite loop and why is it dangerous?", a: "A <strong>while loop whose condition never becomes false</strong> — runs forever.<br><br>Danger: hangs or crashes the program. Always ensure something inside the loop will eventually make the condition false." },
-    { q: "What is the DRY principle?", a: "<strong>Don't Repeat Yourself.</strong><br><br>The core principle behind functions: write code once, call it many times. Prevents duplication and makes maintenance easy — fix in one place, fixed everywhere." },
-    { q: "Parameter vs Argument", a: "<strong>Parameter</strong>: the placeholder variable name in the function <em>definition</em>.<br>def greet(<u>name</u>) ← parameter<br><br><strong>Argument</strong>: the actual value passed when <em>calling</em> the function.<br>greet(<u>'Alice'</u>) ← argument" },
-    { q: "What does a function return with no return statement?", a: "<strong>None.</strong><br><br>Python automatically returns None when a function has no return statement. Not an error — valid for functions that perform an action without computing a value." },
-    { q: "What are the 4 programming building blocks and how do they relate?", a: "1. <strong>Variables</strong> — store data<br>2. <strong>Data Types</strong> — define what operations are possible<br>3. <strong>Loops</strong> — process multiple items<br>4. <strong>Functions</strong> — organize and reuse logic<br><br>They work as a <strong>system</strong>, not in isolation." }
+    { q:"What is a variable?", a:"A <strong>named storage location in memory</strong> that holds a data value.<br><br>4 characteristics: name (identifier), value, data type, and can usually be modified (reassigned)." },
+    { q:"Name the 5 basic data types", a:"<strong>Integer</strong> — whole numbers (42, -7)<br><strong>Float</strong> — decimal numbers (3.14, -0.5)<br><strong>String</strong> — text data ('hello')<br><strong>Boolean</strong> — True or False only<br><strong>None / Null</strong> — complete absence of a value" },
+    { q:"For loop vs While loop", a:"<strong>For loop</strong>: best when you know exactly how many times to repeat, or want to iterate over every item in a collection.<br><br><strong>While loop</strong>: best when you don't know — repeat until a condition changes." },
+    { q:"What is an infinite loop and why is it dangerous?", a:"A <strong>while loop whose condition never becomes false</strong> — runs forever.<br><br>Danger: hangs or crashes the program. Always ensure something inside the loop will eventually make the condition false." },
+    { q:"What is the DRY principle?", a:"<strong>Don't Repeat Yourself.</strong><br><br>Write code once, call it many times. Prevents duplication and makes maintenance easy — fix in one place, fixed everywhere." },
+    { q:"Parameter vs Argument", a:"<strong>Parameter</strong>: placeholder variable name in the function <em>definition</em>.<br>def greet(<u>name</u>) ← parameter<br><br><strong>Argument</strong>: the actual value passed when <em>calling</em> the function.<br>greet(<u>'Alice'</u>) ← argument" },
+    { q:"What does a function return with no return statement?", a:"<strong>None.</strong><br><br>Python automatically returns None. Not an error — valid for functions that perform an action without computing a value." },
+    { q:"What are the 4 programming building blocks?", a:"1. <strong>Variables</strong> — store data<br>2. <strong>Data Types</strong> — define what operations are possible<br>3. <strong>Loops</strong> — process multiple items<br>4. <strong>Functions</strong> — organize and reuse logic<br><br>They work as a <strong>system</strong>." }
   ],
   2: [
-    { q: "What was 'spaghetti code'?", a: "Programs with <strong>tangled, unpredictable GOTO jumps</strong> to arbitrary lines — impossible to follow, test, or maintain as programs grew larger. The problem that motivated structured programming." },
-    { q: "The 3 constructs of structured programming", a: "1. <strong>Sequence</strong> — statements execute in order, top to bottom<br>2. <strong>Selection</strong> — conditional execution (if/else)<br>3. <strong>Iteration</strong> — repeated execution (loops)<br><br>Böhm-Jacopini: ANY program logic can be expressed with just these three." },
-    { q: "Golden Rule of structured programming", a: "<strong>No Arbitrary GOTO.</strong><br><br>All control flow must pass through Sequence, Selection, or Iteration. Arbitrary jumps destroy the ability to reason about or verify a program." },
-    { q: "Who founded structured programming?", a: "<strong>Edsger Dijkstra, 1968.</strong><br><br>Published 'GOTO Statement Considered Harmful' — the founding document of structured programming. Changed software development permanently." },
-    { q: "3 Key Design Rules of structured programming", a: "1. <strong>Single entry, single exit</strong> — one way in, one way out<br>2. <strong>Decompose programs into functions</strong> — top-down design<br>3. <strong>Local variables over global state</strong> — keep data close to where it is used" },
-    { q: "What is a module?", a: "An <strong>independent unit</strong> grouping related functions and data with one responsibility.<br><br>Has a public interface (what it does) and private implementation (how it does it). Examples: Python .py files, Java packages, C headers." },
-    { q: "4 Principles of Modular Programming", a: "1. <strong>Encapsulation</strong> — hide implementation, expose interface<br>2. <strong>High Cohesion</strong> — all elements serve one purpose<br>3. <strong>Loose Coupling</strong> — minimize inter-module dependencies<br>4. <strong>Information Hiding</strong> — implementation is private" },
-    { q: "Structured vs Modular — what level does each work at?", a: "<strong>Structured</strong> = micro level. Controls flow <em>inside</em> a function. Focus: correctness.<br><br><strong>Modular</strong> = macro level. Organizes functions <em>between</em> modules. Focus: architecture.<br><br><strong>System Quality = Structured + Modular</strong>" },
-    { q: "How is OOP related to Modular Programming?", a: "OOP is <strong>enhanced modular programming.</strong><br>Class = Module with data + methods<br>Inheritance = Module specialization<br>Polymorphism = Flexible interfaces<br>Encapsulation = Stronger information hiding" },
-    { q: "3 modern applications of modular programming", a: "<strong>REST APIs</strong> — clean public interfaces, hidden implementation<br><strong>Microservices</strong> — modules at system scale<br><strong>Docker containers</strong> — deployment modules<br><strong>npm / pip / Maven</strong> — reusable module ecosystems" }
+    { q:"What was 'spaghetti code'?", a:"Programs with <strong>tangled, unpredictable GOTO jumps</strong> to arbitrary lines — impossible to follow, test, or maintain as programs grew larger." },
+    { q:"The 3 constructs of structured programming", a:"1. <strong>Sequence</strong> — statements execute in order<br>2. <strong>Selection</strong> — conditional execution (if/else)<br>3. <strong>Iteration</strong> — repeated execution (loops)<br><br>Böhm-Jacopini: ANY program logic can be expressed with just these three." },
+    { q:"Golden Rule of structured programming", a:"<strong>No Arbitrary GOTO.</strong><br><br>All control flow must pass through Sequence, Selection, or Iteration." },
+    { q:"Who founded structured programming?", a:"<strong>Edsger Dijkstra, 1968.</strong><br><br>Published 'GOTO Statement Considered Harmful' — the founding document." },
+    { q:"What is a module?", a:"An <strong>independent unit</strong> grouping related functions and data with one responsibility.<br><br>Has a public interface (what) and private implementation (how). Examples: Python .py files, Java packages." },
+    { q:"4 Principles of Modular Programming", a:"1. <strong>Encapsulation</strong> — hide implementation, expose interface<br>2. <strong>High Cohesion</strong> — all elements serve one purpose<br>3. <strong>Loose Coupling</strong> — minimize inter-module dependencies<br>4. <strong>Information Hiding</strong> — implementation is private" },
+    { q:"Structured vs Modular — what level does each work at?", a:"<strong>Structured</strong> = micro level. Controls flow <em>inside</em> a function. Focus: correctness.<br><br><strong>Modular</strong> = macro level. Organizes functions <em>between</em> modules. Focus: architecture.<br><br><strong>System Quality = Structured + Modular</strong>" },
+    { q:"How is OOP related to Modular Programming?", a:"OOP is <strong>enhanced modular programming.</strong><br>Class = Module with data + methods<br>Inheritance = Module specialization<br>Encapsulation = Stronger information hiding" }
+  ],
+  3: [
+    { q:"R vs Python: primary strength of each", a:"<strong>R</strong>: statistical computing, academic research, publication-quality graphics (ggplot2), specialized statistical methods. Designed for statisticians.<br><br><strong>Python</strong>: general-purpose, ML/deep learning, production systems, web integration, automation. Designed for programmers." },
+    { q:"R Ecosystem: 5 key tools", a:"<strong>RStudio</strong> — IDE<br><strong>Tidyverse</strong> — data manipulation (dplyr, tidyr)<br><strong>ggplot2</strong> — visualization<br><strong>Shiny</strong> — web apps<br><strong>RMarkdown</strong> — reproducible reports<br><strong>CRAN</strong> — package repository" },
+    { q:"Python Ecosystem: 5 key tools", a:"<strong>Jupyter</strong> — notebooks<br><strong>pandas</strong> — data manipulation<br><strong>matplotlib/seaborn</strong> — visualization<br><strong>scikit-learn</strong> — machine learning<br><strong>TensorFlow/PyTorch</strong> — deep learning<br><strong>pip/conda</strong> — packages" },
+    { q:"When to choose R vs Python?", a:"<strong>Choose R:</strong> statistical research, academic settings, publication graphics, specialized stat methods<br><br><strong>Choose Python:</strong> production systems, deep learning, web integration, automation, industry teams<br><br><strong>Best option: Learn both!</strong>" },
+    { q:"AI vs Statistical Computing: 2 mindsets", a:"<strong>AI:</strong> Goal = prediction & automation; Approach = pattern recognition; Validation = accuracy, F1, AUC-ROC<br><br><strong>Statistical:</strong> Goal = inference & explanation; Approach = mathematical modeling; Validation = p-values, confidence intervals" },
+    { q:"AI model vs Statistical model characteristics", a:"<strong>AI:</strong> often black-box, high complexity, needs large data, GPU-intensive, fewer assumptions, outputs predictions only<br><br><strong>Statistical:</strong> interpretable, simpler (parsimony), works with small data, CPU-efficient, many explicit assumptions, outputs parameters + predictions" },
+    { q:"What is the AI vs Stats 'convergence'?", a:"The blending of both approaches in modern data science:<br>• <strong>Bayesian deep learning</strong><br>• <strong>Explainable AI (XAI)</strong><br>• <strong>Causal inference with ML</strong><br>• <strong>Probabilistic programming</strong><br><br>The future belongs to those who bridge both worlds." },
+    { q:"Integration tools: R ↔ Python", a:"<strong>reticulate</strong>: run Python code from within R<br><strong>rpy2</strong>: run R code from within Python<br><strong>Common formats</strong>: CSV, Parquet, databases (language-agnostic data exchange)<br><strong>Docker</strong>: run both environments in containers" }
   ]
 };
-
 
 /* ============================================================
    APP STATE
    ============================================================ */
-let currentWeek     = 1;
+let currentWeek = 1;
 let currentTopicIdx = 0;
-let currentQIdx     = 0;
-let correctCount    = 0;
-let wrongCount      = 0;
-let answered        = false;
-let rapidIdx        = 0;
-let isFlipped       = false;
-let activeQuestions  = [];
+let currentQIdx = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let answered = false;
+let rapidIdx = 0;
+let isFlipped = false;
+let activeQuestions = [];
 let activeFlashcards = [];
-let activeTopics     = [];
-
+let activeTopics = [];
+let challengeMode = 'mc';
+let theoryQIdx = 0;
+let theoryGot = 0;
+let theoryPartial = 0;
+let theoryMissed = 0;
+let activeTheoryQuestions = [];
 
 /* ============================================================
    WEEK SELECTION
@@ -1262,32 +652,35 @@ function selectWeek(week, btn) {
   btn.classList.add('active');
 }
 function getWeekLabel() {
-  return { 1: 'Week 1', 2: 'Week 2', all: 'All Weeks' }[currentWeek] || 'Week 1';
+  return { 1:'Week 1', 2:'Week 2', 3:'Week 3', all:'All Weeks' }[currentWeek] || 'Week 1';
 }
 function getQuestions() {
-  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2]];
+  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3]];
   return allQuestions[currentWeek] || [];
 }
+function getTheoryQuestions() {
+  if (currentWeek === 'all') return [...allTheoryQuestions[1], ...allTheoryQuestions[2], ...allTheoryQuestions[3]];
+  return allTheoryQuestions[currentWeek] || [];
+}
 function getFlashcards() {
-  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2]];
+  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3]];
   return allFlashcards[currentWeek] || [];
 }
 function getTopics() {
-  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics];
+  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics, ...courseData[3].topics];
   return courseData[currentWeek]?.topics || [];
 }
-
 
 /* ============================================================
    NAVIGATION
    ============================================================ */
 function goHome() {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('home').style.display = 'flex';
+  ['learnScreen','challengeScreen','rapidScreen'].forEach(id => document.getElementById(id).classList.add('hidden'));
 }
 function openLearn() {
   document.getElementById('home').style.display = 'none';
-  document.getElementById('learnScreen').classList.add('active');
+  document.getElementById('learnScreen').classList.remove('hidden');
   document.getElementById('learnWeekLabel').textContent = getWeekLabel();
   activeTopics = getTopics();
   currentTopicIdx = 0;
@@ -1296,22 +689,34 @@ function openLearn() {
 }
 function openChallenge() {
   document.getElementById('home').style.display = 'none';
-  document.getElementById('challengeScreen').classList.add('active');
+  document.getElementById('challengeScreen').classList.remove('hidden');
   document.getElementById('challengeWeekLabel').textContent = getWeekLabel();
-  activeQuestions = shuffle([...getQuestions()]);
-  currentQIdx = 0;
-  correctCount = 0;
-  wrongCount = 0;
-  restartChallenge();
+  showChallengeTypeSelector();
 }
 function openRapid() {
   document.getElementById('home').style.display = 'none';
-  document.getElementById('rapidScreen').classList.add('active');
+  document.getElementById('rapidScreen').classList.remove('hidden');
   document.getElementById('rapidWeekLabel').textContent = getWeekLabel();
   activeFlashcards = getFlashcards();
   rapidIdx = 0;
   isFlipped = false;
   renderRapidCard();
+}
+function showChallengeTypeSelector() {
+  document.getElementById('challengeTypeSelector').classList.remove('hidden');
+  document.getElementById('mcArea').classList.add('hidden');
+  document.getElementById('theoryArea').classList.add('hidden');
+}
+function startChallenge(type) {
+  challengeMode = type;
+  document.getElementById('challengeTypeSelector').classList.add('hidden');
+  if (type === 'mc') {
+    document.getElementById('mcArea').classList.remove('hidden');
+    restartMC();
+  } else {
+    document.getElementById('theoryArea').classList.remove('hidden');
+    restartTheory();
+  }
 }
 function shuffle(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -1321,14 +726,13 @@ function shuffle(arr) {
   return arr;
 }
 
-
 /* ============================================================
    LEARN MODE
    ============================================================ */
 function renderTopicList() {
   const list = document.getElementById('topicList');
   list.innerHTML = activeTopics.map((t, i) => `
-    <div class="topic-item ${i === currentTopicIdx ? 'active' : ''}" onclick="renderTopicContent(${i})">${t.title}</div>
+    <div class="topic-item px-3 py-2 rounded cursor-pointer text-sm font-medium text-ink3 hover:bg-paper2 hover:text-ink transition-all mb-0.5 leading-snug border border-transparent ${i === currentTopicIdx ? 'active' : ''}" onclick="renderTopicContent(${i})">${t.title}</div>
   `).join('');
 }
 function renderTopicContent(idx) {
@@ -1336,70 +740,73 @@ function renderTopicContent(idx) {
   renderTopicList();
   const t = activeTopics[idx];
   let html = `
-    <div class="topic-tag">${t.tag}</div>
-    <h2 class="topic-heading">${t.title}</h2>
-    <div class="topic-hr"></div>
-    <div class="topic-body">${t.body.replace(/\n/g, '<br><br>')}</div>
+    <div class="inline-flex items-center bg-paper2 border border-paper3 text-ink3 font-mono text-xs font-semibold tracking-widest uppercase px-3 py-1 rounded-sm mb-5">${t.tag}</div>
+    <h2 class="font-display text-4xl font-bold tracking-tight leading-tight mb-1 text-ink">${t.title}</h2>
+    <div class="w-10 h-0.5 bg-rust mt-4 mb-6"></div>
+    <div class="text-ink2 text-sm leading-loose mb-8 font-mono">${t.body.replace(/\n/g,'<br><br>')}</div>
   `;
   if (t.keypoints) {
-    html += `<div class="keypoints-title">Key Points</div><div class="keypoints-list">`;
-    t.keypoints.forEach(kp => { html += `<div class="keypoint"><div class="keypoint-dot"></div><span>${kp}</span></div>`; });
+    html += `<div class="font-mono text-xs font-bold tracking-[0.18em] uppercase text-ink3 mb-3">Key Points</div><div class="flex flex-col gap-2 mb-8">`;
+    t.keypoints.forEach(kp => {
+      html += `<div class="flex items-start gap-3 bg-white border border-paper3 border-l-[3px] border-l-rust rounded-r-sm px-4 py-3 text-sm font-medium text-ink leading-snug shadow-sm"><div class="w-1.5 h-1.5 rounded-full bg-rust mt-1.5 flex-shrink-0"></div><span>${kp}</span></div>`;
+    });
     html += `</div>`;
   }
   if (t.table) {
-    html += `<table class="comparison-table"><thead><tr>`;
+    html += `<table class="comparison-table mb-8 shadow-sm"><thead><tr>`;
     t.table.headers.forEach(h => html += `<th>${h}</th>`);
     html += `</tr></thead><tbody>`;
     t.table.rows.forEach(row => { html += `<tr>`; row.forEach(cell => html += `<td>${cell}</td>`); html += `</tr>`; });
     html += `</tbody></table>`;
   }
-  if (t.example) html += `<div class="example-block"><div class="example-label">📌 Real Example</div><div class="example-text">${t.example.replace(/\n/g,'<br>')}</div></div>`;
-  if (t.discussion) html += `<div class="discussion-block"><div class="discussion-label">💬 Discussion Question</div><div class="discussion-text">${t.discussion}</div></div>`;
-  html += `<div class="nav-buttons">`;
-  if (idx > 0) html += `<button class="nav-btn" onclick="renderTopicContent(${idx - 1})">← Previous</button>`;
-  if (idx < activeTopics.length - 1) html += `<button class="nav-btn primary" onclick="renderTopicContent(${idx + 1})">Next Topic →</button>`;
+  if (t.example) {
+    html += `<div class="bg-green-lt border border-green/20 rounded-sm px-6 py-5 mb-8"><div class="font-mono text-xs font-bold tracking-[0.16em] uppercase text-green mb-2">📌 Real Example / Analogy</div><div class="text-ink2 text-sm leading-relaxed font-medium">${t.example.replace(/\n/g,'<br>')}</div></div>`;
+  }
+  if (t.discussion) {
+    html += `<div class="bg-navy-lt border border-navy/20 rounded-sm px-6 py-5 mb-8"><div class="font-mono text-xs font-bold tracking-[0.16em] uppercase text-navy mb-2">💬 Discussion Question</div><div class="text-ink2 text-sm leading-relaxed font-medium">${t.discussion}</div></div>`;
+  }
+  html += `<div class="flex gap-3 mt-10 pt-8 border-t border-paper3">`;
+  if (idx > 0) html += `<button class="border border-paper3 text-ink2 font-mono text-sm font-semibold px-6 py-3 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide" onclick="renderTopicContent(${idx-1})">← Previous</button>`;
+  if (idx < activeTopics.length - 1) html += `<button class="bg-rust text-white font-mono text-sm font-semibold px-6 py-3 rounded-sm hover:opacity-90 transition-all uppercase tracking-wide" onclick="renderTopicContent(${idx+1})">Next Topic →</button>`;
   html += `</div>`;
   const content = document.getElementById('topicContent');
   content.innerHTML = html;
-  content.scrollTo(0, 0);
-  window.scrollTo(0, 0);
+  content.scrollTo(0,0);
+  window.scrollTo(0,0);
 }
-
 
 /* ============================================================
    CHALLENGE MODE — MULTIPLE CHOICE
    ============================================================ */
-function restartChallenge() {
+function restartMC() {
   activeQuestions = shuffle([...getQuestions()]);
-  currentQIdx = 0;
-  correctCount = 0;
-  wrongCount = 0;
-  answered = false;
+  currentQIdx = 0; correctCount = 0; wrongCount = 0; answered = false;
   document.getElementById('scoreDisplay').style.display = 'none';
+  document.getElementById('scoreDisplay').classList.add('hidden');
   document.getElementById('qMeta').style.display = 'flex';
   document.getElementById('qText').style.display = 'block';
   document.getElementById('mcOptions').style.display = 'flex';
-  document.getElementById('mcFeedback').style.display = 'none';
+  document.getElementById('mcFeedback').classList.add('hidden');
   document.getElementById('qNav').style.display = 'none';
   renderQuestion();
 }
 function renderQuestion() {
   const q = activeQuestions[currentQIdx];
-  if (!q) { showScore(); return; }
+  if (!q) { showMCScore(); return; }
   answered = false;
-  document.getElementById('qCounter').textContent  = `Q ${currentQIdx + 1} / ${activeQuestions.length}`;
+  document.getElementById('qCounter').textContent = `Q ${currentQIdx+1} / ${activeQuestions.length}`;
   document.getElementById('qCategory').textContent = q.category;
-  document.getElementById('qText').textContent     = q.q;
-  document.getElementById('mcFeedback').style.display = 'none';
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('mcFeedback').classList.add('hidden');
   document.getElementById('qNav').style.display = 'none';
-  const letters = ['A', 'B', 'C', 'D'];
-  document.getElementById('mcOptions').innerHTML = q.options.map((opt, i) => `
-    <button class="mc-option" onclick="selectAnswer(${i})">
-      <span class="mc-letter">${letters[i]}</span>
+  const letters = ['A','B','C','D'];
+  document.getElementById('mcOptions').innerHTML = q.options.map((opt,i) => `
+    <button class="mc-option flex items-start gap-4 bg-white border border-paper3 rounded-sm px-5 py-4 cursor-pointer transition-all duration-200 text-sm font-medium text-ink2 leading-snug shadow-sm text-left w-full font-mono hover:border-navy hover:bg-navy-lt hover:text-navy" onclick="selectAnswer(${i})">
+      <span class="mc-letter font-display text-sm font-bold min-w-[22px] h-[22px] rounded-full bg-paper2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-all">${letters[i]}</span>
       <span>${opt}</span>
     </button>
   `).join('');
-  document.getElementById('challengeProgress').style.width = `${(currentQIdx / activeQuestions.length) * 100}%`;
+  document.getElementById('challengeProgress').style.width = `${(currentQIdx/activeQuestions.length)*100}%`;
 }
 function selectAnswer(idx) {
   if (answered) return;
@@ -1411,36 +818,94 @@ function selectAnswer(idx) {
   if (idx === q.correct) {
     correctCount++;
     options[idx].classList.add('correct');
-    feedback.className = 'mc-feedback correct-fb';
+    feedback.className = 'mc-feedback block rounded-sm p-5 mb-6 bg-green-lt border border-green/25 border-l-4 border-l-success';
+    document.getElementById('mcFeedbackLabel').className = 'font-mono text-xs font-bold tracking-[0.18em] uppercase mb-2 text-success';
     document.getElementById('mcFeedbackLabel').textContent = '✓ Correct!';
   } else {
     wrongCount++;
     options[idx].classList.add('wrong');
     options[q.correct].classList.add('reveal-correct');
-    feedback.className = 'mc-feedback wrong-fb';
+    feedback.className = 'mc-feedback block rounded-sm p-5 mb-6 bg-red-50 border border-danger/20 border-l-4 border-l-danger';
+    document.getElementById('mcFeedbackLabel').className = 'font-mono text-xs font-bold tracking-[0.18em] uppercase mb-2 text-danger';
     document.getElementById('mcFeedbackLabel').textContent = '✗ Not quite.';
   }
   document.getElementById('mcFeedbackText').innerHTML = q.explanation;
-  feedback.style.display = 'block';
+  feedback.classList.remove('hidden');
   document.getElementById('qNav').style.display = 'flex';
 }
 function nextQ() {
   if (currentQIdx < activeQuestions.length - 1) { currentQIdx++; renderQuestion(); }
-  else showScore();
+  else showMCScore();
 }
-function showScore() {
-  const pct = Math.round((correctCount / activeQuestions.length) * 100);
+function showMCScore() {
+  const pct = Math.round((correctCount/activeQuestions.length)*100);
   document.getElementById('challengeProgress').style.width = '100%';
-  document.getElementById('scorePct').textContent    = `${pct}%`;
-  document.getElementById('gotCount').textContent    = correctCount;
+  document.getElementById('scorePct').textContent = `${pct}%`;
+  document.getElementById('gotCount').textContent = correctCount;
   document.getElementById('missedCount').textContent = wrongCount;
-  document.getElementById('scoreDisplay').style.display = 'block';
+  const sd = document.getElementById('scoreDisplay');
+  sd.classList.remove('hidden');
+  sd.style.display = 'flex';
   ['qText','mcOptions','mcFeedback','qNav'].forEach(id => {
-    const el = document.getElementById(id); if (el) el.style.display = 'none';
+    const el = document.getElementById(id); if (el) { el.style.display = 'none'; el.classList.add('hidden'); }
   });
   document.getElementById('qMeta').style.display = 'none';
 }
 
+/* ============================================================
+   CHALLENGE MODE — THEORY
+   ============================================================ */
+function restartTheory() {
+  activeTheoryQuestions = shuffle([...getTheoryQuestions()]);
+  theoryQIdx = 0; theoryGot = 0; theoryPartial = 0; theoryMissed = 0;
+  document.getElementById('theoryScoreDisplay').style.display = 'none';
+  document.getElementById('theoryScoreDisplay').classList.add('hidden');
+  renderTheoryQuestion();
+}
+function renderTheoryQuestion() {
+  const q = activeTheoryQuestions[theoryQIdx];
+  if (!q) { showTheoryScore(); return; }
+  document.getElementById('theoryCounter').textContent = `Q ${theoryQIdx+1} / ${activeTheoryQuestions.length}`;
+  document.getElementById('theoryCategory').textContent = q.category;
+  document.getElementById('theoryQText').textContent = q.q;
+  document.getElementById('theoryUserAnswer').value = '';
+  document.getElementById('theoryWriteArea').classList.remove('hidden');
+  document.getElementById('theoryModelAnswer').classList.add('hidden');
+  document.getElementById('theoryProgress').style.width = `${(theoryQIdx/activeTheoryQuestions.length)*100}%`;
+}
+function revealTheoryAnswer() {
+  const q = activeTheoryQuestions[theoryQIdx];
+  document.getElementById('theoryModelText').innerHTML = q.answer.replace(/\n/g,'<br>');
+  document.getElementById('theoryWriteArea').classList.add('hidden');
+  document.getElementById('theoryModelAnswer').classList.remove('hidden');
+}
+function theoryScore(result) {
+  if (result === 'got') theoryGot++;
+  else if (result === 'partial') theoryPartial++;
+  else theoryMissed++;
+  if (theoryQIdx < activeTheoryQuestions.length - 1) {
+    theoryQIdx++;
+    renderTheoryQuestion();
+  } else {
+    showTheoryScore();
+  }
+}
+function showTheoryScore() {
+  const total = activeTheoryQuestions.length;
+  const score = Math.round(((theoryGot + theoryPartial * 0.5) / total) * 100);
+  document.getElementById('theoryProgress').style.width = '100%';
+  document.getElementById('theoryScorePct').textContent = `${score}%`;
+  document.getElementById('theoryGotCount').textContent = theoryGot;
+  document.getElementById('theoryPartialCount').textContent = theoryPartial;
+  document.getElementById('theoryMissedCount').textContent = theoryMissed;
+  const sd = document.getElementById('theoryScoreDisplay');
+  sd.classList.remove('hidden');
+  sd.style.display = 'flex';
+  document.getElementById('theoryCounter').style.display = 'none';
+  document.getElementById('theoryQText').style.display = 'none';
+  document.getElementById('theoryWriteArea').classList.add('hidden');
+  document.getElementById('theoryModelAnswer').classList.add('hidden');
+}
 
 /* ============================================================
    RAPID FIRE
@@ -1448,9 +913,9 @@ function showScore() {
 function renderRapidCard() {
   const card = activeFlashcards[rapidIdx];
   document.getElementById('rapidQ').textContent = card.q;
-  document.getElementById('rapidA').innerHTML   = card.a;
+  document.getElementById('rapidA').innerHTML = card.a;
   document.getElementById('rapidCounter').textContent = rapidIdx + 1;
-  document.getElementById('rapidProgress').textContent = `Card ${rapidIdx + 1} of ${activeFlashcards.length}`;
+  document.getElementById('rapidProgress').textContent = `Card ${rapidIdx+1} of ${activeFlashcards.length}`;
   document.getElementById('rapidCard').classList.remove('flipped');
   isFlipped = false;
 }
