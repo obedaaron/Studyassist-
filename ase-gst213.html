@@ -166,6 +166,8 @@
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(2,this)">Week 2 — Structured &amp; Modular</button>
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(3,this)">Week 3 — R vs Python &amp; AI vs Stats</button>
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(4,this)">Week 4 — Intro to AI</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(5,this)">Week 5 — AI Applications &amp; Branches</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(6,this)">Week 6 — Computer Vision</button>
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek('all',this)">All Weeks</button>
   </div>
 
@@ -831,7 +833,8 @@ const allQuestions = {
     { category:"Goals", q:"Which statement best describes a scientific goal of AI according to the lecture?", options:["Automate repetitive manufacturing tasks","Drive innovation across industries and improve GDP","Use AI as a tool to study human cognition and develop computational theories of mind","Deploy AI in autonomous vehicles for commercial use"], correct:2, explanation:"<strong>Using AI to study human cognition and develop computational theories of mind is a scientific/theoretical goal.</strong> The lecture distinguishes between scientific goals (understanding intelligence), technological goals (automation/augmentation), and economic/societal goals." },
     { category:"Goals", q:"What is the overarching engineering goal of AI as stated in the lecture?", options:["Achieve AGI within 10 years","Replace all human workers with machines","Create robust, reliable, and beneficial AI systems","Develop AI that can pass the Turing Test"], correct:2, explanation:"<strong>The overarching engineering goal is to create robust, reliable, and beneficial AI systems.</strong> This encompasses automation (repetitive tasks, dangerous operations) and augmentation (enhancing human capabilities and decision-making)." }
   ],
-  3: [ options:["Building production web applications","Deep learning with neural networks","Statistical computing, academic research, and publication-quality graphics","General-purpose automation and scripting"], correct:2, explanation:"<strong>R was designed by statisticians for statisticians.</strong> Its primary strengths are statistical computing, academic research workflows, and producing publication-quality graphics through ggplot2." },
+  3: [
+    { category:"R vs Python", q:"R was designed primarily for which purpose?", options:["Building production web applications","Deep learning with neural networks","Statistical computing, academic research, and publication-quality graphics","General-purpose automation and scripting"], correct:2, explanation:"<strong>R was designed by statisticians for statisticians.</strong> Its primary strengths are statistical computing, academic research workflows, and producing publication-quality graphics through ggplot2." },
     { category:"R vs Python", q:"What is the key package manager difference between R and Python?", options:["R uses pip; Python uses CRAN","R uses CRAN and Bioconductor; Python uses pip and conda","Both use the same package manager","R doesn't have a package manager"], correct:1, explanation:"<strong>R uses CRAN (Comprehensive R Archive Network) and Bioconductor</strong> for specialized bioinformatics packages. Python uses <strong>pip</strong> for packages and <strong>conda</strong> for environment management." },
     { category:"R vs Python", q:"Which Python library is the primary equivalent of R's Tidyverse for data manipulation?", options:["matplotlib","TensorFlow","pandas","scikit-learn"], correct:2, explanation:"<strong>pandas</strong> is Python's primary data manipulation library, providing DataFrame structures similar to R's data frames. scikit-learn is for ML, matplotlib for visualization, and TensorFlow for deep learning." },
     { category:"R vs Python", q:"What does 'reticulate' do in the context of R and Python?", options:["It replaces Python in data science workflows","It allows R to run Python code natively","It is R's machine learning framework","It is R's visualization package"], correct:1, explanation:"<strong>reticulate</strong> is an R package that allows you to run Python code from within R, enabling integration of both languages. The reverse (running R from Python) is done with rpy2." },
@@ -910,7 +913,8 @@ const allFlashcards = {
     { q:"4 Goals of AI (categories)", a:"1. <strong>Scientific/Theoretical</strong>: understand intelligence, bridge CS + psychology + neuroscience<br>2. <strong>Technological/Engineering</strong>: automation & augmentation — robust, reliable, beneficial AI<br>3. <strong>Economic & Societal</strong>: innovation, productivity, climate, disease, accessibility<br>4. <strong>Long-Term</strong>: AGI, AI safety, ethics, human-AI collaboration" },
     { q:"AI Future Outlook — 3 time horizons", a:"<strong>Near-term (1–5 yrs)</strong>: daily life integration, better multimodal AI, industry-specific solutions<br><br><strong>Medium-term (5–15 yrs)</strong>: AGI progress, advanced robotics, AI in scientific breakthroughs, new legal frameworks<br><br><strong>Long-term (15+ yrs)</strong>: potential AGI, human-AI integration, societal transformation, existential considerations" }
   ],
-  3: [ a:"<strong>R</strong>: statistical computing, academic research, publication-quality graphics (ggplot2), specialized statistical methods. Designed for statisticians.<br><br><strong>Python</strong>: general-purpose, ML/deep learning, production systems, web integration, automation. Designed for programmers." },
+  3: [
+    { q:"R vs Python: key strength of each", a:"<strong>R</strong>: statistical computing, academic research, publication-quality graphics (ggplot2), specialized statistical methods. Designed for statisticians.<br><br><strong>Python</strong>: general-purpose, ML/deep learning, production systems, web integration, automation. Designed for programmers." },
     { q:"R Ecosystem: 5 key tools", a:"<strong>RStudio</strong> — IDE<br><strong>Tidyverse</strong> — data manipulation (dplyr, tidyr)<br><strong>ggplot2</strong> — visualization<br><strong>Shiny</strong> — web apps<br><strong>RMarkdown</strong> — reproducible reports<br><strong>CRAN</strong> — package repository" },
     { q:"Python Ecosystem: 5 key tools", a:"<strong>Jupyter</strong> — notebooks<br><strong>pandas</strong> — data manipulation<br><strong>matplotlib/seaborn</strong> — visualization<br><strong>scikit-learn</strong> — machine learning<br><strong>TensorFlow/PyTorch</strong> — deep learning<br><strong>pip/conda</strong> — packages" },
     { q:"When to choose R vs Python?", a:"<strong>Choose R:</strong> statistical research, academic settings, publication graphics, specialized stat methods<br><br><strong>Choose Python:</strong> production systems, deep learning, web integration, automation, industry teams<br><br><strong>Best option: Learn both!</strong>" },
@@ -920,6 +924,463 @@ const allFlashcards = {
     { q:"Integration tools: R ↔ Python", a:"<strong>reticulate</strong>: run Python code from within R<br><strong>rpy2</strong>: run R code from within Python<br><strong>Common formats</strong>: CSV, Parquet, databases (language-agnostic data exchange)<br><strong>Docker</strong>: run both environments in containers" }
   ]
 };
+
+
+courseData[5] = {
+  label: "Week 5 — Real-World AI Applications & Symbolic vs Statistical AI",
+  topics: [
+    {
+      id: "w5_overview", title: "AI in the Real World: Overview", tag: "Week 5 · Overview",
+      body: `AI has transitioned from research labs to pervasive technology that now touches every industry. The key insight from the lecture is that most powerful AI applications work invisibly, optimising systems and solving complex problems through data-driven learning.\n\nThe lecture then introduces a classic distinction: Symbolic AI vs Statistical AI — two fundamentally different philosophies about how machines should be made intelligent.`,
+      keypoints: [
+        "AI has transitioned from research labs to pervasive, often invisible technology",
+        "Most powerful AI applications work invisibly in the background",
+        "AI optimises systems through data-driven learning",
+        "Lecture covers: Healthcare, Transportation, Finance, Retail, Technology, Creative Industries",
+        "Part II introduces: Symbolic AI vs Statistical AI — the classic dichotomy"
+      ]
+    },
+    {
+      id: "w5_healthcare", title: "AI in Healthcare & Medicine", tag: "Week 5 · Applications",
+      body: `Healthcare is one of the most impactful domains for AI. The lecture covers four areas: Medical Imaging, Drug Discovery, Personalized Treatment, and Virtual Assistants.\n\nAI analyses X-rays, MRIs, and CT scans for tumour detection, fracture identification, and disease diagnostics. In drug discovery, AI accelerates compound identification, predicts drug effectiveness, and optimises clinical trials.`,
+      keypoints: [
+        "Medical Imaging: AI analyses X-rays, MRIs, CT scans — tumour detection, fracture identification, disease diagnostics",
+        "Drug Discovery: accelerates compound identification, predicts drug effectiveness, optimises clinical trials",
+        "Personalized Treatment: genetic data analysis, lifestyle pattern recognition, individual risk prediction",
+        "Virtual Assistants: 24/7 patient monitoring, medication reminders, preliminary symptom checks"
+      ],
+      table: {
+        headers: ["Area", "AI Application"],
+        rows: [
+          ["Medical Imaging", "Tumour detection, fracture ID, disease diagnostics from X-rays, MRIs, CT scans"],
+          ["Drug Discovery", "Compound identification, drug effectiveness prediction, clinical trial optimisation"],
+          ["Personalized Treatment", "Genetic data analysis, lifestyle patterns, individual risk prediction"],
+          ["Virtual Assistants", "24/7 patient monitoring, medication reminders, symptom checks"]
+        ]
+      }
+    },
+    {
+      id: "w5_transport", title: "AI in Transportation & Automotive", tag: "Week 5 · Applications",
+      body: `AI is reshaping how people and goods move. The lecture highlights four application areas: Autonomous Vehicles (computer vision + sensor fusion — Waymo, Tesla), Route Optimisation (real-time efficiency algorithms — UPS, Uber), Predictive Maintenance (sensor data analysis — Airlines, Railways), and Traffic Management (smart city infrastructure).\n\nMeasured impact: fuel savings of 15-20% with optimised routing, reduced accidents, minimised downtime.`,
+      keypoints: [
+        "Autonomous Vehicles: computer vision + sensor fusion (Waymo, Tesla)",
+        "Route Optimisation: real-time efficiency algorithms (UPS, Uber)",
+        "Predictive Maintenance: sensor data analysis (Airlines, Railways)",
+        "Traffic Management: smart city infrastructure",
+        "Impact: reduced accidents, fuel savings 15-20% with optimised routing, minimised downtime"
+      ],
+      table: {
+        headers: ["Application", "Technology / Example"],
+        rows: [
+          ["Autonomous Vehicles", "Computer vision, sensor fusion (Waymo, Tesla)"],
+          ["Route Optimisation", "Real-time efficiency algorithms (UPS, Uber)"],
+          ["Predictive Maintenance", "Sensor data analysis (Airlines, Railways)"],
+          ["Traffic Management", "Smart city infrastructure"]
+        ]
+      }
+    },
+    {
+      id: "w5_finance", title: "AI in Finance & Banking", tag: "Week 5 · Applications",
+      body: `Finance was one of the earliest adopters of AI. The lecture covers four areas: Fraud Detection, Algorithmic Trading, Credit Assessment, and Robo-Advisors.\n\nFraud detection uses real-time transaction monitoring and pattern recognition for anomalies to enable instantaneous fraud blocking. Algorithmic trading enables high-frequency trading with microsecond execution.`,
+      keypoints: [
+        "Fraud Detection: real-time transaction monitoring, pattern recognition for anomalies, instantaneous fraud blocking",
+        "Algorithmic Trading: high-frequency trading, market prediction models, microsecond execution",
+        "Credit Assessment: alternative data evaluation, risk scoring algorithms, automated loan processing",
+        "Robo-Advisors: automated portfolio management, personalised investment strategies, 24/7 financial planning"
+      ]
+    },
+    {
+      id: "w5_retail", title: "AI in Retail & E-commerce", tag: "Week 5 · Applications",
+      body: `Retail AI operates across three areas: Recommendations (Amazon, Netflix, Spotify), Operations (demand forecasting, warehouse robotics, inventory optimisation), and Customer Experience (visual search, dynamic pricing, chat support).\n\nRecommendation systems are arguably the most commercially impactful AI application — driving significant portions of revenue for Amazon and Netflix.`,
+      keypoints: [
+        "Recommendations: Amazon product recommendations, Netflix content, Spotify music",
+        "Operations: demand forecasting, warehouse robotics, inventory optimisation",
+        "Customer Experience: visual search, dynamic pricing, chat support"
+      ]
+    },
+    {
+      id: "w5_tech_daily", title: "AI in Technology & Daily Life", tag: "Week 5 · Applications",
+      body: `AI permeates everyday technology. The lecture identifies: Digital Assistants (Siri, Google Assistant, Alexa, Cortana), Content Systems (Moderation — hate speech/fake news detection; Filtering — spam detection, personalised curation; Translation — Google Translate, DeepL), and Smart Systems (smart home automation, personalised news feeds, energy consumption optimisation).`,
+      keypoints: [
+        "Digital Assistants: Siri, Google Assistant, Alexa, Cortana",
+        "Content Moderation: hate speech detection, fake news identification",
+        "Content Filtering: spam detection, personalised content curation",
+        "Translation: real-time language processing (Google Translate, DeepL)",
+        "Smart Systems: smart home automation, personalised news feeds, energy optimisation"
+      ]
+    },
+    {
+      id: "w5_creative", title: "AI in Creative & Media Applications", tag: "Week 5 · Applications",
+      body: `The lecture covers Generative AI, Deepfake Technology, and Media Production.\n\nGenerative AI tools: ChatGPT (text generation), DALL-E/Midjourney (image creation), Sora (video generation), Suno (music composition). Deepfake technology is presented with a dual-use framing — entertainment (movies) vs malicious misinformation and digital impersonation.`,
+      keypoints: [
+        "Generative AI: ChatGPT (text), DALL-E/Midjourney (images), Sora (video), Suno (music composition)",
+        "Deepfake Technology — dual use: entertainment (movies) vs malicious misinformation and digital impersonation",
+        "Media Production: automated video editing, audio enhancement, film restoration, background music generation",
+        "Key concern: same AI tools can both create content and destroy trust"
+      ]
+    },
+    {
+      id: "w5_symbolic_ai", title: "Symbolic AI: The Classical Approach", tag: "Week 5 · AI Branches",
+      body: `Symbolic AI is based on the philosophy that intelligence arises from symbolic manipulation. Knowledge is represented as explicit rules and logical structures. The approach is top-down: human experts define the rules, the system applies them deterministically.\n\nRepresentative systems: Expert Systems, Logic Programming (Prolog), Semantic Networks, Rule Engines.`,
+      keypoints: [
+        "Core Philosophy: intelligence through symbolic manipulation",
+        "Knowledge = explicit rules and logical structures",
+        "Top-down design — humans engineer the rules",
+        "Deterministic behaviour — same input always gives same output",
+        "Human-readable reasoning — you can trace exactly why a decision was made",
+        "Requires explicit knowledge engineering",
+        "Representative systems: Expert Systems, Logic Programming (Prolog), Semantic Networks, Rule Engines"
+      ]
+    },
+    {
+      id: "w5_statistical_ai", title: "Statistical AI: The Data-Driven Approach", tag: "Week 5 · AI Branches",
+      body: `Statistical AI is based on the philosophy that intelligence arises from pattern recognition in data. Knowledge is represented as statistical models learned from data. The approach is bottom-up: the system discovers patterns from examples rather than being told explicit rules. Outputs are probabilistic.\n\nRepresentative techniques: Deep Learning, Neural Networks, Bayesian Models, Reinforcement Learning.`,
+      keypoints: [
+        "Core Philosophy: intelligence through pattern recognition",
+        "Knowledge = statistical models learned from data",
+        "Bottom-up learning — system discovers patterns from examples",
+        "Data-hungry — needs substantial training data",
+        "Probabilistic outputs — produces confidence scores, not deterministic answers",
+        "Representative techniques: Deep Learning, Neural Networks, Bayesian Models, Reinforcement Learning"
+      ]
+    },
+    {
+      id: "w5_comparison", title: "Symbolic vs Statistical: Side-by-Side Comparison", tag: "Week 5 · AI Branches",
+      body: `The lecture provides a direct 8-aspect comparison table. This comparison is critical — it explains why different AI approaches are chosen for different problems.\n\nKey insight: Symbolic AI = explicit knowledge, transparent reasoning. Statistical AI = implicit patterns, handles uncertainty.`,
+      keypoints: [
+        "Knowledge Source: Symbolic = human experts | Statistical = data/experience",
+        "Representation: Symbolic = explicit symbols | Statistical = learned features",
+        "Reasoning: Symbolic = logical deduction | Statistical = statistical inference",
+        "Transparency: Symbolic = HIGH | Statistical = LOW",
+        "Data Needs: Symbolic = minimal | Statistical = substantial",
+        "Uncertainty Handling: Symbolic = poor | Statistical = excellent",
+        "Generalization: Symbolic = within rules only | Statistical = beyond training data",
+        "Robustness: Symbolic = fragile | Statistical = graceful degradation"
+      ],
+      table: {
+        headers: ["Aspect", "Symbolic AI", "Statistical AI"],
+        rows: [
+          ["Knowledge Source", "Human experts", "Data / experience"],
+          ["Representation", "Explicit symbols", "Learned features"],
+          ["Reasoning", "Logical deduction", "Statistical inference"],
+          ["Transparency", "High", "Low"],
+          ["Data Needs", "Minimal", "Substantial"],
+          ["Uncertainty Handling", "Poor", "Excellent"],
+          ["Generalization", "Within rules", "Beyond training data"],
+          ["Robustness", "Fragile", "Graceful degradation"]
+        ]
+      }
+    },
+    {
+      id: "w5_strengths_limits", title: "Strengths & Limitations of Each Approach", tag: "Week 5 · AI Branches",
+      body: `Neither approach is universally superior. The lecture presents both sides so you can reason about when each is appropriate.\n\nThis analysis also motivates the hybrid (Neuro-Symbolic) approach that combines the best of both.`,
+      keypoints: [
+        "Symbolic Strengths: transparent reasoning, easy to debug, operates with little data, explainable decisions",
+        "Symbolic Limitations: brittle (fails outside defined rules), knowledge engineering bottleneck, poor uncertainty handling, doesn't scale well",
+        "Statistical Strengths: excels at perception tasks, handles uncertainty well, adapts to new patterns, scales with data/compute",
+        "Statistical Limitations: requires large datasets, black-box nature, inherits data biases, poor at symbolic reasoning"
+      ],
+      table: {
+        headers: ["", "Symbolic AI", "Statistical AI"],
+        rows: [
+          ["Strengths", "Transparent, easy to debug, works with little data, explainable", "Excellent at perception, handles uncertainty, adapts, scales"],
+          ["Limitations", "Brittle, knowledge engineering bottleneck, poor uncertainty, doesn't scale", "Needs large data, black-box, inherits biases, poor at symbolic reasoning"]
+        ]
+      }
+    },
+    {
+      id: "w5_neuro_symbolic", title: "Neuro-Symbolic AI: The Convergence", tag: "Week 5 · AI Branches",
+      body: `Neuro-Symbolic AI is a hybrid approach combining both paradigms. Three integration strategies: (1) Symbolic-to-Neural — knowledge guides learning; (2) Neural-to-Symbolic — extract rules from trained networks; (3) Joint Models — tight integration.\n\nSuccessful examples: AlphaFold 2 (deep learning + physical constraints), IBM Watson (symbolic + statistical), self-driving cars (vision = statistical + traffic rules = symbolic). The lecture concludes: the future lies in integration — not either/or but both/and.`,
+      keypoints: [
+        "Strategy 1 — Symbolic-to-Neural: symbolic knowledge guides the learning process",
+        "Strategy 2 — Neural-to-Symbolic: extract interpretable rules from trained neural networks",
+        "Strategy 3 — Joint Models: tight integration of both symbolic and neural layers",
+        "AlphaFold 2: deep learning + physical constraints — protein structure prediction",
+        "IBM Watson: symbolic + statistical methods combined",
+        "Self-driving cars: vision (statistical) + traffic rules (symbolic)",
+        "Applications: visual question answering, knowledge graph completion, explainable AI, scientific discovery",
+        "Conclusion: the future lies in integration — not either/or but both/and"
+      ]
+    },
+    {
+      id: "w5_summary", title: "Week 5 Summary", tag: "Week 5 · Key Takeaways",
+      body: `Everything from Week 5 condensed into the most testable points.`,
+      keypoints: [
+        "AI now pervasive — most powerful AI works invisibly through data-driven learning",
+        "Healthcare: medical imaging (tumours, fractures), drug discovery, personalised treatment, virtual assistants",
+        "Transport: autonomous vehicles (CV + sensor fusion), route optimisation, predictive maintenance; fuel savings 15-20%",
+        "Finance: fraud detection (real-time monitoring + anomaly patterns), algorithmic trading (microsecond), credit assessment, robo-advisors",
+        "Retail: recommendations (Amazon, Netflix, Spotify), demand forecasting, warehouse robotics",
+        "Tech/Daily Life: Siri/Alexa/Google Assistant, content moderation, translation (Google Translate, DeepL), smart home",
+        "Creative AI: ChatGPT (text), DALL-E/Midjourney (images), Sora (video), Suno (music) — all generative",
+        "Deepfakes: dual-use — entertainment vs misinformation/digital impersonation",
+        "Symbolic AI: top-down, deterministic, transparent, brittle, little data needed, explicit rules",
+        "Statistical AI: bottom-up, probabilistic, black-box, scales with data, pattern recognition",
+        "8-aspect comparison: Symbolic HIGH transparency/LOW data needs; Statistical LOW transparency/HIGH data needs",
+        "Neuro-Symbolic (hybrid): AlphaFold 2, IBM Watson, self-driving cars",
+        "The future: not either/or — both/and. Integration is the path forward"
+      ]
+    }
+  ]
+};
+
+courseData[6] = {
+  label: "Week 6 — Computer Vision",
+  topics: [
+    {
+      id: "w6_definition", title: "What is Computer Vision?", tag: "Week 6 · Definition",
+      body: `Computer Vision (CV) is a field of artificial intelligence that enables computers and systems to derive meaningful information from digital images, videos, and other visual inputs — and take actions or make recommendations based on that information.\n\nGoal: enable machines to 'see' and understand the visual world. Inspired by the human visual system. Core idea: from pixels to understanding.`,
+      keypoints: [
+        "CV enables computers to derive meaningful information from digital images, videos, and other visual inputs",
+        "Goal: enable machines to 'see' and understand the visual world",
+        "Inspired by: the human visual system",
+        "Core idea: from pixels to understanding",
+        "Applications: autonomous vehicles, medical imaging, surveillance, AR/VR"
+      ],
+      example: "The fundamental CV question: given a grid of pixel values (numbers for colour intensity), how do we arrive at a meaningful label like 'Cat'? That is the core problem CV solves."
+    },
+    {
+      id: "w6_history", title: "Historical Evolution of Computer Vision", tag: "Week 6 · History",
+      body: `CV has evolved through four distinct eras:\n\n1960s–1970s (Early Vision): edge detection, pattern recognition, block world analysis, first OCR systems.\n1980s–1990s (Geometric Vision): 3D reconstruction, stereo vision, camera calibration, motion analysis.\n2000s–2010s (ML Era): SIFT features, Viola-Jones face detection, HOG + SVM, early CNN research.\n2012–Present (Deep Learning Revolution): AlexNet (2012), CNN architectures, GANs, Transformers, self-supervised learning.`,
+      keypoints: [
+        "1960s–1970s — Early Vision: edge detection, pattern recognition, block world analysis, first OCR",
+        "1980s–1990s — Geometric Vision: 3D reconstruction, stereo vision, camera calibration, motion analysis",
+        "2000s–2010s — ML Era: SIFT features, Viola-Jones face detection, HOG + SVM, early CNN research",
+        "2012–Present — Deep Learning Revolution: AlexNet (2012), CNN architectures, GANs, Transformers, self-supervised learning",
+        "AlexNet (2012) is the key turning point — it dramatically outperformed all previous CV methods"
+      ],
+      table: {
+        headers: ["Era", "Period", "Key Developments"],
+        rows: [
+          ["Early Vision", "1960s–1970s", "Edge detection, pattern recognition, block world, first OCR"],
+          ["Geometric Vision", "1980s–1990s", "3D reconstruction, stereo vision, camera calibration, motion analysis"],
+          ["Machine Learning Era", "2000s–2010s", "SIFT, Viola-Jones face detection, HOG + SVM, early CNNs"],
+          ["Deep Learning Revolution", "2012–Present", "AlexNet, CNN architectures, GANs, Transformers, self-supervised learning"]
+        ]
+      }
+    },
+    {
+      id: "w6_pipeline", title: "The Computer Vision Pipeline", tag: "Week 6 · Fundamentals",
+      body: `The CV pipeline has three stages: Input Image → Pre-processing → Feature Extraction.\n\nPre-processing steps: noise reduction (Gaussian blur, median filtering), colour space conversion (RGB to HSV or Lab), contrast enhancement (histogram equalisation), geometric transformations (rotation, scaling).\n\nFeature Extraction: Traditional methods (SIFT, SURF, HOG, ORB) or Deep Learning (CNNs learn features automatically from data). Features can be local (corners, blobs, edges) or global (colour histograms, texture).`,
+      keypoints: [
+        "Pipeline: Input Image → Pre-processing → Feature Extraction",
+        "Pre-processing: noise reduction (Gaussian blur, median filtering)",
+        "Pre-processing: colour space conversion (RGB to HSV, Lab)",
+        "Pre-processing: contrast enhancement (histogram equalisation)",
+        "Traditional features: SIFT, SURF, HOG, ORB — hand-engineered descriptors",
+        "Deep Learning features: learned automatically by CNNs from training data",
+        "Local features: corners, blobs, edges | Global features: colour histograms, texture"
+      ]
+    },
+    {
+      id: "w6_tasks", title: "Core Computer Vision Tasks", tag: "Week 6 · Tasks",
+      body: `The lecture organises CV tasks into three groups:\n\n1. Classification & Detection: Image Classification (categorise entire image), Object Detection (localise + classify objects), Face Detection, Pose Estimation.\n\n2. 3D Vision: Stereo Vision (depth from multiple views), 3D Reconstruction (2D to 3D), Point Cloud Processing (LiDAR data), SLAM (Simultaneous Localisation and Mapping).\n\n3. Image Generation & Manipulation: Image Synthesis, Style Transfer, Super-resolution, Image Inpainting.`,
+      keypoints: [
+        "Image Classification: categorise an entire image into a class label",
+        "Object Detection: localise AND classify objects within an image (bounding boxes + labels)",
+        "Face Detection: find and locate faces in images",
+        "Stereo Vision: estimate depth from multiple viewpoints",
+        "3D Reconstruction: build a 3D model from 2D images",
+        "SLAM: Simultaneous Localisation and Mapping — core to robotics navigation",
+        "Image Synthesis: generate new realistic images (GANs, Diffusion Models)",
+        "Style Transfer: apply artistic styles to images",
+        "Super-resolution: enhance image resolution",
+        "Image Inpainting: fill in missing or damaged parts of an image"
+      ],
+      table: {
+        headers: ["Task Category", "Specific Tasks"],
+        rows: [
+          ["Classification & Detection", "Image Classification, Object Detection, Face Detection, Pose Estimation"],
+          ["3D Vision", "Stereo Vision, 3D Reconstruction, Point Cloud Processing (LiDAR), SLAM"],
+          ["Generation & Manipulation", "Image Synthesis, Style Transfer, Super-resolution, Image Inpainting"]
+        ]
+      }
+    },
+    {
+      id: "w6_architectures", title: "Modern CV Architectures", tag: "Week 6 · Architectures",
+      body: `Two main families of modern CV architectures are covered:\n\nTransformer-based Vision: Vision Transformer (ViT) — treats images as sequences of patches with excellent scalability; Swin Transformer — hierarchical design with shifted windows for efficient computation; DETR — end-to-end object detection with transformers.\n\nGenerative Models: GANs (Generator vs Discriminator — StyleGAN, CycleGAN); Diffusion Models (state-of-the-art generation — DALL-E, Stable Diffusion, text-to-image); VAEs (Variational Autoencoders — probabilistic latent space for generation and compression).`,
+      keypoints: [
+        "Vision Transformer (ViT): treats images as sequences of patches; excellent scalability",
+        "Swin Transformer: hierarchical design, shifted windows, efficient computation",
+        "DETR: object detection using transformers; end-to-end training",
+        "GANs: Generator vs Discriminator — StyleGAN, CycleGAN for image synthesis",
+        "Diffusion Models: state-of-the-art image generation — DALL-E, Stable Diffusion, text-to-image",
+        "VAEs: probabilistic latent space for image generation and compression"
+      ]
+    },
+    {
+      id: "w6_applications", title: "Major Applications of Computer Vision", tag: "Week 6 · Applications",
+      body: `The lecture organises CV applications across Autonomous Systems, Healthcare, and Security & Surveillance.\n\nAutonomous Systems: Self-driving Cars (object detection, lane detection, traffic sign recognition), Drones & Robotics (navigation, obstacle avoidance, target tracking).\n\nHealthcare: Medical Imaging (tumour detection, organ segmentation, disease diagnosis), Surgery Assistance (augmented reality, instrument tracking, surgical planning).\n\nSecurity: Face Recognition (authentication, person identification), Activity Monitoring (anomaly detection, crowd analysis), Biometrics (fingerprint recognition).`,
+      keypoints: [
+        "Self-driving Cars: object detection, lane detection, traffic sign recognition",
+        "Drones & Robotics: navigation, obstacle avoidance, target tracking",
+        "Medical Imaging: tumour detection, organ segmentation, disease diagnosis",
+        "Surgery Assistance: AR overlays, instrument tracking, surgical planning",
+        "Face Recognition: authentication and person identification",
+        "Activity Monitoring: anomaly detection, crowd analysis",
+        "Biometrics: fingerprint recognition"
+      ]
+    },
+    {
+      id: "w6_libraries", title: "Computer Vision Libraries & Tools", tag: "Week 6 · Tools",
+      body: `Key CV tools from the lecture:\n\nOpenCV: comprehensive, fast, mature; best for real-time applications and prototyping; supports image processing, object detection, camera calibration; languages: C++, Python, Java.\n\nTensorFlow/Keras: production-ready, scalable; best for large-scale deployment; pretrained models: EfficientDet, MobileNet.\n\nPyTorch: research-friendly, dynamic computation graph.\n\nSpecialised: MMDetection (object detection toolbox), Detectron2 (Facebook's detection platform).`,
+      keypoints: [
+        "OpenCV: comprehensive, fast, mature — best for real-time apps and prototyping; C++, Python, Java",
+        "TensorFlow/Keras: production-ready, scalable — best for large-scale deployment; EfficientDet, MobileNet pretrained models",
+        "PyTorch: research-friendly, dynamic — best for academic research and experimentation",
+        "MMDetection: specialised object detection toolbox",
+        "Detectron2: Facebook's detection and segmentation platform"
+      ],
+      table: {
+        headers: ["Library", "Strengths", "Best For"],
+        rows: [
+          ["OpenCV", "Comprehensive, fast, mature", "Real-time applications, prototyping"],
+          ["TensorFlow/Keras", "Production-ready, scalable", "Large-scale deployment"],
+          ["PyTorch", "Research-friendly, dynamic", "Academic research, experimentation"],
+          ["MMDetection / Detectron2", "Specialised detection tools", "Object detection tasks"]
+        ]
+      }
+    },
+    {
+      id: "w6_datasets", title: "Datasets in Computer Vision", tag: "Week 6 · Data",
+      body: `The lecture states: 'In computer vision, data is as important as algorithms.'\n\nClassic datasets: MNIST (1998, handwritten digits), CIFAR-10/100 (small object images), ImageNet (2009, 14M images, 20K categories — enabled the deep learning breakthrough), PASCAL VOC (object detection benchmark), COCO (Common Objects in Context).\n\nModern large-scale: JFT-300M (Google, 300M images), LAION-5B (5B image-text pairs), OpenImages (9M images), YFCC100M (100M multimedia items).`,
+      keypoints: [
+        "Key principle from lecture: 'In computer vision, data is as important as algorithms'",
+        "MNIST (1998): handwritten digits — the classic beginner benchmark",
+        "CIFAR-10/100: small object image classification benchmark",
+        "ImageNet (2009): 14 million images, 20,000 categories — enabled the deep learning breakthrough",
+        "PASCAL VOC: object detection benchmark",
+        "COCO: Common Objects in Context — detection and segmentation",
+        "JFT-300M: Google's 300 million image dataset",
+        "LAION-5B: 5 billion image-text pairs — used to train generative models like Stable Diffusion"
+      ]
+    },
+    {
+      id: "w6_challenges", title: "Challenges in Computer Vision", tag: "Week 6 · Challenges",
+      body: `The lecture organises CV challenges across three categories:\n\nTechnical: variability in visual data (lighting, viewpoint changes, occlusions, scale variations), real-time processing (computational complexity, memory, power consumption), 3D understanding (depth estimation, shape recovery, scene geometry).\n\nAlgorithmic: generalization (domain adaptation, few-shot learning, out-of-distribution detection), interpretability (black-box models, need for XAI), robustness (adversarial attacks, model vulnerability).\n\nEthical & Social: privacy concerns (surveillance), bias in recognition systems.`,
+      keypoints: [
+        "Technical — Variability: lighting conditions, viewpoint changes, occlusions, scale variations",
+        "Technical — Real-time Processing: computational complexity, memory constraints, power consumption",
+        "Technical — 3D Understanding: depth estimation, shape recovery, scene geometry",
+        "Algorithmic — Generalization: domain adaptation, few-shot learning, out-of-distribution detection",
+        "Algorithmic — Interpretability: black-box models require Explainable AI (XAI)",
+        "Algorithmic — Robustness: adversarial attacks and model vulnerability",
+        "Ethical: privacy concerns (surveillance misuse), bias in recognition systems"
+      ]
+    },
+    {
+      id: "w6_future", title: "Future Trends in Computer Vision", tag: "Week 6 · Future",
+      body: `The lecture identifies two dimensions of future development:\n\nTechnological Advances: Foundation Models (large vision-language models, zero-shot capabilities), Neuromorphic Computing (brain-inspired hardware, event-based cameras, low-power vision), 3D CV (Neural Radiance Fields/NeRF, 3D generative models, digital twins).\n\nApplication Frontiers: Embodied AI (vision for robotics, physical world understanding), Medical Breakthroughs (early disease detection, surgical robotics, personalised medicine), Sustainable Vision (environmental monitoring, wildlife conservation, climate change analysis).`,
+      keypoints: [
+        "Foundation Models: large vision-language models with zero-shot capabilities and general-purpose vision",
+        "Neuromorphic Computing: brain-inspired hardware, event-based cameras, low-power vision processing",
+        "3D CV: Neural Radiance Fields (NeRF), 3D generative models, digital twins",
+        "Embodied AI: vision systems enabling robots to interact with the physical world",
+        "Medical CV future: early disease detection, surgical robotics, personalised medicine",
+        "Sustainable Vision: environmental monitoring, wildlife conservation, climate change analysis"
+      ]
+    },
+    {
+      id: "w6_summary", title: "Week 6 Summary", tag: "Week 6 · Key Takeaways",
+      body: `Everything from Week 6 condensed into the most testable points.`,
+      keypoints: [
+        "CV Definition: AI field enabling computers to derive meaningful info from images/videos and act on it",
+        "Core idea: from pixels to understanding — inspired by the human visual system",
+        "History: Early Vision (1960s) → Geometric Vision (1980s) → ML Era (2000s) → Deep Learning (2012–)",
+        "AlexNet (2012): the breakthrough that launched the deep learning revolution in CV",
+        "CV Pipeline: Input Image → Pre-processing → Feature Extraction",
+        "Pre-processing: noise reduction (Gaussian blur), colour space conversion, contrast enhancement",
+        "Features: Traditional (SIFT, SURF, HOG, ORB) vs Deep Learning (CNNs learn features automatically)",
+        "Core tasks: Image Classification, Object Detection, Face Detection, SLAM, 3D Reconstruction, Image Synthesis",
+        "Modern architectures: ViT, Swin Transformer, DETR (transformer-based); GANs, Diffusion Models, VAEs (generative)",
+        "Key datasets: MNIST, CIFAR, ImageNet (14M images, 20K categories), COCO — data is as important as algorithms",
+        "Applications: self-driving cars (object/lane/sign detection), medical imaging (tumour detection), face recognition",
+        "Libraries: OpenCV (real-time/prototyping), TensorFlow/Keras (production), PyTorch (research)",
+        "Challenges: visual variability, real-time constraints, interpretability (XAI), adversarial robustness, privacy/bias",
+        "Future: Foundation Models, NeRF/3D CV, Neuromorphic Computing, Embodied AI, Sustainable Vision"
+      ]
+    }
+  ]
+};
+
+
+allQuestions[5] = [
+  { category:"Applications", q:"According to the lecture, how do most powerful AI applications work in the real world?", options:["They require constant human supervision","They work visibly and explicitly, showing all decision steps","They work invisibly, optimising systems through data-driven learning","They only function in controlled laboratory environments"], correct:2, explanation:"<strong>The lecture states that most powerful AI applications work invisibly, optimising systems and solving complex problems through data-driven learning.</strong> This is the key insight of Week 5 — AI's impact is often not seen directly." },
+  { category:"Healthcare AI", q:"Which of the following is listed as an application of AI in Medical Imaging?", options:["Automated invoice processing","Tumour detection from X-rays, MRIs, and CT scans","Route optimisation for delivery trucks","High-frequency trading"], correct:1, explanation:"<strong>AI in Medical Imaging includes tumour detection, fracture identification, and disease diagnostics from X-rays, MRIs, and CT scans.</strong> The other options belong to Finance and Transportation." },
+  { category:"Healthcare AI", q:"What role does AI play in Drug Discovery according to the lecture?", options:["It replaces all human pharmacists","It accelerates compound identification, predicts drug effectiveness, and optimises clinical trials","It performs physical surgery autonomously","It manages hospital billing systems"], correct:1, explanation:"<strong>In Drug Discovery, AI accelerates compound identification, predicts drug effectiveness, and optimises clinical trials.</strong> This dramatically speeds up a process that traditionally takes years." },
+  { category:"Transport AI", q:"What is the stated fuel savings impact of AI-optimised routing in Transportation?", options:["1-5%","5-10%","15-20%","30-40%"], correct:2, explanation:"<strong>The lecture states that AI-optimised routing achieves fuel savings of up to 15-20%.</strong> Companies like UPS and Uber use real-time efficiency algorithms for route optimisation." },
+  { category:"Transport AI", q:"Which technology combination powers Autonomous Vehicles according to the lecture?", options:["Natural Language Processing and speech recognition","Computer vision and sensor fusion","Reinforcement learning and robotics only","GPS and map databases only"], correct:1, explanation:"<strong>Autonomous vehicles use computer vision and sensor fusion.</strong> Examples given are Waymo and Tesla. The combination of visual input (cameras) and sensor data (lidar, radar) allows the vehicle to understand its environment." },
+  { category:"Finance AI", q:"What does Algorithmic Trading in the lecture refer to?", options:["A human analyst using computer-generated charts","High-frequency trading using market prediction models with microsecond execution","A robo-advisor recommending long-term savings","An AI that approves loan applications"], correct:1, explanation:"<strong>Algorithmic Trading involves high-frequency trading, market prediction models, and microsecond execution.</strong> This is distinct from Robo-Advisors (portfolio management) and Credit Assessment (loan processing)." },
+  { category:"Creative AI", q:"Which tool is listed in the lecture for AI video generation?", options:["ChatGPT","DALL-E","Sora","Suno"], correct:2, explanation:"<strong>Sora is listed as the video generation tool.</strong> ChatGPT is for text, DALL-E and Midjourney are for images, and Suno is for music composition. All are examples of Generative AI." },
+  { category:"Creative AI", q:"How does the lecture characterise Deepfake Technology?", options:["As purely beneficial for entertainment with no risks","As exclusively malicious with no legitimate uses","As dual-use — entertainment (movies) but also a risk for malicious misinformation and digital impersonation","As a deprecated technology replaced by GANs"], correct:2, explanation:"<strong>The lecture frames Deepfake Technology as dual-use:</strong> it has legitimate entertainment uses (movies) but also carries serious risks of malicious misinformation and digital impersonation. This connects to the broader theme of responsible AI development." },
+  { category:"Symbolic AI", q:"What is the core philosophy of Symbolic AI?", options:["Intelligence through pattern recognition in large datasets","Intelligence through symbolic manipulation using explicit rules and logical structures","Intelligence through reinforcement from environmental feedback","Intelligence through unsupervised clustering of data"], correct:1, explanation:"<strong>The core philosophy of Symbolic AI is intelligence through symbolic manipulation.</strong> Knowledge is represented as explicit rules and logical structures, and the system reasons using logical deduction." },
+  { category:"Symbolic AI", q:"Which of the following is a representative system of Symbolic AI?", options:["Deep Neural Network","Bayesian Model","Expert System","Reinforcement Learning agent"], correct:2, explanation:"<strong>Expert Systems are representative of Symbolic AI</strong> — they encode human expert knowledge as explicit if-then rules. The other options (neural networks, Bayesian models, RL) belong to Statistical AI." },
+  { category:"Statistical AI", q:"What best describes Statistical AI's approach to knowledge?", options:["Knowledge is explicitly programmed by human experts as rules","Knowledge is stored in a relational database of facts","Knowledge is learned as statistical models from training data","Knowledge is fixed at design time and never changes"], correct:2, explanation:"<strong>Statistical AI builds knowledge as statistical models learned from data.</strong> Instead of being told rules, the system discovers patterns bottom-up from training examples." },
+  { category:"Comparison", q:"According to the lecture's comparison table, which approach has HIGH transparency?", options:["Statistical AI","Neuro-Symbolic AI","Symbolic AI","Deep Learning"], correct:2, explanation:"<strong>Symbolic AI has HIGH transparency</strong> — its reasoning is human-readable and can be traced step by step. Statistical AI has LOW transparency (often described as a 'black box')." },
+  { category:"Comparison", q:"Which approach handles uncertainty EXCELLENTLY according to the lecture's comparison?", options:["Symbolic AI","Expert Systems","Logic Programming","Statistical AI"], correct:3, explanation:"<strong>Statistical AI handles uncertainty excellently</strong>, producing probabilistic outputs (confidence scores). Symbolic AI is rated POOR at uncertainty handling — it produces deterministic answers and fails when situations fall outside its rules." },
+  { category:"Neuro-Symbolic", q:"Which is listed as a successful example of a Neuro-Symbolic (hybrid) AI system?", options:["ELIZA","Deep Blue","AlphaFold 2","GPT-3"], correct:2, explanation:"<strong>AlphaFold 2 is listed as a successful Neuro-Symbolic hybrid</strong> — it combines deep learning with physical constraints (symbolic knowledge about protein chemistry). IBM Watson is also mentioned as combining symbolic and statistical methods." },
+  { category:"Practical Guidelines", q:"According to the lecture, when should you use Symbolic AI?", options:["When you have millions of labelled images","When pattern recognition of visual data is the primary task","When the domain has clear rules/laws and high-stakes decisions require explanation","When large datasets are available and rules are unknown"], correct:2, explanation:"<strong>Use Symbolic AI when the domain has clear rules/laws, high-stakes decisions require explanation, there is limited data, and deterministic behaviour is needed.</strong> The lecture gives legal reasoning and configuration systems as examples." }
+];
+
+allQuestions[6] = [
+  { category:"Definition", q:"According to the lecture, what is Computer Vision?", options:["A technique for speeding up video rendering on GPUs","An AI field enabling computers to derive meaningful information from digital images/videos and act on it","A branch of statistics focused on image sampling","A method for compressing large image files"], correct:1, explanation:"<strong>Computer Vision is a field of AI that enables computers and systems to derive meaningful information from digital images, videos, and other visual inputs — and take actions or make recommendations based on that information.</strong>" },
+  { category:"Definition", q:"What is described as the 'core idea' of Computer Vision in the lecture?", options:["From data to decisions","From networks to neurons","From pixels to understanding","From cameras to clouds"], correct:2, explanation:"<strong>'From pixels to understanding'</strong> is the core idea stated in the lecture. CV takes raw pixel values (numbers) and produces meaningful interpretations — like identifying a 'cat' in an image." },
+  { category:"History", q:"Which era of CV history does AlexNet (2012) represent?", options:["Early Vision","Geometric Vision","Machine Learning Era","Deep Learning Revolution"], correct:3, explanation:"<strong>AlexNet (2012) belongs to the Deep Learning Revolution era (2012–Present).</strong> It dramatically outperformed all previous methods on image recognition tasks, marking the start of the current deep learning era in CV." },
+  { category:"History", q:"What were the main developments in the Geometric Vision era (1980s–1990s)?", options:["Edge detection, pattern recognition, and OCR systems","3D reconstruction, stereo vision, camera calibration, and motion analysis","GANs, Transformers, and self-supervised learning","SIFT features, Viola-Jones face detection, and HOG + SVM"], correct:1, explanation:"<strong>The Geometric Vision era (1980s–1990s) focused on 3D reconstruction, stereo vision, camera calibration, and motion analysis.</strong> Edge detection and OCR belong to Early Vision; SIFT and HOG to the ML Era; GANs to the Deep Learning era." },
+  { category:"Pipeline", q:"What are the three stages of the Computer Vision pipeline as described in the lecture?", options:["Capture, Store, Display","Input Image, Pre-processing, Feature Extraction","Training, Validation, Deployment","Encode, Decode, Classify"], correct:1, explanation:"<strong>The CV pipeline has three stages: Input Image → Pre-processing → Feature Extraction.</strong> Pre-processing includes noise reduction, colour space conversion, and contrast enhancement. Feature extraction uses traditional methods (SIFT, HOG) or deep learning." },
+  { category:"Pipeline", q:"Which pre-processing technique is used for noise reduction in the CV pipeline?", options:["Histogram equalisation","Gaussian blur / median filtering","SIFT feature extraction","RGB to HSV conversion"], correct:1, explanation:"<strong>Gaussian blur and median filtering are used for noise reduction.</strong> Histogram equalisation is for contrast enhancement. RGB to HSV is colour space conversion. SIFT is a feature extraction method, not a pre-processing step." },
+  { category:"Tasks", q:"What is the difference between Image Classification and Object Detection?", options:["There is no difference — they are the same task","Classification categorises the whole image; Detection localises AND classifies objects within it","Detection only classifies; Classification also draws bounding boxes","Classification is for video; Detection is only for still images"], correct:1, explanation:"<strong>Image Classification assigns a single label to the whole image. Object Detection both localises (bounding box) AND classifies objects within the image.</strong> Detection is therefore a harder, more detailed task." },
+  { category:"Tasks", q:"What does SLAM stand for and where is it primarily used?", options:["Statistical Learning and Mapping — used in finance","Simultaneous Localisation and Mapping — used in robotics navigation","Supervised Learning Algorithm Module — used in image classification","Structured Light and Mapping — used in medical imaging"], correct:1, explanation:"<strong>SLAM = Simultaneous Localisation and Mapping.</strong> It is a core CV task in robotics, enabling a robot to build a map of its environment while simultaneously tracking its own position within that map." },
+  { category:"Architectures", q:"What is distinctive about Vision Transformers (ViT) compared to earlier CNN-based methods?", options:["They use only colour histogram features","They treat images as sequences of patches — applying the Transformer architecture to vision","They are exclusively used for video, not still images","They require no training data"], correct:1, explanation:"<strong>Vision Transformers (ViT) treat images as sequences of patches</strong>, applying the Transformer architecture (originally developed for NLP) to vision. They offer excellent scalability and strong performance on large datasets." },
+  { category:"Architectures", q:"Which type of architecture is used in DALL-E and Stable Diffusion for text-to-image generation?", options:["Convolutional Neural Network (CNN)","Vision Transformer (ViT)","Diffusion Model","Variational Autoencoder (VAE)"], correct:2, explanation:"<strong>Diffusion Models are the architecture behind DALL-E and Stable Diffusion</strong>, which achieve state-of-the-art text-to-image generation. GANs were an earlier approach; ViT is for visual understanding, not generation." },
+  { category:"Datasets", q:"According to the lecture, what principle applies to datasets in computer vision?", options:["Algorithms matter far more than data","The size of the model is more important than data quality","In computer vision, data is as important as algorithms","Datasets are only useful for benchmark comparison, not training"], correct:2, explanation:"<strong>The lecture states: 'In computer vision, data is as important as algorithms.'</strong> This reflects the data-hungry nature of modern deep learning CV systems." },
+  { category:"Datasets", q:"ImageNet, introduced in 2009, is significant because:", options:["It was the first dataset ever created for CV","It contains 14 million images across 20,000 categories and enabled the deep learning breakthrough","It is exclusively used for medical image classification","It contains only 1,000 images but of very high quality"], correct:1, explanation:"<strong>ImageNet (2009) contains 14 million images across 20,000 categories.</strong> It enabled the deep learning breakthrough — AlexNet's victory in the 2012 ImageNet competition demonstrated the power of deep CNNs and launched the current era." },
+  { category:"Libraries", q:"Which CV library is described as best for real-time applications and prototyping?", options:["TensorFlow/Keras","PyTorch","MMDetection","OpenCV"], correct:3, explanation:"<strong>OpenCV is described as best for real-time applications and prototyping</strong> — it is comprehensive, fast, and mature. TensorFlow/Keras is for production deployment; PyTorch is research-friendly; MMDetection is a specialised detection toolbox." },
+  { category:"Challenges", q:"What is an 'adversarial attack' in the context of CV challenges?", options:["A legal challenge to AI patents","A physical attack on camera hardware","A carefully crafted input that fools a CV model while appearing normal to humans","A method to increase model training speed"], correct:2, explanation:"<strong>Adversarial attacks are carefully crafted inputs that fool a CV model</strong> — small, often imperceptible changes to an image can cause a deep learning model to misclassify it entirely. This is a key robustness challenge." },
+  { category:"Future", q:"What is a Neural Radiance Field (NeRF) as described in the lecture's Future Trends?", options:["A type of neural network for text processing","A 3D CV technique for representing scenes as continuous volumetric functions — enabling novel view synthesis","A method for reducing computational costs in CNNs","A dataset format for storing annotated images"], correct:1, explanation:"<strong>NeRF (Neural Radiance Field) is a 3D CV technique</strong> listed under future trends. It represents scenes as learned volumetric functions, enabling synthesis of novel viewpoints from a small number of input images — a key advance in 3D CV." }
+];
+
+
+allTheoryQuestions[5] = [
+  { category:"AI Applications", q:"Choose THREE industries covered in the lecture and for each, describe two specific ways AI is applied. Include the names of any real-world examples or companies mentioned.", answer:"Any three of the following:\n\nHealthcare: (1) Medical Imaging — AI analyses X-rays, MRIs, CT scans for tumour detection, fracture identification, and disease diagnostics. (2) Drug Discovery — AI accelerates compound identification, predicts drug effectiveness, optimises clinical trials.\n\nTransportation: (1) Autonomous Vehicles — computer vision and sensor fusion (Waymo, Tesla) for safe navigation. (2) Route Optimisation — real-time efficiency algorithms (UPS, Uber) achieving fuel savings of 15-20%.\n\nFinance: (1) Fraud Detection — real-time transaction monitoring and pattern recognition for anomalies, enabling instantaneous fraud blocking. (2) Algorithmic Trading — high-frequency trading with market prediction models and microsecond execution.\n\nRetail: (1) Recommendations — personalisation engines for Amazon, Netflix, Spotify. (2) Operations — demand forecasting, warehouse robotics, inventory optimisation.\n\nCreative/Media: (1) Generative AI — ChatGPT (text), DALL-E/Midjourney (images), Sora (video), Suno (music). (2) Media Production — automated video editing, audio enhancement, film restoration." },
+  { category:"Symbolic vs Statistical AI", q:"Compare and contrast Symbolic AI and Statistical AI. In your answer, address: their core philosophies, their key characteristics, and at least three aspects from the lecture's comparison table.", answer:"Symbolic AI is based on the philosophy that intelligence arises from symbolic manipulation. Knowledge = explicit rules and logical structures. It is top-down (humans engineer the rules), deterministic, and produces human-readable reasoning. Representative systems: Expert Systems, Prolog, Semantic Networks, Rule Engines.\n\nStatistical AI is based on the philosophy that intelligence arises from pattern recognition. Knowledge = statistical models learned from data. It is bottom-up (learns from examples), probabilistic, and often a black box. Representative techniques: Deep Learning, Neural Networks, Bayesian Models, Reinforcement Learning.\n\nComparison table aspects (any three):\n- Transparency: Symbolic = HIGH | Statistical = LOW\n- Data Needs: Symbolic = minimal | Statistical = substantial\n- Uncertainty Handling: Symbolic = poor | Statistical = excellent\n- Knowledge Source: Symbolic = human experts | Statistical = data/experience\n- Generalization: Symbolic = within rules only | Statistical = beyond training data\n- Robustness: Symbolic = fragile | Statistical = graceful degradation" },
+  { category:"Neuro-Symbolic AI", q:"What is Neuro-Symbolic AI? Describe its three integration strategies and give two examples of successful hybrid systems from the lecture.", answer:"Neuro-Symbolic AI is a hybrid approach that combines the strengths of both Symbolic AI (transparency, logical reasoning, works with little data) and Statistical AI (perception, handles uncertainty, scales with data) to overcome the limitations of each paradigm alone.\n\nThree integration strategies:\n1. Symbolic-to-Neural: symbolic knowledge guides the learning process — domain rules constrain what the neural network learns.\n2. Neural-to-Symbolic: extract interpretable rules from trained neural networks — making statistical AI more explainable.\n3. Joint Models: tight integration of symbolic and neural components operating together.\n\nTwo successful hybrid examples from the lecture:\n1. AlphaFold 2: combines deep learning with physical constraints (symbolic knowledge about protein chemistry) to predict protein structures.\n2. IBM Watson: combines symbolic reasoning methods with statistical approaches.\n(Also: self-driving cars — vision/perception = statistical; traffic rules/decision logic = symbolic.)" },
+  { category:"Practical Guidelines", q:"When should an engineer choose Symbolic AI, and when should they choose Statistical AI? Use the practical guidelines from the lecture.", answer:"Use Symbolic AI when:\n- The domain has clear, well-defined rules or laws\n- High-stakes decisions require explanation and justification (e.g. medical, legal)\n- There is limited or no training data available\n- Deterministic, predictable behaviour is required\nExample use cases: legal reasoning systems, configuration management systems.\n\nUse Statistical AI when:\n- The task involves pattern recognition (computer vision, speech recognition)\n- Large labelled datasets are available\n- The system must handle uncertainty and noise\n- The rules governing the domain are unknown or too complex to enumerate\nExample use cases: image classification, recommendation systems.\n\nConsider Hybrid (Neuro-Symbolic) when both perception AND rule-following are required — e.g. autonomous vehicles need computer vision (statistical) for perception AND traffic rule compliance (symbolic) for decision-making." }
+];
+
+allTheoryQuestions[6] = [
+  { category:"Definition & History", q:"Define Computer Vision and trace its historical evolution from the 1960s to the present day. Identify the key turning point and explain why it was significant.", answer:"Computer Vision (CV) is a field of AI that enables computers and systems to derive meaningful information from digital images, videos, and other visual inputs — and take actions or make recommendations based on that information. Core idea: from pixels to understanding.\n\nHistorical evolution:\n1960s–1970s (Early Vision): edge detection, pattern recognition, block world analysis, first OCR systems.\n1980s–1990s (Geometric Vision): 3D reconstruction, stereo vision, camera calibration, motion analysis.\n2000s–2010s (Machine Learning Era): SIFT features, Viola-Jones face detection, HOG + SVM, early CNN research.\n2012–Present (Deep Learning Revolution): AlexNet, CNN architectures, GANs, Transformers, self-supervised learning.\n\nKey turning point: AlexNet (2012). It won the ImageNet competition by dramatically outperforming all previous methods using deep convolutional neural networks — demonstrating that deep learning was the correct approach for visual recognition. This launched the current era of CV." },
+  { category:"CV Tasks & Pipeline", q:"Describe the three main categories of Computer Vision tasks from the lecture. Then explain the three stages of the CV pipeline.", answer:"Three categories of CV tasks:\n\n1. Classification & Detection: Image Classification (assign a label to the whole image), Object Detection (localise + classify objects — bounding boxes), Face Detection, Pose Estimation.\n\n2. 3D Vision: Stereo Vision (depth from multiple views), 3D Reconstruction (2D to 3D), Point Cloud Processing (LiDAR data), SLAM (Simultaneous Localisation and Mapping — for robotics).\n\n3. Image Generation & Manipulation: Image Synthesis (generate new images), Style Transfer, Super-resolution (enhance resolution), Image Inpainting (fill missing parts).\n\nCV Pipeline (three stages):\n1. Input Image: raw pixel data (RGB, depth).\n2. Pre-processing: noise reduction (Gaussian blur, median filter), colour space conversion (RGB to HSV/Lab), contrast enhancement (histogram equalisation), geometric transformations.\n3. Feature Extraction: Traditional — SIFT, SURF, HOG, ORB (hand-engineered). Deep Learning — CNNs learn features automatically from data." },
+  { category:"Architectures & Datasets", q:"Describe two modern CV architecture families from the lecture. Then explain why datasets are described as critically important in CV, naming at least three datasets.", answer:"Two modern CV architecture families:\n\n1. Transformer-based Vision: Vision Transformer (ViT) — treats images as sequences of patches, applies the Transformer architecture, excellent scalability. Swin Transformer — hierarchical design with shifted windows for efficient computation. DETR — end-to-end object detection with transformers.\n\n2. Generative Models: GANs (Generator vs Discriminator — StyleGAN, CycleGAN for image synthesis). Diffusion Models — state-of-the-art generation used in DALL-E and Stable Diffusion for text-to-image. VAEs (Variational Autoencoders) — probabilistic latent space for generation and compression.\n\nWhy datasets are critical: The lecture states 'In computer vision, data is as important as algorithms.' Deep learning CV models learn purely from examples — without large, diverse, well-labelled datasets, training is impossible.\n\nThree datasets:\n1. ImageNet (2009): 14 million images, 20,000 categories — enabled the deep learning breakthrough.\n2. COCO (Common Objects in Context): widely used for detection and segmentation benchmarking.\n3. MNIST (1998): handwritten digits — the classic beginner benchmark." },
+  { category:"Challenges & Future", q:"What are the main challenges facing Computer Vision? Also describe two future trends from the lecture.", answer:"CV challenges organised by category:\n\nTechnical challenges: Variability in visual data — lighting conditions, viewpoint changes, occlusions, scale variations make recognition difficult. Real-time processing — computational complexity and memory/power constraints limit deployment on edge devices. 3D Understanding — depth estimation and scene geometry remain hard problems.\n\nAlgorithmic challenges: Generalization — models trained on one domain often fail on another (domain shift); few-shot learning and out-of-distribution detection are active research areas. Interpretability — deep CV models are black boxes; Explainable AI (XAI) tools are needed. Robustness — adversarial attacks can fool CV models with imperceptible perturbations.\n\nEthical challenges: Privacy (surveillance misuse) and bias in recognition systems (e.g. face recognition accuracy gaps across demographic groups).\n\nTwo future trends:\n1. Foundation Models — large vision-language models with zero-shot capabilities and general-purpose vision (models that can handle any visual task without task-specific training).\n2. 3D Computer Vision — Neural Radiance Fields (NeRF) for novel view synthesis, 3D generative models, and digital twins for virtual environments." }
+];
+
+
+allFlashcards[5] = [
+  { q:"Key insight: how do most powerful AI applications work?", a:"Most powerful AI applications work <strong>invisibly</strong>, optimising systems and solving complex problems through <strong>data-driven learning</strong>. You don't see them — they run in the background." },
+  { q:"4 areas of AI in Healthcare", a:"1. <strong>Medical Imaging</strong> — X-rays, MRIs, CT scans (tumour detection, fractures)<br>2. <strong>Drug Discovery</strong> — compound identification, drug effectiveness prediction<br>3. <strong>Personalised Treatment</strong> — genetic data, lifestyle patterns, risk prediction<br>4. <strong>Virtual Assistants</strong> — 24/7 monitoring, medication reminders" },
+  { q:"AI in Transport: 4 applications + impact", a:"1. <strong>Autonomous Vehicles</strong> — CV + sensor fusion (Waymo, Tesla)<br>2. <strong>Route Optimisation</strong> — real-time algorithms (UPS, Uber)<br>3. <strong>Predictive Maintenance</strong> — sensor data (airlines, railways)<br>4. <strong>Traffic Management</strong> — smart city infrastructure<br><br>Impact: <strong>15-20% fuel savings</strong> with optimised routing" },
+  { q:"4 areas of AI in Finance", a:"1. <strong>Fraud Detection</strong> — real-time monitoring, anomaly patterns, instant blocking<br>2. <strong>Algorithmic Trading</strong> — high-frequency, microsecond execution<br>3. <strong>Credit Assessment</strong> — alternative data, risk scoring, automated loans<br>4. <strong>Robo-Advisors</strong> — automated portfolio management" },
+  { q:"Generative AI tools from the lecture", a:"<strong>ChatGPT</strong> — text generation<br><strong>DALL-E / Midjourney</strong> — image creation<br><strong>Sora</strong> — video generation<br><strong>Suno</strong> — music composition<br><br>All are Generative AI tools from Creative & Media Applications." },
+  { q:"Symbolic AI: core philosophy & characteristics", a:"Core: <strong>intelligence through symbolic manipulation</strong><br>Knowledge = <strong>explicit rules and logical structures</strong><br><br>Characteristics:<br>• Top-down design (humans write the rules)<br>• Deterministic behaviour<br>• Human-readable reasoning<br>• Requires explicit knowledge engineering<br><br>Examples: Expert Systems, Prolog, Rule Engines" },
+  { q:"Statistical AI: core philosophy & characteristics", a:"Core: <strong>intelligence through pattern recognition</strong><br>Knowledge = <strong>statistical models learned from data</strong><br><br>Characteristics:<br>• Bottom-up learning<br>• Data-hungry<br>• Probabilistic outputs<br>• Learns from examples<br><br>Examples: Deep Learning, Neural Networks, Bayesian Models, RL" },
+  { q:"Symbolic vs Statistical: 4 key contrasts", a:"<strong>Transparency</strong>: Symbolic = HIGH | Statistical = LOW<br><strong>Data Needs</strong>: Symbolic = minimal | Statistical = substantial<br><strong>Uncertainty</strong>: Symbolic = poor | Statistical = excellent<br><strong>Robustness</strong>: Symbolic = fragile | Statistical = graceful degradation" },
+  { q:"3 integration strategies in Neuro-Symbolic AI", a:"1. <strong>Symbolic-to-Neural</strong>: knowledge guides learning<br>2. <strong>Neural-to-Symbolic</strong>: extract rules from trained networks<br>3. <strong>Joint Models</strong>: tight integration of both layers<br><br>Examples: <strong>AlphaFold 2</strong> (DL + physical constraints), <strong>IBM Watson</strong> (symbolic + statistical), <strong>self-driving cars</strong> (vision=statistical + rules=symbolic)" },
+  { q:"When to use Symbolic vs Statistical AI", a:"<strong>Use Symbolic when:</strong> clear domain rules, explanation needed, little/no data, deterministic behaviour required (e.g. legal reasoning)<br><br><strong>Use Statistical when:</strong> pattern recognition, large datasets, uncertainty/noise, rules unknown (e.g. image classification, recommendations)<br><br><strong>Use Hybrid</strong> when both perception AND rule-following needed (e.g. self-driving cars)" }
+];
+
+allFlashcards[6] = [
+  { q:"Define Computer Vision", a:"A field of AI that enables computers to <strong>derive meaningful information from digital images, videos, and other visual inputs</strong> — and take actions or make recommendations based on that information.<br><br>Core idea: <strong>from pixels to understanding</strong>. Inspired by the human visual system." },
+  { q:"CV History: 4 eras", a:"<strong>1960s–1970s</strong>: Early Vision — edge detection, pattern recognition, first OCR<br><strong>1980s–1990s</strong>: Geometric Vision — 3D reconstruction, stereo vision, camera calibration<br><strong>2000s–2010s</strong>: ML Era — SIFT, Viola-Jones, HOG + SVM, early CNNs<br><strong>2012–Present</strong>: Deep Learning Revolution — <strong>AlexNet</strong>, GANs, Transformers" },
+  { q:"CV Pipeline: 3 stages", a:"1. <strong>Input Image</strong> — raw pixel data (RGB, depth)<br>2. <strong>Pre-processing</strong> — noise reduction (Gaussian blur), colour space conversion (RGB→HSV), contrast enhancement (histogram equalisation)<br>3. <strong>Feature Extraction</strong> — Traditional (SIFT, HOG, ORB) or Deep Learning (CNNs learn automatically)" },
+  { q:"Core CV tasks — 3 categories", a:"<strong>Classification & Detection</strong>: Image Classification, Object Detection (localise + classify), Face Detection, Pose Estimation<br><br><strong>3D Vision</strong>: Stereo Vision, 3D Reconstruction, LiDAR Point Clouds, SLAM<br><br><strong>Generation & Manipulation</strong>: Image Synthesis, Style Transfer, Super-resolution, Inpainting" },
+  { q:"Modern CV architectures: transformer-based", a:"<strong>ViT (Vision Transformer)</strong>: treats images as sequences of patches — excellent scalability<br><strong>Swin Transformer</strong>: hierarchical design, shifted windows, efficient computation<br><strong>DETR</strong>: end-to-end object detection with transformers" },
+  { q:"Modern CV architectures: generative models", a:"<strong>GANs</strong>: Generator vs Discriminator — StyleGAN, CycleGAN for image synthesis<br><strong>Diffusion Models</strong>: state-of-the-art generation — DALL-E, Stable Diffusion, text-to-image<br><strong>VAEs</strong>: probabilistic latent space — generation and compression" },
+  { q:"Key CV datasets", a:"<strong>MNIST</strong> (1998): handwritten digits<br><strong>CIFAR-10/100</strong>: small object images<br><strong>ImageNet</strong> (2009): 14M images, 20K categories — enabled deep learning breakthrough<br><strong>COCO</strong>: detection and segmentation benchmark<br><strong>LAION-5B</strong>: 5B image-text pairs<br><br>Principle: <em>'Data is as important as algorithms'</em>" },
+  { q:"CV libraries: which to use when", a:"<strong>OpenCV</strong>: real-time applications, prototyping (C++, Python, Java)<br><strong>TensorFlow/Keras</strong>: large-scale production deployment<br><strong>PyTorch</strong>: academic research and experimentation<br><strong>MMDetection / Detectron2</strong>: specialised object detection" },
+  { q:"CV Challenges: 3 categories", a:"<strong>Technical</strong>: visual variability (lighting, viewpoint, occlusion), real-time processing limits, 3D understanding<br><strong>Algorithmic</strong>: generalization/domain shift, interpretability (black-box XAI), adversarial robustness<br><strong>Ethical</strong>: privacy (surveillance), bias in recognition systems" },
+  { q:"CV Future Trends", a:"<strong>Foundation Models</strong>: large vision-language models, zero-shot capabilities<br><strong>Neuromorphic Computing</strong>: brain-inspired hardware, event-based cameras<br><strong>3D CV</strong>: NeRF (Neural Radiance Fields), 3D generative models, digital twins<br><strong>Embodied AI</strong>: vision for robotics<br><strong>Sustainable Vision</strong>: environmental monitoring, climate change analysis" }
+];
 
 /* ============================================================
    APP STATE
@@ -951,22 +1412,22 @@ function selectWeek(week, btn) {
   btn.classList.add('active');
 }
 function getWeekLabel() {
-  return { 1:'Week 1', 2:'Week 2', 3:'Week 3', 4:'Week 4', all:'All Weeks' }[currentWeek] || 'Week 1';
+  return { 1:'Week 1', 2:'Week 2', 3:'Week 3', 4:'Week 4', 5:'Week 5', 6:'Week 6', all:'All Weeks' }[currentWeek] || 'Week 1';
 }
 function getQuestions() {
-  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3], ...allQuestions[4]];
+  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3], ...allQuestions[4], ...allQuestions[5], ...allQuestions[6]];
   return allQuestions[currentWeek] || [];
 }
 function getTheoryQuestions() {
-  if (currentWeek === 'all') return [...allTheoryQuestions[1], ...allTheoryQuestions[2], ...allTheoryQuestions[3], ...allTheoryQuestions[4]];
+  if (currentWeek === 'all') return [...allTheoryQuestions[1], ...allTheoryQuestions[2], ...allTheoryQuestions[3], ...allTheoryQuestions[4], ...allTheoryQuestions[5], ...allTheoryQuestions[6]];
   return allTheoryQuestions[currentWeek] || [];
 }
 function getFlashcards() {
-  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3], ...allFlashcards[4]];
+  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3], ...allFlashcards[4], ...allFlashcards[5], ...allFlashcards[6]];
   return allFlashcards[currentWeek] || [];
 }
 function getTopics() {
-  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics, ...courseData[3].topics, ...courseData[4].topics];
+  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics, ...courseData[3].topics, ...courseData[4].topics, ...courseData[5].topics, ...courseData[6].topics];
   return courseData[currentWeek]?.topics || [];
 }
 
