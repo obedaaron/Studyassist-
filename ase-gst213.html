@@ -165,6 +165,7 @@
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3 active" onclick="selectWeek(1,this)">Week 1 — Programming Fundamentals</button>
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(2,this)">Week 2 — Structured &amp; Modular</button>
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(3,this)">Week 3 — R vs Python &amp; AI vs Stats</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(4,this)">Week 4 — Intro to AI</button>
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek('all',this)">All Weeks</button>
   </div>
 
@@ -453,6 +454,270 @@ const courseData = {
       }
     ]
   },
+  4: {
+    label: "Week 4 — Introduction to Artificial Intelligence",
+    topics: [
+      {
+        id: "what_is_ai", title: "What is Artificial Intelligence?", tag: "Week 4 · Definition",
+        body: `Artificial Intelligence (AI) refers to the capability of machines or computer systems to mimic intelligent human behavior and perform tasks that typically require human cognition.\n\nThe core idea behind AI is creating systems that can think, learn, reason, perceive, and make decisions similar to humans.\n\nAI is not about making computers do exactly what humans do — it is about giving machines the ability to handle tasks that would, if done by a human, require intelligence.`,
+        keypoints: [
+          "AI = capability of machines to mimic intelligent human behavior",
+          "Core idea: creating systems that can think, learn, reason, perceive, and make decisions",
+          "AI handles tasks that typically require human cognition",
+          "AI is about intelligent behavior in machines, not just computation",
+          "The field sits at the intersection of computer science, psychology, neuroscience, and mathematics"
+        ]
+      },
+      {
+        id: "key_capabilities", title: "Key Capabilities of AI Systems", tag: "Week 4 · Capabilities",
+        body: `AI systems aim to replicate a range of human cognitive abilities. These capabilities are what distinguish AI from regular software, which simply follows rigid, pre-programmed instructions.\n\nUnderstanding these capabilities helps you identify where AI is and is not being applied in the world around you. Each capability represents a distinct challenge that AI researchers have worked on.`,
+        keypoints: [
+          "Reasoning: drawing logical inferences from available information",
+          "Problem-solving: finding solutions to complex challenges",
+          "Learning: acquiring knowledge from data and experience",
+          "Perception: interpreting sensory data (images, sound, text)",
+          "Natural Language Understanding: comprehending human language",
+          "Decision-making: selecting optimal actions from available choices",
+          "Planning: setting and working toward goals systematically",
+          "Creativity: generating novel and meaningful content"
+        ]
+      },
+      {
+        id: "categories_of_ai", title: "Categories of AI", tag: "Week 4 · AI Types",
+        body: `AI is commonly divided into three categories based on capability level. These categories reflect both what AI can currently do and the long-term ambitions of the field.\n\nIt is important to understand which category is real today and which remain theoretical or hypothetical — this distinction is frequently tested.`,
+        keypoints: [
+          "Narrow (Weak) AI: designed for specific tasks — currently exists and widely deployed",
+          "Narrow AI examples: Siri, Alexa, facial recognition, recommendation systems",
+          "General (Strong) AI: human-level intelligence across diverse domains — theoretical, not yet achieved",
+          "General AI would understand, learn, and apply knowledge broadly across any domain",
+          "Artificial Superintelligence (ASI): surpasses human intelligence in all domains — hypothetical future concept",
+          "ASI is the subject of philosophical and ethical discussions",
+          "Only Narrow AI exists today — General AI and ASI remain goals, not realities"
+        ],
+        table: {
+          headers: ["Category", "Description", "Status"],
+          rows: [
+            ["Narrow / Weak AI", "Designed for specific tasks (e.g. Siri, Alexa, recommendation systems)", "Currently exists & deployed"],
+            ["General / Strong AI", "Human-level intelligence across all domains; can transfer knowledge broadly", "Theoretical — not yet achieved"],
+            ["Artificial Superintelligence (ASI)", "Surpasses human intelligence in every domain", "Hypothetical future concept"]
+          ]
+        }
+      },
+      {
+        id: "ai_timeline_overview", title: "AI History: Timeline Overview", tag: "Week 4 · History",
+        body: `AI has gone through more than 70 years of development, marked by cycles of optimism, major breakthroughs, and periods of reduced funding known as 'AI Winters.'\n\nUnderstanding this history shows why AI is the way it is today — the current deep learning era is not the first time people were excited about AI, but it has produced the most lasting results.`,
+        keypoints: [
+          "1940s–1950s: Foundations and Birth of AI concepts",
+          "1956–1974: Early Enthusiasm & First AI Winter",
+          "1980s: Expert Systems Boom & Second AI Winter",
+          "1990s–2010s: Machine Learning Resurgence",
+          "2010s–Present: Deep Learning and Generative AI"
+        ],
+        table: {
+          headers: ["Period", "Phase"],
+          rows: [
+            ["1940s–1950s", "Foundations and Birth"],
+            ["1956–1974", "Early Enthusiasm & First AI Winter"],
+            ["1980s", "Expert Systems Boom & Second AI Winter"],
+            ["1990s–2010s", "Machine Learning Resurgence"],
+            ["2010s–Present", "Deep Learning and Generative AI"]
+          ]
+        }
+      },
+      {
+        id: "foundations", title: "Foundations (1940s–1950s)", tag: "Week 4 · History",
+        body: `The intellectual seeds of AI were planted in the 1940s and 1950s. Two landmark events defined this era: the first computational model of neurons, and the famous Turing Test.\n\nThe 1956 Dartmouth Conference is considered the official birth of AI as a formal academic field. The term 'Artificial Intelligence' was coined there.`,
+        keypoints: [
+          "1943: McCulloch and Pitts propose the first computational model of artificial neurons",
+          "1950: Alan Turing publishes 'Computing Machinery and Intelligence'",
+          "Turing introduced the Turing Test as a criterion for machine intelligence",
+          "1956: Dartmouth Conference — the birth of AI as a formal field",
+          "The term 'Artificial Intelligence' was coined at the Dartmouth Conference",
+          "Organized by McCarthy, Minsky, Shannon, and Rochester"
+        ],
+        example: "The Turing Test: If a machine can hold a conversation indistinguishable from a human, we may consider it intelligent. Turing proposed this as an operational definition of machine intelligence."
+      },
+      {
+        id: "early_enthusiasm", title: "Early Enthusiasm & First AI Winter (1956–1974)", tag: "Week 4 · History",
+        body: `The period after the Dartmouth Conference saw major achievements but also significant setbacks. Early AI researchers were optimistic, but the field ran into hard limits.\n\nThe First AI Winter refers to a period of reduced funding and interest after the field failed to deliver on its promises — primarily because of limited computational power and the difficulty of real-world problems.`,
+        keypoints: [
+          "Logic Theorist (1956) — considered the first AI program ever written",
+          "General Problem Solver (1959) — early general-purpose AI",
+          "ELIZA (1966) — early NLP chatbot, one of the first conversational programs",
+          "Early robotics research also began in this period",
+          "Challenge: limited computational power to handle complex tasks",
+          "Challenge: real-world problems were far harder than toy examples",
+          "Challenge: the field overpromised its capabilities",
+          "Result: reduced funding and interest — the First AI Winter"
+        ]
+      },
+      {
+        id: "expert_systems", title: "Expert Systems & Second AI Winter (1980s)", tag: "Week 4 · History",
+        body: `In the 1980s, AI made a comeback through expert systems — rule-based programs that encoded human expertise into if-then rules. These were applied in medicine, chemistry, and finance.\n\nHowever, expert systems had severe limitations. They were expensive to build and maintain, brittle when facing novel situations, and required intensive manual knowledge engineering. This led to the Second AI Winter.`,
+        keypoints: [
+          "Expert systems: rule-based systems emulating human expert knowledge",
+          "MYCIN: applied to medical diagnosis",
+          "DENDRAL: applied to chemical analysis",
+          "Limitation: expensive to build and maintain",
+          "Limitation: brittle — could not handle situations outside their rules",
+          "Limitation: required explicit, manual knowledge engineering",
+          "Result: reduced funding and interest — the Second AI Winter"
+        ],
+        table: {
+          headers: ["Aspect", "Expert Systems"],
+          rows: [
+            ["What they are", "Rule-based systems encoding human expert knowledge"],
+            ["Application fields", "Medicine, chemistry, finance"],
+            ["Key examples", "MYCIN (medical diagnosis), DENDRAL (chemical analysis)"],
+            ["Why they failed", "Expensive, brittle, required manual knowledge engineering"]
+          ]
+        }
+      },
+      {
+        id: "ml_resurgence", title: "Machine Learning Resurgence (1990s–2010s)", tag: "Week 4 · History",
+        body: `The 1990s and 2000s marked a fundamental shift in AI: away from manually programmed rule-based systems toward statistical, data-driven machine learning. Instead of telling computers what the rules were, researchers let machines learn the rules from data.\n\nThis era also saw a landmark achievement — IBM's Deep Blue defeating world chess champion Garry Kasparov in 1997.`,
+        keypoints: [
+          "Key shift: from symbolic AI (rules) to statistical methods (learning from data)",
+          "Rise of Machine Learning algorithms: SVMs, Bayesian networks, neural networks",
+          "Increased computational power made these methods practical",
+          "Availability of large datasets enabled learning",
+          "1997: IBM Deep Blue defeats chess world champion Garry Kasparov",
+          "Neural networks became practical tools",
+          "Support Vector Machines and Bayesian networks became popular",
+          "Data-driven approach replaced rule-based systems"
+        ]
+      },
+      {
+        id: "deep_learning", title: "Deep Learning Revolution (2012–Present)", tag: "Week 4 · History",
+        body: `The current era of AI began with the 2012 AlexNet breakthrough, which demonstrated that deep neural networks could dramatically outperform all other approaches on image recognition tasks.\n\nThis era is defined by deep learning — multi-layered neural networks trained on massive datasets. The Transformer architecture (2017) enabled the language models behind ChatGPT, which brought AI into mainstream public awareness in 2022.`,
+        keypoints: [
+          "2012: AlexNet wins ImageNet competition — the deep learning breakthrough",
+          "2014: Generative Adversarial Networks (GANs) introduced",
+          "2015: ResNet enables very deep neural networks",
+          "2016: AlphaGo defeats Lee Sedol, world Go champion",
+          "2017: Transformer architecture introduced — foundation of modern LLMs",
+          "2018: GPT models released by OpenAI",
+          "2020: GPT-3 demonstrates remarkable language capabilities",
+          "2022: ChatGPT brings AI to mainstream public awareness",
+          "2023: Multimodal AI (text + vision + audio) emerges"
+        ],
+        table: {
+          headers: ["Year", "Milestone"],
+          rows: [
+            ["2012", "AlexNet wins ImageNet competition (deep learning breakthrough)"],
+            ["2014", "Generative Adversarial Networks (GANs) introduced"],
+            ["2015", "ResNet enables very deep networks"],
+            ["2016", "AlphaGo defeats Lee Sedol (Go champion)"],
+            ["2017", "Transformer architecture introduced"],
+            ["2018", "GPT models released"],
+            ["2020", "GPT-3 demonstrates remarkable language capabilities"],
+            ["2022", "ChatGPT brings AI to mainstream"],
+            ["2023", "Multimodal AI (text + vision + audio) emerges"]
+          ]
+        }
+      },
+      {
+        id: "scientific_goals", title: "Scientific & Theoretical Goals of AI", tag: "Week 4 · Goals",
+        body: `AI has both scientific and practical goals. On the scientific side, AI serves as a tool to study human cognition itself — by trying to build systems that think, we learn more about how thinking works.\n\nThis connects AI to psychology, neuroscience, and philosophy of mind. Creating AI is not just an engineering project — it is also a scientific investigation into the nature of intelligence.`,
+        keypoints: [
+          "Understanding Intelligence: use AI as a tool to study human cognition",
+          "Develop computational theories of mind",
+          "Bridge computer science, psychology, and neuroscience",
+          "Replication of Cognitive Abilities: create systems that can reason and learn like humans",
+          "Model human problem-solving processes",
+          "Understand consciousness through computation"
+        ]
+      },
+      {
+        id: "tech_goals", title: "Technological & Engineering Goals of AI", tag: "Week 4 · Goals",
+        body: `On the practical side, AI aims to automate tasks, augment human capabilities, and create beneficial, reliable systems across many domains.\n\nThe engineering goals of AI are broad: from healthcare to autonomous vehicles to cybersecurity. The overarching engineering goal stated in the slides is to create robust, reliable, and beneficial AI systems.`,
+        keypoints: [
+          "Automation: automate repetitive tasks, handle dangerous operations, increase efficiency and precision",
+          "Augmentation: enhance human capabilities, assist in complex decision-making, amplify creativity",
+          "Healthcare diagnostics and autonomous vehicles are key application areas",
+          "Other applications: scientific discovery, education, environmental monitoring, cybersecurity",
+          "Overarching engineering goal: create robust, reliable, and beneficial AI systems"
+        ],
+        table: {
+          headers: ["Goal Type", "Description", "Examples"],
+          rows: [
+            ["Automation", "Replace repetitive or dangerous human tasks", "Manufacturing robots, data entry"],
+            ["Augmentation", "Enhance human decision-making and creativity", "Medical diagnosis AI, recommendation systems"],
+            ["Application Areas", "Domains where AI creates value", "Healthcare, autonomous vehicles, cybersecurity, education"]
+          ]
+        }
+      },
+      {
+        id: "economic_societal_goals", title: "Economic & Societal Goals of AI", tag: "Week 4 · Goals",
+        body: `AI has significant implications for economies and societies. On the economic side, AI is expected to drive innovation, create new markets, improve productivity, and address labor shortages.\n\nOn the societal side, AI offers tools to tackle major challenges like climate change, disease, and resource management. It also raises questions about access and equity — for example, improving accessibility for people with disabilities.`,
+        keypoints: [
+          "Economic: drive innovation across industries",
+          "Economic: create new markets and opportunities",
+          "Economic: improve productivity and GDP growth",
+          "Economic: address labor shortages",
+          "Societal: climate change modeling and environmental challenges",
+          "Societal: disease prediction and prevention",
+          "Societal: resource optimization",
+          "Societal: improve accessibility for people with disabilities"
+        ]
+      },
+      {
+        id: "longterm_goals", title: "Long-Term Goals & Challenges", tag: "Week 4 · Goals",
+        body: `The long-term goals of AI go beyond current Narrow AI. They include achieving Artificial General Intelligence, ensuring AI remains safe and aligned with human values, developing ethical frameworks, and fostering productive human-AI collaboration.\n\nThese goals come with profound challenges — technical, ethical, social, and philosophical.`,
+        keypoints: [
+          "AGI Development: achieve Artificial General Intelligence with human-like adaptability",
+          "AGI requires: transfer learning across domains, common sense reasoning",
+          "AI Safety and Alignment: ensure AI produces beneficial outcomes aligned with human values",
+          "Safety requires: preventing unintended consequences, developing robust control mechanisms",
+          "Ethical Framework: address bias and fairness, ensure transparency, protect privacy, establish accountability",
+          "Human-AI Collaboration: complementary strengths, ethical integration, social acceptance"
+        ],
+        table: {
+          headers: ["Long-Term Goal", "Key Requirements"],
+          rows: [
+            ["AGI Development", "Human-like adaptability, transfer learning, common sense reasoning"],
+            ["AI Safety & Alignment", "Beneficial outcomes, align with human values, control mechanisms"],
+            ["Ethical Framework", "Address bias, ensure transparency, protect privacy, accountability"],
+            ["Human-AI Collaboration", "Complementary strengths, ethical integration, social acceptance"]
+          ]
+        }
+      },
+      {
+        id: "future_outlook", title: "Future Outlook", tag: "Week 4 · Future",
+        body: `The slides divide the AI future into three time horizons: near-term (1–5 years), medium-term (5–15 years), and long-term (15+ years). Each horizon has different expectations for what AI will achieve.\n\nThe long-term horizon raises the deepest questions — not just technical, but philosophical and existential about the relationship between humans and increasingly capable AI systems.`,
+        keypoints: [
+          "Near-term (1–5 years): continued integration into daily life",
+          "Near-term: improved multimodal AI, better human-AI interfaces, industry-specific solutions",
+          "Medium-term (5–15 years): progress toward AGI capabilities",
+          "Medium-term: advanced robotics and automation, AI in scientific breakthroughs, new ethical and legal frameworks",
+          "Long-term (15+ years): potential AGI achievement",
+          "Long-term: human-AI integration questions, societal transformation, existential considerations"
+        ]
+      },
+      {
+        id: "summary4", title: "Week 4 Summary", tag: "Week 4 · Key Takeaways",
+        body: `Everything from Week 4 condensed into the most testable points.`,
+        keypoints: [
+          "AI Definition: capability of machines to mimic intelligent human behavior and cognition",
+          "Core idea: systems that think, learn, reason, perceive, and make decisions",
+          "8 Key Capabilities: reasoning, problem-solving, learning, perception, NLU, decision-making, planning, creativity",
+          "Narrow AI (exists now): task-specific — Siri, Alexa, recommendations",
+          "General AI (theoretical): human-level across all domains",
+          "ASI (hypothetical): surpasses humans in all domains",
+          "1943: McCulloch & Pitts — artificial neuron model",
+          "1950: Turing — 'Computing Machinery and Intelligence', Turing Test",
+          "1956: Dartmouth Conference — AI coined as a field (McCarthy, Minsky, Shannon, Rochester)",
+          "1956–1974: Early programs (Logic Theorist, ELIZA), then First AI Winter",
+          "1980s: Expert Systems (MYCIN, DENDRAL), then Second AI Winter",
+          "1990s–2010s: ML resurgence — Deep Blue (1997) defeats Kasparov",
+          "2012: AlexNet — deep learning breakthrough",
+          "2017: Transformer architecture introduced",
+          "2022: ChatGPT — AI enters mainstream",
+          "Goals of AI: Scientific (understand intelligence), Technological (automation & augmentation), Economic & Societal, Long-term (AGI, safety, ethics)"
+        ]
+      }
+    ]
+  },
   3: {
     label: "Week 3 — R vs Python & AI vs Statistical Computing",
     topics: [
@@ -548,8 +813,25 @@ const allQuestions = {
     { category:"Comparison", q:"How do Structured and Modular Programming relate to each other?", options:["They are the same concept with two different names","Structured programming replaced modular programming","Structured works at the micro level (inside functions); Modular works at the macro level (between modules)","Modular programming is for large companies only"], correct:2, explanation:"<strong>They are complementary.</strong> Structured = micro-level, correctness. Modular = macro-level, architecture. System Quality = Structured + Modular." },
     { category:"OOP", q:"How does Object-Oriented Programming (OOP) relate to Modular Programming?", options:["OOP completely replaced modular programming","OOP is enhanced modular programming — a Class is essentially a Module with data and methods combined","OOP and modular programming have no connection","Modular programming was invented after OOP"], correct:1, explanation:"<strong>OOP is enhanced Modular Programming.</strong> Class = Module with data + methods. Inheritance = Module specialization. Encapsulation = stronger information hiding." }
   ],
-  3: [
-    { category:"R vs Python", q:"Which of the following best describes R's primary strength over Python?", options:["Building production web applications","Deep learning with neural networks","Statistical computing, academic research, and publication-quality graphics","General-purpose automation and scripting"], correct:2, explanation:"<strong>R was designed by statisticians for statisticians.</strong> Its primary strengths are statistical computing, academic research workflows, and producing publication-quality graphics through ggplot2." },
+  4: [
+    { category:"Definition", q:"According to the lecture, what is Artificial Intelligence (AI)?", options:["A robot that can walk and talk like a human","The capability of machines to mimic intelligent human behavior and perform tasks requiring human cognition","A type of advanced calculator that processes large datasets","Software that follows strictly pre-programmed rules without any learning"], correct:1, explanation:"<strong>AI refers to the capability of machines or computer systems to mimic intelligent human behavior and perform tasks that typically require human cognition.</strong> The core idea is creating systems that can think, learn, reason, perceive, and make decisions similar to humans." },
+    { category:"Capabilities", q:"Which of the following is listed as a key capability of AI systems in the lecture?", options:["Biological reproduction","Physical movement across terrain","Natural Language Understanding","Emotional bonding with humans"], correct:2, explanation:"<strong>Natural Language Understanding — comprehending human language — is one of the eight key capabilities listed in the lecture.</strong> The others are reasoning, problem-solving, learning, perception, decision-making, planning, and creativity." },
+    { category:"Capabilities", q:"How many key capabilities of AI systems does the lecture identify?", options:["4","6","8","10"], correct:2, explanation:"<strong>The lecture identifies 8 key capabilities:</strong> Reasoning, Problem-solving, Learning, Perception, Natural Language Understanding, Decision-making, Planning, and Creativity." },
+    { category:"Categories", q:"Which category of AI currently exists and is widely deployed today?", options:["Artificial Superintelligence (ASI)","General (Strong) AI","Narrow (Weak) AI","Philosophical AI"], correct:2, explanation:"<strong>Narrow (Weak) AI currently exists and is widely deployed.</strong> It is designed for specific tasks — examples include Siri, Alexa, facial recognition, and recommendation systems. General AI and ASI remain theoretical or hypothetical." },
+    { category:"Categories", q:"What is Artificial Superintelligence (ASI) described as in the lecture?", options:["A widely deployed system used in smartphones","A theoretical concept that was achieved in 2020","A hypothetical future concept that surpasses human intelligence in all domains","The same as Narrow AI but applied to more tasks"], correct:3, explanation:"<strong>ASI is described as a hypothetical future concept</strong> that would surpass human intelligence in all domains. It is the subject of philosophical and ethical discussions and has not been achieved." },
+    { category:"Categories", q:"General (Strong) AI is best described as:", options:["Currently exists and runs on smartphones","Human-level intelligence across diverse domains — theoretical, not yet achieved","A system specialized for medical diagnosis","The same as Narrow AI"], correct:1, explanation:"<strong>General AI refers to human-level intelligence across diverse domains — it is theoretical and has not yet been achieved.</strong> It would understand, learn, and apply knowledge broadly, unlike today's Narrow AI which only performs specific tasks." },
+    { category:"History", q:"In which year was the term 'Artificial Intelligence' coined and at which event?", options:["1943, when McCulloch and Pitts published their neuron model","1950, when Alan Turing published his famous paper","1956, at the Dartmouth Conference","1966, when ELIZA was created"], correct:2, explanation:"<strong>The term 'Artificial Intelligence' was coined in 1956 at the Dartmouth Conference,</strong> organized by McCarthy, Minsky, Shannon, and Rochester. This event is considered the official birth of AI as a formal academic field." },
+    { category:"History", q:"What did Alan Turing introduce in his 1950 paper 'Computing Machinery and Intelligence'?", options:["The first AI programming language","The Turing Test as a criterion for machine intelligence","The concept of Narrow AI","The General Problem Solver"], correct:1, explanation:"<strong>Alan Turing introduced the Turing Test</strong> — a criterion for determining if a machine can exhibit intelligent behavior indistinguishable from a human — in his 1950 paper." },
+    { category:"History", q:"What was the Logic Theorist (1956) significant for?", options:["It was the first autonomous vehicle","It was considered the first AI program ever written","It introduced the Transformer architecture","It was the first expert system"], correct:1, explanation:"<strong>The Logic Theorist (1956) is considered the first AI program ever written,</strong> marking a key achievement in the Early Enthusiasm period. It was followed by the General Problem Solver (1959) and ELIZA (1966)." },
+    { category:"History", q:"What directly caused the First AI Winter?", options:["The invention of the internet","AI programs being overpromised yet limited by computational power and real-world difficulty","The success of expert systems","The defeat of Kasparov by Deep Blue"], correct:1, explanation:"<strong>The First AI Winter was caused by overpromised capabilities combined with limited computational power and difficulty handling real-world problems.</strong> These challenges led to reduced funding and interest in AI from the mid-1970s." },
+    { category:"History", q:"What were expert systems, and what caused their decline in the 1980s?", options:["Neural networks that learned from data; they were too accurate","Rule-based systems encoding human expertise; they were expensive, brittle, and required manual knowledge engineering","Robotic systems; they were physically unreliable","Early chatbots; they could not understand speech"], correct:1, explanation:"<strong>Expert systems were rule-based systems emulating human experts</strong> (e.g. MYCIN for medicine, DENDRAL for chemistry). Their decline — the Second AI Winter — was caused by being expensive to build and maintain, brittle when facing novel situations, and requiring explicit knowledge engineering." },
+    { category:"History", q:"What landmark AI achievement occurred in 1997?", options:["The Transformer architecture was introduced","ChatGPT was released","IBM Deep Blue defeated chess world champion Garry Kasparov","AlphaGo defeated Lee Sedol"], correct:2, explanation:"<strong>In 1997, IBM Deep Blue defeated world chess champion Garry Kasparov</strong> — a landmark moment in the Machine Learning Resurgence era, demonstrating AI's ability to outperform humans in a complex strategic game." },
+    { category:"History", q:"Which year and event is identified as the deep learning breakthrough?", options:["2014, when GANs were introduced","2016, when AlphaGo defeated Lee Sedol","2012, when AlexNet won the ImageNet competition","2017, when the Transformer was introduced"], correct:2, explanation:"<strong>2012, when AlexNet won the ImageNet competition,</strong> is identified as the deep learning breakthrough. It demonstrated that deep neural networks dramatically outperformed other approaches on image recognition tasks." },
+    { category:"History", q:"Which architecture introduced in 2017 became the foundation for modern large language models?", options:["Convolutional Neural Network (CNN)","Recurrent Neural Network (RNN)","Transformer architecture","Generative Adversarial Network (GAN)"], correct:2, explanation:"<strong>The Transformer architecture, introduced in 2017,</strong> became the foundation for modern large language models. It enabled the GPT series, ChatGPT, and virtually all state-of-the-art language AI systems." },
+    { category:"Goals", q:"Which statement best describes a scientific goal of AI according to the lecture?", options:["Automate repetitive manufacturing tasks","Drive innovation across industries and improve GDP","Use AI as a tool to study human cognition and develop computational theories of mind","Deploy AI in autonomous vehicles for commercial use"], correct:2, explanation:"<strong>Using AI to study human cognition and develop computational theories of mind is a scientific/theoretical goal.</strong> The lecture distinguishes between scientific goals (understanding intelligence), technological goals (automation/augmentation), and economic/societal goals." },
+    { category:"Goals", q:"What is the overarching engineering goal of AI as stated in the lecture?", options:["Achieve AGI within 10 years","Replace all human workers with machines","Create robust, reliable, and beneficial AI systems","Develop AI that can pass the Turing Test"], correct:2, explanation:"<strong>The overarching engineering goal is to create robust, reliable, and beneficial AI systems.</strong> This encompasses automation (repetitive tasks, dangerous operations) and augmentation (enhancing human capabilities and decision-making)." }
+  ],
+  3: [ options:["Building production web applications","Deep learning with neural networks","Statistical computing, academic research, and publication-quality graphics","General-purpose automation and scripting"], correct:2, explanation:"<strong>R was designed by statisticians for statisticians.</strong> Its primary strengths are statistical computing, academic research workflows, and producing publication-quality graphics through ggplot2." },
     { category:"R vs Python", q:"What is the key package manager difference between R and Python?", options:["R uses pip; Python uses CRAN","R uses CRAN and Bioconductor; Python uses pip and conda","Both use the same package manager","R doesn't have a package manager"], correct:1, explanation:"<strong>R uses CRAN (Comprehensive R Archive Network) and Bioconductor</strong> for specialized bioinformatics packages. Python uses <strong>pip</strong> for packages and <strong>conda</strong> for environment management." },
     { category:"R vs Python", q:"Which Python library is the primary equivalent of R's Tidyverse for data manipulation?", options:["matplotlib","TensorFlow","pandas","scikit-learn"], correct:2, explanation:"<strong>pandas</strong> is Python's primary data manipulation library, providing DataFrame structures similar to R's data frames. scikit-learn is for ML, matplotlib for visualization, and TensorFlow for deep learning." },
     { category:"R vs Python", q:"What does 'reticulate' do in the context of R and Python?", options:["It replaces Python in data science workflows","It allows R to run Python code natively","It is R's machine learning framework","It is R's visualization package"], correct:1, explanation:"<strong>reticulate</strong> is an R package that allows you to run Python code from within R, enabling integration of both languages. The reverse (running R from Python) is done with rpy2." },
@@ -577,6 +859,12 @@ const allTheoryQuestions = {
     { category:"Structured Programming", q:"Name and explain the three basic constructs of structured programming. What theorem proves these are sufficient for any program?", answer:"(1) Sequence — statements execute in order, top to bottom, the natural flow. (2) Selection — conditional execution using if/else — code chooses a path based on a condition. (3) Iteration — repeated execution using for/while loops — code repeats while a condition holds. The Golden Rule: No Arbitrary GOTO. The Böhm-Jacopini theorem mathematically proves that ANY program logic can be expressed using only these three constructs — making GOTO statements completely unnecessary." },
     { category:"Modular Programming", q:"Define a module and explain the four key principles of modular programming.", answer:"A module is an independent unit grouping related functions and data with a single specific responsibility. It has a public interface (what it does, visible to others) and a private implementation (how it works, hidden). The four key principles: (1) Encapsulation — hide implementation, expose only the interface. (2) High Cohesion — all elements inside a module serve one purpose. (3) Loose Coupling — minimize dependencies between modules; they interact only through interfaces. (4) Information Hiding — implementation details are private, so changes inside don't break other modules." },
     { category:"Comparison", q:"Explain the relationship between Structured and Modular Programming. Why is System Quality = Structured + Modular?", answer:"Structured and Modular Programming are complementary — not competing — operating at different levels. Structured Programming works at the micro level: controlling how code flows inside a single function, with focus on correctness. Modular Programming works at the macro level: organizing how functions and data are grouped across the system, with focus on architecture. Analogy: Structured = writing clear paragraphs; Modular = organizing chapters in a book. You need both because well-written code in a poorly organized system still fails at scale. System Quality = Structured + Modular." }
+  ],
+  4: [
+    { category:"Definition & Capabilities", q:"Define Artificial Intelligence as given in the lecture. Then list and briefly explain any FOUR of the eight key capabilities of AI systems.", answer:"Definition: AI refers to the capability of machines or computer systems to mimic intelligent human behavior and perform tasks that typically require human cognition. Core idea: creating systems that can think, learn, reason, perceive, and make decisions similar to humans.\n\nFour key capabilities (any four of these eight):\n1. Reasoning — drawing logical inferences from available information.\n2. Problem-solving — finding solutions to complex challenges.\n3. Learning — acquiring knowledge from data and experience.\n4. Perception — interpreting sensory data such as images, audio, or text.\n5. Natural Language Understanding — comprehending human language.\n6. Decision-making — selecting optimal actions from available choices.\n7. Planning — setting and systematically working toward goals.\n8. Creativity — generating novel and meaningful content." },
+    { category:"Categories of AI", q:"Describe the three categories of AI covered in the lecture. Which one currently exists, which is theoretical, and which is hypothetical?", answer:"The three categories are:\n\n1. Narrow (Weak) AI: Designed for specific tasks. Currently exists and is widely deployed. Examples: Siri, Alexa, facial recognition, recommendation systems. Operates only within its defined domain.\n\n2. General (Strong) AI: Human-level intelligence across diverse domains. Theoretical — not yet achieved. Would understand, learn, and apply knowledge broadly, transferring skills across any area of knowledge.\n\n3. Artificial Superintelligence (ASI): Surpasses human intelligence in all domains. Hypothetical future concept. It is the subject of philosophical and ethical discussions.\n\nSummary: Narrow AI = exists now; General AI = theoretical; ASI = hypothetical." },
+    { category:"History of AI", q:"Trace the history of AI from its foundations in the 1940s through to the current deep learning era. Include at least one key event or figure from each major period.", answer:"Foundations (1940s–1950s): 1943 — McCulloch and Pitts proposed a computational model of artificial neurons. 1950 — Alan Turing published 'Computing Machinery and Intelligence,' introducing the Turing Test. 1956 — Dartmouth Conference: the term 'Artificial Intelligence' coined, organized by McCarthy, Minsky, Shannon, and Rochester.\n\nEarly Enthusiasm & First AI Winter (1956–1974): Logic Theorist (1956) — first AI program. General Problem Solver (1959). ELIZA (1966) — early NLP chatbot. The field overpromised; limited computation and real-world difficulty led to reduced funding (First AI Winter).\n\nExpert Systems & Second AI Winter (1980s): Rule-based systems like MYCIN (medicine) and DENDRAL (chemistry). These were expensive, brittle, and required manual knowledge engineering, leading to the Second AI Winter.\n\nML Resurgence (1990s–2010s): Shift from rule-based to statistical/data-driven methods. Neural networks, SVMs, Bayesian networks became practical. 1997: IBM Deep Blue defeats Kasparov.\n\nDeep Learning Revolution (2012–Present): 2012 AlexNet breakthrough. 2016 AlphaGo defeats Lee Sedol. 2017 Transformer architecture. 2022 ChatGPT brings AI to mainstream." },
+    { category:"Goals of AI", q:"The lecture organizes the goals of AI into four categories. Name and explain each category of goals.", answer:"The four categories of AI goals are:\n\n1. Scientific & Theoretical Goals: Use AI to understand human cognition and develop computational theories of mind. Bridge computer science, psychology, and neuroscience. Create systems that replicate cognitive abilities to help explain consciousness and reasoning.\n\n2. Technological & Engineering Goals: Automation — automate repetitive tasks, handle dangerous operations, increase efficiency and precision. Augmentation — enhance human capabilities, assist in complex decision-making, amplify creativity and productivity. Applications include healthcare, autonomous vehicles, scientific discovery, education, environmental monitoring, and cybersecurity. Overarching goal: create robust, reliable, and beneficial AI systems.\n\n3. Economic & Societal Goals: Economic — drive innovation, create new markets, improve productivity and GDP growth, address labor shortages. Societal — climate change modeling, disease prediction and prevention, resource optimization, accessibility for disabled people.\n\n4. Long-Term Goals: Achieve AGI (human-like adaptability, transfer learning, common sense reasoning). Ensure AI Safety and Alignment with human values. Develop an Ethical Framework addressing bias, transparency, privacy, accountability. Foster Human-AI Collaboration with complementary strengths and social acceptance." }
   ],
   3: [
     { category:"R vs Python", q:"Compare R and Python as languages for data science. What are the key strengths of each?", answer:"R was created by statisticians for statisticians, making it strongest for statistical computing, academic research, and publication-quality graphics (ggplot2). Its ecosystem (Tidyverse, RStudio, RMarkdown) is optimized for data analysis and reproducible research. CRAN provides peer-reviewed packages. Python is a general-purpose language that became a data science powerhouse through its ecosystem. Its strengths are ML/deep learning (scikit-learn, TensorFlow, PyTorch), production systems, web integration, and automation. Python is stronger for deploying models to production. Many professionals learn both: R for analysis, Python for production." },
@@ -610,8 +898,19 @@ const allFlashcards = {
     { q:"Structured vs Modular — what level does each work at?", a:"<strong>Structured</strong> = micro level. Controls flow <em>inside</em> a function. Focus: correctness.<br><br><strong>Modular</strong> = macro level. Organizes functions <em>between</em> modules. Focus: architecture.<br><br><strong>System Quality = Structured + Modular</strong>" },
     { q:"How is OOP related to Modular Programming?", a:"OOP is <strong>enhanced modular programming.</strong><br>Class = Module with data + methods<br>Inheritance = Module specialization<br>Encapsulation = Stronger information hiding" }
   ],
-  3: [
-    { q:"R vs Python: primary strength of each", a:"<strong>R</strong>: statistical computing, academic research, publication-quality graphics (ggplot2), specialized statistical methods. Designed for statisticians.<br><br><strong>Python</strong>: general-purpose, ML/deep learning, production systems, web integration, automation. Designed for programmers." },
+  4: [
+    { q:"Define Artificial Intelligence", a:"The <strong>capability of machines or computer systems to mimic intelligent human behavior</strong> and perform tasks that typically require human cognition.<br><br>Core idea: creating systems that can think, learn, reason, perceive, and make decisions similar to humans." },
+    { q:"The 8 Key Capabilities of AI", a:"1. <strong>Reasoning</strong> — logical inferences<br>2. <strong>Problem-solving</strong> — complex challenges<br>3. <strong>Learning</strong> — knowledge from data<br>4. <strong>Perception</strong> — interpreting sensory data<br>5. <strong>NLU</strong> — comprehending human language<br>6. <strong>Decision-making</strong> — selecting optimal actions<br>7. <strong>Planning</strong> — setting and achieving goals<br>8. <strong>Creativity</strong> — generating novel content" },
+    { q:"3 Categories of AI — status of each", a:"<strong>Narrow / Weak AI</strong>: specific tasks — currently exists & deployed (Siri, Alexa, recommendations)<br><br><strong>General / Strong AI</strong>: human-level across all domains — theoretical, not yet achieved<br><br><strong>ASI (Superintelligence)</strong>: surpasses humans in all domains — hypothetical future concept" },
+    { q:"AI History: Dartmouth Conference", a:"<strong>1956</strong> — the birth of AI as a formal field.<br>The term 'Artificial Intelligence' was coined here.<br>Organized by <strong>McCarthy, Minsky, Shannon, Rochester.</strong>" },
+    { q:"Alan Turing's contribution to AI", a:"<strong>1950</strong>: Published 'Computing Machinery and Intelligence'<br><br>Introduced the <strong>Turing Test</strong> — if a machine holds a conversation indistinguishable from a human, we may consider it intelligent." },
+    { q:"What caused the First & Second AI Winters?", a:"<strong>First AI Winter (post-1974):</strong> Limited computation, real-world problems too hard, overpromised capabilities → reduced funding.<br><br><strong>Second AI Winter (post-1980s):</strong> Expert systems were brittle, expensive to build, required manual knowledge engineering → reduced funding." },
+    { q:"Expert Systems — what & why they failed", a:"<strong>Rule-based systems encoding human expertise</strong> (e.g. MYCIN for medicine, DENDRAL for chemistry).<br><br>Failed because: <strong>expensive to build, brittle</strong> (couldn't handle new situations), required <strong>explicit knowledge engineering</strong>." },
+    { q:"Key milestones of the Deep Learning era", a:"<strong>2012</strong>: AlexNet — deep learning breakthrough<br><strong>2016</strong>: AlphaGo defeats Go champion Lee Sedol<br><strong>2017</strong>: Transformer architecture introduced<br><strong>2022</strong>: ChatGPT brings AI to mainstream" },
+    { q:"4 Goals of AI (categories)", a:"1. <strong>Scientific/Theoretical</strong>: understand intelligence, bridge CS + psychology + neuroscience<br>2. <strong>Technological/Engineering</strong>: automation & augmentation — robust, reliable, beneficial AI<br>3. <strong>Economic & Societal</strong>: innovation, productivity, climate, disease, accessibility<br>4. <strong>Long-Term</strong>: AGI, AI safety, ethics, human-AI collaboration" },
+    { q:"AI Future Outlook — 3 time horizons", a:"<strong>Near-term (1–5 yrs)</strong>: daily life integration, better multimodal AI, industry-specific solutions<br><br><strong>Medium-term (5–15 yrs)</strong>: AGI progress, advanced robotics, AI in scientific breakthroughs, new legal frameworks<br><br><strong>Long-term (15+ yrs)</strong>: potential AGI, human-AI integration, societal transformation, existential considerations" }
+  ],
+  3: [ a:"<strong>R</strong>: statistical computing, academic research, publication-quality graphics (ggplot2), specialized statistical methods. Designed for statisticians.<br><br><strong>Python</strong>: general-purpose, ML/deep learning, production systems, web integration, automation. Designed for programmers." },
     { q:"R Ecosystem: 5 key tools", a:"<strong>RStudio</strong> — IDE<br><strong>Tidyverse</strong> — data manipulation (dplyr, tidyr)<br><strong>ggplot2</strong> — visualization<br><strong>Shiny</strong> — web apps<br><strong>RMarkdown</strong> — reproducible reports<br><strong>CRAN</strong> — package repository" },
     { q:"Python Ecosystem: 5 key tools", a:"<strong>Jupyter</strong> — notebooks<br><strong>pandas</strong> — data manipulation<br><strong>matplotlib/seaborn</strong> — visualization<br><strong>scikit-learn</strong> — machine learning<br><strong>TensorFlow/PyTorch</strong> — deep learning<br><strong>pip/conda</strong> — packages" },
     { q:"When to choose R vs Python?", a:"<strong>Choose R:</strong> statistical research, academic settings, publication graphics, specialized stat methods<br><br><strong>Choose Python:</strong> production systems, deep learning, web integration, automation, industry teams<br><br><strong>Best option: Learn both!</strong>" },
@@ -652,22 +951,22 @@ function selectWeek(week, btn) {
   btn.classList.add('active');
 }
 function getWeekLabel() {
-  return { 1:'Week 1', 2:'Week 2', 3:'Week 3', all:'All Weeks' }[currentWeek] || 'Week 1';
+  return { 1:'Week 1', 2:'Week 2', 3:'Week 3', 4:'Week 4', all:'All Weeks' }[currentWeek] || 'Week 1';
 }
 function getQuestions() {
-  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3]];
+  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3], ...allQuestions[4]];
   return allQuestions[currentWeek] || [];
 }
 function getTheoryQuestions() {
-  if (currentWeek === 'all') return [...allTheoryQuestions[1], ...allTheoryQuestions[2], ...allTheoryQuestions[3]];
+  if (currentWeek === 'all') return [...allTheoryQuestions[1], ...allTheoryQuestions[2], ...allTheoryQuestions[3], ...allTheoryQuestions[4]];
   return allTheoryQuestions[currentWeek] || [];
 }
 function getFlashcards() {
-  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3]];
+  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3], ...allFlashcards[4]];
   return allFlashcards[currentWeek] || [];
 }
 function getTopics() {
-  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics, ...courseData[3].topics];
+  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics, ...courseData[3].topics, ...courseData[4].topics];
   return courseData[currentWeek]?.topics || [];
 }
 
