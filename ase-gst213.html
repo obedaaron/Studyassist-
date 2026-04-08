@@ -54,12 +54,21 @@
 </script>
 
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   body {
     background-color: #f7f4ef;
     color: #1a1714;
     font-family: 'JetBrains Mono', monospace;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.03'/%3E%3C/svg%3E");
+    -webkit-text-size-adjust: 100%;
+  }
+  /* Mobile touch targets */
+  button, .mc-option, .topic-item, .mode-card { min-height: 44px; }
+  /* Mobile rapid card height */
+  @media (max-width: 640px) {
+    .rapid-card { height: 280px; }
+    .rapid-question { font-size: 1.15rem; padding: 1.5rem; }
+    .rapid-answer { font-size: 0.8rem; padding: 1.25rem; }
   }
   @keyframes blink { 0%,100% { opacity:1; } 50% { opacity:0.2; } }
   @keyframes slideUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
@@ -147,7 +156,7 @@
 <body>
 
 <!-- ══════════════════ HOME ══════════════════ -->
-<div id="home" class="min-h-screen flex flex-col items-center justify-center px-8 py-12 relative overflow-hidden">
+<div id="home" class="min-h-screen flex flex-col items-center justify-center px-4 sm:px-8 py-8 sm:py-12 relative overflow-hidden">
   <div class="flex items-center gap-2 bg-ink text-paper font-mono text-xs font-semibold tracking-widest uppercase px-5 py-2 rounded-sm mb-10">
     <span class="badge-dot w-1.5 h-1.5 rounded-full bg-rust-mid"></span>
     ASE-GST 213 · African School of Economics
@@ -161,16 +170,17 @@
     Introduction to Programming &amp; Artificial Intelligence.<br>Pick your week, pick your mode.
   </p>
 
-  <div class="flex gap-2 mb-12 flex-wrap justify-center">
-    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3 active" onclick="selectWeek(1,this)">Week 1 — Programming Fundamentals</button>
-    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(2,this)">Week 2 — Structured &amp; Modular</button>
-    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(3,this)">Week 3 — R vs Python &amp; AI vs Stats</button>
-    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(4,this)">Week 4 — Intro to AI</button>
-    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(5,this)">Week 5 — AI Applications &amp; Branches</button>
-    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(6,this)">Week 6 — Computer Vision</button>
-    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(7,this)">Week 7 — How AI Represents Problems</button>
-    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(8,this)">Week 8 — Knowledge Representation</button>
-    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek('all',this)">All Weeks</button>
+  <div class="flex gap-2 mb-10 flex-wrap justify-center max-w-4xl w-full">
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3 active" onclick="selectWeek(1,this)">Wk 1 — Prog Fundamentals</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(2,this)">Wk 2 — Structured &amp; Modular</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(3,this)">Wk 3 — R vs Python &amp; AI vs Stats</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(4,this)">Wk 4 — Intro to AI</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(5,this)">Wk 5 — AI Applications &amp; Branches</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(6,this)">Wk 6 — Computer Vision</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(7,this)">Wk 7 — How AI Represents Problems</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(8,this)">Wk 8 — Knowledge Representation</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3 border-navy text-navy" onclick="selectWeek(9,this)">Wk 9 — Intro to Machine Learning ✨</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-4 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek('all',this)">All Weeks</button>
   </div>
 
   <div class="grid gap-5 w-full max-w-4xl" style="grid-template-columns: repeat(auto-fit, minmax(270px, 1fr))">
@@ -202,42 +212,55 @@
 
 <!-- ══════════════════ LEARN SCREEN ══════════════════ -->
 <div id="learnScreen" class="hidden min-h-screen">
-  <div class="flex items-center gap-4 px-8 py-4 border-b border-paper3 sticky top-0 bg-paper/95 backdrop-blur z-50">
-    <button class="border border-paper3 text-ink2 font-mono text-xs font-semibold px-4 py-2 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide" onclick="goHome()">← Back</button>
-    <div class="font-display font-bold text-base tracking-tight">📖 Learn Mode</div>
-    <div class="ml-auto text-ink3 text-xs tracking-widest uppercase font-semibold" id="learnWeekLabel">Week 1</div>
+  <div class="flex items-center gap-3 px-4 sm:px-8 py-4 border-b border-paper3 sticky top-0 bg-paper/95 backdrop-blur z-50">
+    <button class="border border-paper3 text-ink2 font-mono text-xs font-semibold px-3 py-2 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide flex-shrink-0" onclick="goHome()">← Back</button>
+    <div class="font-display font-bold text-sm sm:text-base tracking-tight">📖 Learn Mode</div>
+    <div class="ml-auto text-ink3 text-xs tracking-widest uppercase font-semibold hidden sm:block" id="learnWeekLabel">Week 1</div>
+    <!-- Mobile topic toggle -->
+    <button class="sm:hidden border border-paper3 text-ink2 font-mono text-xs font-semibold px-3 py-2 rounded-sm ml-auto" onclick="toggleMobileSidebar()">☰ Topics</button>
   </div>
-  <div class="grid min-h-[calc(100vh-61px)]" style="grid-template-columns: 268px 1fr">
-    <div class="border-r border-paper3 p-6 sticky top-[61px] h-[calc(100vh-61px)] overflow-y-auto" style="background:#faf8f4">
+
+  <!-- Mobile sidebar overlay -->
+  <div id="mobileSidebarOverlay" class="hidden fixed inset-0 bg-ink/40 z-40 sm:hidden" onclick="toggleMobileSidebar()"></div>
+  <div id="mobileSidebar" class="hidden fixed top-0 left-0 h-full w-72 bg-paper z-50 shadow-lg overflow-y-auto p-6 sm:hidden">
+    <div class="flex items-center justify-between mb-4">
+      <div class="text-ink3 text-xs font-semibold tracking-[0.18em] uppercase">Topics</div>
+      <button class="text-ink3 text-lg font-bold" onclick="toggleMobileSidebar()">✕</button>
+    </div>
+    <div id="topicListMobile"></div>
+  </div>
+
+  <div class="sm:grid min-h-[calc(100vh-61px)]" style="grid-template-columns: 268px 1fr">
+    <div class="border-r border-paper3 p-6 sticky top-[61px] h-[calc(100vh-61px)] overflow-y-auto hidden sm:block" style="background:#faf8f4">
       <div class="text-ink3 text-[0.62rem] font-semibold tracking-[0.18em] uppercase mb-3 px-2">Topics</div>
       <div id="topicList"></div>
     </div>
-    <div class="p-12 max-w-3xl" id="topicContent"></div>
+    <div class="p-4 sm:p-12 max-w-3xl w-full" id="topicContent"></div>
   </div>
 </div>
 
 <!-- ══════════════════ CHALLENGE SCREEN ══════════════════ -->
 <div id="challengeScreen" class="hidden min-h-screen">
-  <div class="flex items-center gap-4 px-8 py-4 border-b border-paper3 sticky top-0 bg-paper/95 backdrop-blur z-50">
-    <button class="border border-paper3 text-ink2 font-mono text-xs font-semibold px-4 py-2 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide" onclick="goHome()">← Back</button>
-    <div class="font-display font-bold text-base tracking-tight">⚔️ Challenge Mode</div>
+  <div class="flex items-center gap-3 px-4 sm:px-8 py-4 border-b border-paper3 sticky top-0 bg-paper/95 backdrop-blur z-50">
+    <button class="border border-paper3 text-ink2 font-mono text-xs font-semibold px-3 py-2 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide flex-shrink-0" onclick="goHome()">← Back</button>
+    <div class="font-display font-bold text-sm sm:text-base tracking-tight">⚔️ Challenge Mode</div>
     <div class="ml-auto text-ink3 text-xs tracking-widest uppercase font-semibold" id="challengeWeekLabel">Week 1</div>
   </div>
 
   <!-- Challenge Type Selector -->
-  <div id="challengeTypeSelector" class="max-w-2xl mx-auto px-8 pt-12 pb-6">
-    <div class="text-center mb-8">
+  <div id="challengeTypeSelector" class="max-w-2xl mx-auto px-4 sm:px-8 pt-8 sm:pt-12 pb-6">
+    <div class="text-center mb-6 sm:mb-8">
       <div class="font-mono text-xs font-bold tracking-[0.18em] uppercase text-ink3 mb-3">Select Challenge Format</div>
-      <h2 class="font-display text-3xl font-bold tracking-tight text-ink">How do you want to be tested?</h2>
+      <h2 class="font-display text-2xl sm:text-3xl font-bold tracking-tight text-ink">How do you want to be tested?</h2>
     </div>
-    <div class="grid gap-4" style="grid-template-columns: 1fr 1fr">
-      <div onclick="startChallenge('mc')" class="bg-white border-2 border-paper3 rounded-sm p-6 cursor-pointer hover:border-navy hover:-translate-y-1 transition-all duration-300 hover:shadow-lg group relative overflow-hidden">
+    <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
+      <div onclick="startChallenge('mc')" class="bg-white border-2 border-paper3 rounded-sm p-5 sm:p-6 cursor-pointer hover:border-navy active:border-navy transition-all duration-300 hover:shadow-lg group relative overflow-hidden">
         <div class="absolute top-0 left-0 right-0 h-0.5 bg-navy scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
         <div class="text-3xl mb-3">🧠</div>
         <div class="font-display text-lg font-bold tracking-tight mb-2 text-ink">Multiple Choice</div>
         <div class="text-ink3 text-sm leading-relaxed font-mono">4 options per question. Select the correct answer and get instant feedback with a full explanation.</div>
       </div>
-      <div onclick="startChallenge('theory')" class="bg-white border-2 border-paper3 rounded-sm p-6 cursor-pointer hover:border-rust hover:-translate-y-1 transition-all duration-300 hover:shadow-lg group relative overflow-hidden">
+      <div onclick="startChallenge('theory')" class="bg-white border-2 border-paper3 rounded-sm p-5 sm:p-6 cursor-pointer hover:border-rust active:border-rust transition-all duration-300 hover:shadow-lg group relative overflow-hidden">
         <div class="absolute top-0 left-0 right-0 h-0.5 bg-rust scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
         <div class="text-3xl mb-3">✍️</div>
         <div class="font-display text-lg font-bold tracking-tight mb-2 text-ink">Theory Questions</div>
@@ -247,7 +270,7 @@
   </div>
 
   <!-- MC Challenge Area -->
-  <div id="mcArea" class="hidden max-w-3xl mx-auto px-8 pb-12">
+  <div id="mcArea" class="hidden max-w-3xl mx-auto px-4 sm:px-8 pb-12">
     <div class="h-0.5 bg-paper3 rounded-full mb-10">
       <div class="h-full bg-gradient-to-r from-rust to-rust-mid rounded-full progress-bar-fill" id="challengeProgress" style="width:0%"></div>
     </div>
@@ -255,7 +278,7 @@
       <div class="font-mono text-xs font-semibold tracking-widest text-ink3" id="qCounter">Q 1 / 12</div>
       <div class="bg-ink text-paper font-mono text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-sm" id="qCategory">Definitions</div>
     </div>
-    <div class="font-display text-2xl font-bold leading-snug mb-8 tracking-tight text-ink" id="qText"></div>
+    <div class="font-display text-xl sm:text-2xl font-bold leading-snug mb-6 sm:mb-8 tracking-tight text-ink" id="qText"></div>
     <div class="flex flex-col gap-3 mb-6" id="mcOptions"></div>
     <div class="hidden rounded-sm p-5 mb-6" id="mcFeedback">
       <div class="font-mono text-xs font-bold tracking-[0.18em] uppercase mb-2" id="mcFeedbackLabel"></div>
@@ -285,7 +308,7 @@
   </div>
 
   <!-- Theory Challenge Area -->
-  <div id="theoryArea" class="hidden max-w-3xl mx-auto px-8 pb-12">
+  <div id="theoryArea" class="hidden max-w-3xl mx-auto px-4 sm:px-8 pb-12">
     <div class="h-0.5 bg-paper3 rounded-full mb-10">
       <div class="h-full bg-gradient-to-r from-rust to-rust-mid rounded-full progress-bar-fill" id="theoryProgress" style="width:0%"></div>
     </div>
@@ -338,23 +361,23 @@
 
 <!-- ══════════════════ RAPID FIRE SCREEN ══════════════════ -->
 <div id="rapidScreen" class="hidden min-h-screen">
-  <div class="flex items-center gap-4 px-8 py-4 border-b border-paper3 sticky top-0 bg-paper/95 backdrop-blur z-50">
-    <button class="border border-paper3 text-ink2 font-mono text-xs font-semibold px-4 py-2 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide" onclick="goHome()">← Back</button>
-    <div class="font-display font-bold text-base tracking-tight">⚡ Rapid Fire</div>
+  <div class="flex items-center gap-3 px-4 sm:px-8 py-4 border-b border-paper3 sticky top-0 bg-paper/95 backdrop-blur z-50">
+    <button class="border border-paper3 text-ink2 font-mono text-xs font-semibold px-3 py-2 rounded-sm hover:border-ink hover:bg-paper2 transition-all uppercase tracking-wide flex-shrink-0" onclick="goHome()">← Back</button>
+    <div class="font-display font-bold text-sm sm:text-base tracking-tight">⚡ Rapid Fire</div>
     <div class="ml-auto text-ink3 text-xs tracking-widest uppercase font-semibold" id="rapidWeekLabel">Week 1</div>
   </div>
-  <div class="max-w-2xl mx-auto px-8 py-12 text-center">
-    <div class="font-mono text-xs font-semibold tracking-widest uppercase text-ink3 mb-8" id="rapidProgress">Card 1 of 10</div>
-    <div class="rapid-card mb-8" id="rapidCard" onclick="flipCard()">
+  <div class="max-w-2xl mx-auto px-4 sm:px-8 py-8 sm:py-12 text-center">
+    <div class="font-mono text-xs font-semibold tracking-widest uppercase text-ink3 mb-6" id="rapidProgress">Card 1 of 10</div>
+    <div class="rapid-card mb-6 sm:mb-8" id="rapidCard" onclick="flipCard()">
       <div class="flip-hint">tap to flip</div>
       <div class="rapid-question" id="rapidQ"></div>
       <div class="rapid-answer" id="rapidA"></div>
       <div class="rapid-counter" id="rapidCounter">1</div>
     </div>
-    <div class="flex gap-3 justify-center">
-      <button onclick="rapidPrev()" class="px-7 py-3 border border-paper3 font-mono text-xs font-semibold uppercase tracking-wide text-ink3 hover:border-ink hover:text-ink hover:bg-paper2 rounded-sm transition-all">← Prev</button>
-      <button onclick="flipCard()" class="px-7 py-3 bg-navy text-white font-mono text-xs font-semibold uppercase tracking-wide rounded-sm hover:opacity-90 transition-all">Flip Card</button>
-      <button onclick="rapidNext()" class="px-7 py-3 border border-paper3 font-mono text-xs font-semibold uppercase tracking-wide text-ink3 hover:border-ink hover:text-ink hover:bg-paper2 rounded-sm transition-all">Next →</button>
+    <div class="flex gap-2 sm:gap-3 justify-center">
+      <button onclick="rapidPrev()" class="flex-1 sm:flex-none px-4 sm:px-7 py-3 border border-paper3 font-mono text-xs font-semibold uppercase tracking-wide text-ink3 hover:border-ink hover:text-ink hover:bg-paper2 rounded-sm transition-all">← Prev</button>
+      <button onclick="flipCard()" class="flex-1 sm:flex-none px-4 sm:px-7 py-3 bg-navy text-white font-mono text-xs font-semibold uppercase tracking-wide rounded-sm hover:opacity-90 transition-all">Flip</button>
+      <button onclick="rapidNext()" class="flex-1 sm:flex-none px-4 sm:px-7 py-3 border border-paper3 font-mono text-xs font-semibold uppercase tracking-wide text-ink3 hover:border-ink hover:text-ink hover:bg-paper2 rounded-sm transition-all">Next →</button>
     </div>
   </div>
 </div>
@@ -793,9 +816,7 @@ const courseData = {
   }
 };
 
-/* ============================================================
-   MULTIPLE CHOICE QUESTIONS
-   ============================================================ */
+
 const allQuestions = {
   1: [
     { category:"Variables", q:"What is a variable in programming?", options:["A fixed value that cannot change during program execution","A named storage location in memory that holds a data value","A type of loop used to repeat code","A function that returns a value to the caller"], correct:1, explanation:"<strong>A variable is a named storage location in memory that holds a data value.</strong> The name is called an identifier. Variables can usually be modified (reassigned) after creation. A fixed value that cannot change would be a constant." },
@@ -1707,8 +1728,183 @@ courseData[8] = {
 };
 
 /* ============================================================
-   WEEK 7 — MC QUESTIONS
+   WEEK 9 — COURSE DATA (Introduction to Machine Learning)
    ============================================================ */
+courseData[9] = {
+  label: "Week 9 — Introduction to Machine Learning",
+  topics: [
+    {
+      id: "w9_what_is_ml", title: "What is Machine Learning?", tag: "Week 9 · Definition",
+      body: `Machine Learning is the field of study that enables computers to improve their performance through experience — without being explicitly programmed for every task.\n\nTwo foundational definitions anchor the field:\n\n• Arthur Samuel (1959): "Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed."\n\n• Tom Mitchell (1998): "A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E."\n\nKey Idea: Instead of writing explicit rules (e.g., IF-THEN statements), you show the program examples and it finds the pattern itself. ML is fundamentally about pattern recognition and generalization.`,
+      keypoints: [
+        "Samuel (1959): computers learn without being explicitly programmed",
+        "Mitchell (1998): a program learns if performance P on task T improves with experience E",
+        "Key idea: show examples, not rules — the program finds the pattern",
+        "ML is about pattern recognition and generalization",
+        "Core shift: from rule-writing by programmers to rule-learning from data"
+      ],
+      example: "Spam filter example: Instead of writing rules like 'IF email contains FREE AND CLICK HERE THEN spam', a ML system is shown thousands of labelled spam and non-spam emails and learns the distinguishing patterns itself. As email styles change, it can adapt — without rewriting rules."
+    },
+    {
+      id: "w9_trad_vs_ml", title: "Traditional Programming vs. Machine Learning", tag: "Week 9 · Core Concept",
+      body: `The fundamental difference between traditional programming and machine learning is what goes IN and what comes OUT.\n\nTraditional Programming:\n• Input: Data + Program (rules written by humans)\n• Output: Answers\n• We tell the computer what to do step-by-step.\n\nMachine Learning:\n• Input: Data + Answers (labelled examples)\n• Output: A Program (Model) — the computer figures out the rules\n• The computer discovers the mapping from data to answers.\n\nThis reversal is profound. In traditional programming, human expertise becomes explicit rules. In ML, human expertise becomes training data — labelled examples that teach the machine what the correct answer is.`,
+      keypoints: [
+        "Traditional: Data + Program → Answers (humans write the rules)",
+        "Machine Learning: Data + Answers → Model (machine learns the rules)",
+        "Traditional = explicit logic written by humans",
+        "ML = rules discovered by the algorithm from labelled data",
+        "ML is fundamentally about pattern recognition and generalization"
+      ],
+      table: {
+        headers: ["Dimension", "Traditional Programming", "Machine Learning"],
+        rows: [
+          ["What you provide", "Data + explicit rules (program)", "Data + correct answers (labels)"],
+          ["What you get out", "Answers / outputs", "A model (learned rules)"],
+          ["Who writes the logic", "Human programmers", "The algorithm (learns from data)"],
+          ["Adaptability", "Must rewrite rules manually", "Can retrain on new data"],
+          ["Best for", "Well-defined, stable rule sets", "Complex patterns, large datasets"]
+        ]
+      }
+    },
+    {
+      id: "w9_three_paradigms", title: "The Three Main Paradigms of ML", tag: "Week 9 · Overview",
+      body: `Machine Learning is broadly categorized into three main types based on the nature of the experience (E) the system has:\n\n1. Supervised Learning — Learning with a teacher\nThe algorithm is trained on labelled data (input-output pairs). A "teacher" has already provided the correct answers for the training examples.\n\n2. Unsupervised Learning — Learning by discovering hidden structure\nThe algorithm is given only inputs with no labels. It must discover patterns, groupings, or structures entirely on its own.\n\n3. Reinforcement Learning — Learning by interacting with an environment\nAn agent learns by taking actions and receiving rewards or penalties. No labelled data — it learns through trial and error over time.`,
+      keypoints: [
+        "ML is categorized by the nature of the 'experience' E the system has",
+        "Supervised Learning: labelled data — input-output pairs — learning with a teacher",
+        "Unsupervised Learning: unlabelled data — discover hidden structure",
+        "Reinforcement Learning: learn through interaction with environment and reward signals",
+        "These three paradigms form the foundation of modern AI"
+      ],
+      table: {
+        headers: ["Paradigm", "Data Required", "Analogy", "Output"],
+        rows: [
+          ["Supervised", "Labelled (X, Y) pairs", "Student with answer key", "Prediction model"],
+          ["Unsupervised", "Unlabelled (X only)", "Organizing unknown books by similarity", "Discovered structure/groups"],
+          ["Reinforcement", "Rewards/penalties from environment", "Training a dog with treats", "Policy for action selection"]
+        ]
+      }
+    },
+    {
+      id: "w9_supervised", title: "Supervised Learning", tag: "Week 9 · Supervised Learning",
+      body: `Supervised Learning is the most widely used paradigm. The algorithm learns from a dataset containing input-output pairs. The goal is to learn a mapping function f: X → Y from input features (X) to labels (Y).\n\nTraining Data: Features (X) + Labels (Y)\nAnalogy: A student learning with an answer key — "Given this, predict that."\n\nSupervised learning has two main task types:\n\n1. Classification — predicting a discrete category label\nIs this email spam or not? Is this image a cat or a dog?\nOutput: Class label (e.g., "Cat", "Spam")\n\n2. Regression — predicting a continuous numerical value\nWhat will the temperature be tomorrow? What is the price of this house?\nOutput: A number (e.g., 28°C, $350,000)`,
+      keypoints: [
+        "Learns a mapping function f: X → Y from labelled training data",
+        "Training data: Features (X) + Labels (Y)",
+        "Analogy: student learning with an answer key — 'Given this, predict that'",
+        "Classification: predict a discrete category label (e.g., spam/not spam, cat/dog)",
+        "Regression: predict a continuous numerical value (e.g., house price, temperature)",
+        "Common algorithms: Linear Regression, Logistic Regression, Decision Trees, SVM, Neural Networks"
+      ],
+      table: {
+        headers: ["Task", "Output Type", "Examples", "Common Algorithms"],
+        rows: [
+          ["Classification", "Discrete category label", "Spam detection, image recognition, disease diagnosis", "Logistic Regression, Decision Tree, SVM, Neural Networks"],
+          ["Regression", "Continuous numerical value", "House price, stock price, temperature forecast", "Linear Regression, Ridge Regression, Neural Networks"]
+        ]
+      },
+      example: "Medical diagnosis as supervised learning: Training data = thousands of patient records (age, symptoms, test results) paired with confirmed diagnoses. The trained model can then predict the likely diagnosis for new, unseen patients."
+    },
+    {
+      id: "w9_unsupervised", title: "Unsupervised Learning", tag: "Week 9 · Unsupervised Learning",
+      body: `Unsupervised Learning algorithms are given only inputs — no labels, no correct answers. The goal is to discover hidden patterns, structures, or groupings in the data entirely on its own.\n\nTraining Data: Features (X) only — no 'right answers' are given.\nAnalogy: A student trying to organize a library of books with no titles or categories — finding similarities and grouping them accordingly.\n\nTwo main unsupervised tasks:\n\n1. Clustering — group similar data points together\nThe algorithm discovers natural groupings (clusters) in the data.\nExample: customer segmentation, grouping news articles by topic.\n\n2. Dimensionality Reduction — compress data by reducing the number of features while preserving important information\nExample: visualizing high-dimensional data in 2D, removing noise.`,
+      keypoints: [
+        "No labels — only input features (X). The algorithm finds its own structure.",
+        "Analogy: organizing unknown books by finding similarities",
+        "Clustering: group similar data points — discover natural groupings",
+        "Clustering examples: customer segmentation, grouping news articles by topic",
+        "Dimensionality Reduction: compress data while preserving important information",
+        "Dim. reduction examples: data visualization in 2D, noise removal",
+        "Common algorithms: K-Means, Hierarchical Clustering, PCA, Autoencoders"
+      ],
+      table: {
+        headers: ["Task", "What it Does", "Example Use Case", "Algorithms"],
+        rows: [
+          ["Clustering", "Group similar data points together", "Customer segmentation, topic modelling", "K-Means, Hierarchical Clustering, DBSCAN"],
+          ["Dimensionality Reduction", "Reduce features while keeping information", "Data visualization, noise removal", "PCA, t-SNE, Autoencoders"]
+        ]
+      }
+    },
+    {
+      id: "w9_reinforcement", title: "Reinforcement Learning", tag: "Week 9 · Reinforcement Learning",
+      body: `Reinforcement Learning (RL) is a fundamentally different paradigm. An agent learns to make decisions by performing actions in an environment and receiving feedback in the form of rewards or penalties.\n\n• No direct input-output pairs are given (unlike supervised learning)\n• The agent learns through trial and error — receiving delayed feedback\n• Goal: maximize cumulative reward over time\n\nAnalogy: Training a dog. You don't tell it exactly what to do — you give a treat (reward) when it does something right. Over many repetitions, the dog learns the desired behaviour.\n\nThe Agent-Environment Loop:\n1. Agent observes current State (sₜ)\n2. Agent takes an Action (aₜ)\n3. Environment transitions to new State (sₜ₊₁)\n4. Environment provides a Reward (rₜ)\n5. Repeat — agent updates its policy based on rewards`,
+      keypoints: [
+        "Agent learns by taking actions and receiving rewards/penalties from an environment",
+        "No labelled data — learning through trial and error with delayed feedback",
+        "Goal: maximize cumulative reward over time (not just immediate reward)",
+        "Analogy: training a dog with treats — reward correct behaviour",
+        "Agent-Environment Loop: Observe State → Take Action → Get Reward → Update Policy → Repeat",
+        "Real-world examples: AlphaGo, robotics (walk/grasp), resource management in data centers",
+        "Key challenge: credit assignment problem — which past action caused the reward?"
+      ],
+      example: "AlphaGo (Google DeepMind): RL agent that learned to play the board game Go at superhuman level. It played millions of games against itself, receiving a reward for winning and a penalty for losing. Over time it discovered strategies no human had ever devised."
+    },
+    {
+      id: "w9_rl_framework", title: "The RL Agent-Environment Framework", tag: "Week 9 · Reinforcement Learning",
+      body: `The formal RL framework defines the agent-environment interaction precisely.\n\nKey RL components:\n• State (sₜ): the current situation observed by the agent\n• Action (aₜ): what the agent does in that state\n• Reward (rₜ): the feedback signal received after the action\n• Policy (π): the agent's learned strategy — which action to take in each state\n• Value Function: estimates expected cumulative future reward from a state\n\nReal-World RL Applications:\n• Robotics: learning to walk, grasp objects, navigate\n• Gaming: AlphaGo (Go), AlphaStar (StarCraft II), OpenAI Five (Dota 2)\n• Resource Management: optimizing energy consumption in data centers (Google)\n• Finance: portfolio management and trading strategies\n• Healthcare: treatment optimization`,
+      keypoints: [
+        "State (sₜ): what the agent currently observes about the environment",
+        "Action (aₜ): the decision made by the agent at each timestep",
+        "Reward (rₜ): feedback signal — positive for good actions, negative for bad",
+        "Policy (π): the agent's learned strategy — maps states to actions",
+        "Value Function: estimates expected future cumulative reward from a state",
+        "Robotics: learning to walk, grasp objects, navigate environments",
+        "Gaming: AlphaGo, AlphaStar — achieving superhuman performance",
+        "Resource Management: Google used RL to cut data center energy use by ~40%"
+      ],
+      table: {
+        headers: ["Component", "Symbol", "Description"],
+        rows: [
+          ["State", "sₜ", "Current situation observed by the agent"],
+          ["Action", "aₜ", "Decision taken by the agent in state sₜ"],
+          ["Reward", "rₜ", "Feedback from environment — reward (+) or penalty (-)"],
+          ["Policy", "π(s)", "Learned strategy: which action to take in each state"],
+          ["Value Function", "V(s)", "Expected cumulative future reward from state s"]
+        ]
+      }
+    },
+    {
+      id: "w9_comparison", title: "Comparing All Three Paradigms", tag: "Week 9 · Comparison",
+      body: `Each of the three ML paradigms is suited to different problems and data conditions. Understanding when to use each is a critical practical skill.\n\nKey decision factors:\n1. Do you have labelled data? → Supervised Learning\n2. Do you have unlabelled data and need to discover structure? → Unsupervised Learning\n3. Is the task sequential decision-making with feedback signals? → Reinforcement Learning\n\nIn practice, many real-world systems combine all three. A recommendation system might use unsupervised learning to cluster users, supervised learning to predict what a user will rate highly, and reinforcement learning to optimize long-term engagement.`,
+      keypoints: [
+        "Use Supervised when: you have labelled data and want to predict an output for new inputs",
+        "Use Unsupervised when: no labels available, want to discover structure or compress data",
+        "Use Reinforcement when: sequential decisions, feedback as rewards/penalties, no direct labels",
+        "Many real systems combine all three paradigms",
+        "Labelled data is expensive — unsupervised and RL avoid this requirement",
+        "Supervised Learning is the most widely used paradigm in industry today"
+      ],
+      table: {
+        headers: ["Aspect", "Supervised", "Unsupervised", "Reinforcement"],
+        rows: [
+          ["Data needed", "Labelled (X, Y)", "Unlabelled (X only)", "Reward signals"],
+          ["Goal", "Predict output for new inputs", "Discover hidden structure", "Maximize cumulative reward"],
+          ["Feedback type", "Correct labels given upfront", "No explicit feedback", "Reward/penalty after actions"],
+          ["Typical tasks", "Classification, Regression", "Clustering, Dim. Reduction", "Game playing, Robotics"],
+          ["Key challenge", "Requires expensive labelled data", "Evaluating structure quality", "Credit assignment, exploration"]
+        ]
+      }
+    },
+    {
+      id: "w9_summary", title: "Week 9 Summary", tag: "Week 9 · Key Takeaways",
+      body: `Everything from Week 9 condensed into the most testable points.`,
+      keypoints: [
+        "ML Definition — Samuel (1959): computers learn without explicit programming",
+        "ML Definition — Mitchell (1998): performance P on task T improves with experience E",
+        "Traditional: Data + Program → Answers | ML: Data + Answers → Model",
+        "ML is about pattern recognition and generalization — not rule writing",
+        "3 Paradigms: Supervised (labelled), Unsupervised (unlabelled), Reinforcement (reward signals)",
+        "Supervised tasks: Classification (discrete output) and Regression (continuous output)",
+        "Supervised algorithms: Linear/Logistic Regression, Decision Trees, SVM, Neural Networks",
+        "Unsupervised tasks: Clustering (K-Means) and Dimensionality Reduction (PCA)",
+        "Reinforcement: Agent-Environment Loop → State → Action → Reward → Policy update",
+        "RL analogy: training a dog with treats | Key example: AlphaGo",
+        "Supervised = most used in industry | RL = sequential decision-making tasks"
+      ]
+    }
+  ]
+};
+
 allQuestions[7] = [
   { category:"Fundamentals", q:"According to the lecture, what is the key insight about how AI handles problems?", options:["AI understands problems the same way humans do","AI represents problems in computationally tractable ways rather than understanding them intuitively","AI relies entirely on common sense reasoning","AI uses only symbolic logic for all problems"], correct:1, explanation:"<strong>The key insight is that AI does not 'understand' problems like humans do.</strong> Instead, it represents them in computationally tractable ways — formal representations, computational structures, mathematical models, and data-driven patterns — so that algorithms can operate on them." },
   { category:"State-Space", q:"In the State-Space model tuple (S, s₀, G, A, T, C), what does T represent?", options:["The set of all possible states","The cost of each action","The transition function mapping state-action pairs to new states","The set of goal states"], correct:2, explanation:"<strong>T is the Transition Function: T: S × A → S.</strong> It takes a state and an action and returns the resulting new state. It formally captures 'what happens when you do this action in this state.'" },
@@ -1724,9 +1920,7 @@ allQuestions[7] = [
   { category:"Key Insights", q:"According to the lecture's key insights, what is the most important design decision in any AI system?", options:["The choice of programming language","The size of the training dataset","The representation choice","The number of hidden layers in the neural network"], correct:2, explanation:"<strong>The lecture explicitly states: 'The representation choice is the most important design decision.'</strong> The representation determines which algorithms are applicable and efficient — everything else depends on it." }
 ];
 
-/* ============================================================
-   WEEK 8 — MC QUESTIONS
-   ============================================================ */
+
 allQuestions[8] = [
   { category:"KR Definition", q:"According to the lecture, what is Knowledge Representation (KR)?", options:["A database system for storing large amounts of numerical data","The field of AI concerned with formally describing the world so that an AI system can reason about it","A method for training neural networks on symbolic data","A type of algorithm for sorting information"], correct:1, explanation:"<strong>KR is formally defined as the field of AI concerned with formally describing the world so that an AI system can reason about it.</strong> It uses symbols to represent objects, properties, and relationships, and defines rules for manipulating these symbols to draw new conclusions (inference)." },
   { category:"KR Core Triad", q:"What are the three components of the KR Core Triad from the lecture?", options:["Algorithm, Dataset, Model","Knowledge Base, Representation Language, Reasoning Engine","Input, Process, Output","Facts, Rules, Conclusions"], correct:1, explanation:"<strong>The Core Triad of KR is: (1) Knowledge Base (KB) — the container storing facts and rules; (2) Representation Language — the formal language used (e.g. Logic); (3) Reasoning Engine — the mechanism that infers new knowledge.</strong> All three must work together for a KR system to function." },
@@ -1740,6 +1934,27 @@ allQuestions[8] = [
   { category:"Chaining", q:"What is the key difference between Forward and Backward Chaining?", options:["Forward Chaining uses FOL; Backward Chaining uses Propositional Logic","Forward Chaining is data-driven (facts to conclusions); Backward Chaining is goal-driven (goal to supporting facts)","Forward Chaining is used in Prolog; Backward Chaining in expert systems","There is no difference — they produce the same results by the same method"], correct:1, explanation:"<strong>Forward Chaining is data-driven — it starts with known facts and applies rules to derive new facts until a goal is reached.</strong> Backward Chaining is goal-driven — it starts with a hypothesis and works backwards, finding rules that can prove it and setting their conditions as sub-goals. Prolog uses backward chaining." },
   { category:"Knowledge Bases", q:"What distinguishes a Knowledge Base from a regular database?", options:["A KB stores only numerical data while a database stores text","A KB contains facts AND rules that support inference — not just stored data","A KB uses SQL while a database uses logic","A KB is always smaller than a regular database"], correct:1, explanation:"<strong>A Knowledge Base is distinguished by containing facts AND rules that support inference — making it a 'smart database'.</strong> A regular database simply retrieves stored data. A KB, combined with a reasoning engine, can derive new knowledge that was never explicitly stored." },
   { category:"Medical KB Example", q:"In the medical KB example from the lecture, how does the system infer HasDisease(PatientA, Flu)?", options:["By randomly selecting from a list of possible diseases","By searching the internet for matching symptoms","By unifying the rule variable p with PatientA, checking both symptom facts are in the KB, and applying Generalized Modus Ponens","By asking a human doctor to confirm the diagnosis"], correct:2, explanation:"<strong>The inference proceeds in three steps:</strong> (1) Unification — the system substitutes p = PatientA in the rule. (2) Verification — it confirms both HasSymptoms(PatientA, Fever) and HasSymptoms(PatientA, Cough) are in the KB. (3) Inference — Generalized Modus Ponens derives the new fact: HasDisease(PatientA, Flu)." }
+];
+
+/* ============================================================
+   WEEK 9 — MC QUESTIONS
+   ============================================================ */
+allQuestions[9] = [
+  { category:"ML Definition", q:"According to Arthur Samuel (1959), what is Machine Learning?", options:["The field of study that writes programs to perform tasks automatically","The field of study that gives computers the ability to learn without being explicitly programmed","The science of building robots that can think like humans","The study of neural networks and deep learning architectures"], correct:1, explanation:"<strong>Arthur Samuel (1959) defined Machine Learning as 'the field of study that gives computers the ability to learn without being explicitly programmed.'</strong> This is the classic foundational definition emphasizing learning from data rather than following hand-coded rules." },
+  { category:"ML Definition", q:"In Tom Mitchell's (1998) formal definition, a computer program is said to 'learn' when:", options:["It can solve any problem a human can solve","Its performance P at tasks T improves with experience E","It can write its own source code","It achieves 100% accuracy on training data"], correct:1, explanation:"<strong>Mitchell's formal definition: 'A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.'</strong> E = experience/data, T = the task, P = how we measure success." },
+  { category:"Traditional vs ML", q:"In Traditional Programming, what are the INPUTS and what is the OUTPUT?", options:["Inputs: Data + Answers → Output: Program (Model)","Inputs: Data + Program → Output: Answers","Inputs: Rewards + Penalties → Output: Policy","Inputs: Features + Labels → Output: Predictions"], correct:1, explanation:"<strong>Traditional Programming: INPUT = Data + Program (the rules humans write) → OUTPUT = Answers.</strong> We explicitly tell the computer what logic to follow. This contrasts with ML where: Input = Data + Answers → Output = A learned Model (the computer figures out the rules)." },
+  { category:"Traditional vs ML", q:"What is the fundamental reversal in Machine Learning compared to Traditional Programming?", options:["ML uses more memory than traditional programming","In ML, the computer figures out the rules from labelled examples; in traditional programming, humans write the rules explicitly","ML is slower but more accurate than traditional programming","ML always requires internet access while traditional programming does not"], correct:1, explanation:"<strong>The fundamental reversal: Traditional Programming takes (Data + Rules) → Answers. Machine Learning takes (Data + Answers) → Rules/Model.</strong> Instead of programmers writing the logic, the machine discovers the logic from labelled training data. ML is about pattern recognition and generalization." },
+  { category:"Three Paradigms", q:"Which ML paradigm is described as 'learning with a teacher'?", options:["Unsupervised Learning","Reinforcement Learning","Supervised Learning","Transfer Learning"], correct:2, explanation:"<strong>Supervised Learning is described as 'learning with a teacher'</strong> because the training data includes correct answers (labels) — like a student learning with an answer key. The 'teacher' has already labelled each example with the correct output." },
+  { category:"Three Paradigms", q:"Which ML paradigm uses only input data (X) with no labels?", options:["Supervised Learning","Unsupervised Learning","Reinforcement Learning","Semi-supervised Learning"], correct:1, explanation:"<strong>Unsupervised Learning uses only input data (X) with no labels.</strong> The algorithm must discover hidden patterns, groupings, or structures in the data entirely on its own. Analogous to a student organizing unknown books by finding similarities." },
+  { category:"Supervised Learning", q:"What are the TWO main task types in Supervised Learning?", options:["Clustering and Dimensionality Reduction","Classification and Regression","Forward Chaining and Backward Chaining","Exploration and Exploitation"], correct:1, explanation:"<strong>Supervised Learning has two main task types:</strong> (1) Classification — predicting a discrete category label (e.g., spam/not spam, cat/dog); (2) Regression — predicting a continuous numerical value (e.g., house price, temperature tomorrow). Classification outputs a class; Regression outputs a number." },
+  { category:"Supervised Learning", q:"Predicting whether an email is 'spam' or 'not spam' is an example of which supervised learning task?", options:["Regression","Clustering","Classification","Reinforcement"], correct:2, explanation:"<strong>Spam detection is Classification</strong> — predicting a discrete category label ('spam' or 'not spam'). Classification outputs a class. Regression would be used if the output were a continuous number (e.g., predicting the spam probability score as a percentage)." },
+  { category:"Supervised Learning", q:"Predicting tomorrow's temperature (e.g., 28.5°C) is an example of which supervised learning task?", options:["Classification","Clustering","Dimensionality Reduction","Regression"], correct:3, explanation:"<strong>Predicting temperature is Regression</strong> — the output is a continuous numerical value (28.5°C). Regression is used whenever you need to predict a number on a continuous scale. If the output were a discrete category (hot/cold), it would be Classification." },
+  { category:"Unsupervised Learning", q:"Grouping customers into segments based on their purchasing behaviour (without pre-defined groups) is an example of which unsupervised task?", options:["Regression","Classification","Clustering","Policy Optimization"], correct:2, explanation:"<strong>Customer segmentation is Clustering</strong> — an unsupervised task that groups similar data points together without pre-defined labels. The algorithm discovers natural groupings. This is unsupervised because no one has labelled which 'cluster' each customer belongs to in advance." },
+  { category:"Unsupervised Learning", q:"Principal Component Analysis (PCA) is a common algorithm for which unsupervised learning task?", options:["Clustering","Regression","Classification","Dimensionality Reduction"], correct:3, explanation:"<strong>PCA (Principal Component Analysis) is a Dimensionality Reduction algorithm.</strong> It compresses data by reducing the number of features while preserving the most important information/variance. This is used to visualize high-dimensional data in 2D, remove noise, or speed up downstream algorithms." },
+  { category:"Reinforcement Learning", q:"In Reinforcement Learning, what is the 'reward' signal?", options:["The correct label provided by a human teacher","Feedback from the environment — a positive or negative signal indicating how good an action was","The cost function used to update neural network weights","The current state observed by the agent"], correct:1, explanation:"<strong>The reward is feedback from the environment indicating how good or bad an action was.</strong> Positive reward reinforces the action; negative reward (penalty) discourages it. Unlike supervised learning where correct labels are given upfront, RL rewards arrive after taking actions — feedback is delayed." },
+  { category:"Reinforcement Learning", q:"What is the correct order of the Agent-Environment Loop in Reinforcement Learning?", options:["Action → State → Reward → Policy Update","State → Action → Reward → Policy Update","Reward → State → Action → Policy Update","Policy → Reward → Action → State"], correct:1, explanation:"<strong>The Agent-Environment Loop: (1) Observe State (sₜ) → (2) Take Action (aₜ) → (3) Receive Reward (rₜ) → (4) Update Policy → Repeat.</strong> The agent observes where it is, decides what to do, sees what reward it gets, and updates its strategy accordingly." },
+  { category:"Reinforcement Learning", q:"Which of the following is a real-world example of Reinforcement Learning mentioned in the lecture?", options:["Training a spam filter on labelled emails","AlphaGo learning to play the board game Go","K-Means grouping customers into segments","Using PCA to visualize high-dimensional data"], correct:1, explanation:"<strong>AlphaGo is the classic RL example from the lecture.</strong> It learned to play Go at superhuman level by playing millions of games against itself — receiving a reward for winning and penalty for losing. It discovered strategies no human had ever devised, purely through trial and error." },
+  { category:"Comparison", q:"Which paradigm would you use to predict house prices from features like size, location, and age?", options:["Unsupervised Learning — Clustering","Reinforcement Learning","Supervised Learning — Regression","Unsupervised Learning — Dimensionality Reduction"], correct:2, explanation:"<strong>Predicting house prices uses Supervised Learning — specifically Regression.</strong> You have labelled training data (past house sales with known prices) and want to learn a mapping from features (size, location, age) to a continuous numerical price. This is the classic regression setup." }
 ];
 
 /* ============================================================
@@ -1761,8 +1976,31 @@ allTheoryQuestions[8] = [
 ];
 
 /* ============================================================
-   WEEK 7 — FLASHCARDS
+   WEEK 9 — THEORY QUESTIONS
    ============================================================ */
+allTheoryQuestions[9] = [
+  { category:"ML Definitions", q:"Explain Machine Learning using BOTH foundational definitions (Samuel 1959 and Mitchell 1998). Then explain the fundamental difference between Traditional Programming and Machine Learning using the input/output reversal framework.", answer:"Samuel (1959) definition: 'Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed.' Key idea: computers can improve from experience without having every rule hand-coded.\n\nMitchell (1998) formal definition: 'A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E.' Components: E = experience (data/training), T = the task being performed, P = how we measure success.\n\nThe Input/Output Reversal:\nTraditional Programming: INPUT = Data + Program (explicit rules) → OUTPUT = Answers. Humans write the logic.\nMachine Learning: INPUT = Data + Answers (labelled examples) → OUTPUT = Program / Model. The machine discovers the logic.\n\nKey insight: in traditional programming, human expertise is expressed as rules. In ML, human expertise is expressed as labelled training data — and the algorithm extracts the rules itself. ML is fundamentally about pattern recognition and generalization." },
+  { category:"Three Paradigms", q:"Describe all three main Machine Learning paradigms in detail. For each: define it, explain the type of data required, provide an analogy, list the main task types, and give a real-world example.", answer:"1. Supervised Learning — 'Learning with a teacher'\nDefinition: the algorithm learns from labelled data (input-output pairs — Features X and Labels Y). Goal: learn a mapping function f: X → Y.\nData required: labelled training data — both inputs AND correct answers.\nAnalogy: a student studying with an answer key — 'Given this, predict that.'\nTask types: (a) Classification — predict a discrete category (spam/not spam, cat/dog); (b) Regression — predict a continuous value (house price, temperature).\nReal example: Gmail spam filter trained on millions of labelled emails.\nAlgorithms: Linear/Logistic Regression, Decision Trees, SVM, Neural Networks.\n\n2. Unsupervised Learning — 'Learning by discovering hidden structure'\nDefinition: the algorithm receives only input features (X) — no labels. Goal: discover hidden patterns or groupings in the data.\nData required: unlabelled data — inputs only, no correct answers.\nAnalogy: organizing a library of unknown books by finding similarities.\nTask types: (a) Clustering — group similar data points (K-Means); (b) Dimensionality Reduction — compress data while preserving information (PCA).\nReal example: customer segmentation — grouping customers by behaviour without pre-labelled groups.\n\n3. Reinforcement Learning — 'Learning by interacting with an environment'\nDefinition: an agent learns by taking actions in an environment and receiving rewards or penalties. No labelled data — learns by trial and error.\nData required: reward signals from environment interaction.\nAnalogy: training a dog with treats — reward good behaviour, discourage bad.\nAgent-Environment Loop: Observe State → Take Action → Receive Reward → Update Policy → Repeat.\nReal example: AlphaGo — played millions of games against itself, learning from wins (reward) and losses (penalty)." },
+  { category:"Supervised Learning", q:"Compare and contrast Classification and Regression as the two main tasks of Supervised Learning. For each: define it, state the type of output, give two examples, and name two common algorithms.", answer:"Both Classification and Regression are Supervised Learning tasks — both learn from labelled data (X, Y pairs) — but they differ in the type of output produced.\n\nClassification:\nDefinition: predict a discrete category label from a finite set of classes.\nOutput type: a class label (e.g., 'spam'/'not spam', 'cat'/'dog', 'positive'/'negative').\nExamples: (1) Email spam detection — classify each email as spam or not; (2) Disease diagnosis — classify patient as has disease or does not; (3) Image recognition — classify image as one of N categories.\nAlgorithms: Logistic Regression, Decision Trees, Support Vector Machines (SVM), Neural Networks.\n\nRegression:\nDefinition: predict a continuous numerical value on an unbounded (or bounded) scale.\nOutput type: a number (e.g., $350,000 house price, 28.5°C temperature, 0.72 probability score).\nExamples: (1) House price prediction — given features, predict sale price; (2) Weather forecasting — predict tomorrow's temperature in °C; (3) Stock price prediction — predict closing price.\nAlgorithms: Linear Regression, Ridge Regression, Neural Networks.\n\nKey distinction: ask 'what kind of output do I need?' If discrete category → Classification. If a number on a continuous scale → Regression." },
+  { category:"Reinforcement Learning", q:"Explain the Reinforcement Learning framework in full. Describe all five key components (State, Action, Reward, Policy, Value Function). Walk through the Agent-Environment Loop step by step. Then describe two real-world applications of RL.", answer:"Reinforcement Learning Framework:\n\nKey Components:\n1. State (sₜ): the current situation observed by the agent — a representation of the environment at time t.\n2. Action (aₜ): the decision taken by the agent at time t — what it does in state sₜ.\n3. Reward (rₜ): feedback from the environment after the action — positive signal for good actions, negative (penalty) for bad.\n4. Policy (π): the agent's learned strategy — a mapping from states to actions (which action to take in each state).\n5. Value Function V(s): estimates the expected cumulative future reward starting from state s — tells the agent how 'good' it is to be in a given state.\n\nAgent-Environment Loop (step by step):\n1. Agent observes the current State (sₜ) of the environment.\n2. Agent selects an Action (aₜ) according to its current Policy.\n3. Environment transitions to a new State (sₜ₊₁) as a result of the action.\n4. Environment provides a Reward (rₜ) to the agent.\n5. Agent updates its Policy based on the reward received.\n6. Repeat from step 1.\n\nGoal: maximize cumulative reward over time — not just immediate reward.\nKey difference from supervised learning: no labels — feedback is delayed rewards, not correct answers.\n\nReal-World Applications:\n1. AlphaGo (Google DeepMind): RL agent that achieved superhuman Go performance by playing millions of self-play games, updating its policy based on win/loss rewards.\n2. Data Center Energy Optimization (Google): RL agent reduced data center cooling energy consumption by ~40% by learning optimal equipment settings through trial and error." }
+];
+
+/* ============================================================
+   WEEK 9 — FLASHCARDS
+   ============================================================ */
+allFlashcards[9] = [
+  { q:"Two foundational ML definitions (Samuel & Mitchell)", a:"<strong>Samuel (1959)</strong>: 'ML gives computers the ability to learn without being explicitly programmed.'<br><br><strong>Mitchell (1998)</strong>: A program learns if performance <strong>P</strong> at task <strong>T</strong> improves with experience <strong>E</strong>.<br><br>Key idea: <strong>pattern recognition and generalization</strong> — not rule writing." },
+  { q:"Traditional Programming vs Machine Learning — the reversal", a:"<strong>Traditional</strong>:<br>Input: Data + Program (rules) → Output: <strong>Answers</strong><br>Humans write the logic.<br><br><strong>Machine Learning</strong>:<br>Input: Data + Answers (labels) → Output: <strong>Model</strong><br>Machine discovers the logic.<br><br>ML = <em>the computer figures it out</em>" },
+  { q:"Three ML Paradigms — names, data type, analogy", a:"1. <strong>Supervised</strong>: labelled data (X, Y) — student with answer key<br>2. <strong>Unsupervised</strong>: unlabelled data (X only) — organizing unknown books<br>3. <strong>Reinforcement</strong>: rewards from environment — training a dog with treats" },
+  { q:"Supervised Learning: definition, two tasks, algorithms", a:"Learn mapping <strong>f: X → Y</strong> from labelled data.<br><br><strong>Classification</strong>: predict discrete label (spam/not spam, cat/dog)<br><strong>Regression</strong>: predict continuous value (house price, temperature)<br><br>Algorithms: Linear Regression, Logistic Regression, Decision Trees, SVM, Neural Networks" },
+  { q:"Classification vs Regression — key distinction", a:"<strong>Classification</strong>:<br>• Output: discrete category label<br>• Example: 'Is this email spam?' → Yes/No<br>• Algorithms: Logistic Regression, Decision Tree, SVM<br><br><strong>Regression</strong>:<br>• Output: continuous numerical value<br>• Example: 'What is the house price?' → $350,000<br>• Algorithms: Linear Regression, Ridge" },
+  { q:"Unsupervised Learning: two tasks and algorithms", a:"No labels — only inputs (X). Algorithm finds its own structure.<br><br><strong>Clustering</strong>: group similar data points<br>• Example: customer segmentation<br>• Algorithm: K-Means, Hierarchical Clustering<br><br><strong>Dimensionality Reduction</strong>: compress data while preserving info<br>• Example: visualize data in 2D, remove noise<br>• Algorithm: PCA, Autoencoders" },
+  { q:"Reinforcement Learning: 5 components", a:"<strong>State (sₜ)</strong>: current situation the agent observes<br><strong>Action (aₜ)</strong>: decision taken by the agent<br><strong>Reward (rₜ)</strong>: feedback — positive or negative<br><strong>Policy (π)</strong>: learned strategy — state → action<br><strong>Value Function V(s)</strong>: expected cumulative future reward from state s" },
+  { q:"RL Agent-Environment Loop — 5 steps", a:"1. Agent observes <strong>State (sₜ)</strong><br>2. Agent takes <strong>Action (aₜ)</strong><br>3. Environment → new <strong>State (sₜ₊₁)</strong><br>4. Environment gives <strong>Reward (rₜ)</strong><br>5. Agent updates <strong>Policy</strong> → Repeat<br><br>Goal: <strong>maximize cumulative reward</strong> over time" },
+  { q:"RL real-world examples from the lecture", a:"• <strong>AlphaGo</strong>: superhuman Go by self-play millions of games<br>• <strong>Robotics</strong>: learning to walk, grasp, navigate<br>• <strong>Data Centers</strong>: Google cut cooling energy ~40%<br>• <strong>Gaming</strong>: AlphaStar (StarCraft II), OpenAI Five (Dota 2)<br>• <strong>Finance</strong>: portfolio management and trading" },
+  { q:"When to use each ML paradigm", a:"<strong>Supervised</strong>: have labelled data, want predictions<br>(e.g. spam filter, house price, disease diagnosis)<br><br><strong>Unsupervised</strong>: no labels, want structure/compression<br>(e.g. customer segmentation, data visualization)<br><br><strong>Reinforcement</strong>: sequential decisions, reward signals<br>(e.g. game playing, robotics, energy optimization)" }
+];
+   
 allFlashcards[7] = [
   { q:"Key insight: how does AI represent vs. understand problems?", a:"AI does <strong>not 'understand'</strong> problems the way humans do. Instead, it <strong>represents problems in computationally tractable ways</strong>:<br>• Formal representations<br>• Computational structures<br>• Mathematical models<br>• Data-driven patterns" },
   { q:"State-Space Model tuple — all 6 components", a:"<strong>(S, s₀, G, A, T, C)</strong><br><br><strong>S</strong>: Set of all possible states<br><strong>s₀</strong>: Initial state<br><strong>G</strong>: Goal states<br><strong>A</strong>: Set of possible actions<br><strong>T</strong>: Transition function (S × A → S)<br><strong>C</strong>: Cost function (S × A → ℝ⁺)" },
@@ -1845,22 +2083,22 @@ function selectWeek(week, btn) {
   btn.classList.add('active');
 }
 function getWeekLabel() {
-  return { 1:'Week 1', 2:'Week 2', 3:'Week 3', 4:'Week 4', 5:'Week 5', 6:'Week 6', 7:'Week 7', 8:'Week 8', all:'All Weeks' }[currentWeek] || 'Week 1';
+  return { 1:'Week 1', 2:'Week 2', 3:'Week 3', 4:'Week 4', 5:'Week 5', 6:'Week 6', 7:'Week 7', 8:'Week 8', 9:'Week 9', all:'All Weeks' }[currentWeek] || 'Week 1';
 }
 function getQuestions() {
-  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3], ...allQuestions[4], ...allQuestions[5], ...allQuestions[6], ...allQuestions[7], ...allQuestions[8]];
+  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3], ...allQuestions[4], ...allQuestions[5], ...allQuestions[6], ...allQuestions[7], ...allQuestions[8], ...allQuestions[9]];
   return allQuestions[currentWeek] || [];
 }
 function getTheoryQuestions() {
-  if (currentWeek === 'all') return [...allTheoryQuestions[1], ...allTheoryQuestions[2], ...allTheoryQuestions[3], ...allTheoryQuestions[4], ...allTheoryQuestions[5], ...allTheoryQuestions[6], ...allTheoryQuestions[7], ...allTheoryQuestions[8]];
+  if (currentWeek === 'all') return [...allTheoryQuestions[1], ...allTheoryQuestions[2], ...allTheoryQuestions[3], ...allTheoryQuestions[4], ...allTheoryQuestions[5], ...allTheoryQuestions[6], ...allTheoryQuestions[7], ...allTheoryQuestions[8], ...allTheoryQuestions[9]];
   return allTheoryQuestions[currentWeek] || [];
 }
 function getFlashcards() {
-  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3], ...allFlashcards[4], ...allFlashcards[5], ...allFlashcards[6], ...allFlashcards[7], ...allFlashcards[8]];
+  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3], ...allFlashcards[4], ...allFlashcards[5], ...allFlashcards[6], ...allFlashcards[7], ...allFlashcards[8], ...allFlashcards[9]];
   return allFlashcards[currentWeek] || [];
 }
 function getTopics() {
-  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics, ...courseData[3].topics, ...courseData[4].topics, ...courseData[5].topics, ...courseData[6].topics, ...courseData[7].topics, ...courseData[8].topics];
+  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics, ...courseData[3].topics, ...courseData[4].topics, ...courseData[5].topics, ...courseData[6].topics, ...courseData[7].topics, ...courseData[8].topics, ...courseData[9].topics];
   return courseData[currentWeek]?.topics || [];
 }
 
@@ -1919,14 +2157,25 @@ function shuffle(arr) {
   return arr;
 }
 
+function toggleMobileSidebar() {
+  const sidebar = document.getElementById('mobileSidebar');
+  const overlay = document.getElementById('mobileSidebarOverlay');
+  const isHidden = sidebar.classList.contains('hidden');
+  sidebar.classList.toggle('hidden', !isHidden);
+  overlay.classList.toggle('hidden', !isHidden);
+}
+
 /* ============================================================
    LEARN MODE
    ============================================================ */
 function renderTopicList() {
   const list = document.getElementById('topicList');
-  list.innerHTML = activeTopics.map((t, i) => `
+  const listMobile = document.getElementById('topicListMobile');
+  const html = activeTopics.map((t, i) => `
     <div class="topic-item px-3 py-2 rounded cursor-pointer text-sm font-medium text-ink3 hover:bg-paper2 hover:text-ink transition-all mb-0.5 leading-snug border border-transparent ${i === currentTopicIdx ? 'active' : ''}" onclick="renderTopicContent(${i})">${t.title}</div>
   `).join('');
+  list.innerHTML = html;
+  if (listMobile) listMobile.innerHTML = html.replace(/onclick="renderTopicContent\((\d+)\)"/g, 'onclick="renderTopicContent($1); toggleMobileSidebar()"');
 }
 function renderTopicContent(idx) {
   currentTopicIdx = idx;
