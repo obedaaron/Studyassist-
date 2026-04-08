@@ -168,6 +168,8 @@
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(4,this)">Week 4 — Intro to AI</button>
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(5,this)">Week 5 — AI Applications &amp; Branches</button>
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(6,this)">Week 6 — Computer Vision</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(7,this)">Week 7 — How AI Represents Problems</button>
+    <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek(8,this)">Week 8 — Knowledge Representation</button>
     <button class="week-btn font-mono text-xs font-semibold tracking-wide uppercase px-5 py-2 border border-paper3 rounded-sm cursor-pointer transition-all duration-200 hover:border-ink2 hover:text-ink text-ink3" onclick="selectWeek('all',this)">All Weeks</button>
   </div>
 
@@ -1355,6 +1357,437 @@ allTheoryQuestions[6] = [
   { category:"Challenges & Future", q:"What are the main challenges facing Computer Vision? Also describe two future trends from the lecture.", answer:"CV challenges organised by category:\n\nTechnical challenges: Variability in visual data — lighting conditions, viewpoint changes, occlusions, scale variations make recognition difficult. Real-time processing — computational complexity and memory/power constraints limit deployment on edge devices. 3D Understanding — depth estimation and scene geometry remain hard problems.\n\nAlgorithmic challenges: Generalization — models trained on one domain often fail on another (domain shift); few-shot learning and out-of-distribution detection are active research areas. Interpretability — deep CV models are black boxes; Explainable AI (XAI) tools are needed. Robustness — adversarial attacks can fool CV models with imperceptible perturbations.\n\nEthical challenges: Privacy (surveillance misuse) and bias in recognition systems (e.g. face recognition accuracy gaps across demographic groups).\n\nTwo future trends:\n1. Foundation Models — large vision-language models with zero-shot capabilities and general-purpose vision (models that can handle any visual task without task-specific training).\n2. 3D Computer Vision — Neural Radiance Fields (NeRF) for novel view synthesis, 3D generative models, and digital twins for virtual environments." }
 ];
 
+/* ============================================================
+   WEEK 7 — HOW AI REPRESENTS PROBLEMS
+   ============================================================ */
+courseData[7] = {
+  label: "Week 7 — How AI Represents Problems",
+  topics: [
+    {
+      id: "w7_fundamental_question", title: "The Fundamental Question", tag: "Week 7 · Introduction",
+      body: `The core challenge of AI is not computation — it is representation. AI does not 'understand' problems the way humans do. Instead, it must represent problems in computationally tractable ways so that algorithms can search, optimise, or learn from them.\n\nThis is why the choice of representation is considered the most important design decision in any AI system. The representation determines which algorithms are even applicable.`,
+      keypoints: [
+        "AI does not understand problems like humans — it represents them formally",
+        "Human approach: intuitive understanding, contextual knowledge, abstract reasoning, common sense",
+        "AI approach: formal representation, computational structures, mathematical models, data-driven patterns",
+        "The representation determines which algorithms are applicable and efficient",
+        "The art of AI is the art of problem representation"
+      ],
+      table: {
+        headers: ["Human Approach", "AI Approach"],
+        rows: [
+          ["Intuitive understanding", "Formal representation"],
+          ["Contextual knowledge", "Computational structures"],
+          ["Abstract reasoning", "Mathematical models"],
+          ["Common sense", "Data-driven patterns"]
+        ]
+      }
+    },
+    {
+      id: "w7_state_space", title: "The State-Space Framework", tag: "Week 7 · Foundations",
+      body: `The classical framework for representing AI problems is the State-Space Model. A problem is formally defined as a tuple (S, s₀, G, A, T, C) containing all the components needed to describe the problem and search for a solution.\n\nThis is the foundational abstraction underlying most search algorithms — from simple pathfinding to complex planning systems. Everything from Google Maps to chess engines uses a version of this framework.`,
+      keypoints: [
+        "S: Set of all possible states in the problem",
+        "s₀ ∈ S: Initial state — where we start",
+        "G ⊆ S: Goal states — what we want to reach",
+        "A: Set of possible actions available",
+        "T: S × A → S: Transition function — what happens when you take an action",
+        "C: S × A → ℝ⁺: Cost function — how expensive each action is",
+        "The tuple (S, s₀, G, A, T, C) formally defines any search problem"
+      ],
+      table: {
+        headers: ["Component", "Symbol", "Meaning"],
+        rows: [
+          ["States", "S", "All possible configurations of the problem"],
+          ["Initial State", "s₀", "The starting configuration"],
+          ["Goal States", "G", "The configurations we want to reach"],
+          ["Actions", "A", "What moves/operations are available"],
+          ["Transition Function", "T", "What state results from an action"],
+          ["Cost Function", "C", "The expense of each action"]
+        ]
+      }
+    },
+    {
+      id: "w7_navigation_example", title: "Example: Navigation as State-Space", tag: "Week 7 · Example",
+      body: `The navigation problem (like Google Maps) is a perfect example of state-space representation. Every component of the tuple maps directly onto the real-world problem.\n\nThe key insight is that once you have the representation, a family of search algorithms becomes applicable — and the choice of algorithm determines how efficiently you find the goal.`,
+      keypoints: [
+        "S: All intersections in the road network",
+        "s₀: Your current location",
+        "G: {Destination}",
+        "A: {Move to adjacent intersection}",
+        "C: Travel time or distance",
+        "Search algorithms applicable: BFS, DFS, A*, Uniform Cost Search, Greedy Best-First",
+        "A* Search uses f(n) = g(n) + h(n) — cost so far + heuristic estimate to goal",
+        "Key insight: the representation determines which algorithms are applicable and efficient"
+      ],
+      example: "Google Maps uses a state-space representation where intersections are states, roads are actions, and travel time is the cost. A* search finds the optimal route by combining actual travel time so far with an estimated time to the destination."
+    },
+    {
+      id: "w7_taxonomy", title: "Taxonomy of AI Representations", tag: "Week 7 · Overview",
+      body: `AI representations have evolved from classical symbolic approaches to modern numerical and deep learning methods. This taxonomy organises the landscape of how different paradigms represent knowledge.\n\nThe evolution reflects a shift in emphasis: classical AI required humans to specify knowledge explicitly; modern AI learns representations automatically from data.`,
+      keypoints: [
+        "Classical (Symbolic): Logic Representation, Symbolic AI, Rule-Based Systems",
+        "Modern (Numerical): Vector Embeddings, Tensors",
+        "Deep Learning: Manifolds, Topology",
+        "The field has evolved from hand-crafted symbolic representations to learned numerical representations",
+        "Modern AI learns representations from data — representation learning is now itself automated"
+      ],
+      table: {
+        headers: ["Era", "Type", "Examples"],
+        rows: [
+          ["Classical", "Symbolic", "Logic, Rule-Based Systems, Expert Systems"],
+          ["Modern", "Numerical", "Vector Embeddings, Tensors"],
+          ["Deep Learning", "Learned", "Manifolds, Neural Representations"]
+        ]
+      }
+    },
+    {
+      id: "w7_symbolic", title: "Symbolic Representation", tag: "Week 7 · Representation Methods",
+      body: `Symbolic representation is the classical approach to AI. Knowledge is encoded as symbols, logical formulas, and rules that can be manipulated by a reasoning engine.\n\nThere are two main forms: Propositional Logic (simple true/false statements about the world) and First-Order Logic (FOL), which extends propositional logic with variables, quantifiers, and predicates — enabling general statements about categories of objects.`,
+      keypoints: [
+        "Propositional Logic: atoms (P, Q, R) are true/false statements",
+        "Propositional connectives: ∧ (AND), ∨ (OR), ¬ (NOT), → (IMPLIES)",
+        "Example: Rain ∧ ¬Umbrella → GetWet",
+        "First-Order Logic (FOL): extends with variables (x, y, z), quantifiers (∀, ∃), and predicates (P(x), R(x,y))",
+        "FOL example: ∀x(Robot(x) → CanMove(x)) — for all x, if x is a Robot, then x can move",
+        "Symbolic AI is transparent, deterministic, and human-readable",
+        "Limitation: cannot handle uncertainty; brittle when facing situations outside the rules"
+      ],
+      table: {
+        headers: ["Logic Type", "Components", "Example"],
+        rows: [
+          ["Propositional Logic", "Atoms (P,Q,R), Connectives (∧,∨,¬,→)", "Rain ∧ ¬Umbrella → GetWet"],
+          ["First-Order Logic", "Variables, Quantifiers (∀,∃), Predicates", "∀x(Robot(x) → CanMove(x))"]
+        ]
+      }
+    },
+    {
+      id: "w7_numerical", title: "Numerical Representation: Vector Embeddings", tag: "Week 7 · Representation Methods",
+      body: `Numerical representation encodes knowledge as numbers — specifically as vectors (lists of numbers) in a high-dimensional space. This is the backbone of modern machine learning.\n\nThe classic example is Word2Vec, which maps words to vectors so that semantic relationships are captured geometrically. Words with similar meanings have similar vectors. The famous relationship: king − man + woman ≈ queen shows that arithmetic on vectors corresponds to semantic reasoning.`,
+      keypoints: [
+        "Numerical representation: knowledge encoded as high-dimensional vectors (lists of numbers)",
+        "Word2Vec maps words to vectors capturing semantic meaning",
+        "king → [0.2, -0.5, 0.9, ...] / queen → [0.3, -0.4, 0.8, ...]",
+        "Semantic relationships are captured geometrically in vector space",
+        "king - man + woman ≈ queen — vector arithmetic encodes analogy",
+        "Used in: NLP, recommendation systems, image recognition",
+        "Modern deep learning extends this to tensors — multi-dimensional arrays"
+      ],
+      example: "Word2Vec analogy: king − man + woman ≈ queen. This shows that the 'gender offset' in vector space is consistent across word pairs. The same offset that separates 'man' from 'woman' also separates 'king' from 'queen' — meaning semantic relationships are geometrically encoded."
+    },
+    {
+      id: "w7_probabilistic", title: "Probabilistic Graphical Models", tag: "Week 7 · Representation Methods",
+      body: `Probabilistic Graphical Models (PGMs) represent uncertainty explicitly using probability theory. A Bayesian Network encodes how variables depend on each other — nodes are random variables, edges represent conditional dependencies.\n\nThe Markov Assumption underlies many probabilistic models: the future depends only on the present state, not the full history. This greatly simplifies reasoning about sequential processes.`,
+      keypoints: [
+        "PGMs represent knowledge probabilistically — handling uncertainty explicitly",
+        "Bayesian Network: nodes = random variables; edges = conditional dependencies",
+        "Example: Weather → Traffic → Late (weather affects traffic, traffic affects lateness)",
+        "Inference: calculate P(query | evidence) — conditional probability given what we know",
+        "Learning: estimate parameters from data",
+        "Markov Assumption: P(Xᵢ | Xᵢ₋₁, ..., X₁) = P(Xᵢ | Xᵢ₋₁)",
+        "Markov Assumption: future depends only on present, not the full past"
+      ],
+      table: {
+        headers: ["Concept", "Description"],
+        rows: [
+          ["Nodes", "Random variables (e.g. Weather, Traffic, Late)"],
+          ["Edges", "Conditional dependencies between variables"],
+          ["Inference", "Calculate P(query | evidence)"],
+          ["Learning", "Estimate parameters from data"],
+          ["Markov Assumption", "Future depends only on the present state"]
+        ]
+      }
+    },
+    {
+      id: "w7_spectrum", title: "Spectrum of AI Representations", tag: "Week 7 · Comparison",
+      body: `Different problem types call for different representations. The lecture maps four problem categories to both classical and modern AI representations — showing how the field has evolved.\n\nNo single representation dominates all problems. The key design decision is always: which representation best captures the structure of this specific problem?`,
+      keypoints: [
+        "Planning & Logic: Classic = State-space search, Symbolic logic, Expert systems; Modern = Hybrid systems, Neuro-symbolic AI",
+        "Pattern Recognition: Classic = Hand-engineered features, Template matching; Modern = Learned representations, Deep neural networks",
+        "Uncertainty: Classic = Bayesian networks, Markov models; Modern = Deep probabilistic models, Bayesian deep learning",
+        "Sequential Decisions: Classic = MDPs/POMDPs, Dynamic programming; Modern = Deep reinforcement learning, Policy/value networks",
+        "The representation choice is the most important design decision in AI"
+      ],
+      table: {
+        headers: ["Problem Type", "Classic Approach", "Modern Approach"],
+        rows: [
+          ["Planning & Logic", "State-space search, Symbolic logic, Expert systems", "Hybrid systems, Neuro-symbolic AI"],
+          ["Pattern Recognition", "Hand-engineered features, Template matching", "Learned representations, Deep neural networks"],
+          ["Uncertainty", "Bayesian networks, Markov models", "Deep probabilistic models, Bayesian deep learning"],
+          ["Sequential Decisions", "MDPs/POMDPs, Dynamic programming", "Deep reinforcement learning, Policy/value networks"]
+        ]
+      }
+    },
+    {
+      id: "w7_key_insights", title: "Key Insights & Future Directions", tag: "Week 7 · Summary",
+      body: `The core principle of this lecture: transform real-world problems into mathematical/symbolic structures that can be searched, optimised, or learned from computationally. Five critical insights underpin all of AI.\n\nThe field is now moving toward more sophisticated representations — ones that can handle causality, work across domains, and be learned rather than hand-crafted.`,
+      keypoints: [
+        "1. Representation determines algorithm applicability — choose the wrong representation and no algorithm works well",
+        "2. Better representations enable better solutions",
+        "3. The representation choice is the most important design decision",
+        "4. Modern AI learns representations from data — representation learning is itself automated",
+        "5. Hybrid approaches (neuro-symbolic) are emerging",
+        "Future: Neuro-symbolic integration, Causal representations, Foundation models, Self-supervised learning, Meta-learning"
+      ],
+      example: "The art of AI is the art of problem representation. Before writing a single line of algorithm code, the most important question is: how should this problem be represented? The representation shapes everything that follows."
+    }
+  ]
+};
+
+courseData[8] = {
+  label: "Week 8 — Knowledge Representation",
+  topics: [
+    {
+      id: "w8_what_is_kr", title: "What is Knowledge Representation?", tag: "Week 8 · Introduction",
+      body: `Knowledge Representation (KR) is the field of AI concerned with formally describing the world so that an AI system can reason about it. It uses symbols to represent objects, properties, and relationships — and defines rules for manipulating those symbols to draw new conclusions (inference).\n\nKR is not about storing data. It is about encoding knowledge in a form that supports automated reasoning.`,
+      keypoints: [
+        "KR: formally describing the world so an AI system can reason about it",
+        "Uses symbols to represent objects, properties, and relationships",
+        "Defines rules for symbol manipulation to draw new conclusions (inference)",
+        "The Core Triad of KR: Knowledge Base (KB), Representation Language, Reasoning Engine",
+        "Knowledge Base (KB): the container storing facts and rules",
+        "Representation Language: the formal language used (e.g. Logic)",
+        "Reasoning Engine: the mechanism that infers new knowledge"
+      ],
+      table: {
+        headers: ["Core Triad", "Description"],
+        rows: [
+          ["Knowledge Base (KB)", "The container storing facts and rules"],
+          ["Representation Language", "The formal language used to encode knowledge (e.g. Logic)"],
+          ["Reasoning Engine", "The mechanism that infers new knowledge from the KB"]
+        ]
+      }
+    },
+    {
+      id: "w8_propositional_logic", title: "Propositional Logic", tag: "Week 8 · Logic",
+      body: `Propositional Logic is the simplest form of formal logic. It deals with propositions — statements that are either true (T) or false (F). Atoms are basic statements (e.g. P = 'It is raining'), and connectives are used to combine them into more complex formulas.\n\nReasoning is done via inference rules. The most fundamental is Modus Ponens: if A is true and A → B is true, then B must be true.`,
+      keypoints: [
+        "Propositional Logic: deals with propositions — statements that are T or F",
+        "Atoms: basic statements (e.g. P = 'It is raining', Q = 'The ground is wet')",
+        "¬ (NOT) — Negation",
+        "∧ (AND) — Conjunction",
+        "∨ (OR) — Disjunction",
+        "⇒ (IMPLIES) — Implication",
+        "⇔ (IFF) — Biconditional",
+        "Modus Ponens: Given A and A ⇒ B, we can infer B",
+        "Limitation: cannot express general statements about categories — needs a separate rule for every individual"
+      ],
+      table: {
+        headers: ["Connective", "Symbol", "Meaning"],
+        rows: [
+          ["NOT", "¬", "Negation — flips truth value"],
+          ["AND", "∧", "Conjunction — true only if both are true"],
+          ["OR", "∨", "Disjunction — true if at least one is true"],
+          ["IMPLIES", "⇒", "Implication — if A then B"],
+          ["IFF", "⇔", "Biconditional — true only if both have the same truth value"]
+        ]
+      },
+      example: "Modus Ponens in action: KB contains P ('It is raining') and P ⇒ Q ('If it is raining, the ground is wet'). Applying Modus Ponens, we infer Q: 'The ground is wet'. This is the most fundamental inference rule in logic."
+    },
+    {
+      id: "w8_fol", title: "First-Order Logic (FOL)", tag: "Week 8 · Logic",
+      body: `First-Order Logic (FOL), also called Predicate Logic, is more expressive than propositional logic. It allows us to make general statements about objects, their properties, and relations — without enumerating every individual case.\n\nThe power of FOL comes from quantifiers: ∀ (for all) and ∃ (there exists). These enable a single statement to cover an entire category of objects.`,
+      keypoints: [
+        "FOL is more expressive than propositional logic — talks about objects and their relations",
+        "Objects: Constants (e.g. Fido, Paris)",
+        "Predicates: Properties or relations (e.g. IsDog(Fido), Loves(John, Mary))",
+        "Functions: Mappings from objects to objects (e.g. LegOf(Table))",
+        "Universal Quantifier (∀): 'For all' — e.g. ∀x [IsDog(x) ⇒ IsMammal(x)]",
+        "Existential Quantifier (∃): 'There exists' — e.g. ∃x [IsCat(x) ∧ Black(x)]",
+        "FOL inference: Substitution (replace variable with constant), Unification (make two expressions identical), Generalized Modus Ponens"
+      ],
+      table: {
+        headers: ["Element", "Description", "Example"],
+        rows: [
+          ["Objects (Constants)", "Specific individuals in the domain", "Fido, Paris, Table"],
+          ["Predicates", "Properties or relations", "IsDog(Fido), Loves(John, Mary)"],
+          ["Functions", "Mappings between objects", "LegOf(Table)"],
+          ["Universal (∀)", "Statement holds for all objects", "∀x [IsDog(x) ⇒ IsMammal(x)]"],
+          ["Existential (∃)", "At least one object satisfies", "∃x [IsCat(x) ∧ Black(x)]"]
+        ]
+      },
+      example: "FOL solves propositional logic's limitation: instead of writing IsDog(Fido) ⇒ IsMammal(Fido), IsDog(Rex) ⇒ IsMammal(Rex), etc. for every dog, you write ONE statement: ∀x [IsDog(x) ⇒ IsMammal(x)]. This single sentence covers all dogs, past, present, and future."
+    },
+    {
+      id: "w8_rule_based", title: "Rule-Based Systems", tag: "Week 8 · Rule-Based Reasoning",
+      body: `Rule-Based Systems are a popular and practical KR paradigm. Knowledge is stored primarily as IF-THEN rules. They have three core components: the Rule Base (collection of rules), Working Memory (dynamic set of currently known facts), and the Inference Engine (the brain that controls the reasoning process).\n\nThe reasoning process is called the Recognize-Act Cycle, also known as a production system.`,
+      keypoints: [
+        "Rule Base: collection of IF-THEN rules (e.g. IF has fur AND says woof THEN is dog)",
+        "Working Memory: dynamic set of facts known to be true right now",
+        "Inference Engine: the brain that controls the reasoning process",
+        "Recognize-Act Cycle (4 steps): Match → Conflict Resolution → Act → Repeat",
+        "Match: compare rule conditions against Working Memory; satisfied rules go on the Agenda",
+        "Conflict Resolution: choose one rule from the Agenda (using priority, specificity, or recency)",
+        "Act: fire the chosen rule; its conclusion adds a new fact to Working Memory",
+        "Repeat: continue until no rules apply or a goal is reached"
+      ],
+      table: {
+        headers: ["Step", "Name", "Description"],
+        rows: [
+          ["1", "Match", "Compare rule conditions against facts in Working Memory; satisfied rules go on the Agenda"],
+          ["2", "Conflict Resolution", "Choose one rule from the Agenda (priority, specificity, or recency)"],
+          ["3", "Act", "Fire the chosen rule — its conclusion adds a new fact to Working Memory"],
+          ["4", "Repeat", "Continue until no rules apply or a goal is reached"]
+        ]
+      }
+    },
+    {
+      id: "w8_chaining", title: "Forward & Backward Chaining", tag: "Week 8 · Rule-Based Reasoning",
+      body: `There are two directions in which a rule-based system can reason: Forward Chaining (data-driven) and Backward Chaining (goal-driven). The choice of direction depends on whether you are starting from facts and looking for conclusions, or starting from a goal and looking for supporting facts.`,
+      keypoints: [
+        "Forward Chaining (Data-Driven): start with known facts, apply rules to derive new facts, continue until goal is reached",
+        "Forward Chaining example: 'Given the clues, who is the murderer?'",
+        "Backward Chaining (Goal-Driven): start with a hypothesis (goal), work backwards finding rules that prove it, set rule conditions as new sub-goals",
+        "Backward Chaining example: 'Is Fido a mammal?' (Prolog-style)",
+        "Forward Chaining: good when you have data and want to see what you can conclude",
+        "Backward Chaining: good when you have a specific goal and want to check if it can be proven"
+      ],
+      table: {
+        headers: ["Aspect", "Forward Chaining", "Backward Chaining"],
+        rows: [
+          ["Also called", "Data-driven", "Goal-driven"],
+          ["Starting point", "Known facts", "A hypothesis / goal"],
+          ["Direction", "Facts → Conclusions", "Goal → Supporting facts"],
+          ["Best for", "Finding all consequences of known facts", "Verifying a specific hypothesis"],
+          ["Example", "'Given clues, who is the murderer?'", "'Is Fido a mammal?' (Prolog)"]
+        ]
+      }
+    },
+    {
+      id: "w8_knowledge_base", title: "Knowledge Bases", tag: "Week 8 · Knowledge Bases",
+      body: `A Knowledge Base (KB) is the central repository for all formalised knowledge in an AI system. Think of it as a 'smart database' — it is not just data, it contains facts and rules that can be used for inference.\n\nKBs store three types of knowledge: Domain Knowledge, Procedural Knowledge, and Meta-Knowledge. Together they give an AI system a comprehensive model of its domain.`,
+      keypoints: [
+        "Knowledge Base: the central repository for all formalised knowledge — a 'smart database'",
+        "Not just data — contains facts AND rules that support inference",
+        "Domain Knowledge: facts and rules about the subject area",
+        "Procedural Knowledge: how to perform tasks (often encoded as rules)",
+        "Meta-Knowledge: knowledge about the knowledge itself (e.g. 'Source A is more reliable than Source B')",
+        "The KB works together with a Representation Language and Reasoning Engine"
+      ],
+      table: {
+        headers: ["Knowledge Type", "Description", "Example"],
+        rows: [
+          ["Domain Knowledge", "Facts and rules about the subject area", "HasSymptoms(PatientA, Fever)"],
+          ["Procedural Knowledge", "How to perform tasks", "IF symptoms match THEN diagnose"],
+          ["Meta-Knowledge", "Knowledge about the knowledge itself", "'Source A is more reliable than Source B'"]
+        ]
+      }
+    },
+    {
+      id: "w8_medical_example", title: "Putting It Together: Medical KB Example", tag: "Week 8 · Example",
+      body: `This example from the lecture shows how all components of a KR system work together. A medical knowledge base encoded in FOL can automatically infer diagnoses from patient symptoms — combining facts, rules, and the unification mechanism of FOL reasoning.\n\nThis is the basic structure behind early medical expert systems like MYCIN.`,
+      keypoints: [
+        "Facts in KB: HasSymptoms(PatientA, Fever) and HasSymptoms(PatientA, Cough)",
+        "Rule in KB: ∀p [HasSymptoms(p, Fever) ∧ HasSymptoms(p, Cough) ⇒ HasDisease(p, Flu)]",
+        "Step 1 — Unification: the system unifies variable p with the constant PatientA",
+        "Step 2 — Check: both conditions are verified true in the KB",
+        "Step 3 — Inference: new fact derived — HasDisease(PatientA, Flu)",
+        "This is Generalized Modus Ponens applied to First-Order Logic"
+      ],
+      example: "This is exactly how MYCIN worked — an early medical expert system that diagnosed bacterial infections by matching patient symptoms against a knowledge base of medical rules encoded in logic. It achieved diagnostic accuracy comparable to human experts in its domain."
+    },
+    {
+      id: "w8_summary", title: "Week 8 Summary", tag: "Week 8 · Key Takeaways",
+      body: `Everything from Week 8 condensed into the most testable points.`,
+      keypoints: [
+        "KR Core Triad: Knowledge Base (KB) + Representation Language + Reasoning Engine",
+        "Propositional Logic: simplest form — True/False statements, connectives (¬, ∧, ∨, ⇒, ⇔)",
+        "Modus Ponens: given A and A ⇒ B, infer B — the most fundamental inference rule",
+        "Propositional Logic limitation: cannot express general statements about categories",
+        "First-Order Logic (FOL): extends with objects, predicates, functions, and quantifiers (∀, ∃)",
+        "FOL inference: Substitution, Unification, Generalized Modus Ponens",
+        "Rule-Based Systems: IF-THEN rules + Working Memory + Inference Engine",
+        "Recognize-Act Cycle: Match → Conflict Resolution → Act → Repeat",
+        "Forward Chaining: data-driven (facts to conclusions)",
+        "Backward Chaining: goal-driven (hypothesis to supporting facts)",
+        "Knowledge Base: smart database storing Domain, Procedural, and Meta-Knowledge"
+      ]
+    }
+  ]
+};
+
+/* ============================================================
+   WEEK 7 — MC QUESTIONS
+   ============================================================ */
+allQuestions[7] = [
+  { category:"Fundamentals", q:"According to the lecture, what is the key insight about how AI handles problems?", options:["AI understands problems the same way humans do","AI represents problems in computationally tractable ways rather than understanding them intuitively","AI relies entirely on common sense reasoning","AI uses only symbolic logic for all problems"], correct:1, explanation:"<strong>The key insight is that AI does not 'understand' problems like humans do.</strong> Instead, it represents them in computationally tractable ways — formal representations, computational structures, mathematical models, and data-driven patterns — so that algorithms can operate on them." },
+  { category:"State-Space", q:"In the State-Space model tuple (S, s₀, G, A, T, C), what does T represent?", options:["The set of all possible states","The cost of each action","The transition function mapping state-action pairs to new states","The set of goal states"], correct:2, explanation:"<strong>T is the Transition Function: T: S × A → S.</strong> It takes a state and an action and returns the resulting new state. It formally captures 'what happens when you do this action in this state.'" },
+  { category:"State-Space", q:"Which component of the State-Space model represents 'where we want to end up'?", options:["s₀ — the initial state","A — the set of actions","G — the goal states","C — the cost function"], correct:2, explanation:"<strong>G ⊆ S is the set of Goal States</strong> — the configurations we want to reach. The problem is solved when the current state is a member of G." },
+  { category:"Navigation Example", q:"In the navigation example from the lecture, what does the cost function C represent?", options:["The number of intersections","Travel time or distance","The set of roads","The destination"], correct:1, explanation:"<strong>C represents travel time or distance in the navigation example.</strong> The cost function assigns a numerical cost to each action (moving along a road), enabling search algorithms to find the minimum-cost path." },
+  { category:"Navigation Example", q:"What is the formula for A* Search from the lecture?", options:["f(n) = h(n) only","f(n) = g(n) only","f(n) = g(n) + h(n)","f(n) = g(n) × h(n)"], correct:2, explanation:"<strong>A* Search uses f(n) = g(n) + h(n)</strong>, where g(n) is the actual cost from the start to node n, and h(n) is the heuristic estimate from n to the goal. This combination makes A* both complete and optimal when the heuristic is admissible." },
+  { category:"Symbolic Representation", q:"What is an 'atom' in Propositional Logic according to the lecture?", options:["A mathematical constant","A basic true/false statement (e.g. P, Q, R)","A type of neural network layer","A probability value between 0 and 1"], correct:1, explanation:"<strong>Atoms in Propositional Logic are basic statements that are either true or false</strong> (e.g. P = 'It is raining', Q = 'The ground is wet'). They are the simplest building blocks of logical formulas." },
+  { category:"Symbolic Representation", q:"How does First-Order Logic (FOL) extend Propositional Logic?", options:["By adding probability values to statements","By adding variables, quantifiers (∀, ∃), and predicates — enabling general statements about objects","By removing the need for inference rules","By replacing symbols with neural network weights"], correct:1, explanation:"<strong>FOL extends Propositional Logic with variables (x, y, z), quantifiers (∀ for all, ∃ there exists), and predicates (P(x), R(x,y)).</strong> This allows general statements like ∀x(Robot(x) → CanMove(x)) instead of writing a separate rule for every robot." },
+  { category:"Numerical Representation", q:"In Word2Vec from the lecture, what does mapping 'king → [0.2, -0.5, 0.9, ...]' represent?", options:["A frequency count of the word in a text corpus","A unique ID number assigned to the word","A vector embedding capturing the word's semantic meaning in a high-dimensional space","A binary encoding of the word's characters"], correct:2, explanation:"<strong>Word2Vec maps words to vector embeddings — lists of numbers in high-dimensional space that capture semantic meaning.</strong> Words with similar meanings have similar vectors. Semantic relationships (like gender, royalty) become geometric relationships in the vector space." },
+  { category:"Probabilistic Models", q:"In a Bayesian Network, what do the EDGES represent?", options:["The cost of transitioning between states","Conditional dependencies between random variables","The actual probability values of each variable","The logical rules used for inference"], correct:1, explanation:"<strong>Edges in a Bayesian Network represent conditional dependencies between random variables.</strong> An edge from Weather to Traffic means that Weather conditionally affects Traffic — the probability of Traffic depends on the value of Weather." },
+  { category:"Probabilistic Models", q:"What does the Markov Assumption state?", options:["The future depends on the entire history of states","The future depends only on the present state, not the full past","All states are equally probable","Probabilities must always sum to zero"], correct:1, explanation:"<strong>The Markov Assumption states that P(Xᵢ | Xᵢ₋₁, ..., X₁) = P(Xᵢ | Xᵢ₋₁) — the future depends only on the present state.</strong> This simplification makes probabilistic sequential reasoning computationally tractable." },
+  { category:"Spectrum", q:"According to the lecture's spectrum table, which MODERN approach is used for Pattern Recognition?", options:["State-space search","Bayesian networks","Learned representations and deep neural networks","MDPs and dynamic programming"], correct:2, explanation:"<strong>The modern approach to Pattern Recognition is learned representations and deep neural networks.</strong> Instead of hand-engineering features (the classic approach), modern systems learn what features matter directly from data." },
+  { category:"Key Insights", q:"According to the lecture's key insights, what is the most important design decision in any AI system?", options:["The choice of programming language","The size of the training dataset","The representation choice","The number of hidden layers in the neural network"], correct:2, explanation:"<strong>The lecture explicitly states: 'The representation choice is the most important design decision.'</strong> The representation determines which algorithms are applicable and efficient — everything else depends on it." }
+];
+
+/* ============================================================
+   WEEK 8 — MC QUESTIONS
+   ============================================================ */
+allQuestions[8] = [
+  { category:"KR Definition", q:"According to the lecture, what is Knowledge Representation (KR)?", options:["A database system for storing large amounts of numerical data","The field of AI concerned with formally describing the world so that an AI system can reason about it","A method for training neural networks on symbolic data","A type of algorithm for sorting information"], correct:1, explanation:"<strong>KR is formally defined as the field of AI concerned with formally describing the world so that an AI system can reason about it.</strong> It uses symbols to represent objects, properties, and relationships, and defines rules for manipulating these symbols to draw new conclusions (inference)." },
+  { category:"KR Core Triad", q:"What are the three components of the KR Core Triad from the lecture?", options:["Algorithm, Dataset, Model","Knowledge Base, Representation Language, Reasoning Engine","Input, Process, Output","Facts, Rules, Conclusions"], correct:1, explanation:"<strong>The Core Triad of KR is: (1) Knowledge Base (KB) — the container storing facts and rules; (2) Representation Language — the formal language used (e.g. Logic); (3) Reasoning Engine — the mechanism that infers new knowledge.</strong> All three must work together for a KR system to function." },
+  { category:"Propositional Logic", q:"What is the connective ⇒ called, and what does it mean?", options:["Negation — flips the truth value of a statement","Conjunction — true only when both sides are true","Implication — 'if A then B'","Biconditional — true only when both sides have the same value"], correct:2, explanation:"<strong>⇒ is called IMPLIES (Implication) and means 'if A then B'.</strong> For example, P ⇒ Q means 'If it is raining, then the ground is wet.' Implication is the basis for the Modus Ponens inference rule." },
+  { category:"Modus Ponens", q:"Given KB: P = true and P ⇒ Q. What can we infer using Modus Ponens?", options:["¬P is true","Q is true","P ∧ Q is false","Nothing can be inferred"], correct:1, explanation:"<strong>Modus Ponens: given A (P is true) and A ⇒ B (P ⇒ Q is true), we infer B (Q is true).</strong> This is the most fundamental inference rule in logic. In the lecture's example: P = 'It is raining', Q = 'The ground is wet' — knowing it is raining and that rain makes the ground wet, we infer the ground is wet." },
+  { category:"Propositional Limitation", q:"What is the key limitation of Propositional Logic identified in the lecture?", options:["It cannot handle true or false values","It cannot express general statements about categories — it would need a separate rule for every individual","It is too complex for computers to process","It requires too many quantifiers"], correct:1, explanation:"<strong>The limitation of Propositional Logic is that it cannot express general statements about categories.</strong> To say 'all dogs are mammals', you would need a separate rule for every single dog. FOL solves this with the universal quantifier: ∀x [IsDog(x) ⇒ IsMammal(x)]." },
+  { category:"First-Order Logic", q:"What does the universal quantifier ∀ mean in First-Order Logic?", options:["There exists at least one object","For all objects in the domain","The negation of existential quantifier","A special type of predicate"], correct:1, explanation:"<strong>∀ is the Universal Quantifier meaning 'For all'.</strong> ∀x [IsDog(x) ⇒ IsMammal(x)] means 'For all x, if x is a dog, then x is a mammal.' This single statement covers every dog in the domain — the power of FOL over Propositional Logic." },
+  { category:"FOL Inference", q:"What is Unification in FOL inference?", options:["Adding new facts to the Knowledge Base","Finding a substitution that makes two logical expressions identical","Removing contradictory rules from the Rule Base","Calculating the probability of a conclusion"], correct:1, explanation:"<strong>Unification is the process of finding a substitution that makes two logical expressions identical.</strong> For example, unifying ∀p [HasSymptoms(p, Fever) ⇒ ...] with HasSymptoms(PatientA, Fever) substitutes p = PatientA. This is fundamental to rule-based systems like Prolog." },
+  { category:"Rule-Based Systems", q:"In a Rule-Based System, what is 'Working Memory'?", options:["Permanent storage for all rules in the system","A dynamic set of facts known to be true right now","The inference engine's processing capacity","A backup copy of the Knowledge Base"], correct:1, explanation:"<strong>Working Memory is the dynamic set of facts known to be true at the current moment.</strong> It changes as the reasoning cycle fires rules and adds new conclusions. The Rule Base stores permanent IF-THEN rules; Working Memory stores the current state of known facts." },
+  { category:"Recognize-Act Cycle", q:"In the Recognize-Act Cycle, what happens during the 'Conflict Resolution' step?", options:["Rules that contradict each other are deleted from the Rule Base","One rule is chosen from the Agenda (using priority, specificity, or recency)","The system checks if the goal has been reached","New facts are added to Working Memory"], correct:1, explanation:"<strong>Conflict Resolution chooses one rule from the Agenda</strong> — the set of rules whose conditions are all satisfied by Working Memory. The selection criteria include priority (explicitly assigned), specificity (more specific rules win), or recency (prefer rules matching more recent facts)." },
+  { category:"Chaining", q:"What is the key difference between Forward and Backward Chaining?", options:["Forward Chaining uses FOL; Backward Chaining uses Propositional Logic","Forward Chaining is data-driven (facts to conclusions); Backward Chaining is goal-driven (goal to supporting facts)","Forward Chaining is used in Prolog; Backward Chaining in expert systems","There is no difference — they produce the same results by the same method"], correct:1, explanation:"<strong>Forward Chaining is data-driven — it starts with known facts and applies rules to derive new facts until a goal is reached.</strong> Backward Chaining is goal-driven — it starts with a hypothesis and works backwards, finding rules that can prove it and setting their conditions as sub-goals. Prolog uses backward chaining." },
+  { category:"Knowledge Bases", q:"What distinguishes a Knowledge Base from a regular database?", options:["A KB stores only numerical data while a database stores text","A KB contains facts AND rules that support inference — not just stored data","A KB uses SQL while a database uses logic","A KB is always smaller than a regular database"], correct:1, explanation:"<strong>A Knowledge Base is distinguished by containing facts AND rules that support inference — making it a 'smart database'.</strong> A regular database simply retrieves stored data. A KB, combined with a reasoning engine, can derive new knowledge that was never explicitly stored." },
+  { category:"Medical KB Example", q:"In the medical KB example from the lecture, how does the system infer HasDisease(PatientA, Flu)?", options:["By randomly selecting from a list of possible diseases","By searching the internet for matching symptoms","By unifying the rule variable p with PatientA, checking both symptom facts are in the KB, and applying Generalized Modus Ponens","By asking a human doctor to confirm the diagnosis"], correct:2, explanation:"<strong>The inference proceeds in three steps:</strong> (1) Unification — the system substitutes p = PatientA in the rule. (2) Verification — it confirms both HasSymptoms(PatientA, Fever) and HasSymptoms(PatientA, Cough) are in the KB. (3) Inference — Generalized Modus Ponens derives the new fact: HasDisease(PatientA, Flu)." }
+];
+
+/* ============================================================
+   WEEK 7 — THEORY QUESTIONS
+   ============================================================ */
+allTheoryQuestions[7] = [
+  { category:"State-Space", q:"Define the State-Space Model formally. List all six components of the tuple and explain what each one represents. Use the navigation example to illustrate each component.", answer:"The State-Space Model formalises a problem as a tuple (S, s₀, G, A, T, C):\n\nS — Set of all possible states (all intersections in the road network)\ns₀ ∈ S — Initial state (your current location)\nG ⊆ S — Goal states (the destination)\nA — Set of possible actions (move to an adjacent intersection)\nT: S × A → S — Transition function (taking road R from intersection X brings you to intersection Y)\nC: S × A → ℝ⁺ — Cost function (the travel time or distance of each road)\n\nKey insight: The representation determines which algorithms are applicable. Once a problem is in this form, algorithms like BFS, DFS, A*, and Uniform Cost Search can be applied. A* uses f(n) = g(n) + h(n) — actual cost so far plus heuristic estimate to goal." },
+  { category:"Representation Methods", q:"Compare and contrast three methods of AI problem representation covered in the lecture: Symbolic, Numerical, and Probabilistic. For each, describe what it is, give an example from the slides, and identify one strength and one limitation.", answer:"1. Symbolic Representation: knowledge encoded as symbols, logical formulas, and rules.\nExample from slides: Propositional Logic — Rain ∧ ¬Umbrella → GetWet; FOL — ∀x(Robot(x) → CanMove(x)).\nStrength: transparent and human-readable — reasoning can be traced step by step.\nLimitation: brittle — fails when situations fall outside the predefined rules; cannot handle uncertainty.\n\n2. Numerical Representation (Vector Embeddings): knowledge encoded as vectors in high-dimensional space.\nExample from slides: Word2Vec — king → [0.2, -0.5, 0.9, ...]; semantic relationship king − man + woman ≈ queen.\nStrength: captures subtle semantic relationships; scales with data; enables modern deep learning.\nLimitation: low interpretability — the meaning of individual vector dimensions is not human-readable.\n\n3. Probabilistic Graphical Models (Bayesian Networks): knowledge encoded as probability distributions with conditional dependencies.\nExample from slides: Weather → Traffic → Late network; Markov Assumption P(Xᵢ | Xᵢ₋₁...X₁) = P(Xᵢ | Xᵢ₋₁).\nStrength: handles uncertainty explicitly; models causal relationships between variables.\nLimitation: requires specifying the network structure and estimating parameters from data." },
+  { category:"Key Insights", q:"The lecture states five critical insights about AI representations. List and explain each one. Then explain two future directions mentioned in the slides.", answer:"Five Critical Insights:\n1. Representation determines algorithm applicability — choose the wrong representation and no algorithm works well. The representation is the first, most crucial decision.\n2. Better representations enable better solutions — the quality of the AI system depends directly on the quality of the representation.\n3. The representation choice is the most important design decision — more important than algorithm selection or hyperparameter tuning.\n4. Modern AI learns representations from data — deep learning systems automatically discover the best numerical representations rather than relying on humans to hand-craft them.\n5. Hybrid approaches are emerging — combining symbolic and statistical representations to get the benefits of both.\n\nTwo Future Directions:\n1. Neuro-symbolic integration: combine logical reasoning with neural network learning — symbolic knowledge constrains and guides learned representations.\n2. Causal representations: move beyond correlation to capture cause-and-effect relationships — enabling AI to reason about interventions, not just predictions.\n(Others: Foundation models, self-supervised learning, meta-learning)" }
+];
+
+/* ============================================================
+   WEEK 8 — THEORY QUESTIONS
+   ============================================================ */
+allTheoryQuestions[8] = [
+  { category:"Core Concepts", q:"Define Knowledge Representation and explain the Core Triad. Then explain the difference between Propositional Logic and First-Order Logic, including the key limitation of Propositional Logic and how FOL addresses it.", answer:"Knowledge Representation (KR): the field of AI concerned with formally describing the world so that an AI system can reason about it. It uses symbols to represent objects, properties, and relationships, and defines inference rules to draw new conclusions.\n\nCore Triad:\n1. Knowledge Base (KB): the container storing all facts and rules.\n2. Representation Language: the formal language used to encode knowledge (e.g. First-Order Logic).\n3. Reasoning Engine: the mechanism that infers new knowledge from the KB.\n\nPropositional Logic: the simplest form of logic. Deals with propositions — statements that are T or F. Uses atoms (P, Q, R) and connectives (¬, ∧, ∨, ⇒, ⇔). Key limitation: cannot express general statements about categories — requires a separate rule for every individual.\n\nFirst-Order Logic (FOL): extends Propositional Logic with objects (constants like Fido, Paris), predicates (IsDog(Fido)), functions (LegOf(Table)), and quantifiers (∀ = for all, ∃ = there exists). FOL solves the limitation: instead of writing a rule for every dog, one writes ∀x [IsDog(x) ⇒ IsMammal(x)] — a single statement covering all dogs.\n\nFOL inference mechanisms: Substitution (replace variable with constant), Unification (make two expressions identical), Generalized Modus Ponens." },
+  { category:"Rule-Based Systems", q:"Explain Rule-Based Systems in full: the three core components and the four steps of the Recognize-Act Cycle. Then explain the difference between Forward and Backward Chaining, with an example of each.", answer:"Rule-Based Systems store knowledge as IF-THEN rules.\n\nThree Core Components:\n1. Rule Base: collection of IF-THEN rules (e.g. IF has fur AND says woof THEN is dog).\n2. Working Memory: dynamic set of facts currently known to be true.\n3. Inference Engine: the 'brain' controlling the entire reasoning process.\n\nRecognize-Act Cycle (four steps):\n1. Match: compare all rule conditions against facts in Working Memory; satisfied rules go on the Agenda.\n2. Conflict Resolution: choose one rule from the Agenda using priority, specificity, or recency.\n3. Act: fire the chosen rule; its conclusion adds a new fact to Working Memory.\n4. Repeat: continue until no rules apply or a goal is reached. Also called a 'production system.'\n\nForward Chaining (Data-Driven):\n- Start with known facts; apply rules to derive new facts; continue until goal is reached.\n- Example: 'Given the clues, who is the murderer?' — start from evidence and derive conclusions.\n\nBackward Chaining (Goal-Driven):\n- Start with a hypothesis (goal); work backwards finding rules that prove it; set rule conditions as new sub-goals.\n- Example: 'Is Fido a mammal?' — start from the claim, find what would prove it (e.g. Fido is a dog), find what proves that (e.g. Fido has fur and barks). Used in Prolog." },
+  { category:"Medical KB Example", q:"Walk through the Medical Knowledge Base example from the lecture step by step. Identify the type of logic used, the facts stored, the rule, and the three-step reasoning process that leads to the conclusion.", answer:"Type of Logic: First-Order Logic (FOL).\n\nFacts stored in the KB:\n- HasSymptoms(PatientA, Fever)\n- HasSymptoms(PatientA, Cough)\n\nRule stored in the KB:\n- ∀p [HasSymptoms(p, Fever) ∧ HasSymptoms(p, Cough) ⇒ HasDisease(p, Flu)]\n- Reading: 'For all patients p, if p has a fever AND p has a cough, then p has flu.'\n\nThree-Step Reasoning Process:\n1. Unification: the reasoning engine substitutes the variable p with the constant PatientA — matching the general rule to this specific patient.\n2. Verification: the engine checks the KB and confirms both conditions are satisfied — HasSymptoms(PatientA, Fever) ✓ and HasSymptoms(PatientA, Cough) ✓.\n3. Inference (Generalized Modus Ponens): since both conditions are true, the engine derives the new fact — HasDisease(PatientA, Flu) — and adds it to the KB.\n\nThis is how early medical expert systems like MYCIN worked — encoding clinical knowledge as FOL rules and applying automated reasoning to diagnose patients." }
+];
+
+/* ============================================================
+   WEEK 7 — FLASHCARDS
+   ============================================================ */
+allFlashcards[7] = [
+  { q:"Key insight: how does AI represent vs. understand problems?", a:"AI does <strong>not 'understand'</strong> problems the way humans do. Instead, it <strong>represents problems in computationally tractable ways</strong>:<br>• Formal representations<br>• Computational structures<br>• Mathematical models<br>• Data-driven patterns" },
+  { q:"State-Space Model tuple — all 6 components", a:"<strong>(S, s₀, G, A, T, C)</strong><br><br><strong>S</strong>: Set of all possible states<br><strong>s₀</strong>: Initial state<br><strong>G</strong>: Goal states<br><strong>A</strong>: Set of possible actions<br><strong>T</strong>: Transition function (S × A → S)<br><strong>C</strong>: Cost function (S × A → ℝ⁺)" },
+  { q:"Navigation problem mapped to State-Space", a:"<strong>S</strong>: All intersections<br><strong>s₀</strong>: Current location<br><strong>G</strong>: {Destination}<br><strong>A</strong>: {Move to adjacent intersection}<br><strong>C</strong>: Travel time / distance<br><br>Algorithms: BFS, DFS, A*, Uniform Cost Search, Greedy Best-First" },
+  { q:"A* Search formula and what each part means", a:"<strong>f(n) = g(n) + h(n)</strong><br><br><strong>g(n)</strong>: actual cost from start to node n<br><strong>h(n)</strong>: heuristic estimate from n to goal<br><br>Combines what we know (g) with what we estimate (h) to efficiently find the optimal path." },
+  { q:"Symbolic Representation: Propositional vs. First-Order Logic", a:"<strong>Propositional Logic</strong>:<br>• Atoms P, Q, R (true/false)<br>• Connectives: ∧, ∨, ¬, →<br>• Example: Rain ∧ ¬Umbrella → GetWet<br><br><strong>First-Order Logic (FOL)</strong>:<br>• Adds variables (x,y,z), quantifiers (∀,∃), predicates<br>• Example: ∀x(Robot(x) → CanMove(x))" },
+  { q:"Word2Vec: what it is and the famous analogy", a:"Word2Vec maps words to <strong>high-dimensional vectors</strong> capturing semantic meaning.<br><br>king → [0.2, −0.5, 0.9, ...]<br>queen → [0.3, −0.4, 0.8, ...]<br><br>Famous analogy: <strong>king − man + woman ≈ queen</strong><br>Semantic relationships = geometric relationships in vector space." },
+  { q:"Bayesian Network: nodes, edges, Markov Assumption", a:"<strong>Nodes</strong>: random variables (e.g. Weather, Traffic, Late)<br><strong>Edges</strong>: conditional dependencies<br><br><strong>Inference</strong>: calculate P(query | evidence)<br><strong>Learning</strong>: estimate parameters from data<br><br><strong>Markov Assumption</strong>: P(Xᵢ | Xᵢ₋₁,...,X₁) = P(Xᵢ | Xᵢ₋₁)<br>Future depends only on present, not full history." },
+  { q:"5 Critical Insights about AI representations", a:"1. <strong>Representation determines algorithm applicability</strong><br>2. <strong>Better representations → better solutions</strong><br>3. <strong>Representation choice = most important design decision</strong><br>4. <strong>Modern AI learns representations from data</strong><br>5. <strong>Hybrid approaches are emerging</strong>" }
+];
+
+/* ============================================================
+   WEEK 8 — FLASHCARDS
+   ============================================================ */
+allFlashcards[8] = [
+  { q:"KR definition and Core Triad", a:"<strong>KR</strong>: formally describing the world so an AI system can reason about it.<br><br><strong>Core Triad</strong>:<br>1. <strong>Knowledge Base (KB)</strong>: container storing facts and rules<br>2. <strong>Representation Language</strong>: formal language (e.g. Logic)<br>3. <strong>Reasoning Engine</strong>: infers new knowledge" },
+  { q:"Propositional Logic: atoms and 5 connectives", a:"<strong>Atoms</strong>: basic T/F statements (P, Q, R)<br><br><strong>Connectives</strong>:<br>• ¬ NOT — negation<br>• ∧ AND — conjunction<br>• ∨ OR — disjunction<br>• ⇒ IMPLIES — implication<br>• ⇔ IFF — biconditional" },
+  { q:"Modus Ponens — rule and example", a:"<strong>Rule</strong>: Given A and A ⇒ B, infer B.<br><br><strong>Example</strong>:<br>• P = 'It is raining' ✓<br>• P ⇒ Q = 'Rain → ground is wet' ✓<br>• ∴ Q = 'The ground is wet' ✓<br><br>Most fundamental inference rule in logic." },
+  { q:"FOL elements: objects, predicates, functions, quantifiers", a:"<strong>Objects</strong>: constants like Fido, Paris<br><strong>Predicates</strong>: IsDog(Fido), Loves(John, Mary)<br><strong>Functions</strong>: LegOf(Table)<br><br><strong>∀ (Universal)</strong>: 'For all' — ∀x[IsDog(x) ⇒ IsMammal(x)]<br><strong>∃ (Existential)</strong>: 'There exists' — ∃x[IsCat(x) ∧ Black(x)]" },
+  { q:"Rule-Based System: 3 components + Recognize-Act Cycle", a:"<strong>Components</strong>:<br>1. Rule Base: IF-THEN rules<br>2. Working Memory: current facts<br>3. Inference Engine: the 'brain'<br><br><strong>Recognize-Act Cycle</strong>:<br>1. <strong>Match</strong>: find satisfied rules → Agenda<br>2. <strong>Conflict Resolution</strong>: pick one rule<br>3. <strong>Act</strong>: fire rule, add new fact<br>4. <strong>Repeat</strong>" },
+  { q:"Forward vs. Backward Chaining", a:"<strong>Forward (Data-Driven)</strong>:<br>Start: known facts → derive conclusions<br>Example: 'Given clues, who is the murderer?'<br><br><strong>Backward (Goal-Driven)</strong>:<br>Start: hypothesis → find supporting facts<br>Example: 'Is Fido a mammal?' (Prolog-style)" },
+  { q:"3 types of knowledge stored in a Knowledge Base", a:"1. <strong>Domain Knowledge</strong>: facts and rules about the subject area<br>2. <strong>Procedural Knowledge</strong>: how to perform tasks (encoded as rules)<br>3. <strong>Meta-Knowledge</strong>: knowledge about the knowledge itself (e.g. 'Source A is more reliable')" },
+  { q:"Medical KB example: facts, rule, 3-step inference", a:"<strong>Facts</strong>: HasSymptoms(PatientA, Fever) + HasSymptoms(PatientA, Cough)<br><br><strong>Rule</strong>: ∀p [Fever ∧ Cough ⇒ HasDisease(p, Flu)]<br><br><strong>3-step inference</strong>:<br>1. <strong>Unify</strong>: p = PatientA<br>2. <strong>Verify</strong>: both conditions ✓ in KB<br>3. <strong>Infer</strong>: HasDisease(PatientA, Flu)" }
+];
+
 
 allFlashcards[5] = [
   { q:"Key insight: how do most powerful AI applications work?", a:"Most powerful AI applications work <strong>invisibly</strong>, optimising systems and solving complex problems through <strong>data-driven learning</strong>. You don't see them — they run in the background." },
@@ -1412,22 +1845,22 @@ function selectWeek(week, btn) {
   btn.classList.add('active');
 }
 function getWeekLabel() {
-  return { 1:'Week 1', 2:'Week 2', 3:'Week 3', 4:'Week 4', 5:'Week 5', 6:'Week 6', all:'All Weeks' }[currentWeek] || 'Week 1';
+  return { 1:'Week 1', 2:'Week 2', 3:'Week 3', 4:'Week 4', 5:'Week 5', 6:'Week 6', 7:'Week 7', 8:'Week 8', all:'All Weeks' }[currentWeek] || 'Week 1';
 }
 function getQuestions() {
-  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3], ...allQuestions[4], ...allQuestions[5], ...allQuestions[6]];
+  if (currentWeek === 'all') return [...allQuestions[1], ...allQuestions[2], ...allQuestions[3], ...allQuestions[4], ...allQuestions[5], ...allQuestions[6], ...allQuestions[7], ...allQuestions[8]];
   return allQuestions[currentWeek] || [];
 }
 function getTheoryQuestions() {
-  if (currentWeek === 'all') return [...allTheoryQuestions[1], ...allTheoryQuestions[2], ...allTheoryQuestions[3], ...allTheoryQuestions[4], ...allTheoryQuestions[5], ...allTheoryQuestions[6]];
+  if (currentWeek === 'all') return [...allTheoryQuestions[1], ...allTheoryQuestions[2], ...allTheoryQuestions[3], ...allTheoryQuestions[4], ...allTheoryQuestions[5], ...allTheoryQuestions[6], ...allTheoryQuestions[7], ...allTheoryQuestions[8]];
   return allTheoryQuestions[currentWeek] || [];
 }
 function getFlashcards() {
-  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3], ...allFlashcards[4], ...allFlashcards[5], ...allFlashcards[6]];
+  if (currentWeek === 'all') return [...allFlashcards[1], ...allFlashcards[2], ...allFlashcards[3], ...allFlashcards[4], ...allFlashcards[5], ...allFlashcards[6], ...allFlashcards[7], ...allFlashcards[8]];
   return allFlashcards[currentWeek] || [];
 }
 function getTopics() {
-  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics, ...courseData[3].topics, ...courseData[4].topics, ...courseData[5].topics, ...courseData[6].topics];
+  if (currentWeek === 'all') return [...courseData[1].topics, ...courseData[2].topics, ...courseData[3].topics, ...courseData[4].topics, ...courseData[5].topics, ...courseData[6].topics, ...courseData[7].topics, ...courseData[8].topics];
   return courseData[currentWeek]?.topics || [];
 }
 
